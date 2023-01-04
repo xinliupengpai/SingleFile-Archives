@@ -1,0 +1,37 @@
+name: my test echo
+
+on:
+  push
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        cat index.html
+    - name: set git config 
+      run: |
+        head -2 index.html
+    - name: git pull erp
+      run: |
+        cp index.html index2.html
+        ls -l index*
+    - name: run srcipt
+      run: |
+        rm index2.html
+    - name: commit to rep
+      run: |
+        ls -l index*
+        date
+        echo "$MYNAME"
+      env:
+        MYNAME: i don't know.
+        
