@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns=http://www.w3.org/1999/xhtml lang=zh style><!--
+ Page saved with SingleFile 
+ url: https://www.linuxidc.com/Linux/2014-06/103004.htm 
+ saved date: Wed Jan 04 2023 14:27:10 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>使用Gitolite搭建Git服务器_服务器应用_Linux公社-Linux系统门户网站</title>
+<link rel="shortcut icon" href=data:image/x-icon;base64,AAABAAEAEBAAAAEAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADU6f8SY+ZppvMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///9EnPgAYPyWtNLxoADLhwDRlADLjgAAAAAAAAAAAAAAAAAAAAAAAADShwDNdgDnx4dEqf4AdP+kusbznADPkQDQkwHQkwHPkgAAAAAAAAAAAAAAAADXiQDQlADThADgwXBEsP4Afv3S3Nz/qgDZhwDNkgDPkwHQkwHPkwEAAAAAAAAAAADPkgHMkQDfiwD/5ZlBtv4Chep/zv4AAAAAAAAAAADbjgDMlAHQkwHPkwAAAADPkgDQkwHSjQDbnggAAAAPp/4bo+sBl+0An/8AAAAAAAAAAADkjwDMlAHQkwHMmQDPkgHQkwHtkAAAAAAAAAAAq/4OsP8fruweq+sJsP4AAAAAAAAAAADdkADOkwHOkgDPkwHQkwHUjQAAAACpxjgAAAAhteQAtv4PuP0gt+wdtu8Awv4AAADnjQHTkgDPkwHQkwHQkwHIiAAAAAD/1AD8xgDdxA8AAAAMv/YAwP4TwfYRw/8Exf67mRXijgDPkwHPkgHQkwHNhwAAAAAAAADUyiHpywv9ywDPyy8AAAAGyP4Ayf4Av+W6kwrjkADPkgHPkwHQkwHPiQAAAAAAAADZ1ELX00LX1ETx1Sf91Ru5z1VC0tIAAADlkQHNhgDPkADOkwDQkwHOjwDPjwAAAADb74Da3WXY3V/Z5XLY4Gbv2jbt4Vv+/tv+57nLhADHggAAAADQkwHQlAHOhADVrCnd8Jnd/LDd+KcAAADh8KHm/sXa6XrX5Gno/ccAAAAAAAAAAADQlgDQkwHQkwHPigDQlA/UwFvX03vQlgvVoDXw17T0/uzg+sLO64Xh/MAAAAAAAAAAAADQlgDPlAHQlADPiwDOggDOhADQjgDKhADKfwDcoEr/6dTq/ebY+b6//78AAAAAAAAAAAAAAADQkQDQkwHQkwDQkwDPkwHQlAHQkwDAbgAAAAAAAADY/8zM/8zx/wAA8A8AAMAHAACAAwAAgOEAAAhwAAAYOAAAFAgAABEAAAAYQAAAGAgAAAgAAACAgwAAgAEAAMAAAADwDAAA type=image/x-icon>
+<meta name=description content=Gitolite是一款Perl语言开发的Git服务管理工具，通过公钥对用户进行认证，并能够通过配置文件对些操作进行基于分支和路径的精细控>
+<meta name=keywords content=Gitolite,Git服务器,使用Gitolite搭建Git服务器,服务器,Linux服务器,Apache,Hadoop,集群,分布式,Nginx,Tomcat,分布式系统>
+<link rel=canonical href=https://www.linuxidc.com/Linux/2014-06/103004.htm>
+<meta name=generator content=Linux公社>
+<meta name=generator content=Linux>
+<style>:root{--sf-img-0: url("data:image/gif;base64,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");--sf-img-1: url("data:image/gif;base64,R0lGODlhBQAjAKIAAPHx8eXl5fPz8/Ly8vDw8PT09PX19fb29iH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkFGNUU0NkZGQUQ0MjExRTFBODNBQjBDQzY5N0E0RDVCIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkFGNUU0NzAwQUQ0MjExRTFBODNBQjBDQzY5N0E0RDVCIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QUY1RTQ2RkRBRDQyMTFFMUE4M0FCMENDNjk3QTRENUIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QUY1RTQ2RkVBRDQyMTFFMUE4M0FCMENDNjk3QTRENUIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4B//79/Pv6+fj39vX08/Lx8O/u7ezr6uno5+bl5OPi4eDf3t3c29rZ2NfW1dTT0tHQz87NzMvKycjHxsXEw8LBwL++vby7urm4t7a1tLOysbCvrq2sq6qpqKempaSjoqGgn56dnJuamZiXlpWUk5KRkI+OjYyLiomIh4aFhIOCgYB/fn18e3p5eHd2dXRzcnFwb25tbGtqaWhnZmVkY2JhYF9eXVxbWllYV1ZVVFNSUVBPTk1MS0pJSEdGRURDQkFAPz49PDs6OTg3NjU0MzIxMC8uLSwrKikoJyYlJCMiISAfHh0cGxoZGBcWFRQTEhEQDw4NDAsKCQgHBgUEAwIBAAAh+QQAAAAAACwAAAAABQAjAAADIhiq1/4wykmhuTjrzbvXRSiOJCmcaDqsbOsCMEzMdG0vSgIAOw==")}body{margin:0;font-size:12px;color:#333;font-family:tahoma,宋体}td,div{font-size:12px;word-wrap:break-word}input{border-width:1px}img{border:0}.twidth{width:1345px;background:#fff;margin:0 auto;overflow-x:hidden}.mR{margin-right:5px}a:link,a:visited{color:#606060;text-decoration:none}a:hover{text-decoration:underline}ul.nl{list-style:none outside none;margin:0;padding:0}ul.nl li{line-height:22px;padding-left:15px;background:var(--sf-img-0) no-repeat 0 0}a.thisclass:link,a.thisclass:visited{font-weight:bold;text-decoration:none}a.thisclass:hover{font-weight:bold;text-decoration:none}.aTitle{font-size:16px;font-weight:bold;position:relative;padding-top:10px}#content{font-size:14px;font-family:tahoma,宋体;line-height:1.6;margin:13px auto;width:96%;text-align:justify}#content A:visited,#content A:link{color:#b32bd5;text-decoration:underline}#sitehead{overflow:hidden}#middle{overflow:hidden}#footer{text-align:center;line-height:1.5;margin:10px 0}#navbar{overflow:hidden}#navbar .m{text-align:center;line-height:30px;background:#6BBCED var(--sf-img-1) repeat-x 0-200px;border:#ABABAB 0px solid}#navbar a:link,#navbar a:visited{color:#FFF;text-decoration:none;background:var(--sf-img-0) no-repeat 0-150px;padding:0 6px 0 8px}#navbar a:hover{}#navbar a.first{background:none!important}#navsub{overflow:hidden}#navsub .m{text-align:left;line-height:25px;height:25px}.gray{color:gray!important;text-decoration:none;font-size:12px}.time{color:red;font-size:12px}.mframe{margin-bottom:4px}.mframe .tm{height:25px;line-height:25px;background:var(--sf-img-1) repeat-x;border:1px solid #ABABAB}.mframe span.tt{font-size:14px;color:#606060;font-weight:bold;padding-left:10px}.mframe .mm{background:#FAFAFC;padding:3px;border:1px solid #ABABAB;border-top:0}.mframe ul.nl a{font-size:14px}.lframe{margin-bottom:4px}.lframe .tm{height:25px;line-height:25px;background:var(--sf-img-1) repeat-x;border:1px solid #ABABAB}.lframe span.tt{font-size:14px;color:#606060;font-weight:bold;padding-left:10px}.lframe .mm{padding:5px 3px;border:1px solid #ABABAB;border-top:0}.moreR{float:right;padding-right:8px}.wrapper{overflow:hidden}.pager{font-family:verdana;font-size:12px;padding:5px;height:25px;clear:both;word-break:keep-all}.pager ul{padding:0;margin:0;list-style-type:none;line-height:1.2em}.pager li{float:left;margin:0 5px 0 0;color:#999}.pager li.p_current{background:#b2e05d;color:#FAFAFC;border:1px solid #b2e05d;padding:3px 5px}.pager li input{float:left;font-family:verdana;font-size:12px;border:1px solid #ddd;color:#999;background:url(data:image/gif;base64,R0lGODlh8AAeAKIAAAAAAP////r7/fH0+fb4++bs9O3y+P///yH5BAEAAAcALAAAAADwAB4AAAO3WDbc/jDKSau9OOvNu/+RQQhkaZ5oqq5s675wLM90bd/pIAR87//AoHBILBqPyKRyyWw6n0EddEqtWq/YrNYn3Xq/4LBY3B2bz+h0uqxuu9/wJDtOr9vR87t+z5/m+4CBgkB/g4aHd4WIi4xrO42QkWeKkpWWUJSXmptGmZyfoDyeoaSXo6WokKeprIerrbCAr7G0iY+1uK63ubyyu73AtsHDwsTGcLPHylbJy85Pzc/SStHT1kUJADs=);width:3em;height:1.3em;padding:2px 0;text-align:center}.nearNews{color:#999;padding:5px 0;clear:both;overflow:hidden}.nextNews,.prevNews{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.prevNews{float:left;width:50%}.nextNews{text-align:right}.prevNews a{background:var(--sf-img-0) no-repeat 0-400px;padding:0 20px;float:left}.nextNews a{background:var(--sf-img-0) no-repeat right -450px;padding:0 20px;float:right}.topBar{width:100%;background:var(--sf-img-1)0-600px;border-bottom:1px solid #E6E6E6;height:28px;line-height:28px}.topBar .twidth{height:100%;background:transparent}#topUser a{padding-left:15px;background:var(--sf-img-0) no-repeat 0-750px}.space{clear:both;width:100%;height:5px}.linux302{text-align:center;width:600px;margin:0 auto}.linux8{text-align:center;width:972px;height:90px;margin:0 auto}#li_all{CLEAR:both;PADDING:0px;MARGIN:0px;OVERFLOW:hidden;WIDTH:980px}#li_1{PADDING-RIGHT:0px;PADDING-LEFT:10px;FLOAT:left;width:980px;PADDING-BOTTOM:0px;MARGIN:0px;OVERFLOW:hidden;PADDING-TOP:15px;TEXT-ALIGN:left}#li_2{PADDING-RIGHT:0px;PADDING-LEFT:0px;FLOAT:right;PADDING-BOTTOM:0px;MARGIN:0px;OVERFLOW:hidden;PADDING-TOP:15px;TEXT-ALIGN:left}</style>
+<meta name=generator content=专业的Linux网站>
+<style>.sf-hidden{display:none!important}</style><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+<div class=topBar>
+ <div class=twidth>
+ 
+ <div style=float:right>
+ <a href=http://m.linuxidc.com/ rel=nofollow>手机版</a>
+ <a id=StranLink title=點擊以繁體中文方式浏覽>繁體</a>
+ </div>
+ 
+ <div id=topUser>你好，游客 <a href=#>登录</a>
+ <a href=https://www.linuxidc.com/memberreg.aspx rel=nofollow>注册</a>
+ <a href=https://www.linuxidc.com/search.aspx rel=nofollow>搜索</a>
+ </div>
+ </div>
+</div>
+<div class=twidth>
+<div id=sitehead>
+<div class="l sf-hidden"></div>
+<div class="r sf-hidden"></div>
+<div class=m>
+ <table width=100%>
+ <tbody><tr align=center><td width=160>
+ <a href=https://www.linuxidc.com/><img style="filter:chroma(color=#FFFFFF)" src=data:image/jpeg;base64,/9j/4QDKRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEaAAUAAAABAAAAYgEbAAUAAAABAAAAagEoAAMAAAABAAIAAAExAAIAAAAcAAAAcgEyAAIAAAAUAAAAjodpAAQAAAABAAAApAAAANAACvyAAAAnEAAK/IAAACcQQWRvYmUgUGhvdG9zaG9wIENTMyBXaW5kb3dzADIwMDk6MDQ6MTkgMTk6MjU6NDgAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAABb6ADAAT/7RZcUGhvdG9zaG9wIDMuMAA4QklNBCUAAAAAABAAAAAAAAAAAAAAAAAAAAAAOEJJTQQvAAAAAABK4KkBAEgAAABIAAAAAAAAAAAAAADQAgAAQAIAAAAAAAAAAAAAGAMAAGQCAAAAAcADAACwBAAAAQAPJwEAbGx1bgAAAAAAAAAAAAA4QklNA+0AAAAAABAASAAAAAEAAgBIAAAAAQACOEJJTQQmAAAAAAAOAAAAAAAAAAAAAD+AAAA4QklNBA0AAAAAAAQAAAB4OEJJTQQZAAAAAAAEAAAAHjhCSU0D8wAAAAAACQAAAAAAAAAAAQA4QklNBAoAAAAAAAEAADhCSU0nEAAAAAAACgABAAAAAAAAAAI4QklNA/UAAAAAAEgAL2ZmAAEAbGZmAAYAAAAAAAEAL2ZmAAEAoZmaAAYAAAAAAAEAMgAAAAEAWgAAAAYAAAAAAAEANQAAAAEALQAAAAYAAAAAAAE4QklNA/gAAAAAAHAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAOEJJTQQAAAAAAAACAAY4QklNBAIAAAAAAA4AAAAAAAAAAAAAAAAAADhCSU0EMAAAAAAABwEBAQEBAQEAOEJJTQQtAAAAAAAGAAEAAAAQOEJJTQQIAAAAAAAQAAAAAQAAAkAAAAJAAAAAADhCSU0EHgAAAAAABAAAAAA4QklNBBoAAAAAA0UAAAAGAAAAAAAAAAAAAABlAAABbwAAAAgATABpAG4AdQB4AGkAZAAyAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAFvAAAAZQAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAbnVsbAAAAAIAAAAGYm91bmRzT2JqYwAAAAEAAAAAAABSY3QxAAAABAAAAABUb3AgbG9uZwAAAAAAAAAATGVmdGxvbmcAAAAAAAAAAEJ0b21sb25nAAAAZQAAAABSZ2h0bG9uZwAAAW8AAAAGc2xpY2VzVmxMcwAAAAFPYmpjAAAAAQAAAAAABXNsaWNlAAAAEgAAAAdzbGljZUlEbG9uZwAAAAAAAAAHZ3JvdXBJRGxvbmcAAAAAAAAABm9yaWdpbmVudW0AAAAMRVNsaWNlT3JpZ2luAAAADWF1dG9HZW5lcmF0ZWQAAAAAVHlwZWVudW0AAAAKRVNsaWNlVHlwZQAAAABJbWcgAAAABmJvdW5kc09iamMAAAABAAAAAAAAUmN0MQAAAAQAAAAAVG9wIGxvbmcAAAAAAAAAAExlZnRsb25nAAAAAAAAAABCdG9tbG9uZwAAAGUAAAAAUmdodGxvbmcAAAFvAAAAA3VybFRFWFQAAAABAAAAAAAAbnVsbFRFWFQAAAABAAAAAAAATXNnZVRFWFQAAAABAAAAAAAGYWx0VGFnVEVYVAAAAAEAAAAAAA5jZWxsVGV4dElzSFRNTGJvb2wBAAAACGNlbGxUZXh0VEVYVAAAAAEAAAAAAAlob3J6QWxpZ25lbnVtAAAAD0VTbGljZUhvcnpBbGlnbgAAAAdkZWZhdWx0AAAACXZlcnRBbGlnbmVudW0AAAAPRVNsaWNlVmVydEFsaWduAAAAB2RlZmF1bHQAAAALYmdDb2xvclR5cGVlbnVtAAAAEUVTbGljZUJHQ29sb3JUeXBlAAAAAE5vbmUAAAAJdG9wT3V0c2V0bG9uZwAAAAAAAAAKbGVmdE91dHNldGxvbmcAAAAAAAAADGJvdHRvbU91dHNldGxvbmcAAAAAAAAAC3JpZ2h0T3V0c2V0bG9uZwAAAAAAOEJJTQQoAAAAAAAMAAAAAT/wAAAAAAAAOEJJTQQUAAAAAAAEAAAAEThCSU0EDAAAAAAO2AAAAAEAAACgAAAALAAAAeAAAFKAAAAOvAAYAAH/2P/gABBKRklGAAECAABIAEgAAP/tAAxBZG9iZV9DTQAB/+4ADkFkb2JlAGSAAAAAAf/bAIQADAgICAkIDAkJDBELCgsRFQ8MDA8VGBMTFRMTGBEMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAENCwsNDg0QDg4QFA4ODhQUDg4ODhQRDAwMDAwREQwMDAwMDBEMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8AAEQgALACgAwEiAAIRAQMRAf/dAAQACv/EAT8AAAEFAQEBAQEBAAAAAAAAAAMAAQIEBQYHCAkKCwEAAQUBAQEBAQEAAAAAAAAAAQACAwQFBgcICQoLEAABBAEDAgQCBQcGCAUDDDMBAAIRAwQhEjEFQVFhEyJxgTIGFJGhsUIjJBVSwWIzNHKC0UMHJZJT8OHxY3M1FqKygyZEk1RkRcKjdDYX0lXiZfKzhMPTdePzRieUpIW0lcTU5PSltcXV5fVWZnaGlqa2xtbm9jdHV2d3h5ent8fX5/cRAAICAQIEBAMEBQYHBwYFNQEAAhEDITESBEFRYXEiEwUygZEUobFCI8FS0fAzJGLhcoKSQ1MVY3M08SUGFqKygwcmNcLSRJNUoxdkRVU2dGXi8rOEw9N14/NGlKSFtJXE1OT0pbXF1eX1VmZ2hpamtsbW5vYnN0dXZ3eHl6e3x//aAAwDAQACEQMRAD8A9VWZ9ZOu4/1f6Lk9WyGmxuO0bKgQ0ve4iuqvdrt3Pd737fZX+kWmuA/xy5FQ+rdGHub69+QLGtc4N9lLHuueN30trrKa9n/DJKeVH+OX6y15jXupxrccFpfT6b6zBA9Stj/Wtczb7mV2u3/6T0v8EvYen5tXUMDGz6QRVl1MvrDtHBtjRazd/K2uXD29MYHtzbcuzDz8ZrziRWxpxa8iuiv7DjUOqc70qWVPpwf0fq1fab/0d166z6rR/wA2ukkRrhY5hv0damO9n8j9xQYOax5zMY+L9UeGXFGUP+mvnjlCr/S1Do2300gG6xtYcYBeQ2Tz+clVdTc0uqe2xoMEsIcAeY9q87/x3f8AIfT/APw0f/Pb0f8AxKf+JbL/APD9n/nnFU6x9AQWZmJY8Mrvre8zDWuBJjnQFGXjf1DxPqfX9cMF3Tc7MuzA6706rqGMYf0V27c9tjtn6P8AkJKfZElzHUv8YX1f6Z1w9CyfW+2NsqrJawFk3Ct9Z9Qvb7dtzd6o53+Nz6o4ec7DDr8lrHbHZVDGupkHa7a91tdlrG/6Sqqxj/8ABeokp7VJZGf9aOkYXQB9YTY6/pzm1ubZSNxIsc2pnsfs/Of+kY/3sQvqz9cOkfWcZJ6Z6sYhYLfVZs/nN+zZ7nf6NySncSXKdE/xlfVzrfVKelYQyPtORv2epWGt9jH3O3O3n8ytDz/8aP1b6b1C7p2fXl4+Tj2Gu1r6eNdLdH+6p7P01b2fzlKSnr0lgfWL68fV/wCroxjnXOsdmNL6W0AWE1/6c+4N9J/+Df8A4T/B/QsUsT659FyOgWfWKw24nTK37PWvrMu9zKfUrrp9ax9frWel/X9RJTupKo3qmA7qb+lC39erpGQ6gtcD6TnemLWuc3ZY31PZ7HexS6l1CjpmBkdQyQ80YrHW2+m0vdtaJdDGpKbKSzepdewOn9H/AGy8uvwiKnMdSA4ube+uqmxm5zG7P0zH/wBRaSSn/9D1HIvpxqLMi94rppY6y2x2ga1o3ve7+q0Lx7pOTnfXz6/s6lbWXYXTx6+PjPIY1tVTv1Rlr4sbuvyXNtyf532et6f6P0l6T9dsPOzvqr1LE6eYyrqtrBMbhuabKR/Kuq30t/rrhf8AEtZVTkdXrslr3/Zq2l4g7m/ad1ev0fzU2WSETRkAfTpev6yXBj/x5+mKQCdh/IPpzsWu51F+TTU7IpMtfG7YSCD6T3N3LnPq7lZHSfrDm/VTJbtxdpzeiukEDHc6LsNp9n9Fud+gq+nXT/wFdC6e71Nn6P6W5v3bm7/+guP+szb+p/WTpV/Rrq239Bte7OvfJra270mW4PsbZ6uTbQy3fWz+Yr/nLKfVoSyZIY4meSQjEdZHRQBJoCy5n+O3/kLp/wD4a/8ARdin/iYyMer6r5TbbWVn7c8w5wBj0cbxWt/jA+q+b9bel4mP0u+hppu9Vz7XODS3Y5nsdTXd7vcuD/8AGU+tP/cvA/7cu/8AeZOQ+y15WNY7ZXcx7zrta4EwPIFeDf4s/wDxf9P/AK2R/wCeMhdp9Rf8WnXPq79YK+p5t+LbSyuxhbS6xz5eNrY9Smpv/TQvqh/iw6/0P6z4vV8rIxLMfHNpe2p9hefUrtpbta+itn0rf9Ikp4//ABoCfr51IeP2f/23x1rf40/ql0P6u4/Sv2VQaXW+qy55e55s2CrY9/qOc3f73/zba1tfXH/Fh1/r31my+r4mRiV4+QatjbX2B49Oqqh25tdFjPpVf6Rav18+rGb9dqMUdJtpq/Z1+RVd9pL2S4Guv9H6Vd273VIWLA7pESQSBoNz5vOhxP8AiOcCdBZA+H2wFWf8Rzmtp60XEANOOTPYRkaldB0b6mWWfUCz6q9Rs9OxzrWm6troDm3G+i1jbm0Ptq9Rlb/8H61f+E/wi5Lpv+Jv6x1Ze3J6jRRhWjZlOxn2Gx9R9zqhW+qqt2/a3+dfs/P/AEqKiCDR6OB/iv8A/F503/0I/wDbfIXYf46undIGLh9Se819Vc401saJ9Wlvvs9T937M57dln/Den/xJPqr/AIsOr9C+ttHV3X4zun4779lbX2Ou2WV3UUg7qKq3Pb6rPU96B9YP8Xn1n+sn1p+2dTycevHsja2k3OFWKxwb6NdtmO2n7V+k9TY7+ct9a36CSgCdnzzpDqOrdb6dj9ezX14INeO6953enSzSqhrnuDaKf8H6n83jb/XXsfU6bD1A5PVcYdP+qv1WY2/Eqlk5N9bP0FjK2O9tGIz9HiUfo/UyP9J78fHyPrv/AIuKOr5+Dj9CdVh5OPihj6rt4rdRUW00O9atlz3ZFW70n+r/ADtXp+/9EtBv1N+tub0Pp3S+p9Xop/Z1u4+lUchl7K/TfgjLbd9j3/Znts/RO9Si/wDQWXfpq0AQduijEirFWLHkzzaOt9Uxul9cxPR6f9cMXHdeemOcP0+K8j1MTJrs9O9jHO2en6v6PEyrPS9Wu39apH9fOrNxej035IzKOt3Yz3V9Mw8q0Mr0BvvzH4Xp1204O7+c/wAN/N/zf6WvQf8AVLrH7U6d1h3WH5WfhWBlr7aaamPxHz9qxtmJTXY97vp4/r3WVUP9/wBNaf1r6Xf1ToGdh4jGOy76HVUl52/TLS9vqQdrXbEUPC9YObnfUu27E61lPxen2UYWbh5mO03Oy68mkX35F+U+/JZ+ktqya8f1tlVfp43+krXofSMPqWHjOq6l1A9TuLy5t7qq6S1hDQ2r08eGO2ua5+/+WsL60dH+uPWq8np1FvTa+l2vqdUbG3/aIqdVkj1HMd6H8/Vt9rP5pbHRR9ZR637edhO+j9n+wttH73q+t9pc/wD4P09iSn//0fSOpVZL2A1e6tur62/SJH538v8AqLkuvZz8Pprs7peyzOourtqpDdxte14bZS+pv6Vz3Mc9n+mY9d0qI/Yn7R0+y/tKTx6frzt1/wCG/mf/AAJY3NYuWlzuKXvShnGTH6JxnMSqUeH2pfo8X/hbaxSmMUhw3CjqDH/nPMv/AMYLnYDhm9A6xh3PrIfFBaxpcNsszHmnY1n+ndTXsT9Jxel9G6ZRh41jRS2SHlwc6x7zvfY5wDfVsf8A1F2ao4X7F9ez7B9m9fX1fQ9Pfz7vU9L3fTU3xXHCccXuZvZxiRv0Sycc69PyfpR9a3lpUTUeKXTXhciymx2FbnV12bsSynJqbtcwu9EvdkNY1wa5/q4z7av7ar9Ow8i7Mowsqtz6Mk/te8vBDZtY+k4h/qZD2W7P5C61JHlsfLDFiGPKZYxdEx0n65cfH6f8FtxyczwTAxA3fq4vXH0+ng/9A/TeJcOqVM9VjbDfjM/YjIB9xLX7M3X831vsjt6P1PpmTTc7pWEHih7GZtT2jQWYtRo9In962+rBs/7cXXpKTgxUbyS3/dlf9Zl93muMVgiNNuOFcRlH2z/gZfkcfol4GN9uyQ+u3q2Q57GOaS4Dbsxq37R7NuLjfSf7EDpPVMPEsysTINjLrM6/Y30rSD6lp9M+oyt1fu/rrfSU4j8lS1F7xPq/fac5/wA7x4zwyMNIzj6P8wI+mfFD23lWYTMrKxKMmpz6HZ3UTY07g0jda5nqR/g3f5lieo/Yf2bfa20YmHk51O7a+wsYX3VYjXBofb6e1rK63LqUlHw4rNTHFcf0df8AJcH+Bx8LYlk5ivViPt+v9P0/+Cfd4f6/BLJ/4U8m4ZNuFjP6fXbX1d2Rm2Yu5u3ZU66514y22g1sY9rq21ss/wC1Xo/uWKL63mtn7Gbez/Jd4q3BzbRYbqfWa4n/ALWuf6v/AF5dckkYw6zPyjaJ/wCb/X/e/wCpJGTPYrCPnmfVOPDrLJ6Z/wCrj6/b/wDTn/A44VU/aMs/V6q6oHp1ja/bYz9KHs3Np+0BrvtO36e3/C/8JvWh0u/ouJbfkYFOTTi10t+0PLLfT37trWejY05FuZ/pbK2fQ/nl0KSWOOPi9M43Zqo6cX+r/wC7W5smbgIniyCNDjJyevh9P+6PT/4T7n/PeY6pXiHqWYepU5Nt7vT/AGU6gPkAMZu+yW1fo6MhuV6jrfV/M9P/AAKBnVTk5m6u89eOSD06xrbIFUs9D0rWj7MzFZUX/a2vd/pvVXXJJTjjuVzA1P6Pqv1f+O/5lOLJzAGOsUjUI16/RKI9v/xiXp+9R/8ADJ43lb+n12WZuUWWDIHU6q67Wue1wqsOLVf6Wwt2ssqstba9n/otanRcZmJldSxaGGrGruYaa9do3U0vs9Ld+b6n7q1kk/GMXGOGQMrOw1/S4rY80+ZOEieOQx8MaMpekD9VwcP+L6P9pl/1j//ZOEJJTQQhAAAAAABVAAAAAQEAAAAPAEEAZABvAGIAZQAgAFAAaABvAHQAbwBzAGgAbwBwAAAAEwBBAGQAbwBiAGUAIABQAGgAbwB0AG8AcwBoAG8AcAAgAEMAUwAzAAAAAQA4QklND6AAAAAAAPhtYW5pSVJGUgAAAOw4QklNQW5EcwAAAMwAAAAQAAAAAQAAAAAAAG51bGwAAAADAAAAAEFGU3Rsb25nAAAAAAAAAABGckluVmxMcwAAAAFPYmpjAAAAAQAAAAAAAG51bGwAAAABAAAAAEZySURsb25nOhaCVgAAAABGU3RzVmxMcwAAAAFPYmpjAAAAAQAAAAAAAG51bGwAAAAEAAAAAEZzSURsb25nAAAAAAAAAABBRnJtbG9uZwAAAAAAAAAARnNGclZsTHMAAAABbG9uZzoWglYAAAAATENudGxvbmcAAAAAAAA4QklNUm9sbAAAAAgAAAAAAAAAADhCSU0PoQAAAAAAHG1mcmkAAAACAAAAEAAAAAEAAAAAAAAAAQAAAAA4QklNBAYAAAAAAAcACAAAAAEBAP/bAEMAAQEBAQEBAQEBAQEBAQEBAgEBAQEBAgEBAQICAgICAgICAgMDBAMDAwMDAgIDBAMDBAQEBAQCAwUFBAQFBAQEBP/bAEMBAQEBAQEBAgEBAgQDAgMEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBP/EAaIAAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKCxAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6AQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgsRAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/AABEIADUAmwMBEQACEQEDEQH/2gAMAwEAAhEDEQA/AP7+KAPir/goV+3F8L/+CdP7JfxW/ax+LUN1qXh74d6bFDo/hnTpRb6p401q/lW10rSLeVgVje5nkRTIwIRBI2G27SAfxW/A7/g87+MTftQ+GvCf7RX7P3wLj/Zu1zxxb+HfEnjD4Ua7rj+IfBOl3lzHGdZguLz5L5bJJPMmiaCAyrFJsKnbkA/0H7S6t761tr60lWa1vLdLq2mXO2WORQ6OPYhgfxoAsUAFABQAUAFABQAUAFABQAUAFABQAUAFABQAUAFAH8lP/B3rquiz/sc/sifDvxX4m1vQfBnxN/bY8OaF4ztvD1t9s1jUdMitLya8ktotj75raNnmiXa26RUG1s4OVavRw1GeJxM1CnBOUpSdlFJXcm+iSu2yoQnUmqdNNybsl1bf6s/DH9pb/gkP8PdE8DfGD9p7/hgz4YeDfCXhD9nXxv4V/wCFUeEvjj4hkS0j02/1S+8OfGGFYbyWSfV4vDFlYzPpqyrbXGsXZFxpQiEqJ/GmT/T9+jVn3irhfCjLM0qyr4mfsaWMdFwwM8RKXLCiqs3Go5VZe5CfsvZSn7vPqm/0yt4Q8a0Mgnn9WjFKCcnS5r1eVbu1uW63cebmtd2P9Gr4XwyW/wANPh3BM7ySweBtJhlkkBEkjLYW4Zmz3JBJ9zX9otNNp7n5ifw1/wDB39+2x+2F+yl+0H+xlpP7Mv7UXx9+AGkeK/g34m1HxPpHwf8Aivrfw90rxFcw65Yxw3N9bWVxFHPNGmUSWUM6K7qpAdgyA/pR/wCCCHxR+JXxp/4JEfsUfFD4wfEDxp8U/iT4v8CazfeKvH/xD8TXnjHxl4kmj8XeIbaOW+1O6kkuJ2SGGGJWkdiEhRQcKBQB77/wVO8GftQfEP8A4J//ALTPgv8AYu17xH4Y/ag8QeC7W0+EOveEvHsXww8R6bfjWdMluJLXX5J4Es2Nol6pkM0eVZlDZYZAPyJ/4N1/2fv+CwnwM1n9r+T/AIKtfEf4tfEGDxPpngCP4GN8Sv2mrb9oW00p7OXxqfEgsYodVvRp7yC60PznZYjciKAbpPIxGAf0y2mr6TfyeVY6pp15KUMvl2l7HcSbcjLYViccjn3FAGPoXjnwV4o1DVdJ8NeMPC3iLVNBl8nXNN0LxBaatqGjPuK7buGKRnhbIYYkAOQRQBs3WraXYyCK+1KwspWTzVju7yO3dlJI3AMQcZBGfUGgB8uo2FvbRXdzfWdvbT7RDczXSRW8xcFl2uTg5GSMHkUAQf23ovkfav7X0v7L5/2b7T9vi8jzcbvL37sbsEHbnPNAFm01Cwvw5sb20vREQsptLlLkRk5I3FScZ560AVn1vRY5jbSavpcdwJhbm3e/iWYSMwUIVLZ3EkDb1JIFAGmTjtknoPfk0ALQAgOfY4yR3Gc9f1oAqWeo6fqBulsL+zvmsLt7C+FndJcmznTHmQy7Sdki5GUbDDIyKALlABQB/Av/AMFcvj9Z/wDBW7/gul+yf/wS5+FmrW2p/A/9n3xc1l8dvFlhbW2uQW2rRyxav4wmsZWyIW03TtOj0t7uCRXEuoX0TbDFuqZwp1ISpVYqUZJppq6aejTT3TWjT3TdxxlKMlKLaad79b979/M/pS/ak/4JqeOPiv4S+KHw2+CHxc0fwL8NPiZ8FfFvhTS9F1yW9n1LRNc1Hw1qGl6BEmpxmWR9GW9urK5u1KSXLQWskSuwkwf4twH0BPo75b4v4XxewWCqRnhqjr08A5RlgY4jm541oxknUjyVP3kaSn7JT1SS90/WqvjPxhX4XqcN1eRynHkeIs/bcmzW/I5Nae0a5rX+1qfX3/BPX9rPwr+2d+yl8N/jBodgvhnxTYR3Pww+Mvw3mvFvdW+EfjvwvM2j+LfC96wwS9jf2s4ilIUXFtLa3CDy54yf7Vbbbb3PyQ/hr/4Pff8Ak5L9hL/sh/iv/wBP9jSA/q0/4NxP+UJ37A3/AGTnXP8A1NPE1AG9/wAHC2o6jpP/AARl/b11LSdQv9K1Ky+FmnT2eoaZey6ff2rjxToPzRzRsHU8kHB5BIOQTQB/NX/wZE+LfFfi3WP+Cl8nirxP4i8TSWWk/CCKzfxBrd1rLWiyS/E8yCMzO20MVXO3rgUAfykf8EyvG/8AwUb+K37QN9+zB+wx8QvFrfGz9qb4cal8EF1K/wDHdzpUvhfw7I1trPiC9ttSnn26esdjo9ws93CrXCWr3KwDzXSgDtv2dNf/AGz/APgkP/wVu8DeCfE/iXWPAHx0+F37QuheBfjBpWkeLv8AhLPDnjjTdZvLGO9hvJIJzBqVrfafqQnQTkurTRl0imjZUAP3F/4POfHvjLw7+37+zMvhTxh4s8OWWo/sgWd7La6J4hvNHt52fxb4oHmPFFIqlyoUEkZIUAk4FAH2p/wXs8VeKdD/AODYj/gjnrejeJvEWla3eap8AFvNasNcurXWL3zfgD41kl8+7VxLIXdQ7l2JZgCcnmgDtv8Ag3q/ZWh/4KPf8G+H7XX7OfxF8aeKotd8c/tdeLh4F+IM3iTUZde8CeINO8IfDu/0DU4LlZ1l2W16kcjwb/LkSSZWVg7AgH83n/BPT/gp7+1L/wAEMP2tP2vfAHxq0/4heLPFkPw+8TfBDXvh7rWpSarFovjjTJJB4X1wf2mwxYQ3JNw7xxl7u0uI9qlXBAB9/wD/AAbMfsm/Eb9tT9rH4n/8FJP2vfij4hm/Zj/ZA8QXfxX8T694/wDHt5p3gzxV8QY0bxFBdX7TN9kSx8OxY167aWWFYJf7IOJITOqAH9QX7Jlt8a/+ClX7Nf8AwU5+N2p/tBeM/g3D/wAFXtP8W6d/wTX+DviLxzq3hO6+EfgH4faCnw/8PfEqx0PzRqFhc69qFxo2sa3HpokhaCXSZI5mW/TIB9sf8EqP+Cg2o/tdf8E9NO8Xnw5rvjD9sr9mHwpN8C/2q/2etX1S28M/FTTvij4OtH0zUrHURdLDDaNrlzp73sE8mbeM30sDSma0ukjAPzV+AX/BSSf9nz/goN+3T8R/2xP2af2mP2QvD+sfs/8AgP4xftEeF/EXxh8OftQ/Db4FlJz4b8NajZ6H4Pi1XWGvvEUt0yPDF5EdvDpjSyWuJRKoBe/4Ikf8FQv2MviB+0Z+238B/DHxY8YeIvil+1V/wUr+K3xY+Bug3XwZ8f6bY6z4YfSINZgvbrVL3SIrHSh9l0fUMWGoTW10joiNbK0iBgD+qagD4W/4KaftUD9if9gb9q39p+CWzTXfhT8HNW1bwXFfs6Wl74iuof7P8PW0jL8wE2pXdjGSORv79CAfxFf8GgP7J/gz9o/44ftk/tUfF5X+I2s+DNC0zwZcXuvytdXeu6v41uLvWtbvLyY/vJxOmnzQzJKzCXzXLghiKAP9EFLTw7oMWh2MVppulwW7/wBjeHraG3W3iti0bN5FuqjCZSFvlXHCUAfzsfsZ2Hh79gb/AILu/tw/sS6Xqltonwg/4KD/AAQ0b/gox8CvB0uox2OieGfGNjqWoeGfiHo+mWzFfNvtVa2uNbeO3UiOw0GIHCwEkA/nX/4Pff8Ak5L9hL/sh/iv/wBP9jQBzP8AwTM/4OwvhH+wH+wp+zt+yBrn7GvxG+JGr/BHwtfaBqHjbSvi3pnh/TdekvNc1XV/NhtJNOkeNVXUFjwzscxnnmgD9Kv2iv8Agth4N/4LGf8ABED/AIK4ax4Q+APij4Gw/BP4d+GdMuY/Enjq08at4iOreItKmV4zBaQeT5X2ZgQ2/dvBBHIoA+Wf+DGn/kK/8FOP+wb8Hf8A0b8UaAPxX/4NPFVv+C2X7PBZVYp8O/iIyFlBKE+CtZBIPY4Zhkc4J9TQBH/wXCJP/Bxl8XcknH7Sfw5A9v8AQvC1AH3R/wAHp9ncxft3fsl3skZFrefsbWkVvKA213i8W+JfMXOMZXzEJAJ4dc4zQB81/wDBVX/gst+y/wDtif8ABFz/AIJmf8E//hJonxGPxm/Z4s/h/qnxr1HxLoMWh+FvDN58P/h1rHgKW0sZhNKb1dTuNZlvreWMjyra1QTBJpTFGAf0ef8ABpF8WPA3wI/4ImftOfGn4ma3a+G/h78K/wBq/wAf+PvGeu3r+Xa6Xp2l+A/h/eXczt7RxN9SRQB/Fj8ao/2o/wDgud+3N+2f+0t8J/hzbT39h4O8R/tD63oSWo0ew8GeCfCtsiWVncXcSSQvqP2CCBF8+UG6uElVJD8i0Afuh/wbZfHH4W/t1fsy/Hj/AIIP/tO+O/F/gDwX8SdZi+Nnwg1f4b+J4fh/4r8eadZapYat448BzXqKslzHeRWRujC3nyy2dzq2SsVpGtAH9AHhL4wfs6/En9tP4x/t9eGdb+CVr+yL/wAEf/gPrv7DH/BMH4e618cPDfwQ+Dvxj+K6+GIbn4lXvhjWdRltrTTLa106bwn4Bt7qRL7SZoZZL2CUi2XAB9s/sAeAv2XP2p/Amqf8Fq/2LvhxpHgn9rL9tH9mqPRvFWh6p4m1Kx+Fa+MtH+12moWuvaRbNFHNcxavZmxuNTZN9xBYRXMaq88kswB+aP8AwSR/ZW/4KQeA/wDgpP8AtY+PfiP+2P4U8a+KND+LvhrV/wDgoD4BvvBCDwf8Q5fF3w+bVdNtPCN5Gn2qE+HLsxadaCWaO1+zQySfZ2aQKAD9VP8AgjjJct4l/wCCs6TSTtBH/wAFevi79nSRmMSZGh7tgPAzhc49BQB+1NAH5j/8FjP2WtO/bU/4Jw/tM/s0XWuHw9qfxJ8Naeng/VN2LeDxBpes6fregi5H3mt2vtOtBOqZbyTKR0r8e8d/GHLPAnw0xviVmmFliaWHqUIexhJRqVPbV6dJ+zv8c4RnKryK7ag+l2vouFeHMVxXndPJMJLlnNTld6pcsZS17Xatd9Wj+b3/AINPPh38cf2Oo/2pvh3+0X8Jtc+E958Z/jFoHhfwpYa/bt9qurnw7pWto7W8gkkM0I+0LF5x+RgFdXK9fyzhv6V3CHiH465F4VeGOJw2Y5fjcvxWNxGJpzn7TDyoqMqUHFx5b1E5c0ZWnBrWzuj63NPDDOeHuEcXxHxDGVGtTrU6cIPlampOzndN2Sb0fX8T+zn4k3egaHoEfjfxb4k0jwj4R+G9zL8QPFfiLXrpNP0fSNO06xvXvLi6uXISGKKN2lklc7VSNiTX9aH5gfzceEdX+Ev/AAUT/bd+DP8AwVxttN+JmjfDn9mG81D4b/saw+H9bbwzqPxr8PW0niPS/E/jfWrGSDzvsWrTa1qNtpOmGSFpbLTBcTyFNUNtB/nB4/8A07F4VeOeB4B4aw9LE5Hlsqcc7quM51nLEcjlTwbjUilPL6E44mrzRn7erKWF/dypuZ+08E+EtXijhmvmuJqOnXqJ/V09E3G9nO6+GpL3b/ZjaSvdo+of+Ci//BKz/gnD/wAFifH3wT8X/tF/FL4v6T4u+H/gXxFofgLQPhn440/wLLqFhb3Glalrsl5aX2k3cjzWZv8ATS5jZAqXqkq4IYf2rwN4w+GPiVldDOuBs6o4zDVnXUJQck5Sw3J7ePLOMZqVJVacpRlFS5Zxkk4yTPicb4eca5fh8TjMXltVUcPOhTqztzRhPE+19gnJNr966NVQd9XCSvdWPytb/g1p/wCCDSaV4F1xv2iv2mP7H+Jlv9r8BaiPjt4cNp4piM623m2r/wDCNYZPNkSPccDc4GcmvVn4jcDU8PgsXUzSkqeL1oSctKi5uVuP/bz5Xe3vO257C8HPFKWOzTLFkWJ+sZc3HFQ5HzUJcrnaouj5E5W1fKm9j71+Cv8AwRE/4JTfsyfspftv/sleEPjT8Z2+En7RGt+Hfht+0VeeIviro+p+MPB+qWl5aXWj6bp1zDo0cdtc3Es1sDHLBcNIJsADt2V+NuE8NSxdavj6ajhqsaNZ83wVptKNOXXnk5KyV3d+p52F8MvEDG1cvoYbKa8pY6hUxOH9x/vsPS53UrQb0dOChNyk3ZcrPon/AIJT/wDBMX/gnn/wSx1zx3Z/sifFz4i+KNV/bD8BaD45XTfil8Q9J8XNrmh+EW1WS01bRBa6ZZlYv+Ktl895TIGHk7VTZIW3wvFvDWNr4TDYXG05VMVSdeilLWpRVm6kf7vvJ6679nbnx/h5xxleEzLH5jldanRwGJjhMVKUHajiZc/LRqPpNunOy8t9Vf40/Za/4IW/8E6f+CXqt/wU0/Y88XfHz4peNvhf8FvEPiz4cH4j/FHSdb+HHjGz1fQLq0ae4js9DtZmSa3u3eN4nUAsrbWGAfG4r42w+UeHeP49yPlxFOlh54indtRqJRclruk/vPpeB/DDHZ14yZd4ScXqpgsTVxsMHiFyp1aE3U5KicW7c8HdOLe6sza/bZ/4N/v2D/2jfiv4n/4KW/ELxJ8ZtG+PPifVfCXxUv8ATZfjNpfgv4NWmo2R0S3t4nMmg3V1DblLeJSvmM0khwGj37l7M64ixWX8GviOgqSrezpztVm4Uk6jhfmmlJpe87Ozbdl1uedwvwdgc58SVwXiniJUPbV6beGpRrYiSpRqNOFJyjGTbgnL3laPNLW1n9V/8FQ/2IP+CZn/AAVPsPhp+zR+1B8VNM8K/GzwH4luLL4Vav4D8dWWg/Fbw7qFzaQi90ry7iGWG5tbsCzY29xFmWSCLyHRy27CXiNwPRzqHDWJzWhHMZT9n7J1Fz+0sny2ezd1y3tzt2jd6HRR8GPFTF8K1+O8Dw/i55LSp+1liVRk6SpOTXtHJXVk03Nq/Ik5StHU+Ivhd/wbZf8ABHv4Z/ssfHb4Ajxz8T9cb4t/Ffwp8KPjF8fJ/GejQ/F+w1TTPEOjTaP4A0q+bSZbbS7C91q60Sa6sYIDLe3Taebi5lFnYi19inxPkFWnWq0cXGUaWIWFm02+XESlCCpOyvzuVSC8uZNu12fP/wCoXGTxFDCf2dV9rXwlTH01y6zwdKlWr1MTHvShSoVqkpfy05Poe0eGv+CMX/BMzwl/wTo8Vf8ABOzwd+0V8etM/Zm+L/7V1x4i8TNa/FrQYviH4y8dWqadpcvg6e/bQW8uGKfwvZTSWMdqk4ks2d5WiJU8cuN+FVhoYmOPpWqV3hYXlZyxKbToW+JVE4u8WrpXlbl1O7/iGPHsMdVwFbKq6nSwscfU9xtRwU4xqRxXNfldGUJxcZqXLJyUU+Z2Oj/4JlfsR/8ABO3/AII9fAjxF4s+HvjHwxpfjj9p0TLc678TPivpXj2XxW2iPqVvZaHo+tJpmnu2n7wzyxNDtFzO4LMQmflv+Io5FlnCWFzzifG4WhicRGo6cVW5qdScHJJQnJRbi2knJpJSdr3tf9AqeA3Fud+IOY8LcBZTmOKwWClRdec8K416NOpGnKU61OEqkYP35OMeeTlBKXe3wt8EP+CHH/BIP4LeOv2b/wDgoDq3xw+N/wCy58YvHPjKw+OPgvwjF+0DoUHgK31G8u/tl7ocVvd6G1xdaFcrPcafd213K0U9jfT280hSRsxkvi1ww+Dsm4l4wxlDA1sfShUUJVNLyV3ZvXkT3nK0V1Y89+j1x9W8Q+JeC/DbLMXm1DKK1WE6tOhKUlCDdnNRulNpfAm5Sd7Jn6+fCr/gh9/wRn/Zl8Matq2j/sJ/swXWhWNjLrut+Lvjv4WtvjeumQQg3U16dQ8UPfrZxxqhcvA0UaKpxtXiv03FYzCYLCVMwxlWNOhCLnKcpJRjFK8pSk3ZRSu227Jatn4fgctzHNMxpZRltCdXF1ZqnClCMp1J1JS5YwjCKcpTlJ2UUm23Zanr/wCxl4X/AOCfP7JPwK+NPin9lzx74B8N/ALxl8efE/x8+IWoWvi+3/4Qbwj4j8TzWp1Gz062Ajh0uxX7LaQ2elW0aRRoqLCh3c/KYTxG4Fx2QVuKMLmtGWApO1SrzpRi72SlezUpP4U1eTa5b3P0TMvBPxcyfjHDeH2ZcO4unneJSdLDOjN1aiavzQST5opXcpJ2jZuTVmfI3xZ/Yu/Yw+MumftFfHXxn+3N8U/BXwv/AGxPjL4W+K1v4z+A/wAbB8CptC1DwX4Wu9BTRovEdixkubaW3M1xLaXSq6zIuPmC0p+I3AlLJKPElTNqCwFVuMarqLkckm3G72kkneLtK+lruxnHwY8WJ8VYngeHD2LecYdKVXDexm60Yykoxk4Wu4tyVpK8Wne9rs8P/Zl/4JRf8Ex/hv8AHr4XeKfgh+3v+2P4j+JXiD4g2X7UeleBJP26dT17RfjNqlleQarNqXiTSFjUar9t/s9Rex3ZM9zBFKshKBiDLfEfgPOMxw2UZXm1CrisRD2lOEaicpxs27L+ayk3F2nZSdrJs0z3wT8XOGcmx/EXEHDmMw+BwVb2GIrVKM4wpVbqPLKTVtZNLmV4OUormvJX/pKr7U/Lj5V/aU+H3jDxNp9h4k0CXUdatPDlnI174Os8PNIdzM19ZxAAzThGZGiJLFUURDcXWT+Afpv/AEd/EzxhwGC4o4Cx08QsupzvlcpKMas25N4jDydlLFOEnTcK0mpQio0JU5yqKv8AtHhHxvkXDFetl+b0lCVeS/2jVtLT3J9qd/evFJ3bc7pRcP5xP+Cln7Q/xX+C3wE8H/Hr9jW+bxT+0R8LPjPoHivwN4H0HRbvxfc/EFEvXs9Z8P3+j2/+lTQXVvLcQTxR7JY8ZDIyA1/nT9Ay/C/0ustwuCy6dKvVw+Ow+KhOnOnKnKUG05qfwzU09OzenU/efFrC1Mb4bY+dWp7kfZVIyumnyzTVn1Uk3qt9yt8QP+C5a/tW/AHUP2Vv2uP+CRv7a3wqvP2j9Eg+DvxKuvGei3ek/s6eG4dcKWmo6nfeLoZLHVre0tUeW5Ty4IZ2eKKITxs/nL/u/wCJXF2K4A8PM945y/CvE4jAYWviKdGzkqtWnBypwmk1LklU5VNp35XJ3W6/jvhjJVxHxFgsilU9mq9SMHJuzSbvKzenM0mo305mr3PvLwjffB/4O+Avh78M/B0+i6D4U8J+E9P8H/D7wd4c8zUpLTTNOtYrWytrO1i8yZ0jiiRQx3E4BZick/8AL3kOP4n8Q8fPE4PCYrMc7xU6lfExpUalSrLEVqkqleU3ZJN1Zybu+ulkf39DL8LkmCjh1y0cNTSinOSjFJaJXk+3qdh8d/DfxC8Nfs4eF/jt4K8G+JT4z0D4u6vpOnWNxolzB4jbQvH/AIWj8C3Nwlps84JFdz6Xfcrkf2WrZ281/qr4E+Hfil4cfRxWbZ/kU8DnFLNsfOnCq715YTMsLTw3tZRhqpqq4qEZJvkoU3s1I08H+IeCeJ/F3MeAs5zOm8qxuBw9WU3JKksVlOLWYwi5yfK+elTr0b31eIkviOQ+E/7NPi690z9qb4N3el3kGhfsnfDaf4Q/AzVrzT3M+qNd6jbeOoryykdP3jeZZwW/mISR5hXIyRX9BcN8AZ7WocT8MYlJ08nw88Pg6koc03KpV+ucyco6ybglpfSS2ufY8deMmQYfGcEeIdCvGWK4nxscwzOnGatDkozyyVOqlL3Vy1J1OWVk7c2r1OW/Z38G/E/xp8efgHrHifwlrdrpP7U3ie1/ba+LC3Njc2lj4Z1fwlP4ittPsJkZBHG0j33h6XyThs2SnGM15/A+S8U5txxktfO8PKVLNasM2xN+ZRpVcLPFezitEnzSnRk4y1+F2fT2vFviHgrhzwu4py7JcfTliOGqNThvAWlCU6+Hx8cJOtVTTcpKKpYuHOrr960338O+IPw3+Nvw8uPiB4g8E+D/ABxPrX7LPia7/Yd+Dd1Z/aXOreH/AB1Y/Fu307Vli2MsgspPG3wxk8xOANBKFgGZh8tmWQcT8P1cfj8JgK9arlM6mUYSSqzjKVDFrNeWq1ZqUoLE4NQbveye7TP03hPjHw44so5VlPEmY4aOH4lo0+JsxUuT93i8sq5DOtQcuZOLrxy3Oo8stW8VzJNpJ/sh+0Va+E/Bn7IPxw/Zm8E2uvXWofCf9kS3tNK06Lw/eTQS6SunX+i6UkF0sZhnuD/Yc4e2hZpUHlllAkQt/U3iLRwGW+Emd+HuVe0nWwmVJRvGTcqfs50qfvWtKbdKXMruWze5/nn4R18+4i+kBw34z8SzpRpZpn85VJutTTWIdalia7lByU4U/wDaoONSaUJPmUZNxlbwv4oftNfDL4+/skfEn4ZfDa2+IupeLvDHw48NXupadrPwp8ReF4mW31vQ7eZYJ7u0jjmdXDEpEzNtUsMqCa+O4g8ReHONfCzH8PcPqvPFUcPQcozw9eHw1aMZWc4JN36J62bV7M/TuCvBjjXws8e8n4z4ynhKeAxOMxkYTp47CV3eeGxM4ucaVacoJp/FNJXaV7s4/wAb/DqzvPD/AO2J4pbwKbjxYn7dXws1LQNePhySXxB5Fp4m+HsRns7jZ5vlQw3GpAvEdirNck/ekNeXXyGjVocX5nVwd8Us5wEoTcHz2jVwS5oStzcsVOprF2SlPvI+g4b4ur0M18PckjmnLgP9WM8hVpe2Spc1TB5tLlqR5uXnnOFFpTXNJxppXtE5vxR4zfwv4s+Lf7PGoeDPiDJ8QfGP/BUr4b/GexlsvBWo3fhS08JT+PvhlqsPiGfWEhNmLdn0ySzK+b5qTzJuQKGYThM7/sDP844HxeFrvH4riCjio8tKbpxw1SvgnGvKtb2ai5RVNpT5+ea00lb18m4djnmQ5F4t4TMcIspwnBGcZdJSxNGNeWPjlWdUJYSOHc1WdRKsq6lyckqUXyycnGL0/C9tp0/7deu/G4fDLxZZ/ATxz8QvEHwv+GmpTz6h/wAI9b/FS30WPTNY8eLoQhEdvDrMNjc6DFfkMks9jJcM6m5DjnwdKjPxoqcXf2bVjkmIrYjDYefPU9n/AGl7KMZ4z6vy8sVXUJ4eNb3uaalUm4t3XJnlfF0/owYXw1ed0J8U4LCYXG42CVL20sjniZV8PlbxTm5VJ4OdWGPqYdNShTqxoJP2Li/Ffh5J4d+F/wAPvh/r3xw+FXi7xb4Y8f8A7JHiX4UfD2G2+Gl/4xk0vxCfGHiK7u9He3it5JLGfUIp7KRLhwisIRmQBM18llc8v4byXB4/jLLqtfC4nKa2GoJYadZwxH1mvKdLSEpU5VVKDUnZPlu37tz9H4uhm3G3FmbZX4a55h8LjsDn+Dx+LcsbSw/tMJ/Z+EhTxCnKpGNenh5xqxlTi5OLk7Rbk79D4H1bwL8G/CXw+8Q/tEfBXxh8QfCfxF/4J9eGvhX8OdCtvhvqHiyV9RtJdcbX/BTyQwSSWF3qZvtKPmyhFbClpF8rjpyDGZRwdlGX5hx5ldbFYfFZFh8Ph4LD1Jv2sXWdfC80YOVGpXc6XvPlWzbXKeTxNgeJ/EPPs2ynwk4jw+Bx2A4sxuOxlWWMpUF7KosMsLmSU6kY4ilhvZ17xi5yV2lB+01+yf2iNSs/HX7IPjf4N+Gvhd4ui174PeGfhH4o+J3wOt7S+1iW28NRa74f1/W/C1hq0iCPWJRomh63YSi3kkeRgEfDTKD+ycXY/BZr4W43hXDZTVdfAUMuniMEueThS56NaVCFaVliHCjSqRk4yk5ONneUrP8AnjwkweJ4X8f8t8Q85zyg8Jm1fP6GCzNyp0+bGSwuLwuGx1WhFueDi8bicNXg6kYxgrzjeNNtfPXxE8ZfB34j6lD8evhz+zv4sT4E+B/j/wCAvEHxn8YQ/D7VNMPxYg0nS9esoLxPCMlqlxND4ZmvtMeaVIGabzlXa4tvl/OeIs14W4hxFPjbh3JKqyTDY/BVMZV9jWj9ajTpV4RmsLKCco4SVSk5yUW5pq6appn6zwjw94g8H4SfhZxhxbQfFGMyrNaWXYd4uhP6hOvXwtSVN5hGrKnCeZwpV1CDqqNNpy5k67vneFvDenfED4geDvHWh/DnVrL4H/E7/goBZ+NPAegeIPBtzpVheW1l4Ov4dQ159HuIVNpBdajDHMjTRoHkhWTGSCeTLMshnnEOFzvC4GUckxmewrUKdSlKMXGGEmqlZ0pxTpxnXXMuZRvJKW71687znFcK8KZjwxmWcQnxNl3CtTDYqtSxMKkozqZjSlSwqxFObVapSw0nCShOTjGThdpNHW+Gfhho3hxvg5q2gfD230PVYf8AgrF4turjUtK8MNY6hDphg8eWccrzLGHWzNvHZwqSfJKLCBn5a9/AcPYXK/7JxGWYFUqr4mxHNKFK0vZWxkU20r+zcY01e/K0oq7PBznjbMM4jxDgs1zZ1qD4EwEVCpX5oOvzZXUcVFycXW9pKpNr+IpObevMftHX9bH+dQUAeKaR+zh8B/D/AMTLz4zaH8JvAuk/FXUJ7m5vfHthoENt4luJL2IQXkjXIGd00ahHYcsCck5Ofl8PwTwjhOIKnFeFy6jDMp35q6glUfMmpNy3u03d7u7vu7+7W4n4hxGUxyHEY2pLBxtam5NwVndaX6PVdj13U9M07WtPvdJ1extNT0vUrZ7LUNOv7dbuyvYZAVkjljYFWVgSCpBBzX0lWlTrU5Uay5oSTUk9U01Zpp7pptNPe+p4tOpOlUVWm2pRd01umndNPunrfueWfDP9n34I/Bp72X4V/CzwR4Cm1Fla9uPDegQafcz7EMagyhdwAUkbQQOelfNcOcEcIcHxqx4Wy2jhPaPmn7KnGDk/NpXf5b92exnHEvEHEDi87xlSu46Lnm5W69Wev7f9og5Jz9a+p63PEFA/+v7+tAOwm3nI/L+dAbXAqCSfX+ec5+tACbOc549Pz7/jQtFYBxGaAshoQc8k5OefXrmlbQA2DA9QME+uDnn8z+dFuoAEAGO3pjAz1zRZWsHVu4oXHUkn16ev+NFvMBNg9f8A63Of8/WmH5jtoznvjH/1/wBaVvMPMbsAxjjGcY4HPWnYHqKVBwOgHQClYLCbAe5/l1JJ/mfzprQLJ7j6AP/Z alt=Linux公社 width=155 height=53 border=0></a>
+ <td>
+ <div align=center></div>
+ </td>
+ </table>
+</div>
+</div>
+<div id=navbar>
+<div class="l sf-hidden"></div>
+<div class="r sf-hidden"></div>
+<div class=m>
+ <a href=https://www.linuxidc.com/index.htm class=first>首页</a><a href=https://www.linuxidc.com/it/>Linux新闻</a><a href=https://www.linuxidc.com/Linuxit/>Linux教程</a><a href=https://www.linuxidc.com/MySql/>数据库技术</a><a href=https://www.linuxidc.com/RedLinux/>Linux编程</a><a href=https://www.linuxidc.com/Apache/ class=thisclass>服务器应用</a><a href=https://www.linuxidc.com/Unix/>Linux安全</a><a href=https://www.linuxidc.com/download/>Linux下载</a><a href=https://www.linuxidc.com/theme/>Linux主题</a><a href=https://www.linuxidc.com/Linuxwallpaper/>Linux壁纸</a><a href=https://www.linuxidc.com/linuxsoft/>Linux软件</a><a href=https://www.linuxidc.com/digi/>数码</a><a href=https://www.linuxidc.com/mobile/>手机</a><a href=https://www.linuxidc.com/diannao/>电脑</a>
+</div>
+</div>
+<div id=navsub>
+<div class="l sf-hidden"></div>
+<div class="r sf-hidden"></div>
+<div class=m>
+ <a href=https://www.linuxidc.com/index.htm>首页</a> → <a href=https://www.linuxidc.com/Apache/>服务器应用</a>
+</div>
+</div>
+<div class=linuxe1></div>
+<div class=linux1></div>
+<div class=linuxa></div>
+<div class=linuxa1></div>
+<table id=middle width=100% cellspacing=0 cellpadding=0 style=table-layout:fixed>
+<tbody><tr valign=top><td>
+ <div class="mframe mR">
+ <div class="tl sf-hidden"></div>
+ <div class="tr sf-hidden"></div>
+ <div class=tm>
+ <div class=moreR>
+ 背景：<img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#EDF0F5" alt=#EDF0F5> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#FAFBE6" alt=#FAFBE6> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#FFF2E2" alt=#FFF2E2> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#FDE6E0" alt=#FDE6E0> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#F3FFE1" alt=#F3FFE1> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#DAFAF3" alt=#DAFAF3> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#EAEAEF" alt=#EAEAEF> <img src="data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw==" style="cursor:pointer;width:7px;height:6px;border:1px solid #999;background:#FFF" alt=默认> 
+ </div>
+ <span class=tt>阅读新闻</span>
+ </div>
+ <div class=wrapper>
+ <div class="ml sf-hidden"></div>
+ <div class="mr sf-hidden"></div>
+ <div class=mm id=bodyTd>
+ <div id=printBody style=word-break:break-all>
+ <div style=text-align:center><h1 class=aTitle>使用Gitolite搭建Git服务器</h1></div>
+ 
+ <table width=97% align=center>
+ <tbody><tr>
+ <td width=140>[日期：2014-06-11]</td>
+ <td align=center>来源：Linux社区&nbsp;
+ 作者：davidsky</td>
+ <td width=160 align=right>[字体：<a>大</a> <a>中</a> <a>小</a>]
+ </tr>
+ </table>
+<div id=li_all>
+<div id=li_1></div>
+<div id=li_2></div>
+</div>
+ <div id=content style=overflow-x:hidden;word-break:break-all><p>Gitolite是一款Perl语言开发的Git服务管理工具，通过公钥对用户进行认证，并能够通过配置文件对些操作进行基于分支和路径的精细控制。Gitolite采用的是SSH协议并且使用SSH公钥认证，因此无论是管理员还是普通用户，都需要对SSH有所了解。Gitolite的官网是：https://github.com/sitaramc/gitolite。下面就来细说使用Gitolite搭建Git服务器的过程吧。</p>
+<p><strong>基于Gitolite的Git服务架设</strong>&nbsp; <a href=https://www.linuxidc.com/Linux/2014-02/96991.htm>http://www.linuxidc.com/Linux/2014-02/96991.htm</a></p>
+<p><a href="https://www.linuxidc.com/topicnews.aspx?tid=5" target=_blank title=Fedora>Fedora</a>通过Http Proxy下载Git <a href=https://www.linuxidc.com/Linux/2009-12/23170.htm>http://www.linuxidc.com/Linux/2009-12/23170.htm</a></p>
+<p>在<a href="https://www.linuxidc.com/topicnews.aspx?tid=2" target=_blank title=Ubuntu>Ubuntu</a> Server上安装Git <a href=https://www.linuxidc.com/Linux/2009-06/20421.htm>http://www.linuxidc.com/Linux/2009-06/20421.htm</a></p>
+<p>服务器端Git仓库的创建（Ubuntu） <a href=https://www.linuxidc.com/Linux/2011-02/32542.htm>http://www.linuxidc.com/Linux/2011-02/32542.htm</a></p>
+<p>Linux下Git简单使用教程（以<a href="https://www.linuxidc.com/topicnews.aspx?tid=11" target=_blank title=Android>Android</a>为例） <a href=https://www.linuxidc.com/Linux/2010-11/29883.htm>http://www.linuxidc.com/Linux/2010-11/29883.htm</a></p>
+<p>Git权威指南 PDF高清中文版 <a href=https://www.linuxidc.com/Linux/2013-10/91053.htm>http://www.linuxidc.com/Linux/2013-10/91053.htm</a></p>
+<p>硬件需求：Ubuntu电脑（或虚拟机），正常网络访问。</p>
+<p>软件需求：git-core,gitolite, openssh-server, git-daemon-run（ubuntu），msysgit（windows）</p>
+<p>在Gitolite的搭建过程中，Gitweb、Apache不是必须的，Gitweb、Apache跟Gitolite一起使用，看到的效果类似于 http://git.chromium.org/gitweb/。</p>
+<p>1. 安装配置Git服务器(IP:10.203.138.129)</p>
+<p>安装Git和openssh。</p>
+<p>$ sudo apt-get install git-core openssh-server</p>
+<p>新建用户git，该用户作为所有代码仓库和用户权限的管理者。</p>
+<p>$ sudo groupadd git</p>
+<p>$ sudo useradd git –g git –m</p>
+<p>$ sudo passwd git （需要设置用户git的密码）</p>
+<p>2. 下载gitolite</p>
+<p>初始化服务器的全局设置，为安装gitolite做准备。在任何一台机器上使用git，第一次必须要先设置user.name和user.email。</p>
+<p>$ git config --global user.name “david”</p>
+<p>$ git config --global user.email “david@server-pc”（name和email随意）</p>
+<p>安装一下<a href="https://www.linuxidc.com/topicnews.aspx?tid=17" target=_blank title=Python>Python</a>的setup tool。</p>
+<p>$ sudo apt-get install python-setuptools</p>
+<p>获取gitolite包。</p>
+<p>$ git clone https://github.com/sitaramc/gitolite.git（或者到网上下载对应的gitolite）</p>
+<p>当然，我们也可以使用包管理器进行安装。</p>
+<p>$ sudo aptitude install gitolite</p>
+<p>3. 配置gitolite</p>
+<p>在git管理员的PC上，先安装msysgit（windows系统），安装后，打开gitbash，运行如下命令生成管理员密钥：</p>
+<p>$ ssh-keygen –t rsa</p>
+<p>运行以上命令后，可以默认提示直接回车。回车后在当前用户目录下生成了.ssh/id_rsa和.ssh/id_rsa.pub。其中.ssh/id_rsa是私玥，.ssh/id_rsa.pub是公钥。接下来可以使用如下命令将git管理员的公钥上传到git服务器，也可以直接拷贝到git服务器。</p>
+<p>$ scp xxx/.ssh/id_rsa.pub webgod@10.203.138.129:/tmp/admin.pub</p>
+<p>回到Git服务器上。</p>
+<p>$ sudo chmod a+r /tmp/id_rsa.pub</p>
+<p>执行Gitolite安装。</p>
+<p>$ gl-setup /tmp/admin.pub</p>
+<p>Initialized empty Git repository in /home/repo/gitolite-admin.git/</p>
+<p>Reinitialized existing Git repository in /home/repo/gitolite-admin.git/</p>
+<p>Gitolite是通过一个git仓库来管理配置文件，仓库放在/home/git/repositories/gitolite-admin.git。</p>
+<p>设置git仓库权限</p>
+<p>$ sudo chown git:git /home/git/repositories</p>
+<p>$ sudo chmod 755 /home/git/repositories</p>
+<p>$ sudo chmod 755 /home/git/repositories/gitolite-admin.git/hooks/post-update</p>
+<p>4. 在服务器上新建测试项目仓库</p>
+<p>在服务器上新建一个空的项目仓库可，叫“test”。</p>
+<p>切换到git用户：</p>
+<p>$ su – git</p>
+<p>$ cd repositories</p>
+<p>$ git init --bare test.git</p>
+<p>$ exit</p>
+<p>到这里，test只是一个空仓库，它是不能clone下来的。为了能做clone，必须先让管理员或有权限的人放一个初始化的版本到仓库中。所以，我们必须先修改一个gitolite-admin。</p>
+<p>5. 管理gitolite的配置文件</p>
+<p>Gitolite本身的配置也是通过git来实现的。在刚刚上传公钥的机器上，把gitolite-admin.git这个仓库clone下来，就可以以管理员的身份修改配置了。</p>
+<p>新建一个文件夹，如git129：</p>
+<p>$ mkdir git129</p>
+<p>$ cd git129</p>
+<p>$ git clone git@10.203.138.129:gitolite-admin.git（或使用全路径）</p>
+<p>注：访问git用户仓库的默认路径是/home/git/repositories/</p>
+<p>$ cd gitolite-admin</p>
+<p>该目录下的keydir目录是用来存放所有需要访问git服务器的用户的ssh公钥。各个用户按照前面提到的办法生成各自的ssh公钥文件后，把所有人的ssh公钥文件按名字重新命名一下，然后拷贝到keydir目录下，然后修改gitolite.conf文件，做相应的配置：</p>
+<p>[gitolite]</p>
+<p>[group gitolite-admin]</p>
+<p>writable = gitolite-admin</p>
+<p>members = david@DAVID-PC&nbsp; tom@TOM-PC</p>
+<p>[group team]</p>
+<p>writable = test</p>
+<p>members = david@DAVID-PC&nbsp; tom@TOM-PC&nbsp; pitter@PITTER-PC</p>
+<p>这个配置文件表达了如下含有：gitolite-admin组成员有david，tom，该组对gitolite-admin仓库有读写权限；test组有david，tom，pitter三个成员，该组对test仓库有读写权限。目前这些配置文件的修改只是在本地，必须推送到远程的git服务器上才能真正生效。</p>
+<p>加入新文件、提交并push到Git服务器：</p>
+<p>$ git add .</p>
+<p>$ git commit –m “add test and someusers”</p>
+<p>$ git push origin master</p>
+<p>$ sudo chmod a+r /tmp/id_rsa.pub</p>
+<p>&nbsp;</p>
+<p><strong>更多详情见请继续阅读下一页的精彩内容</strong>： <a href=https://www.linuxidc.com/Linux/2014-06/103004p2.htm>http://www.linuxidc.com/Linux/2014-06/103004p2.htm</a></p><a href=http://www.linuxidc.com/ target=_blank><img src="data:image/gif;base64,R0lGODlhDwARAOYAAAAAAP///xUVFltbXmdnalhYWj09Pv39/8fHyf7+/xscJQABCGdpdC0uMzk6P4eKl6GipicoK6WnrB8iKfDy9omKjAoLDAQFBYiHfDw0Av/cGP/eKFBCAP/WBNCvDridG//dKcnGuPrMB//WJf/YM//WNf/YNv/XOv/cP6Sgj009AfXFD+/CFf3NGbSTEvvKGvTGG+y9HP/RIfnKI+q9I//UMP/VMf/SNf/UN7ubLfzXRoB0S96qAOGuBea0DP3IFYFkDNSrIJGDVcm2e/nz4M+aAOasBdOcCdaiEN6wKXBdKtebBXVQB7WDHD0lAHltXNXOxcjEwOTh3g4GAAQCAfz8/Pn5+fj4+PT09PLy8vHx8fDw8O3t7ezs7OPj46ysrJycnJiYmGlpaWdnZ05OTkpKSj09PTY2NjQ0NB8fHxwcHBcXFw0NDQsLCwcHBwQEBAMDAwICAgEBAf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAHMALAAAAAAPABEAAAengHOCg2txcIOIiGlvAABtiYkABQ4NBpCIAhU7QgOXg1QuIh1AnnNmEUM0PkqlAGIBUlESnmxxX1kBBwFlkGcAZF5aAVUBYWqJbnJgAczMV2iRFwjNW1gBBAqICxYhzV1cARgZiCpTQUTMVgkQHxuDKCxFPFDNDxwjOC0xOjUlID1PKDBL4cHEjRMw5iSZQeKHkwljGOTQYEPGixWDjixBxMQIkiaCAgEAOw==" alt=linux width=15 height=17></a></div><a href=http://www.linuxidc.com/ target=_blank>
+<div class=linux3></div>
+<div class=linux302></div> 
+ <table align=center><tbody><tr><td><div class=pager><ul><li class=p_current>1<li><span href=../../Linux/2014-06/103004p2.htm>2</span><li><span href=../../Linux/2014-06/103004p2.htm title=下一页>下一页</span><li><div><input type=text value=2></div></ul></div></table>
+ 
+ </a></div><a href=http://www.linuxidc.com/ target=_blank>
+<div class=linuxfx></div> 
+<div class=linux8></div>
+<div class="linux801 sf-hidden"></div>
+ </a><div class=nearNews><a href=http://www.linuxidc.com/ target=_blank>
+ </a><div class=prevNews><a href=http://www.linuxidc.com/ target=_blank></a><a href=https://www.linuxidc.com/Linux/2014-06/103003.htm>Samba服务器搭建</a></div>
+ <div class=nextNews><a href=https://www.linuxidc.com/Linux/2014-06/103020.htm>关于CentOS 6下Hadoop占用系统态CPU高的处理办法</a></div>
+ </div>
+ </div>
+ </div>
+ <div class="bl sf-hidden"></div>
+ <div class="br sf-hidden"></div>
+ <div class="bm sf-hidden"></div>
+ </div>
+<div class=linux809></div>
+ <div class="mframe mR">
+ <div class="tl sf-hidden"></div>
+ <div class="tr sf-hidden"></div>
+ <div class=tm>
+ <span class=tt>相关资讯</span> &nbsp; &nbsp; &nbsp;
+ <a href="https://www.linuxidc.com/search.aspx?where=nkey&amp;keyword=7862" target=_blank>Git服务器</a>&nbsp; <a href="https://www.linuxidc.com/search.aspx?where=nkey&amp;keyword=8719" target=_blank>Gitolite</a>&nbsp; 
+ </div>
+ <div class=wrapper>
+ <div class="ml sf-hidden"></div>
+ <div class="mr sf-hidden"></div>
+ <div class=mm>
+ <table width=100%><tbody><tr><td width=50% valign=top><ul class=nl><li><a href=https://www.linuxidc.com/Linux/2020-02/162227.htm target=_blank title="Ubuntu 18.04 上安装搭建私有 Git 服务器 Gitea">Ubuntu 18.04 上安装搭建私有 Git </a>&nbsp; <span class=gray>(<span class=time>今 15:53</span>)</span></li>
+<li><a href=https://www.linuxidc.com/Linux/2017-12/149803.htm target=_blank>Linux服务器配置之Git服务器搭建</a>&nbsp; <span class=gray>(12/25/2017 12:09:44)</span></li>
+<li><a href=https://www.linuxidc.com/Linux/2017-07/145766.htm target=_blank title="CentOS 6.7下Gitolite 服务搭建及TortoiseGit配置连接">CentOS 6.7下Gitolite 服务搭建及</a>&nbsp; <span class=gray>(07/18/2017 09:17:22)</span></li>
+</ul><td width=50% valign=top><ul class=nl><li><a href=https://www.linuxidc.com/Linux/2019-02/157100.htm target=_blank title=Git服务器宕机如何使用本地克隆仓库快速恢复Git服务器>Git服务器宕机如何使用本地克隆仓</a>&nbsp; <span class=gray>(02/25/2019 15:10:58)</span></li>
+<li><a href=https://www.linuxidc.com/Linux/2017-11/148525.htm target=_blank>基于CentOS搭建 Git 服务器</a>&nbsp; <span class=gray>(11/11/2017 19:59:14)</span></li>
+<li><a href=https://www.linuxidc.com/Linux/2017-07/145765.htm target=_blank>使用 Gitolite 搭建 Git 服务器</a>&nbsp; <span class=gray>(07/18/2017 08:57:07)</span></li>
+</ul></table>
+ </div>
+ </div>
+ <div class="bl sf-hidden"></div>
+ <div class="br sf-hidden"></div>
+ <div class="bm sf-hidden"></div>
+ </div>
+<div class=linux808></div>
+ 
+<td width=300 valign=top>
+<div class=linux901></div>
+<div class=linux902></div>
+<div class=linux903></div>
+<div class=linux905></div>
+ 
+ <div class=lframe>
+ <div class="tl sf-hidden"></div>
+ <div class="tr sf-hidden"></div>
+ <div class=tm>
+ <span class=tt>最新资讯</span>
+ </div>
+ <div class=wrapper>
+ <div class="ml sf-hidden"></div>
+ <div class="mr sf-hidden"></div>
+ <div class=mm>
+ <ul class=nl>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162227.htm target=_blank title="Ubuntu 18.04 上安装搭建私有 Git 服务器 Gitea">Ubuntu 18.04 上安装搭建私有 Git 服务器 </a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162226.htm target=_blank>Linux下抓包命令tcpdump详解</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162225.htm target=_blank>Linux常用命令 pidof 使用简述</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162224.htm target=_blank title="Ant Design v3.26.8 发布，企业级UI设计语言">Ant Design v3.26.8 发布，企业级UI设计语</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162223.htm target=_blank title="Ubuntu下snap安装都市反恐 Urban Terror游戏">Ubuntu下snap安装都市反恐 Urban Terror游</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162222.htm target=_blank title="GRUB 2.06计划今年发布，Intel TXT + AMD SKINIT支持">GRUB 2.06计划今年发布，Intel TXT + AMD </a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162221.htm target=_blank>如何在Python中删除文件和目录</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162220.htm target=_blank title="在Ubuntu 18.04、19.10中安装最新的Photoflare图像编辑器">在Ubuntu 18.04、19.10中安装最新的</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162219.htm target=_blank title="Ubuntu 18.04中PPA安装专业电影剪辑软件Lightworks 14.5">Ubuntu 18.04中PPA安装专业电影剪辑软件</a></li>
+<li><a href=https://www.linuxidc.com/Linux/2020-02/162218.htm target=_blank title="KDevelop 5.5 发布，更好的C ++，PHP，Python语言支持">KDevelop 5.5 发布，更好的C ++，PHP，</a></li>
+</ul>
+ </div>
+ </div>
+ <div class="bl sf-hidden"></div>
+ <div class="br sf-hidden"></div>
+ <div class="bm sf-hidden"></div>
+ </div>
+ <div class=u70></div>
+ <div class=u80></div>
+ <div class=u90></div>
+ <div class=space></div>
+ <div id=pin>
+ 
+ </div>
+</tr>
+</table>
+<div class=linux906></div>
+<div id=footer><p align=center>
+ <a href=https://www.linuxidc.com/aboutus.htm>Linux公社简介</a> - <a href=https://www.linuxidc.com/adsense.htm>广告服务</a>
+ - <a href=https://www.linuxidc.com/sitemap.aspx>网站地图</a> - <a href=https://www.linuxidc.com/help.htm>帮助信息</a>
+ - <a href=https://www.linuxidc.com/contactus.htm>联系我们</a><br>本站（LinuxIDC）所刊载文章不代表同意其说法或描述，仅为提供更多信息，也不构成任何建议。<br>
+ 如有版权问题影响到您的权益，请及时与我们取得联系，将会第一时间进行处理。 <a href=mailto:hongfei0601@126.com target=_blank rel=nofollow>联系邮箱:linuxidc22@163.com</a><br><br>
+ <a href=https://www.linuxidc.com/>Linux公社</a> - <a href=https://www.linuxidc.com/game/>安卓游戏下载</a>
+ - <a href=https://www.linuxidc.com/soft/>安卓软件下载</a> - <a href=https://www.linuxidc.com/zt/>游戏专题合集</a>
+ - <a href=https://www.linuxidc.com/top/>手机游戏排行榜</a><br>Copyright © 2006-2021　<a href=https://www.linuxidc.com/>Linux公社</a>　All rights reserved <a href=https://beian.miit.gov.cn/#/Integrated/index target=_blank rel=nofollow>闽ICP备2022015145号-1</a>
+ </p></div>
+</div>
