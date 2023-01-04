@@ -1,0 +1,914 @@
+<!DOCTYPE html> <html lang=zh-cn style=--olcb-folder-code-block-max-height:80vh><!--
+ Page saved with SingleFile 
+ url: https://www.cnblogs.com/zh1164/p/6031464.html 
+ saved date: Wed Jan 04 2023 14:22:18 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=referrer content=origin-when-cross-origin>
+<meta name=description content="首先通过一个例子来看一下本文中可能用到的对象和相关概念。 有时候我们会碰到这样的需求，需要执行对象的某个方法，或是需要对对象的某个字段赋值，而方法名或是字段名在编码代码时并不能确定，需要通过参数传递字">
+<meta property=og:description content="首先通过一个例子来看一下本文中可能用到的对象和相关概念。 有时候我们会碰到这样的需求，需要执行对象的某个方法，或是需要对对象的某个字段赋值，而方法名或是字段名在编码代码时并不能确定，需要通过参数传递字">
+<meta http-equiv=Cache-Control content=no-transform>
+<meta http-equiv=Cache-Control content=no-siteapp>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<title>python动态获取对象的属性和方法 （转载） - zh1164 - 博客园</title>
+<style>:root{--sf-img-5: url("data:image/gif;base64,R0lGODlhFAAUANQHADJKYpKluc3P05qy4jJdta/M92KQ3vv8/nKi4rK/0rLC6mJ6mtHe7sHN4ZW19iJLmUp2wqKy0nKa8iJCgsLV9uLq8qKywnKa2oKy4lKC0qLC8qKqwnKS0oKn7cDI1AAAACH5BAEAAB8ALAAAAAAUABQAAAWE4CeOZGmeaKquLKkoSRwJrXLch7XQa4IfAc+ud6AUGIHCS+NwME6WX6Xw6xAaps2BiUFofpICwVMK3CoVxuDQZBgIhEf50EVc1rgKJSInmRkMDQ0dBx0IBhkZfGUAjY0cOAwUChZ9KQYHiIkZG5YoEAcRohYbAZ4nEHAPq6sTLa+wsSUhADs=")}img{max-width:100%;height:auto}#blog_post_info_block{margin-top:20px}#BlogPostCategory{margin-bottom:10px}pre{transition-duration:.2s;transition-property:background-color,border-color,border-radius,padding-top,padding-bottom,margin-top,margin-bottom,color,opacity}.cnblogs_code{background-color:#f5f5f5;font-family:Courier New!important;font-size:12px!important;border:1px solid #ccc;padding:5px;overflow:auto;margin:5px 0;color:#000}.cnblogs_code div{background-color:#f5f5f5}pre{overflow:auto}.cnblogs_code pre{font-family:Courier New,serif;font-size:12px;word-wrap:break-word}.cnblogs_code span{font-family:Courier New,serif;font-size:inherit;line-height:1.5}.cnblogs_code_toolbar a:hover,.cnblogs_code_toolbar a:link,.cnblogs_code_toolbar a:visited,.cnblogs_code_toolbar a:active,.cnblogs_code_toolbar a:link img,.cnblogs_code_toolbar a:visited img{background-color:#f5f5f5!important;border:none!important}pre{margin-top:0;margin-bottom:0}#author_profile{float:left;width:280px;margin-top:0;margin-bottom:10px;color:#000;margin-left:0;font-size:12px}#author_profile a:hover{text-decoration:underline}.author_avatar{vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;border:0}.author_profile_info{float:left;line-height:18px}#div_digg{float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px}.diggit{float:left;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP/00P/22vfqt/b29v/11f/45P/56P/34PjtwfXlqf/55v/11//00v/44vnwyfn5+f/22Pbnrf/21vny0Pn00//33vDw8P/12KioqP/10ufm61B1uv/33f/33P////H4+iH5BAAAAAAALAAAAAAuADQAAAX/oJeMZGmeaJqKQOu+cCzPcxLJmZvlcM4DPlosE4kwMsfdLrlEIo8MZvRJjTKbxaZyy+16v94iYUwum8/odDlDjgjU8Lh8LBAs7mQ8YTHmS/aAfHyBeHeCg3l1dxAQFwsXkBeMjJILEJaNko2bk4+Pl4x3knUBpaanqKmqq6sCCAEdsR2ws6mytbSwprGns766HQgIHByxxR3FxMi3y8nIycTO0MqywtTH0Mu30s/PytLRt9bYxt3Hstzf4eDUsePlzc7bzebr8e3Bw+Tx2uj06t/unct3rVzAeeC8pQtXTR+8bAP/1Qs4beA7bRCZLVT4j6E7hxjNaezIkZ1FkOQO//pLGG0hvosp5a3k17LjSwQVcurcybOnz58/ETg4QLSo0aNIkypV6sBBg6dPC0CdWkBqg6pTs1q1qpWrgwlVw4odS7as2bMTJihYy7at27dw48adQMGA3bt48+rdy5cv3b6AAwu2S8EDhcOIEytezLhxYw+QI0ueTLmy5cuYM2veDPmD58+gQ4seTbq0htIPBqguzbq159OjH2jQgEHDANe4RcMWPUCDBwsYHuQe/pr0bA8PMNwmnnt36N6/lYve8Jk69enVdYdO3ds38OWgr4sPv6G8+fOfndPGwB5DdPAf0J8vjz2+ds8eMFigPEB/aOvjVTfffOl91t96+0X2HYB58REYHmu7JWfZgp7RZ9+FDw4I2m79teebgrVVeGGAD5ZYoGcSVjbBBvCJ52CDDb4Y4Xq1SQYcBSWSaN91Ioa222+0WSDkkBiwmGOPJmJ4ooHsbVDkkw4I6CJ62cV4H2gPFHDABVsWAB9zEIIppnFjlrnhbGimqeaabLbp5mwhAAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.diggnum{font-size:14px;color:#075db3;font-family:Verdana}.buryit{float:right;margin-left:20px;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP////39/fn5+fj4+Pb29vX19fPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6ujo6Ofn5+bm5uXl5ePj4+Li4uHh4dzc3NfX19HR0c/Pz6qqqqioqKenp4WFhYODgyH5BAQUAP8ALAAAAAAuADQAAAX/IKCNZGmeaJqKUeu+cCzP80jfeN5mGeT/wKBwSCTyisik0sd7OJ/QqHRKpWYw1ax268RgHGDuFkwuO6Res3rNbre9jbh8Tq/b73fMpcHo+xl2f3iDdRcXC4iJiol/jY2LkIh/hpGQjpcMlYuTh5qMmI+ekn6UogugoaKcpqeofqyrpq6vsqSdqrOZtX2luLOwtsC/uwy9nrm6vsW3x7nCy6zR0ogXFgrX2Nna29zd3RYWCeLj5OXm5+jo4Ajs7e7v8PHy8hQUB/f4+fr7/P399QYCChxIsKDBgwcBIlzIsKGBCQAmSJxIsaLFixgxAtjIsaPHjyBDihxJsqTJjQVS8KpcybKly5cwIcCcSbOmSpk2c+pMiZOlAHYOFDhAQGBnzp4rN2z4wIEp0wpGayIFkOABB3MdPBh4+aHrB5pfb64UYJUDBwgdFXCYsNJr2LZu265EKoBDSAoftqp8O5MvX6QFzJpFyzHBWbhuu+5NmVgxz7EcAoA0XHQxS78FMItdedZsgo4HOFRmnNmy3NKoH6sEwAHBxwEcFlxOzZc06b8sIwg2S5WD3tNfa5cOG3xuSwEECPjoPdq2c8uaVb9ES3l25uKmoxcAPBdt3ebB/Tpu6dV4TAChBUSVClOADw4Smq93yX1scvnzWy7Zzz9ICAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.burynum{font-size:14px;color:#075db3;font-family:Verdana}.diggword{margin-top:5px;margin-left:0;font-size:12px;color:#808080}#profile_block{margin-top:5px;line-height:1.5;text-align:left}#post_next_prev{line-height:1.8;font-size:12px}#post_next_prev a.p_n_p_prefix:link{text-decoration:none}#post_next_prev a.p_n_p_prefix:hover{text-decoration:underline}.under-post-card{margin-top:10px;line-height:1.5}#green_channel{padding:10px 0;margin-bottom:10px;margin-top:10px;border:#c0c0c0 1px dashed;font-size:12px;width:350px;text-align:center}#green_channel a{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D)repeat-x;display:inline-block;padding:3px 8px;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer;margin-right:10px;-moz-border-radius:5px;-webkit-border-radius:10px;-moz-box-shadow:0 1px 3px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 3px rgba(0,0,0,.5);text-shadow:0-1px 1px rgba(0,0,0,.25);vertical-align:middle}#green_channel a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/v//vwMTAwPDfzjBgMpFI/7hFSOT9Y8qRuF3JLoHAQIMAHYtMmRA+CugAAAAAElFTkSuQmCC)}#green_channel #green_channel_digg{background-color:#2daebf}#green_channel #green_channel_follow{background-color:#e33100}#green_channel #green_channel_favorite{background-color:#ffb515}#green_channel #green_channel_weibo img{vertical-align:middle;border:none;margin-left:5px;box-shadow:none}#green_channel #green_channel_weibo,#green_channel #green_channel_wechat{background:none;padding:3px 2px;-moz-border-radius:none;-webkit-border-radius:none;-moz-box-shadow:none;-webkit-box-shadow:none;text-shadow:none}#green_channel #green_channel_wechat img{width:24px;height:24px;border:medium none;box-shadow:none;margin-left:5px;vertical-align:middle}#cnblogs_post_body{margin-bottom:20px}#cnblogs_post_body ul{margin-left:30px;padding-left:0}#cnblogs_post_body ul li{list-style-type:disc}#cnblogs_post_body img{max-width:100%!important;height:auto}#opt_under_post{line-height:1.8}.recent_comment_author{text-align:right;margin-right:4px}#HistoryToday{max-width:600px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.cnblogs_code_toolbar{margin-top:5px}.cnblogs_code_toolbar span{padding-right:5px}.Cal{width:100%}.recent_comment_body{word-wrap:break-word}#cnblogs_post_body{word-break:break-word}#cnblogs_post_body p{margin:10px auto}#cnblogs_post_body p{text-indent:0}#cnblogs_post_body h3{font-size:16px;font-weight:bold;line-height:1.5;margin:10px 0}#div_digg .diggnum{line-height:1.5em!important}#div_digg .burynum{line-height:1.5em!important}#green_channel a:link,#green_channel a:visited,#green_channel a:active{color:#fff!important;border:none!important}.vertical-middle>*{vertical-align:middle}#blog-news{overflow:hidden}.blogpost-body-html span img{border:none}.category-item-link{word-break:break-word}#cnblogs_c1{width:300px;height:250px}.sidebar-card-title-a,a.sidebar-card-title-a:link,a.sidebar-card-title-a:visited{font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;color:inherit!important}@keyframes fadeIn{0%{opacity:0}100%{opacity:var(--cnb-code-toolbar-initial-opacity)}}pre:fullscreen,pre:fullscreen code{box-sizing:border-box;border-radius:0;height:100vh;width:100vw}.login_tips{background-image:url(data:image/gif;base64,R0lGODlhEAAQAOZbAOny/v3+/lqIuT1wIOLu/lOMKKnB2omqzbTJ34+8Z9vq/c7c6tfo/ZSwhJOx0WyVwJGugWCJSbLSlff5/Pv8/efu9Y26ZDdrGUFzJXCYwuDt/vP3+uvx94usztrk793s/m6XwYe5YN/s/qO92Iu6YnCWXpeyiOnv9tXm/bHTkKa9mZ241dDj/dzm8Ex7Mejx/lePLd3r/vn7/NHk/eXw/tDk/dPm/dTm/dzq/d7s/tbn/WaOT3ugx2+XwuTv/o+7arbUnNnp/dDmurHFq9zr/X2iyF+Mu+bw/pm21Obx/oe6YFyKuvD2/oWny7HWktrp/Yy8ZYKjk+Pv/uHu/r7Q4z9xItHk/LTUlYGrYViHuP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFsALAAAAAAQABAAAAemgFuCg4SFhoeGGw5LWY2OWU0VhB0GFFqXmFoIGRSCEwIBTABJPlM5CjhaPC2CHA9aL0dSGh8KDChaBwutrzQEGjFPDDczubtbnwEAIkRBOjY1VlpFHoOUAZgELACaGTKDigKNK5dDJTsRKog9FVFYV0I/MBCGI0hGESlOWlAJA4UnQFDZ4gIIJgkXEG2pQkKJlhD+FJooYEGChQL0FDbAcAFDgy2BAAA7);background-repeat:no-repeat;margin-top:10px;padding:0 0 10px 25px;font-weight:400}.login_tips a{text-decoration:underline!important}#comment_nav{text-align:right}#comment_nav a{padding-left:10px}:root{--highlighted-line-bg:#d1e3c9;--highlighted-line-bg-dark:#264b33}@keyframes collapse{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-scroll-height,80vh)}to{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh)}}@keyframes expand{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh);overflow-y:hidden}to{max-height:"";max-height:"";max-height:var(--olcb-folder-code-block-scroll-height,"");overflow-y:hidden}}@keyframes modal-open{0%{height:0;opacity:0}95%{height:505px}100%{height:auto;opacity:1}}:root{--cnblogs-toc-bg-color:rgba(245,245,245,.98);--cnblogs-toc-highlight-color:rgba(255,255,255,.9);--cnblogs-toc-color:#000}@keyframes wb-fade-in{0%{opacity:0}to{opacity:.85}}/*!
+ * ui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */@-webkit-keyframes ui-dialog-loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes ui-dialog-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}*{margin:0;padding:0}html{height:100%}body{color:#000;background-color:#e6e6e6;font-family:"Helvetica Neue",Helvetica,Verdana,Arial,sans-serif;font-size:12px;min-height:101%}table{border-collapse:collapse;border-spacing:0}img{border:0}li{list-style:none}a{outline:none;color:#21759b}a:link{color:#000;text-decoration:none}a:visited{color:#000;text-decoration:none}a:hover{color:#21759b}a:active{color:#000;text-decoration:none}.clear{clear:both}#home{margin:0 auto;width:65%;min-width:950px;background-color:#fff;padding:30px;margin-top:50px;margin-bottom:50px;box-shadow:0 2px 6px rgba(100,100,100,.3)}#header{padding-bottom:5px;margin-top:10px}#blogTitle{height:60px;clear:both}#blogTitle h1{font-size:26px;font-weight:bold;line-height:1.5em;margin-top:20px}#blogTitle h1 a{color:#515151}#blogTitle h1 a:hover{color:#21759b}#blogTitle h2{font-weight:normal;font-size:.928571429rem;line-height:1.846153846;color:#757575;float:left}#blogLogo{float:right}#navigator{font-size:13px;border-bottom:1px solid #ededed;border-top:1px solid #ededed;height:50px;clear:both;margin-top:25px}#navList{min-height:30px;float:left}#navList li{float:left;margin:0 40px 0 0}#navList a{display:block;width:5em;height:22px;float:left;text-align:center;padding-top:19px}#navList a:link,#navList a:visited,#navList a:active{color:#6a6a6a;font-weight:bold}#navList a:hover{color:#000;text-decoration:none}.blogStats{float:right;color:#757575;margin-top:19px;margin-right:2px;text-align:right}#main{width:100%;text-align:left;margin-top:30px}#mainContent .forFlow{margin-left:22em;float:none;width:auto}#mainContent{min-height:200px;padding:0 0 10px 0;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;float:left;margin-left:-22em;width:100%}.postTitle{border-left:3px solid #21759b;margin-bottom:10px;clear:both}.postTitle a:link,.postTitle a:visited,.postTitle a:active{color:#21759b;transition:all .4s linear 0s}.postTitle a:hover{margin-left:30px;color:#0f3647;text-decoration:none}.postDesc{font-size:13px;float:left;clear:both;padding-right:5px;line-height:1.5}.postDesc a:link,.postDesc a:visited,.postDesc a:active{color:#666}.postDesc a:hover{color:#21759b;text-decoration:none}#sideBar{margin-top:-15px;width:230px;min-height:200px;padding:0 0 0 5px;float:right;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden}#sideBar a{color:#757575}#sideBar a:hover{color:#21759b;text-decoration:underline}.newsItem,.catListTag,.catListPostCategory,.catListView,.catListFeedback,.catListComment{background:#fff;margin-bottom:35px;word-wrap:break-word}#blog-calendar{width:228px;padding-bottom:5px;margin-bottom:35px;box-shadow:0 1px 3px #ccc;border:1px solid #ededed}#blog-calendar td{font-size:12px;font-family:"Comic Sans MS"}#blog-calendar th{font-size:12px}.Cal{border:none;color:#666}.CalTodayDay{background:#3671a5!important;color:#fff;font-weight:bold}.CalWeekendDay{padding-top:4px;padding-bottom:4px}.CalOtherMonthDay{color:#ccc;padding-top:4px;padding-bottom:4px}.CalDayHeader{background:#f8f8f8;font-weight:100;color:#5e5f63}.CalTitle{background:#6293bb;width:100%;height:25px;text-align:center;font-size:14px;font-weight:bold;padding:5px 0;color:#fff}.CalTitle td{background:#f8f8f8!important;border:0!important;color:#5e5f63}.catListTitle{font-weight:bold;line-height:1.2;margin-top:15px;margin-bottom:10px;text-align:left}.catListComment{line-height:1.5em}#sideBarMain ul{line-height:1.5em}#sideBarMain li{line-height:1.8}#topics{width:100%;min-height:200px;padding:0 0 10px 0;float:left;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden}#topics .postTitle{border:0;font-size:130%;font-weight:bold;float:left;line-height:1.5;width:100%;padding-left:5px}#BlogPostCategory{color:#666}#BlogPostCategory a{margin-left:5px;height:20px;line-height:20px;color:#333;padding:3px 14px;border-radius:10px;margin:2px 5px 0;background:#e7e7e7;text-decoration:none}#BlogPostCategory a:link,#BlogPostCategory a:visited,#BlogPostCategory a:active{color:#666}#BlogPostCategory a:hover{color:#f5f5f5;background:#21759b}#topics .postDesc{padding-left:0;width:100%;text-align:left;color:#666;margin-top:5px;background:none}#footer{color:#686868;text-align:center;min-height:15px;border-top:1px solid #ededed;margin-top:50px;padding-top:10px;margin-bottom:10px}.postBody{color:#000;line-height:1.7;font-size:14px}.postBody a:link,.postBody a:visited,.postBody a:active{text-decoration:underline}.postBody li{margin-bottom:1em}#sideBar{font-size:12px}#sideBar h3{font-size:14px}#cnblogs_post_body img{max-width:700px}#cnblogs_post_body h2{background:#2B6600;border-radius:6px 6px 6px 6px;box-shadow:0 0 0 1px #5F5A4B,1px 1px 6px 1px rgba(10,10,0,0.5);color:#FFFFFF;font-family:"微软雅黑","宋体","黑体",Arial;font-size:13px;font-weight:bold;height:24px;line-height:23px;margin:12px 0!important;padding:5px 0 5px 10px;text-shadow:2px 2px 3px #222222}</style>
+<style media="only screen and (max-width: 767px)">body{font-size:14px!important;-webkit-text-size-adjust:none}#blog_nav_newpost{display:none!important}#green_channel{width:100%}#cnblogs_c1{text-align:center;margin:10px auto 0 auto}#cnblogs_c1{width:300px}.commentform{margin-left:10px}.skin-simplememory #mainContent{float:none;margin-left:0}.skin-simplememory #main{padding:10px}.skin-simplememory .forFlow{margin:0 10px}.skin-simplememory #sideBarMain{width:100%;float:none;padding:10px;margin-right:0}#mainContent{width:100%!important;padding-right:0!important}#mainContent .forFlow{margin-left:0!important}#sideBar{float:none;width:auto;margin-top:10px}#home{width:auto;min-width:0;margin-left:0!important;margin-right:0!important;margin-top:0}.postTitle{float:none}#navList a{width:auto}#topics .postTitle{width:auto}</style>
+<link type=application/rss+xml rel=alternate href=https://www.cnblogs.com/zh1164/rss>
+<link type=application/rsd+xml rel=EditURI href=https://www.cnblogs.com/zh1164/rsd.xml>
+<link type=application/wlwmanifest+xml rel=wlwmanifest href=https://www.cnblogs.com/zh1164/wlwmanifest.xml>
+<style>.medium-zoom-image{cursor:zoom-in;transition:transform 300ms cubic-bezier(0.2,0,0.2,1)!important}</style>
+<link id=favicon rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJwcmVmaXhfX2NsaXAtcGF0aCI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9InByZWZpeF9fY2xpcC1wYXRoLTIiPjxwYXRoIGNsYXNzPSJwcmVmaXhfX2Nscy0xIiBkPSJNMjAuOTIgMy40NmE0LjI1IDQuMjUgMCAwMS4zMSA1Ljg2IDMuOTEgMy45MSAwIDAxLTUuNjYuMjQgNC4yNSA0LjI1IDAgMDEtLjMxLTUuODYgMy45MSAzLjkxIDAgMDE1LjY2LS4yNG0xLjM1LTEuNTRhNS44OSA1Ljg5IDAgMDAtOC41My4zNiA2LjQxIDYuNDEgMCAwMC40OCA4LjgzIDUuOTEgNS45MSAwIDAwOC41My0uMzYgNi40MSA2LjQxIDAgMDAtLjQ4LTguODN6Ii8+PC9jbGlwUGF0aD48c3R5bGU+LnByZWZpeF9fY2xzLTF7ZmlsbDojM2UzYTM5fUBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7LnByZWZpeF9fY2xzLTF7ZmlsbDojZWZlZmVmfX08L3N0eWxlPjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiPjxnIGlkPSJwcmVmaXhfX2xheWVyXzEiIGRhdGEtbmFtZT0ibGF5ZXIgMSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PGcgY2xpcC1wYXRoPSJ1cmwoI3ByZWZpeF9fY2xpcC1wYXRoKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48cGF0aCBjbGFzcz0icHJlZml4X19jbHMtMSIgZD0iTTIwLjkyIDMuNDZhNC4yNSA0LjI1IDAgMDEuMzEgNS44NiAzLjkxIDMuOTEgMCAwMS01LjY2LjI0IDQuMjUgNC4yNSAwIDAxLS4zMS01Ljg2IDMuOTEgMy45MSAwIDAxNS42Ni0uMjRtMS4zNS0xLjU0YTUuODkgNS44OSAwIDAwLTguNTMuMzYgNi40MSA2LjQxIDAgMDAuNDggOC44MyA1LjkxIDUuOTEgMCAwMDguNTMtLjM2IDYuNDEgNi40MSAwIDAwLS40OC04LjgzeiIvPjxnIGNsaXAtcGF0aD0idXJsKCNwcmVmaXhfX2NsaXAtcGF0aC0yKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" type=image/svg+xml><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.cnblogs.com/zh1164/p/6031464.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="skin-simplememory no-navbar">
+<a name=top></a>
+<div id=top_nav class="navbar forpc navbar-custom sf-hidden">
+ 
+</div>
+<div id=home>
+<div id=header>
+ <div id=blogTitle>
+ <a id=lnkBlogLogo href=https://www.cnblogs.com/zh1164/><img id=blogLogo src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=返回主页></a> 
+ 
+<h1><a id=Header1_HeaderTitle class="headermaintitle HeaderMainTitle" href=https://www.cnblogs.com/zh1164/>zh1164</a>
+</h1>
+<h2>无聊源于缺乏专注</h2>
+ 
+ </div>
+ <div id=navigator>
+ 
+<ul id=navList>
+<li><a id=blog_nav_sitehome class=menu href=https://www.cnblogs.com/>
+博客园</a>
+</li>
+<li>
+<a id=blog_nav_myhome class=menu href=https://www.cnblogs.com/zh1164/>
+首页</a>
+</li>
+<li>
+<a id=blog_nav_newpost class=menu href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+</li>
+<li>
+</li>
+<li>
+<a id=blog_nav_admin class=menu href=https://i.cnblogs.com/>
+管理</a>
+</li>
+</ul>
+ <div class=blogStats>
+ <span id=stats_post_count>随笔 - 33&nbsp; </span>
+<span id=stats_article_count>文章 - 0&nbsp; </span>
+<span id=stats-comment_count>评论 - 5&nbsp; </span>
+<span id=stats-total-view-count>阅读 - 
+<span title="总阅读数: 153053">
+15万</span></span>
+ </div>
+ </div>
+</div>
+<div id=main>
+ <div id=mainContent>
+ <div class=forFlow>
+ <div id=post_detail>
+ 
+ <div id=topics>
+ <div class=post>
+ <h1 class=postTitle>
+ 
+<a id=cb_post_title_url class="postTitle2 vertical-middle" href=https://www.cnblogs.com/zh1164/p/6031464.html>
+ <span role=heading aria-level=2>python动态获取对象的属性和方法 （转载）</span>
+ 
+</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button>
+ </h1>
+ <div class=clear></div>
+ <div class=postBody>
+ <div id=cnblogs_post_body class="blogpost-body blogpost-body-html">
+<p>首先通过一个例子来看一下本文中可能用到的对象和相关概念。</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> sys
+
+</span><span style=color:rgba(0,0,255,1)>def</span> foo():<span style=color:rgba(0,0,255,1)>pass</span>
+
+<span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> Cat(object):
+    </span><span style=color:rgba(0,0,255,1)>def</span> <span style=color:rgba(128,0,128,1)>__init__</span>(self, name=<span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>Kitty</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>):
+        self.name </span>=<span style=color:rgba(0,0,0,1)> name
+
+    </span><span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> sayHi(self):
+        </span><span style=color:rgba(0,0,255,1)>print</span> self.name, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>says Hi!</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>
+
+cat </span>=<span style=color:rgba(0,0,0,1)> Cat()
+
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> Cat.sayHi
+</span><span style=color:rgba(0,0,255,1)>print</span> cat.sayHi</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>有时候我们会碰到这样的需求，需要执行对象的某个方法，或是需要对对象的某个字段赋值，而方法名或是字段名在编码代码时并不能确定，需要通过参数传递字符串的形式输入。举个具体的例子：当我们需要实现一个通用的DBM框架时，可能需要对数据对象的字段赋值，但我们无法预知用到这个框架的数据对象都有些什么字段，换言之，我们在写框架的时候需要通过某种机制访问未知的属性。<br><br>这个机制被称为反射（反过来让对象告诉我们他是什么），或是自省（让对象自己告诉我们他是什么，好吧我承认括号里是我瞎掰的- -#），用于实现在运行时获取未知对象的信息。反射是个很吓唬人的名词，听起来高深莫测，在一般的编程语言里反射相对其他概念来说稍显复杂，一般来说都是作为高级主题来讲；但在Python中反射非常简单，用起来几乎感觉不到与其他的代码有区别，使用反射获取到的函数和方法可以像平常一样加上括号直接调用，获取到类后可以直接构造实例；不过获取到的字段不能直接赋值，因为拿到的其实是另一个指向同一个地方的引用，赋值只能改变当前的这个引用而已。</p>
+<p><span><strong>1. 访问对象的属性</strong></span><br><br>以下列出了几个内建方法，可以用来检查或是访问对象的属性。这些方法可以用于任意对象而不仅仅是例子中的Cat实例对象；<strong>Python中一切都是对象。</strong></p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>from</span> a <span style=color:rgba(0,0,255,1)>import</span> *<span style=color:rgba(0,0,0,1)>
+
+cat </span>= Cat(<span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>kitty</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>)
+
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> cat.name
+cat.sayHi()    </span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>调用实例方法</span>
+
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> dir(cat)
+
+</span><span style=color:rgba(0,0,255,1)>if</span> hasattr(cat, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>name</span><span style=color:rgba(128,0,0,1)>'</span>): <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>检查实例是否有这个属性</span>
+    setattr(cat, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>name</span><span style=color:rgba(128,0,0,1)>'</span>, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>tiger</span><span style=color:rgba(128,0,0,1)>'</span>) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>same as: a.name = 'tiger'</span>
+    <span style=color:rgba(0,0,255,1)>print</span> getattr(cat, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>name</span><span style=color:rgba(128,0,0,1)>'</span>) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>same as: print a.name</span>
+<span style=color:rgba(0,0,0,1)>
+    
+getattr(cat, </span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>sayHi</span><span style=color:rgba(128,0,0,1)>'</span>)()</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp; &nbsp;&nbsp;<strong>dir([obj]):</strong><br>&nbsp;&nbsp;&nbsp; 调用这个方法将返回包含obj大多数属性名的列表（会有一些特殊的属性不包含在内）。obj的默认值是当前的模块对象。<br>&nbsp;&nbsp;&nbsp;<strong>&nbsp;hasattr(obj, attr):&nbsp;</strong><br>&nbsp;&nbsp;&nbsp; 这个方法用于检查obj是否有一个名为attr的值的属性，返回一个布尔值。<br>&nbsp;&nbsp;&nbsp;<strong>&nbsp;getattr(obj, attr):&nbsp;</strong><br>&nbsp;&nbsp;&nbsp; 调用这个方法将返回obj中名为attr值的属性的值，例如如果attr为’bar’，则返回obj.bar。<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>setattr(obj, attr, val):</strong><br>&nbsp;&nbsp;&nbsp; 调用这个方法将给obj的名为attr的值的属性赋值为val。例如如果attr为’bar’，则相当于obj.bar = val。</p>
+<p>&nbsp;</p>
+<p><span><strong>2. 访问对象的元数据</strong></span><br><br>当你对一个你构造的对象使用dir()时，可能会发现列表中的很多属性并不是你定义的。这些属性一般保存了对象的元数据，比如类的__name__属性保存了类名。大部分这些属性都可以修改，不过改动它们意义并不是很大；修改其中某些属性如function.func_code还可能导致很难发现的问题，所以改改name什么的就好了，其他的属性不要在不了解后果的情况下修改。<br><br>接下来列出特定对象的一些特殊属性。另外，Python的文档中有提到部分属性不一定会一直提供，下文中将以红色的星号*标记，使用前你可以先打开解释器确认一下。</p>
+<h3>2.0. 准备工作：确定对象的类型<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在types模块中定义了全部的Python内置类型，结合内置方法isinstance()就可以确定对象的具体类型了。</p>
+<ul>
+<li><strong>isinstance(object, classinfo):</strong>&nbsp;<br>检查object是不是classinfo中列举出的类型，返回布尔值。classinfo可以是一个具体的类型，也可以是多个类型的元组或列表。</li>
+</ul>
+<p>types模块中仅仅定义了类型，而inspect模块中封装了很多检查类型的方法，比直接使用types模块更为轻松，所以这里不给出关于types的更多介绍，如有需要可以直接查看types模块的文档说明。本文第3节中介绍了inspect模块。</p>
+<h3>2.1. 模块(module)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<ul>
+<li>__doc__: 文档字符串。如果模块没有文档，这个值是None。</li>
+<li><strong>*</strong>__name__: 始终是定义时的模块名；即使你使用import .. as 为它取了别名，或是赋值给了另一个变量名。</li>
+<li><strong>*</strong>__dict__: 包含了模块里可用的属性名-属性的字典；也就是可以使用模块名.属性名访问的对象。</li>
+<li>__file__: 包含了该模块的文件路径。需要注意的是内建的模块没有这个属性，访问它会抛出异常！</li>
+</ul>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> fnmatch as m
+
+</span><span style=color:rgba(0,0,255,1)>print</span> m.<span style=color:rgba(128,0,128,1)>__doc__</span><span style=color:rgba(0,0,0,1)>.splitlines()[0]
+</span><span style=color:rgba(0,0,255,1)>print</span> m.<span style=color:rgba(128,0,128,1)>__name__</span>
+<span style=color:rgba(0,0,255,1)>print</span> m.<span style=color:rgba(128,0,128,1)>__file__</span>
+<span style=color:rgba(0,0,255,1)>print</span> m.<span style=color:rgba(128,0,128,1)>__dict__</span>.items()[0]</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p><img src="data:application/octet-stream;base64,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" alt class=medium-zoom-image></p>
+<p>__dict__ 返回属性、方法对象名值的字典，而dir仅仅是个属性、方法名的列表。</p>
+<h3>2.2. 类(class)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<ul>
+<li>__doc__: 文档字符串。如果类没有文档，这个值是None。</li>
+<li><strong>*</strong>__name__: 始终是定义时的类名。</li>
+<li><strong>*</strong>__dict__: 包含了类里可用的属性名-属性的字典；也就是可以使用类名.属性名访问的对象。</li>
+<li>__module__: 包含该类的定义的模块名；需要注意，是字符串形式的模块名而不是模块对象。</li>
+<li><strong>*</strong>__bases__: 直接父类对象的元组；但不包含继承树更上层的其他类，比如父类的父类</li>
+</ul>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>from</span> a <span style=color:rgba(0,0,255,1)>import</span> *
+
+<span style=color:rgba(0,0,255,1)>print</span> Cat.<span style=color:rgba(128,0,128,1)>__doc__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>None Cat类没有doc</span>
+<span style=color:rgba(0,0,255,1)>print</span> Cat.<span style=color:rgba(128,0,128,1)>__name__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>Cat</span>
+<span style=color:rgba(0,0,255,1)>print</span> Cat.<span style=color:rgba(128,0,128,1)>__module__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> a 如果在自身的module中执行时__main__</span>
+<span style=color:rgba(0,0,255,1)>print</span> Cat.<span style=color:rgba(128,0,128,1)>__bases__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>(&lt;type 'object'&gt;,)</span>
+<span style=color:rgba(0,0,255,1)>print</span> Cat.<span style=color:rgba(128,0,128,1)>__dict__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 一个属性、方法对象名值的字典</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<h3>2.3. 实例(instance)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>实例是指类实例化以后的对象。</p>
+<ul>
+<li><strong>*</strong>__dict__: 包含了可用的属性名-属性对象字典。</li>
+<li><strong>*</strong>__class__: 该实例的类对象。对于类Cat，cat.__class__ == Cat 为 True。</li>
+</ul>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>from</span> a <span style=color:rgba(0,0,255,1)>import</span> *
+
+<span style=color:rgba(0,0,255,1)>print</span> cat.<span style=color:rgba(128,0,128,1)>__dict__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>{'name': 'Kitty'} 仅仅有属性，没有方法</span>
+<span style=color:rgba(0,0,255,1)>print</span> cat.<span style=color:rgba(128,0,128,1)>__class__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>&lt;class 'a.Cat'&gt;</span>
+<span style=color:rgba(0,0,255,1)>print</span> cat.<span style=color:rgba(128,0,128,1)>__class__</span> == Cat <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<h3>2.4. 内建函数和方法(built-in functions and methods)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>根据定义，内建的(built-in)模块是指使用C写的模块，可以通过sys模块的builtin_module_names字段查看都有哪些模块是内建的。这些模块中的函数和方法可以使用的属性比较少，不过一般也不需要在代码中查看它们的信息。</p>
+<ul>
+<li>__doc__: 函数或方法的文档。</li>
+<li>__name__: 函数或方法定义时的名字。</li>
+<li>__self__: 仅方法可用，如果是绑定的(bound)，则指向调用该方法的类（如果是类方法）或实例（如果是实例方法），否则为None。</li>
+<li><strong>*</strong>__module__: 函数或方法所在的模块名。</li>
+</ul>
+<h3>2.5. 函数(function)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这里特指非内建的函数。注意，在类中使用def定义的是方法，方法与函数虽然有相似的行为，但它们是不同的概念。</p>
+<ul>
+<li>__doc__: 函数的文档；另外也可以用属性名func_doc。</li>
+<li>__name__: 函数定义时的函数名；另外也可以用属性名func_name。</li>
+<li><strong>*</strong>__module__: 包含该函数定义的模块名；同样注意，是模块名而不是模块对象。</li>
+<li><strong>*</strong>__dict__: 函数的可用属性；另外也可以用属性名func_dict。 &nbsp;不要忘了函数也是对象，可以使用函数.属性名访问属性（赋值时如果属性不存在将新增一个），或使用内置函数has/get/setattr()访问。不过，在函数中保存属性的意义并不大。</li>
+</ul>
+<ul>
+<li>func_defaults: 这个属性保存了函数的参数默认值元组；因为默认值总是靠后的参数才有，所以不使用字典的形式也是可以与参数对应上的。</li>
+<li>func_code: 这个属性指向一个该函数对应的code对象，code对象中定义了其他的一些特殊属性，将在下文中另外介绍。</li>
+<li>func_globals: 这个属性指向当前的全局命名空间而不是定义函数时的全局命名空间，用处不大，并且是只读的。</li>
+<li><strong>*</strong>func_closure: 这个属性仅当函数是一个闭包时有效，指向一个保存了所引用到的外部函数的变量cell的元组，这个属性也是只读的。（通过func_closure可以查看必报）</li>
+</ul>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> foo():
+    name </span>= <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>zhangsan</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>
+    age </span>= 11
+
+    <span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> bar():
+        </span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> name, age
+
+    </span><span style=color:rgba(0,0,255,1)>return</span><span style=color:rgba(0,0,0,1)> bar
+
+closure </span>=<span style=color:rgba(0,0,0,1)> foo()
+
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> closure.func_closure 
+</span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> (&lt;cell at 0x7f2fa7d36558: int object at 0x19f7b78&gt;, &lt;cell at 0x7f2fa7d36590: str object at 0x7f2fa7d37450&gt;)</span>
+
+<span style=color:rgba(0,0,255,1)>for</span> cell <span style=color:rgba(0,0,255,1)>in</span><span style=color:rgba(0,0,0,1)> closure.func_closure:
+    </span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> cell.cell_contents
+    </span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> zhangsan</span>
+    <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 11</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>2.6. 方法(method)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p><strong>方法虽然不是函数，但可以理解为在函数外面加了一层外壳</strong>；拿到方法里实际的函数以后，就可以使用2.5节的属性了。</p>
+<ul>
+<li>__doc__: 与函数相同。</li>
+<li>__name__: 与函数相同。</li>
+<li><strong>*</strong>__module__: 与函数相同。</li>
+<li>im_func: 使用这个属性可以拿到方法里实际的函数对象的引用。另外如果是2.6以上的版本，还可以使用属性名__func__。</li>
+<li>im_self: 如果是绑定的(bound)，则指向调用该方法的类（如果是类方法）或实例（如果是实例方法），否则为None。如果是2.6以上的版本，还可以使用属性名__self__。</li>
+<li>im_class: 实际调用该方法的类，或实际调用该方法的实例的类。注意不是方法的定义所在的类，如果有继承关系的话。</li>
+</ul>
+<p>&nbsp;这里讨论的是一般的实例方法，另外还有两种特殊的方法分别是类方法(classmethod)和静态方法(staticmethod)。类方法还是方法，不过因为需要使用类名调用，所以他始终是绑定的；<strong>而静态方法可以看成是在类的命名空间里的函数（需要使用类名调用的函数），它只能使用函数的属性，不能使用方法的属性。</strong></p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+
+<span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> Dog(object):
+    </span><span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> imeth(self):
+        </span><span style=color:rgba(0,0,255,1)>print</span> <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>instance method </span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>, self
+
+    @classmethod
+    </span><span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> cmeth(cls):
+        </span><span style=color:rgba(0,0,255,1)>print</span> <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>class method </span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>, cls
+
+    @staticmethod
+    </span><span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> smeth():
+        </span><span style=color:rgba(0,0,255,1)>print</span> <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>static method </span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>
+
+dog </span>=<span style=color:rgba(0,0,0,1)> Dog()
+dog.imeth() </span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>实例调用 绑定方法</span>
+Dog.imeth(dog) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>类调用 未绑定方法</span>
+<span style=color:rgba(0,0,0,1)>
+Dog.cmeth() </span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 类调用类方法</span>
+Dog.smeth() <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 类调用静态方法</span>
+
+<span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 实例虽然也可以调用 类方法和静态方法，但是没有多大意义，类方法依旧绑定类本身</span>
+<span style=color:rgba(0,0,0,1)>dog.cmeth()
+dog.smeth()
+
+</span><span style=color:rgba(0,0,255,1)>print</span> <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>============================</span><span style=color:rgba(128,0,0,1)>'</span>
+
+
+<span style=color:rgba(0,0,255,1)>print</span> dog.imeth.<span style=color:rgba(128,0,128,1)>__self__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>&lt;__main__.Dog object at 0x7f9a69d04e10&gt;</span>
+<span style=color:rgba(0,0,255,1)>print</span> Dog.imeth.<span style=color:rgba(128,0,128,1)>__self__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>None 未绑定</span>
+<span style=color:rgba(0,0,255,1)>print</span> Dog.cmeth.<span style=color:rgba(128,0,128,1)>__self__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>&lt;class '__main__.Dog'&gt;</span>
+<span style=color:rgba(0,0,255,1)>print</span> dog.cmeth.<span style=color:rgba(128,0,128,1)>__self__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>&lt;class '__main__.Dog'&gt; 使用实例调用类方法没有多大意义，依旧绑定类本身</span><span style=color:rgba(0,128,0,1)>
+#</span><span style=color:rgba(0,128,0,1)>print Dog.smeth.__self__ # 静态方法可以理解为类中的函数（function），所以没有__self__</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<h3>2.7. 生成器(generator)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>生成器是调用一个生成器函数(generator function)返回的对象，多用于集合对象的迭代。</p>
+<ul>
+<li>__iter__: 仅仅是一个可迭代的标记。</li>
+<li>gi_code: 生成器对应的code对象。</li>
+<li>gi_frame: 生成器对应的frame对象。</li>
+<li>gi_running: 生成器函数是否在执行。生成器函数在yield以后、执行yield的下一行代码前处于frozen状态，此时这个属性的值为0。</li>
+<li>next|close|send|throw: 这是几个可调用的方法，并不包含元数据信息，如何使用可以查看生成器的相关文档。</li>
+</ul>
+<p>&nbsp;</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+
+<span style=color:rgba(0,0,255,1)>def</span><span style=color:rgba(0,0,0,1)> gen():
+    </span><span style=color:rgba(0,0,255,1)>for</span> n <span style=color:rgba(0,0,255,1)>in</span> xrange(5<span style=color:rgba(0,0,0,1)>):
+        </span><span style=color:rgba(0,0,255,1)>yield</span><span style=color:rgba(0,0,0,1)> n
+
+g </span>=<span style=color:rgba(0,0,0,1)> gen()
+
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> g
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> g.gi_code
+</span><span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> g.gi_frame
+</span><span style=color:rgba(0,0,255,1)>print</span> g.gi_running</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>接下来讨论的是几个不常用到的内置对象类型。这些类型在正常的编码过程中应该很少接触，除非你正在自己实现一个解释器或开发环境之类。所以这里只列出一部分属性，如果需要一份完整的属性表或想进一步了解，可以查看文末列出的参考文档。</p>
+<h3>2.8. 代码块(code)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>代码块可以由类源代码、函数源代码或是一个简单的语句代码编译得到。这里我们只考虑它指代一个函数时的情况；2.5节中我们曾提到可以使用函数的func_code属性获取到它。code的属性全部是只读的。</p>
+<ul>
+<li>co_argcount: 普通参数的总数，不包括*参数和**参数。</li>
+<li>co_varnames: 所有的参数名（包括*参数和**参数）和局部变量名的元组。</li>
+<li><span style=line-height:1.5>co_filename: 源代码所在的文件名。</span></li>
+<li>co_flags:&nbsp; 这是一个数值，每一个二进制位都包含了特定信息。较关注的是0b100(0×4)和0b1000(0×8)，如果co_flags &amp; 0b100 != 0，说明使用了*args参数；如果co_flags &amp; 0b1000 != 0，说明使用了**kwargs参数。另外，如果co_flags &amp; 0b100000(0×20) != 0，则说明这是一个生成器函数(generator function)</li>
+</ul>
+<p><strong>（<strong>我的理解是code代表了类、函数代码本身的一些特征</strong>）</strong></p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+
+<span style=color:rgba(0,0,255,1)>def</span> foo(name, age=11, home=<span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>CHN</span><span style=color:rgba(128,0,0,1)>'</span>, *args, **<span style=color:rgba(0,0,0,1)>kwargs):
+    inner </span>= <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>inner</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>
+    
+co </span>=<span style=color:rgba(0,0,0,1)> foo.func_code
+</span><span style=color:rgba(0,0,255,1)>print</span> co.co_argcount <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>3 普通参数 name age home</span>
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> co.co_varnames 
+</span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> ('name', 'age', 'home', 'args', 'kwargs', 'inner')</span>
+<span style=color:rgba(0,0,255,1)>print</span> co.co_flags &amp; 0b100 <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>4 表明使用了*args</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<h3>2.9. 栈帧(frame)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>栈帧表示程序运行时函数调用栈中的某一帧。函数没有属性可以获取它，因为它在函数调用时才会产生，而<strong>生成器则是由函数调用返回的，所以有属性指向栈帧（我的理解就是生成器是动态的）</strong>。想要获得某个函数相关的栈帧，则必须在调用这个函数且这个函数尚未返回时获取。你可以使用sys模块的_getframe()函数、或inspect模块的currentframe()函数获取当前栈帧。这里列出来的属性全部是只读的。</p>
+<ul>
+<li>f_back: 调用栈的前一帧。</li>
+<li>f_code: 栈帧对应的code对象。</li>
+<li>f_locals: 用在当前栈帧时与内建函数locals()相同，但你可以先获取其他帧然后使用这个属性获取那个帧的locals()。</li>
+<li>f_globals: 用在当前栈帧时与内建函数globals()相同，但你可以先获取其他帧……。</li>
+</ul>
+<h3>2.10. 追踪(traceback)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>追踪是在出现异常时用于回溯的对象，与栈帧相反。由于异常时才会构建，而异常未捕获时会一直向外层栈帧抛出，所以需要使用try才能见到这个对象。你可以使用sys模块的exc_info()函数获得它，这个函数返回一个元组，元素分别是异常类型、异常对象、追踪。traceback的属性全部是只读的。</p>
+<ul>
+<li>tb_next: 追踪的下一个追踪对象。</li>
+<li>tb_frame: 当前追踪对应的栈帧。</li>
+<li>tb_lineno: 当前追踪的行号。</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>3. 使用inspect模块<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h2>
+<p>inspect模块提供了一系列函数用于帮助使用自省。下面仅列出较常用的一些函数，想获得全部的函数资料可以查看inspect模块的文档。</p>
+<h3>3.1. 检查对象类型<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>&nbsp;</p>
+<ul>
+<li><strong>is{module|class|function|method|builtin}(obj):&nbsp;</strong>检查对象是否为模块、类、函数、方法、内建函数或方法。</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<ul>
+<li><strong>isroutine(obj): &nbsp;</strong>用于检查对象是否为函数、方法、内建函数或方法等等可调用类型。用这个方法会比多个is*()更方便，不过它的实现仍然是用了多个is*()。</li>
+</ul>
+<p>&nbsp;</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> inspect
+
+</span><span style=color:rgba(0,0,255,1)>print</span> inspect.ismodule(inspect) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span>
+<span style=color:rgba(0,0,255,1)>print</span> inspect.isfunction(inspect.isfunction) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span>
+<span style=color:rgba(0,0,255,1)>print</span> inspect.isbuiltin(sorted) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span>
+<span style=color:rgba(0,0,255,1)>print</span> inspect.isroutine(sorted) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<p>对于实现了__call__的类实例，这个方法会返回False。如果目的是只要可以直接调用就需要是True的话，不妨使用<strong>isinstance(obj, collections.Callable)</strong>这种形式。我也不知道为什么Callable会在collections模块中，抱歉！我猜大概是因为collections模块中包含了很多其他的ABC(Abstract Base Class)的缘故吧：）</p>
+<p>&nbsp;</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> collections
+
+</span><span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> Dog(object):
+    </span><span style=color:rgba(0,0,255,1)>def</span> <span style=color:rgba(128,0,128,1)>__call__</span>(self, name):<span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>实现__call__方法就可以直接调用对象了</span>
+        <span style=color:rgba(0,0,255,1)>print</span> <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>i am a dog named </span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)> , name
+
+dog </span>=<span style=color:rgba(0,0,0,1)> Dog()
+dog(</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>DaHuang</span><span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(0,0,0,1)>)
+
+</span><span style=color:rgba(0,0,255,1)>print</span> isinstance(dog, collections.Callable) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>True</span>
+
+<span style=color:rgba(0,0,255,1)>print</span> dog.<span style=color:rgba(128,0,128,1)>__class__</span>.<span style=color:rgba(128,0,128,1)>__bases__</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<h3>3.2. 获取对象信息<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<ul>
+<li><strong>getmembers(object[, predicate]):</strong>&nbsp;这个方法是dir()的扩展版，它会将dir()找到的名字对应的属性一并返回，形如[(name, value), ...]。另外，predicate是一个方法的引用，如果指定，则应当接受value作为参数并返回一个布尔值，如果为False，相应的属性将不会返回。使用is*作为第二个参数可以过滤出指定类型的属性。</li>
+<li><strong>getmodule(object):</strong>还在为第2节中的__module__属性只返回字符串而遗憾吗？这个方法一定可以满足你，它返回object的定义所在的模块对象。</li>
+<li><strong>get{file|sourcefile}(object):</strong>获取object的定义所在的模块的文件名|源代码文件名（如果没有则返回None）。用于内建的对象（内建模块、类、函数、方法）上时会抛出TypeError异常。</li>
+<li><span style=color:rgba(255,0,0,1)><strong>get{source|sourcelines}(object):</strong>获取object的定义的源代码，以字符串|字符串列表返回。</span>代码无法访问时会抛出IOError异常。只能用于module/class/function/method/code/frame/traceack对象。</li>
+</ul>
+<ul>
+<li><strong>getargspec(func):&nbsp;</strong>仅用于方法，获取方法声明的参数，返回元组，分别是(普通参数名的列表, *参数名, **参数名, 默认值元组)。如果没有值，将是空列表和3个None。如果是2.6以上版本，将返回一个命名元组(Named Tuple)，即除了索引外还可以使用属性名访问元组中的元素。</li>
+</ul>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> inspect
+</span><span style=color:rgba(0,0,255,1)>from</span> a <span style=color:rgba(0,0,255,1)>import</span> *
+
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> inspect.getmembers(Cat, inspect.ismethod)
+</span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>[('__init__', &lt;unbound method Cat.__init__&gt;), ('sayHi', &lt;unbound method Cat.sayHi&gt;)]</span>
+
+<span style=color:rgba(0,0,255,1)>print</span> cat.<span style=color:rgba(128,0,128,1)>__module__</span> <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>str</span>
+<span style=color:rgba(0,0,255,1)>print</span> inspect.getmodule(cat) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>&lt;module 'a' from '/tmp/zc/a.pyc'&gt; module 对象</span>
+
+<span style=color:rgba(0,0,255,1)>print</span> inspect.getfile(Cat) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>/tmp/zc/a.pyc</span>
+
+<span style=color:rgba(0,0,255,1)>print</span> inspect.getsource(Cat) <span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)> 返回源代码（觉得这个挺酷的！！！）</span>
+<span style=color:rgba(128,0,0,1)>"""</span><span style=color:rgba(128,0,0,1)>
+class Cat(object):
+    def __init__(self, name='Kitty'):
+        self.name = name
+
+    def sayHi(self):
+        print self.name, 'says Hi!'
+</span><span style=color:rgba(128,0,0,1)>"""</span>
+<span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> Dog(object):
+    </span><span style=color:rgba(0,0,255,1)>def</span> foo(self, name, age=11, home=<span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>CHN</span><span style=color:rgba(128,0,0,1)>'</span>, *args, **<span style=color:rgba(0,0,0,1)>kwargs):
+        </span><span style=color:rgba(0,0,255,1)>pass</span>
+
+
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> inspect.getargspec(Dog.foo)
+</span><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>ArgSpec(args=['self', 'name', 'age', 'home'], varargs='args', keywords='kwargs', defaults=(11, 'CHN'))</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<p><strong>getmro(cls):&nbsp;<br></strong>返回一个类型元组，查找类属性时按照这个元组中的顺序。如果是新式类，与cls.__mro__结果一样。但旧式类没有__mro__这个属性，直接使用这个属性会报异常，所以这个方法还是有它的价值的。</p>
+<p>&nbsp;</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,128,0,1)>#</span><span style=color:rgba(0,128,0,1)>coding:utf-8</span>
+<span style=color:rgba(0,0,255,1)>import</span><span style=color:rgba(0,0,0,1)> inspect
+
+</span><span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> A(object):
+    </span><span style=color:rgba(0,0,255,1)>pass</span>
+
+<span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> B(object):
+    </span><span style=color:rgba(0,0,255,1)>pass</span>
+
+<span style=color:rgba(0,0,255,1)>class</span><span style=color:rgba(0,0,0,1)> C(A, B):
+    </span><span style=color:rgba(0,0,255,1)>pass</span>
+
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> inspect.getmro(C) 
+</span><span style=color:rgba(0,0,255,1)>print</span> C.<span style=color:rgba(128,0,128,1)>__mro__</span>
+<span style=color:rgba(0,0,255,1)>print</span><span style=color:rgba(0,0,0,1)> C.mro()
+</span><span style=color:rgba(128,0,0,1)>"""</span><span style=color:rgba(128,0,0,1)>
+(&lt;class '__main__.C'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;type 'object'&gt;)
+(&lt;class '__main__.C'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;type 'object'&gt;)
+[&lt;class '__main__.C'&gt;, &lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;type 'object'&gt;]
+</span><span style=color:rgba(128,0,0,1)>"""</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+</div>
+<div class=clear></div>
+<div id=blog_post_info_block role=contentinfo><div id=BlogPostCategory>
+ 分类: 
+ <a href=https://www.cnblogs.com/zh1164/category/905466.html target=_blank>Python学习</a></div>
+ <div id=blog_post_info>
+<div id=green_channel>
+ <a id=green_channel_digg>好文要顶</a>
+ <a id=green_channel_follow>关注我</a>
+ <a id=green_channel_favorite>收藏该文</a>
+ <a id=green_channel_weibo title=分享至新浪微博><img src=data:image/png;base64,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 alt></a>
+ <a id=green_channel_wechat title=分享至微信><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAABA9pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4M0Q4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NEQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgPC94bXBNTTpEZXJpdmVkRnJvbT4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NkQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwveG1wTU06RG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4NUQ4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 alt></a>
+</div>
+<div id=author_profile>
+ <div id=author_profile_info class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/zh1164/ target=_blank><img src="data:image/png;base64,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" class=author_avatar alt></a>
+ <div id=author_profile_detail class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/zh1164/>zh1164</a><br>
+ <a href=https://home.cnblogs.com/u/zh1164/followers/>粉丝 - <span class=follower-count>6</span></a>
+ <a href=https://home.cnblogs.com/u/zh1164/followees/>关注 - <span class=following-count>4</span></a><br>
+ </div>
+ </div>
+ <div class=clear></div>
+ <div id=author_profile_honor></div>
+ <div id=author_profile_follow class=follow-tip>
+ <a>+加关注</a>
+ </div>
+</div>
+<div id=div_digg>
+ <div class=diggit>
+ <span class=diggnum id=digg_count>3</span>
+ </div>
+ <div class=buryit>
+ <span class=burynum id=bury_count>0</span>
+ </div>
+ <div class=clear></div>
+ <div class=diggword id=digg_tips>
+ </div>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=post_next_prev>
+ <a href=https://www.cnblogs.com/zh1164/p/6027341.html class=p_n_p_prefix>« </a> 上一篇： <a href=https://www.cnblogs.com/zh1164/p/6027341.html data-featured-image title="发布于 2016-11-03 17:04">python 继承中的super</a>
+ <br>
+ <a href=https://www.cnblogs.com/zh1164/p/6180499.html class=p_n_p_prefix>» </a> 下一篇： <a href=https://www.cnblogs.com/zh1164/p/6180499.html data-featured-image title="发布于 2016-12-14 18:50">初步理解JNDI</a>
+</div>
+</div>
+ </div>
+ <div class=postDesc>posted @ 
+<span id=post-date>2016-11-04 19:11</span>&nbsp;
+<a href=https://www.cnblogs.com/zh1164/>zh1164</a>&nbsp;
+阅读(<span id=post_view_count>111610</span>)&nbsp;
+评论(<span id=post_comment_count>1</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=6031464" rel=nofollow>编辑</a>&nbsp;
+<a>收藏</a>&nbsp;
+<a>举报</a></div>
+ </div>
+ 
+ 
+ </div>
+</div>
+<a id=!comments></a>
+<div id=blog-comments-placeholder class=sf-hidden></div>
+<div id=comment_form class=commentform>
+ <a name=commentform></a>
+ <div id=divCommentShow></div>
+ <div id=comment_nav><span id=span_refresh_tips></span><a id=lnk_RefreshComments runat=server clientidmode=Static>刷新评论</a><a href=#>刷新页面</a><a href=#top>返回顶部</a></div>
+ <div id=comment_form_container style=visibility:visible><div class=login_tips>
+ 登录后才能查看或发表评论，立即 <a rel=nofollow class=underline>登录</a> 或者
+ <a href=https://www.cnblogs.com/>逛逛</a> 博客园首页
+</div>
+</div>
+ <div class="ad_text_commentbox sf-hidden" id=ad_text_under_commentbox></div>
+ <div id=cnblogs_ch class=sf-hidden></div>
+ <div id=opt_under_post></div>
+ <div id=cnblogs_c1 class=under-post-card style=display:none>
+ 
+ </div>
+ <div id=under_post_card1><div class=under-post-card>
+<b>编辑推荐：</b>
+<br>
+· <a href=https://www.cnblogs.com/coco1s/p/17021406.html target=_blank>巧用视觉障眼法，还原 3D 文字特效</a>
+ <br>
+· <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit | 基于 StateMachine 实现 Saga 编排式分布式事务 </a>
+ <br>
+· <a href=https://www.cnblogs.com/huangxincheng/p/17015643.html target=_blank>一次 SQL 调优，聊一聊 SQLSERVER 数据页 </a>
+ <br>
+· <a href=https://www.cnblogs.com/makemylife/p/17015499.html target=_blank>终于弄明白了 RocketMQ 的存储模型</a>
+ <br>
+· <a href=https://www.cnblogs.com/JavaArchitect/p/17011865.html target=_blank>应届毕业生程序员在面试时如何做好自我介绍？</a>
+ <br>
+</div></div>
+ <div id=under_post_card2><div class="itnews under-post-card">
+ <b>阅读排行：</b>
+ <br>
+ · <a href=https://www.cnblogs.com/thinkword/p/17020039.html target=_blank>今年回顾，流水账</a>
+ <br>
+ · <a href=https://www.cnblogs.com/edisonchou/p/edison-year-end-retrospective-2022.html target=_blank>我的2022年终总结：再次抉择，以终为始</a>
+ <br>
+ · <a href=https://www.cnblogs.com/eminer/p/17019988.html target=_blank>M.2 SSD固态硬盘上安装windows(win11)问题</a>
+ <br>
+ · <a href=https://www.cnblogs.com/xueweihan/p/17021034.html target=_blank>你的 GitHub 年度报告「GitHub 热点速览 v.22.52」</a>
+ <br>
+ · <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit 知多少 | 基于StateMachine实现Saga编排式分布式事务</a>
+ <br>
+</div></div>
+ <div id=HistoryToday class=under-post-card></div>
+ 
+</div>
+ </div>
+ </div>
+ <div id=sideBar>
+ <div id=sideBarMain>
+ <div id=sidebar_news class=newsItem>
+<h3 class=catListTitle>公告</h3>
+<div id=blog-news>
+ 
+ <div id=profile_block>
+ 昵称：
+ <a href=https://home.cnblogs.com/u/zh1164/>
+ zh1164
+ </a>
+ <br>
+ 园龄：
+ <a href=https://home.cnblogs.com/u/zh1164/ title=入园时间：2014-07-25>
+ 8年5个月
+ </a>
+ <br>
+ 粉丝：
+ <a class=follower-count href=https://home.cnblogs.com/u/zh1164/followers/>
+ 6
+ </a>
+ <br>
+ 关注：
+ <a class=folowing-count href=https://home.cnblogs.com/u/zh1164/followees/>
+ 4
+ </a>
+ <div id=p_b_follow class=follow-tip>
+<a>+加关注</a></div>
+ 
+ </div>
+</div>
+</div>
+<div id=sidebar_c3 class=sf-hidden></div>
+ <div id=blog-calendar>
+<table id=blogCalendar class=Cal cellspacing=0 cellpadding=0 title=Calendar border=0>
+ <tbody>
+ <tr>
+ <td colspan=7>
+ <table class=CalTitle cellspacing=0 border=0>
+ <tbody>
+ <tr>
+ <td class=CalNextPrev>
+ <a>&lt;</a>
+ </td>
+ <td align=center>2023年1月</td>
+ <td align=right class=CalNextPrev>
+ <a>&gt;</a>
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ </td>
+ </tr>
+ <tr>
+ <th class=CalDayHeader align=center abbr=日 scope=col>日</th>
+ <th class=CalDayHeader align=center abbr=一 scope=col>一</th>
+ <th class=CalDayHeader align=center abbr=二 scope=col>二</th>
+ <th class=CalDayHeader align=center abbr=三 scope=col>三</th>
+ <th class=CalDayHeader align=center abbr=四 scope=col>四</th>
+ <th class=CalDayHeader align=center abbr=五 scope=col>五</th>
+ <th class=CalDayHeader align=center abbr=六 scope=col>六</th>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 1
+ </td>
+ <td align=center>
+ 2
+ </td>
+ <td align=center>
+ 3
+ </td>
+ <td class=CalTodayDay align=center>
+ 4
+ </td>
+ <td align=center>
+ 5
+ </td>
+ <td align=center>
+ 6
+ </td>
+ <td class=CalWeekendDay align=center>
+ 7
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 8
+ </td>
+ <td align=center>
+ 9
+ </td>
+ <td align=center>
+ 10
+ </td>
+ <td align=center>
+ 11
+ </td>
+ <td align=center>
+ 12
+ </td>
+ <td align=center>
+ 13
+ </td>
+ <td class=CalWeekendDay align=center>
+ 14
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 15
+ </td>
+ <td align=center>
+ 16
+ </td>
+ <td align=center>
+ 17
+ </td>
+ <td align=center>
+ 18
+ </td>
+ <td align=center>
+ 19
+ </td>
+ <td align=center>
+ 20
+ </td>
+ <td class=CalWeekendDay align=center>
+ 21
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 22
+ </td>
+ <td align=center>
+ 23
+ </td>
+ <td align=center>
+ 24
+ </td>
+ <td align=center>
+ 25
+ </td>
+ <td align=center>
+ 26
+ </td>
+ <td align=center>
+ 27
+ </td>
+ <td class=CalWeekendDay align=center>
+ 28
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 29
+ </td>
+ <td align=center>
+ 30
+ </td>
+ <td align=center>
+ 31
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 1
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 2
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 3
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 4
+ </td>
+ </tr>
+ <tr>
+ <td class=CalOtherMonthDay align=center>
+ 5
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 6
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 7
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 8
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 9
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 10
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 11
+ </td>
+ </tr>
+ </tbody>
+</table></div> 
+ <div id=leftcontentcontainer>
+ <div id=blog-sidecolumn>
+<div id=sidebar_search class=sidebar-block>
+ 
+</div>
+<div id=sidebar_toptags class=sidebar-block><div class=catListTag>
+ <h3 class=catListTitle><a href=https://www.cnblogs.com/zh1164/tag/ class=sidebar-card-title-a>我的标签</a></h3>
+<ul>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/tag/cpu/>cpu<span class=tag-count>(1)</span></a>
+ </li>
+ 
+</ul>
+</div>
+</div>
+<div id=sidebar_categories>
+ <div id=sidebar_postcategory class="catListPostCategory sidebar-block">
+ <h3 class=catListTitle>
+ 
+ <a class=sidebar-card-title-a href=https://www.cnblogs.com/zh1164/categories>随笔分类</a>
+ </h3>
+ <ul>
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/zh1164/category/959444.html class=category-item-link rel target>Apache HTTP Server相关(8)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/zh1164/category/930045.html class=category-item-link rel target>java 基础(4)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/zh1164/category/940741.html class=category-item-link rel target>linux相关(3)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/zh1164/category/905466.html class=category-item-link rel target>Python学习(2)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/zh1164/category/905467.html class=category-item-link rel target>计算机网络基础(2)</a>
+ 
+ </li> 
+ 
+ </ul>
+ </div> 
+</div>
+<div id=sidebar_topviewedposts class=sidebar-block><div class=catListView>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/zh1164/most-viewed class=sidebar-card-title-a>
+ 阅读排行榜
+</a>
+ </h3>
+ <div id=TopViewPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/6031464.html>
+ 1. python动态获取对象的属性和方法 （转载）(111610)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/9883852.html>
+ 2. physical CPU vs logical CPU vs Core vs Thread vs Socket（翻译）(5847)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/6283831.html>
+ 3. java 本地方法（JNI）(5619)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/6230298.html>
+ 4. eclipse中的 Compiler compliance level含义(4235)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/6529871.html>
+ 5. cookie中的domain和path(2675)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_topcommentedposts class=sidebar-block><div class=catListFeedback>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/zh1164/most-commented class=sidebar-card-title-a>评论排行榜</a>
+ </h3>
+ <div id=TopFeedbackPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/7079657.html>
+ 1. 一个关于ExecutorService shutdownNow时很奇怪的现象(3)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/9883852.html>
+ 2. physical CPU vs logical CPU vs Core vs Thread vs Socket（翻译）(1)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zh1164/p/6031464.html>
+ 3. python动态获取对象的属性和方法 （转载）(1)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_recentcomments class=sidebar-block><div class=catListComment>
+<h3 class=catListTitle><a href=https://www.cnblogs.com/zh1164/comments class=sidebar-card-title-a>最新评论</a></h3>
+ <div class=RecentCommentBlock>
+ <ul>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/zh1164/p/9883852.html>1. Re:physical CPU vs logical CPU vs Core vs Thread vs Socket（翻译）</a></li>
+ <li class=recent_comment_body>非常不错，早读，就不会有疑问了</li>
+ <li class=recent_comment_author>--乾坤瞬间</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/zh1164/p/6031464.html>2. Re:python动态获取对象的属性和方法 （转载）</a></li>
+ <li class=recent_comment_body>这个inspect模块很有意思，歇息好文，</li>
+ <li class=recent_comment_author>--三一三🎈</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/zh1164/p/7079657.html>3. Re:一个关于ExecutorService shutdownNow时很奇怪的现象</a></li>
+ <li class=recent_comment_body>@ zh1164引用@赵举飞我的环境下第二次sleep也被中断了， 第一次中断并没有清除中断状态， 你真正执行代码了吗？ public class HH { public static void ma...</li>
+ <li class=recent_comment_author>--赵举飞</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/zh1164/p/7079657.html>4. Re:一个关于ExecutorService shutdownNow时很奇怪的现象</a></li>
+ <li class=recent_comment_body>@ 赵举飞我的环境下第二次sleep也被中断了， 第一次中断并没有清除中断状态， 你真正执行代码了吗？...</li>
+ <li class=recent_comment_author>--zh1164</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/zh1164/p/7079657.html>5. Re:一个关于ExecutorService shutdownNow时很奇怪的现象</a></li>
+ <li class=recent_comment_body>只会打断一次，后面的sleep不受影响。</li>
+ <li class=recent_comment_author>--赵举飞</li>
+ </ul>
+ </div>
+</div>
+</div>
+</div>
+ 
+ </div> 
+ </div>
+ </div>
+ <div class=clear></div>
+ </div>
+ <div class=clear></div>
+ <div id=footer>
+ 
+Copyright © 2023 zh1164
+<br><span id=poweredby>Powered by .NET 7.0 on Kubernetes</span>
+ </div>
+</div>
