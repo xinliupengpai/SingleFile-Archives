@@ -1,0 +1,340 @@
+<!DOCTYPE html> <html lang=zh-cn><!--
+ Page saved with SingleFile 
+ url: http://www.bubuko.com/infodetail-1013158.html 
+ saved date: Wed Jan 04 2023 14:18:05 GMT+0800 (中国标准时间)
+--><head id=Head1><meta charset=utf-8><meta name=keywords content=布布扣,bubuko.com,互联网,软件开发,开源,电脑硬件,asp,asp.net,Windows,数据库,HTML,JS,CSS,技术文章,游戏,手机,android,ios,jsp,php><meta name=description content="如图：经过探究发现，出现这个问题的原因是我在Sublime text 3中，安装了Anaconda这款用来增强Python编辑的插件导致了标题即图片中的问题，解决方法也非常简单，如果是因为使用anaconda插件而出现这些框框，可以在可以在 Sublime > Preferences > Packa..."><title>
+ Sublime text 3编辑python时出现方框的解决办法-布布扣-bubuko.com
+</title><style>*{font-family:Microsoft YaHei;padding:0px}body,html{background-color:#ffffff;font-size:12px;color:#3f3f3f;text-decoration:none;height:100%;margin:0px auto}div{font-size:12px;color:#3f3f3f;text-decoration:none}p{color:#3f3f3f;text-decoration:none}A:link{text-decoration:none}A:visited{text-decoration:none}A:hover{text-decoration:none}A:active{text-decoration:none}a:hover{text-decoration:underline}a{color:#333333}a:hover{color:#333333;text-decoration:underline}#logo{text-decoration:none}.divfloatleft{float:left}.divfloatright{float:right}.divfloatclear{clear:both}.divtextalignleft{text-align:left}.divtextaligncenter{text-align:center}.colorhei{color:#000000}.backgroundcolorbai{background-color:#FFFFFF}.divmargin0auto{margin:0px auto}.divborderbottomsolid1{border-bottom:1px #DDDDDD solid}.divbackgroundcolor{background-color:#f0f0f0}.divborder{border:1px #e1e1e1 solid;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px}.divborderbottomdotted{border-bottom:1px #dadada dotted}.divtitle{margin:10px 10px 0 10px;padding-bottom:5px;border-bottom:1px #dadada dotted}.divtitlefont{font-size:14px;font-weight:bold}.divullititle{list-style-type:decimal;margin-left:28px;padding:1px 10px 1px 0;table-layout:fixed;word-break:break-all;word-wrap:break-word}.divullilist{text-align:left;padding:1px 10px 1px 10px;line-height:25px;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.divullilist a{margin-left:7px}.divmain{width:1000px;text-align:center;min-height:300px;height:auto!important;height:360px;margin:0px auto}.divdaohang{width:1000px;text-align:left;height:25px;margin:0px auto;padding-top:10px}.width5px{width:5px}.width120px{width:120px}.width500px{width:500px}.width880px{width:880px}.width1000px{width:1000px}.width30bi{width:30%}.width70bi{width:70%}.width100bi{width:100%}.height23px{height:23px}.height30px{height:30px}.heightline25px{line-height:25px}.heightline30px{line-height:30px}.margintop20{margin-top:20px}.margintop10bottom10{margin-top:10px;margin-bottom:10px}.marginright20{margin-right:20px}.paddingtop10{padding-top:10px}.paddingtop20{padding-top:20px}.paddingbottom20{padding-bottom:20px}.paddingtop10bottom10{padding-top:10px;padding-bottom:10px}.paddingtop20bottom20{padding-top:20px;padding-bottom:20px}.paddingleft10right10{padding-left:10px;padding-right:10px}.bottomline{border-bottom:1px #E6E6E6 solid;border-top:1px #FFFFFF solid}.colorCheng{color:#ff6600}.colorlv{color:#259235}.bottomdiv{border-top:1px #e1e1e1 solid;background-color:#fafafa}.menuDiv{width:100%;margin-top:40px}.menuDiv ul{list-style:none;margin:0px}.menuDiv ul li{float:left;padding:6px 9px 6px 9px;font-size:14px}.title0{background-color:#f8f8f8;border-top:1px #d9d9d9 solid;border-left:1px #d9d9d9 solid;border-right:1px #d9d9d9 solid;border-bottom:1px #d9d9d9 solid;border-top-left-radius:4px;-webkit-border-top-left-radius:4px;-moz-border-top-left-radius:4px;border-top-right-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-top-right-radius:4px}.title1{background-color:#f8f8f8;border-top:1px #d9d9d9 solid;border-right:1px #d9d9d9 solid;border-bottom:1px #d9d9d9 solid;border-top-left-radius:4px;-webkit-border-top-left-radius:4px;-moz-border-top-left-radius:4px;border-top-right-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-top-right-radius:4px}.title1c{font-weight:bold;border-top:1px #d9d9d9 solid;border-right:1px #d9d9d9 solid;border-top-left-radius:4px;-webkit-border-top-left-radius:4px;-moz-border-top-left-radius:4px;border-top-right-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-top-right-radius:4px}.menuDivt ul{list-style:none;margin:0px}.menuDivt ul li{float:left;padding:3px 5px 0 5px;height:24px}.taga{color:#ff6600;font-size:14px;padding:1px 10px 1px 1px;word-wrap:break-word}.detailtitle{padding:15px 0 15px 0;color:#075db3;font-size:16px;font-weight:bold;word-wrap:break-word}.detailcontennt{text-align:left;margin:20px 0 20px 0;font-size:12px;line-height:30px;word-wrap:break-word}.detailcontennt p{font-size:14px;line-height:30px}.detailcontennt img{max-width:680px;overflow:hidden}.detailcontennt *{max-width:680px!important}.youqingtitle{margin:10px 30px 10px 10px;padding:0 0 5px 0;font-size:14px;font-weight:bold}.youqingcontent{margin:10px 30px 10px 10px;line-height:25px}.bdshare-slide-button-box{height:326px;position:fixed;overflow:visible}.bdshare-slide-button-box .bdshare-slide-button{width:24px;height:88px;display:block;position:absolute;top:58px}.bdshare-slide-style-r0 .bdshare-slide-button{background:url(data:image/gif;base64,R0lGODlhGABYAOZ/AP2xUv3z5/yxUfzz5/qvUfuwUfetUP3Ql/iuUP758+2mTeylTP2+bfC8fO6xZOulTPmvUO2wZPWsT/SrT/3fue+oTf68afLIk+qkTPCoTfOqTv305/7Ql/706PbLlPasT/3BdP3Vou6nTfGpTvKqTvDHkvzy5/PJlP/68/HIk/27af60Vu+8e/vy5/bQoPrOlumjS/XZt/358/rs2/7v3PK+fPjhw/zfufrduPfbt+21b/7lxf7brv7BdfXat/TPoO68e/y7aPfMlfvo0PjcuO/Hkve3ZvnSofrNlfro0PvjxPjMlfjRoeOfSfu6aPTOoPizXPPOn++xZP3u3OyvY/XPoPXBffrnz/zPl+62cPa8cvm9c/TKlP3kxf7LjPbat/ncuPG0ZeqpV+eiS/CzZeijS/LIlPnhxPzUovjbuPOwWv7guv768+ahSvTJlP63Xu7Fkvnmz/vTovjSofu/dPLTq/vdufXUq+yrWO+3cPm5Z/bGifWxW/////6yUv///yH5BAEAAH8ALAAAAAAYAFgAAAf/gH+CIAwrfoeIiYqIggyLj5B/jpCUiSCVmIeTmZSGnJ+goaKjpKWmp6ipqqusra6vsLGyihwUBQA0aAQAoBYoShoEFAlqBKA7CQ4VBE4JNhMCnDxsNRjQAkd9VQa8lTx9Lhgjxn4EYOAI3YsWO+AYGRDdAAhEfUlb0YshCWc+OTg3KAikcEPIDxk1PqhDJIDPjwEDEiQIQDFAgjQKpCiQkC8RAAISMiwYEKMNjAcPBvjYiGAXpI9QEkTBoMGAgQ1fFMTLxKFPlmV+LPR5ojOThQ5DaEZT0eeCCHKULNDYEEGBHhUqQvRhUaFApTUoNjh4oKWP2T42YGjo+KgLEzwL/yYQeMHlAgsYItJVIkAiw4dbEEhUyKBBb6WPtw4BEFCggICFsyJLVtQDcqg3KOTsNMrhgOcDWKYE8PDi84Eglv146bChYoABJga4DrDHcCIBH8KcMHPhQooSJVL0jvCgwge2igu86AOxefM+JzIYSPzoQB8dVBxo156nT4oRXilZP0vebImulYJYYQGkgfv3QMSQCP+oZ/nybjhSEmCETIT/DdwRhwktxBABNJD0cMALQnjg4BAJzFAHHEWcsAQdyB0SAmuuJSBDCy00F8AcBmQogAQiLKDiAjmY0MQYD6wogn6KfISAAUjYgUMAM5Qxgk02tZQaIhsGcIUOCiAgSi4BEyjwgAIIhmKjARBkONmVWGap5ZZcdunll6V4YsompVxyiiRnolmKIH8QQkogADs=)no-repeat 0 0}.bdshare-slide-list-box{border:solid 1px #e9e9e9;text-align:left;overflow:hidden;background:#f6f6f6}</style><link type=image/x-icon rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAMDAAAAEAIACoJQAAFgAAACgAAAAwAAAAYAAAAAEAIAAAAAAAgCUAAAAAAAAAAAAAAAAAAAAAAAAzkSPVM5Ej1TORI9UpjBjrKYwY6ymMGOsrjRvpK40b6SuNG+lOn0DpTp9A6U6fQOlJnTrpSZ066UmdOukrjBrpK4wa6SuMGukzkSPpM5Ej6TORI+k2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdUzkSPVM5Ej1TORI9UpjBjrKYwY6ymMGOsrjRvpK40b6SuNG+lOn0DpTp9A6U6fQOlJnTrpSZ066UmdOukrjBrpK4wa6SuMGukzkSPpM5Ej6TORI+k2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdUzkSPVM5Ej1TORI9UpjBjrKYwY6ymMGOsrjRvpK40b6SuNG+lOn0DpTp9A6U6fQOlJnTrpSZ066UmdOukrjBrpK4wa6SuMGukzkSPpM5Ej6TORI+k2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdU4kynuOJMp7jiTKe6ayZL/msmS/5rJkv/A3bX/wN21/8Ddtf/3/PH/9/zx//f88f/8//D//P/w//z/8P+Xx47/l8eO/5fHjv8vjiD/L44g/y+OIP8zkCL/M5Ai/zOQIv81kiX/NZIl/zWSJf81kiT/NZIk/zWSJP8zkSL/M5Ei/zORIv8ykCH/MpAh/zKQIf80kiT/NJIk/zSSJP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe44kynuOJMp7jiTKe6ayZL/msmS/5rJkv/A3bX/wN21/8Ddtf/3/PH/9/zx//f88f/8//D//P/w//z/8P+Xx47/l8eO/5fHjv8vjiD/L44g/y+OIP8zkCL/M5Ai/zOQIv81kiX/NZIl/zWSJf81kiT/NZIk/zWSJP8zkSL/M5Ei/zORIv8ykCH/MpAh/zKQIf80kiT/NJIk/zSSJP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe44kynuOJMp7jiTKe6ayZL/msmS/5rJkv/A3bX/wN21/8Ddtf/3/PH/9/zx//f88f/8//D//P/w//z/8P+Xx47/l8eO/5fHjv8vjiD/L44g/y+OIP8zkCL/M5Ai/zOQIv81kiX/NZIl/zWSJf81kiT/NZIk/zWSJP8zkSL/M5Ei/zORIv8ykCH/MpAh/zKQIf80kiT/NJIk/zSSJP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe6Ivn3piL596Yi+fen////////////////x9f//8fX///H1///K3v//yt7//8re//+Rt///kbf//5G3//////////////////+ey5T/nsuU/57LlP8pixj/KYsY/ymLGP8pjBn/KYwZ/ymMGf8qjBn/KowZ/yqMGf86lCn/OpQp/zqUKf9Aly//QJcv/0CXL/8tjh3/LY4d/y2OHf8qjBn/KowZ/yqMGf80kST/NJEk/zSRJP81kiXpNZIl6TWSJemIvn3piL596Yi+fen////////////////x9f//8fX///H1///K3v//yt7//8re//+Rt///kbf//5G3//////////////////+ey5T/nsuU/57LlP8pixj/KYsY/ymLGP8pjBn/KYwZ/ymMGf8qjBn/KowZ/yqMGf86lCn/OpQp/zqUKf9Aly//QJcv/0CXL/8tjh3/LY4d/y2OHf8qjBn/KowZ/yqMGf80kST/NJEk/zSRJP81kiXpNZIl6TWSJemIvn3piL596Yi+fen////////////////x9f//8fX///H1///K3v//yt7//8re//+Rt///kbf//5G3//////////////////+ey5T/nsuU/57LlP8pixj/KYsY/ymLGP8pjBn/KYwZ/ymMGf8qjBn/KowZ/yqMGf86lCn/OpQp/zqUKf9Aly//QJcv/0CXL/8tjh3/LY4d/y2OHf8qjBn/KowZ/yqMGf80kST/NJEk/zSRJP81kiXpNZIl6TWSJemv1KLpr9Si6a/Uounp8P//6fD//+nw//8jdf7/I3X+/yN1/v9in/7/Yp/+/2Kf/v87f/7/O3/+/zt//v+Ruv//kbr//5G6//////r////6////+v9SokT/UqJE/1KiRP9zs2b/c7Nm/3OzZv+93a//vd2v/73dr//k8tj/5PLY/+Ty2P/x+eb/8fnm//H55v/K47n/yuO5/8rjuf9wsWT/cLFk/3CxZP8wkCH/MJAh/zCQIf80kSTpNJEk6TSRJOmv1KLpr9Si6a/Uounp8P//6fD//+nw//8jdf7/I3X+/yN1/v9in/7/Yp/+/2Kf/v87f/7/O3/+/zt//v+Ruv//kbr//5G6//////r////6////+v9SokT/UqJE/1KiRP9zs2b/c7Nm/3OzZv+93a//vd2v/73dr//k8tj/5PLY/+Ty2P/x+eb/8fnm//H55v/K47n/yuO5/8rjuf9wsWT/cLFk/3CxZP8wkCH/MJAh/zCQIf80kSTpNJEk6TSRJOmv1KLpr9Si6a/Uounp8P//6fD//+nw//8jdf7/I3X+/yN1/v9in/7/Yp/+/2Kf/v87f/7/O3/+/zt//v+Ruv//kbr//5G6//////r////6////+v9SokT/UqJE/1KiRP9zs2b/c7Nm/3OzZv+93a//vd2v/73dr//k8tj/5PLY/+Ty2P/x+eb/8fnm//H55v/K47n/yuO5/8rjuf9wsWT/cLFk/3CxZP8wkCH/MJAh/zCQIf80kSTpNJEk6TSRJOltsGDpbbBg6W2wYOn///////////////9Qkf//UJH//1CR//+HtP3/h7T9/4e0/f/6/fv/+v37//r9+/9Nj/7/TY/+/02P/v/i7f7/4u3+/+Lt/v/Z69D/2evQ/9nr0P/5/Pr/+fz6//n8+v/N3///zd///83f//+Gs///hrP//4az//9imv//Ypr//2Ka//+50///udP//7nT//////////////////+FvXr/hb16/4W9ev8nixbpJ4sW6SeLFultsGDpbbBg6W2wYOn///////////////9Qkf//UJH//1CR//+HtP3/h7T9/4e0/f/6/fv/+v37//r9+/9Nj/7/TY/+/02P/v/i7f7/4u3+/+Lt/v/Z69D/2evQ/9nr0P/5/Pr/+fz6//n8+v/N3///zd///83f//+Gs///hrP//4az//9imv//Ypr//2Ka//+50///udP//7nT//////////////////+FvXr/hb16/4W9ev8nixbpJ4sW6SeLFultsGDpbbBg6W2wYOn///////////////9Qkf//UJH//1CR//+HtP3/h7T9/4e0/f/6/fv/+v37//r9+/9Nj/7/TY/+/02P/v/i7f7/4u3+/+Lt/v/Z69D/2evQ/9nr0P/5/Pr/+fz6//n8+v/N3///zd///83f//+Gs///hrP//4az//9imv//Ypr//2Ka//+50///udP//7nT//////////////////+FvXr/hb16/4W9ev8nixbpJ4sW6SeLFukwjx/pMI8f6TCPH+nW6sr/1urK/9bqyv/R4v//0eL//9Hi//9Zlv3/WZb9/1mW/f////v////7////+/9to/3/baP9/22j/f+wzvz/sM78/7DO/P////////////////+Tu///k7v//5O7//9ZlP3/WZT9/1mU/f9knP7/ZJz+/2Sc/v8AXP//AFz//wBc//8AX/7/AF/+/wBf/v/q8v//6vL//+ry///Z687/2evO/9nrzv8ykSLpMpEi6TKRIukwjx/pMI8f6TCPH+nW6sr/1urK/9bqyv/R4v//0eL//9Hi//9Zlv3/WZb9/1mW/f////v////7////+/9to/3/baP9/22j/f+wzvz/sM78/7DO/P////////////////+Tu///k7v//5O7//9ZlP3/WZT9/1mU/f9knP7/ZJz+/2Sc/v8AXP//AFz//wBc//8AX/7/AF/+/wBf/v/q8v//6vL//+ry///Z687/2evO/9nrzv8ykSLpMpEi6TKRIukwjx/pMI8f6TCPH+nW6sr/1urK/9bqyv/R4v//0eL//9Hi//9Zlv3/WZb9/1mW/f////v////7////+/9to/3/baP9/22j/f+wzvz/sM78/7DO/P////////////////+Tu///k7v//5O7//9ZlP3/WZT9/1mU/f9knP7/ZJz+/2Sc/v8AXP//AFz//wBc//8AX/7/AF/+/wBf/v/q8v//6vL//+ry///Z687/2evO/9nrzv8ykSLpMpEi6TKRIukqjBnpKowZ6SqMGelmrVn/Zq1Z/2atWf/+//X//v/1//7/9f+Tvv//k77//5O+///U5fv/1OX7/9Tl+/93qv3/d6r9/3eq/f+gxPz/oMT8/6DE/P/9//v//f/7//3/+/8fcv//H3L//x9y//9+rv3/fq79/36u/f////v////7////+//h7vz/4e78/+Hu/P9so/3/bKP9/2yj/f9upP7/bqT+/26k/v////////////////+DvHjpg7x46YO8eOkqjBnpKowZ6SqMGelmrVn/Zq1Z/2atWf/+//X//v/1//7/9f+Tvv//k77//5O+///U5fv/1OX7/9Tl+/93qv3/d6r9/3eq/f+gxPz/oMT8/6DE/P/9//v//f/7//3/+/8fcv//H3L//x9y//9+rv3/fq79/36u/f////v////7////+//h7vz/4e78/+Hu/P9so/3/bKP9/2yj/f9upP7/bqT+/26k/v////////////////+DvHjpg7x46YO8eOkqjBnpKowZ6SqMGelmrVn/Zq1Z/2atWf/+//X//v/1//7/9f+Tvv//k77//5O+///U5fv/1OX7/9Tl+/93qv3/d6r9/3eq/f+gxPz/oMT8/6DE/P/9//v//f/7//3/+/8fcv//H3L//x9y//9+rv3/fq79/36u/f////v////7////+//h7vz/4e78/+Hu/P9so/3/bKP9/2yj/f9upP7/bqT+/26k/v////////////////+DvHjpg7x46YO8eOkzkSPpM5Ej6TORI+kujh7/Lo4e/y6OHv/L48P/y+PD/8vjw/////////////////+szvz/rM78/6zO/P9Yl/7/WJf+/1iX/v+lx/3/pcf9/6XH/f/y+Pv/8vj7//L4+/8DZ///A2f//wNn//88h/7/PIf+/zyH/v/p8vz/6fL8/+ny/P////v////7////+/////v////7////+/9Hif7/R4n+/0eJ/v++1v//vtb//77W///U6cbp1OnG6dTpxukzkSPpM5Ej6TORI+kujh7/Lo4e/y6OHv/L48P/y+PD/8vjw/////////////////+szvz/rM78/6zO/P9Yl/7/WJf+/1iX/v+lx/3/pcf9/6XH/f/y+Pv/8vj7//L4+/8DZ///A2f//wNn//88h/7/PIf+/zyH/v/p8vz/6fL8/+ny/P////v////7////+/////v////7////+/9Hif7/R4n+/0eJ/v++1v//vtb//77W///U6cbp1OnG6dTpxukzkSPpM5Ej6TORI+kujh7/Lo4e/y6OHv/L48P/y+PD/8vjw/////////////////+szvz/rM78/6zO/P9Yl/7/WJf+/1iX/v+lx/3/pcf9/6XH/f/y+Pv/8vj7//L4+/8DZ///A2f//wNn//88h/7/PIf+/zyH/v/p8vz/6fL8/+ny/P////v////7////+/////v////7////+/9Hif7/R4n+/0eJ/v++1v//vtb//77W///U6cbp1OnG6dTpxukpixnpKYsZ6SmLGemWx4z/lseM/5bHjP/x9vv/8fb7//H2+/+20f3/ttH9/7bR/f/1+fv/9fn7//X5+/9enP3/Xpz9/16c/f+KuP3/irj9/4q4/f/9/vv//f77//3++/81f///NX///zV///9BiP7/QYj+/0GI/v8uev7/Lnr+/y56/v9QkP7/UJD+/1CQ/v+awf3/msH9/5rB/f82gP7/NoD+/zaA/v+kxv//pMb//6TG///p9Njp6fTY6en02OkpixnpKYsZ6SmLGemWx4z/lseM/5bHjP/x9vv/8fb7//H2+/+20f3/ttH9/7bR/f/1+fv/9fn7//X5+/9enP3/Xpz9/16c/f+KuP3/irj9/4q4/f/9/vv//f77//3++/81f///NX///zV///9BiP7/QYj+/0GI/v8uev7/Lnr+/y56/v9QkP7/UJD+/1CQ/v+awf3/msH9/5rB/f82gP7/NoD+/zaA/v+kxv//pMb//6TG///p9Njp6fTY6en02OkpixnpKYsZ6SmLGemWx4z/lseM/5bHjP/x9vv/8fb7//H2+/+20f3/ttH9/7bR/f/1+fv/9fn7//X5+/9enP3/Xpz9/16c/f+KuP3/irj9/4q4/f/9/vv//f77//3++/81f///NX///zV///9BiP7/QYj+/0GI/v8uev7/Lnr+/y56/v9QkP7/UJD+/1CQ/v+awf3/msH9/5rB/f82gP7/NoD+/zaA/v+kxv//pMb//6TG///p9Njp6fTY6en02OkoixfpKIsX6SiLF+m42qz/uNqs/7jarP/t8v//7fL//+3y//8YaP7/GGj+/xho/v9Vlf7/VZX+/1WV/v9amP7/Wpj+/1qY/v+RvP3/kbz9/5G8/f////v////7////+/+40fz/uNH8/7jR/P9pnf//aZ3//2md//+uzP//rsz//67M//89gv//PYL//z2C//8SaP//Emj//xJo//9Tkv//U5L//1OS///6/P//+vz///r8//+q0p/pqtKf6arSn+koixfpKIsX6SiLF+m42qz/uNqs/7jarP/t8v//7fL//+3y//8YaP7/GGj+/xho/v9Vlf7/VZX+/1WV/v9amP7/Wpj+/1qY/v+RvP3/kbz9/5G8/f////v////7////+/+40fz/uNH8/7jR/P9pnf//aZ3//2md//+uzP//rsz//67M//89gv//PYL//z2C//8SaP//Emj//xJo//9Tkv//U5L//1OS///6/P//+vz///r8//+q0p/pqtKf6arSn+koixfpKIsX6SiLF+m42qz/uNqs/7jarP/t8v//7fL//+3y//8YaP7/GGj+/xho/v9Vlf7/VZX+/1WV/v9amP7/Wpj+/1qY/v+RvP3/kbz9/5G8/f////v////7////+/+40fz/uNH8/7jR/P9pnf//aZ3//2md//+uzP//rsz//67M//89gv//PYL//z2C//8SaP//Emj//xJo//9Tkv//U5L//1OS///6/P//+vz///r8//+q0p/pqtKf6arSn+krjRrpK40a6SuNGulnrVz/Z61c/2etXP/5/Pf/+fz3//n89//l8P//5fD//+Xw//9alv7/Wpb+/1qW/v8FYP//BWD//wVg//9bmP7/W5j+/1uY/v/i7fv/4u37/+Lt+/////7////+/////v////////////////////X////1////9f/////////////////5/P//+fz///n8///////////////////T6M3/0+jN/9Pozf9AmDLpQJgy6UCYMukrjRrpK40a6SuNGulnrVz/Z61c/2etXP/5/Pf/+fz3//n89//l8P//5fD//+Xw//9alv7/Wpb+/1qW/v8FYP//BWD//wVg//9bmP7/W5j+/1uY/v/i7fv/4u37/+Lt+/////7////+/////v////////////////////X////1////9f/////////////////5/P//+fz///n8///////////////////T6M3/0+jN/9Pozf9AmDLpQJgy6UCYMukrjRrpK40a6SuNGulnrVz/Z61c/2etXP/5/Pf/+fz3//n89//l8P//5fD//+Xw//9alv7/Wpb+/1qW/v8FYP//BWD//wVg//9bmP7/W5j+/1uY/v/i7fv/4u37/+Lt+/////7////+/////v////////////////////X////1////9f/////////////////5/P//+fz///n8///////////////////T6M3/0+jN/9Pozf9AmDLpQJgy6UCYMuk1kiXpNZIl6TWSJektjR3/LY0d/y2NHf9ZpUz/WaVM/1mlTP/J4r3/yeK9/8nivf////7////+/////v9lof7/ZaH+/2Wh/v8BWf//AVn//wFZ//+dwf//ncH//53B///u9+H/7vfh/+734f9ssF//bLBf/2ywX/9OoED/TqBA/06gQP9ssF7/bLBe/2ywXv+TxYX/k8WF/5PFhf9ztGb/c7Rm/3O0Zv85lCr/OZQq/zmUKv8vjh7pL44e6S+OHuk1kiXpNZIl6TWSJektjR3/LY0d/y2NHf9ZpUz/WaVM/1mlTP/J4r3/yeK9/8nivf////7////+/////v9lof7/ZaH+/2Wh/v8BWf//AVn//wFZ//+dwf//ncH//53B///u9+H/7vfh/+734f9ssF//bLBf/2ywX/9OoED/TqBA/06gQP9ssF7/bLBe/2ywXv+TxYX/k8WF/5PFhf9ztGb/c7Rm/3O0Zv85lCr/OZQq/zmUKv8vjh7pL44e6S+OHuk1kiXpNZIl6TWSJektjR3/LY0d/y2NHf9ZpUz/WaVM/1mlTP/J4r3/yeK9/8nivf////7////+/////v9lof7/ZaH+/2Wh/v8BWf//AVn//wFZ//+dwf//ncH//53B///u9+H/7vfh/+734f9ssF//bLBf/2ywX/9OoED/TqBA/06gQP9ssF7/bLBe/2ywXv+TxYX/k8WF/5PFhf9ztGb/c7Rm/3O0Zv85lCr/OZQq/zmUKv8vjh7pL44e6S+OHuk1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf8qixn/KosZ/yqLGf8xkCD/MZAg/zGQIP/o89f/6PPX/+jz1/+Zv///mb///5m///9Tkv7/U5L+/1OS/v/+/v///v7///7+//+Qw4X/kMOF/5DDhf8fhw7/H4cO/x+HDv8ujh7/Lo4e/y6OHv8qjBr/Kowa/yqMGv8nixb/J4sW/yeLFv8qjBn/KowZ/yqMGf8ykCL/MpAi/zKQIv82kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf8qixn/KosZ/yqLGf8xkCD/MZAg/zGQIP/o89f/6PPX/+jz1/+Zv///mb///5m///9Tkv7/U5L+/1OS/v/+/v///v7///7+//+Qw4X/kMOF/5DDhf8fhw7/H4cO/x+HDv8ujh7/Lo4e/y6OHv8qjBr/Kowa/yqMGv8nixb/J4sW/yeLFv8qjBn/KowZ/yqMGf8ykCL/MpAi/zKQIv82kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf8qixn/KosZ/yqLGf8xkCD/MZAg/zGQIP/o89f/6PPX/+jz1/+Zv///mb///5m///9Tkv7/U5L+/1OS/v/+/v///v7///7+//+Qw4X/kMOF/5DDhf8fhw7/H4cO/x+HDv8ujh7/Lo4e/y6OHv8qjBr/Kowa/yqMGv8nixb/J4sW/yeLFv8qjBn/KowZ/yqMGf8ykCL/MpAi/zKQIv82kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8nixf/J4sX/yeLF/+s0qH/rNKh/6zSof/2+f//9vn///b5///a5v//2ub//9rm///m8t//5vLf/+by3/81kiX/NZIl/zWSJf8ykCL/MpAi/zKQIv81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8nixf/J4sX/yeLF/+s0qH/rNKh/6zSof/2+f//9vn///b5///a5v//2ub//9rm///m8t//5vLf/+by3/81kiX/NZIl/zWSJf8ykCL/MpAi/zKQIv81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8nixf/J4sX/yeLF/+s0qH/rNKh/6zSof/2+f//9vn///b5///a5v//2ub//9rm///m8t//5vLf/+by3/81kiX/NZIl/zWSJf8ykCL/MpAi/zKQIv81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXpNZIl6TWSJek1kiXuNZIl7jWSJe41kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8wjx//MI8f/zCPH/9HnDn/R5w5/0ecOf++3LX/vty1/77ctf/T6Mf/0+jH/9Pox/9prl//aa5f/2muX/8sjRz/LI0c/yyNHP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe41kiXuNZIl7jWSJe41kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8wjx//MI8f/zCPH/9HnDn/R5w5/0ecOf++3LX/vty1/77ctf/T6Mf/0+jH/9Pox/9prl//aa5f/2muX/8sjRz/LI0c/yyNHP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe41kiXuNZIl7jWSJe41kiX/NZIl/zWSJf81kiX/NZIl/zWSJf8wjx//MI8f/zCPH/9HnDn/R5w5/0ecOf++3LX/vty1/77ctf/T6Mf/0+jH/9Pox/9prl//aa5f/2muX/8sjRz/LI0c/yyNHP81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiX/NZIl/zWSJf81kiXuNZIl7jWSJe41kiXVNZIl1TWSJdU1kiXrNZIl6zWSJes1kiXpNZIl6TWSJek2kibpNpIm6TaSJukwjx/pMI8f6TCPH+kujR3pLo0d6S6NHekxkCHpMZAh6TGQIektjRzpLY0c6S2NHOk2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdU1kiXVNZIl1TWSJdU1kiXrNZIl6zWSJes1kiXpNZIl6TWSJek2kibpNpIm6TaSJukwjx/pMI8f6TCPH+kujR3pLo0d6S6NHekxkCHpMZAh6TGQIektjRzpLY0c6S2NHOk2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdU1kiXVNZIl1TWSJdU1kiXrNZIl6zWSJes1kiXpNZIl6TWSJek2kibpNpIm6TaSJukwjx/pMI8f6TCPH+kujR3pLo0d6S6NHekxkCHpMZAh6TGQIektjRzpLY0c6S2NHOk2kibpNpIm6TaSJuk1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXpNZIl6TWSJek1kiXrNZIl6zWSJes1kiXVNZIl1TWSJdUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="><style>.sf-hidden{display:none!important}</style><link rel=canonical href=http://www.bubuko.com/infodetail-1013158.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+ <div class="width100bi height23px divbackgroundcolor divborderbottomsolid1">
+ <div class="width1000px divmargin0auto">
+ <div class="divfloatleft menuDivt">
+ <ul>
+ <li id=toptopmemuli-1><a href=http://www.bubuko.com/ class=colorhei>[首页]</a></li>
+ <li id=toptopmemuli-3 class=backgroundcolorbai><a href=http://www.bubuko.com/info.html class=colorhei>[文章]</a></li>
+ <li id=toptopmemuli-4><a href=http://www.bubuko.com/jiaocheng/ class=colorhei>[教程]</a></li>
+ </ul>
+ </div>
+ <div class=divfloatright>
+ </div>
+ </div>
+ <div class=divfloatclear>
+ </div>
+</div>
+<div class="width1000px divmargin0auto paddingtop10bottom10">
+ <div class="width120px divfloatleft paddingtop10">
+ <a href=http://www.bubuko.com/ title=布布扣，bubuko.com id=logo>
+ <img src="data:image/png;base64,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" alt=布布扣，bubuko.com width=92 height=60 border=0 data-bd-imgshare-binded=1>
+ </a>
+ </div>
+ <div class="width880px divfloatright">
+ <div class=menuDiv>
+ <ul>
+ <li class="bottomline width5px">&nbsp;</li>
+ <li id=infohtml class=title0><a href=http://www.bubuko.com/info.html title=文章首页>首页</a></li>
+ <li id=infolist-2 class=title1><a href=http://www.bubuko.com/infolist-2-1.html title=Web开发>Web开发</a></li>
+ <li id=infolist-3 class=title1><a href=http://www.bubuko.com/infolist-3-1.html title=Windows开发>Windows开发</a></li>
+ <li id=infolist-4 class=title1c><a href=http://www.bubuko.com/infolist-4-1.html title=编程语言>编程语言</a></li>
+ <li id=infolist-5 class=title1><a href=http://www.bubuko.com/infolist-5-1.html title=数据库技术>数据库技术</a></li>
+ <li id=infolist-6 class=title1><a href=http://www.bubuko.com/infolist-6-1.html title=移动平台>移动平台</a></li>
+ <li id=infolist-8 class=title1><a href=http://www.bubuko.com/infolist-8-1.html title=系统服务>系统服务</a></li>
+ <li id=infolist-9 class=title1><a href=http://www.bubuko.com/infolist-9-1.html title=微信>微信</a></li>
+ <li id=infolist-13 class=title1><a href=http://www.bubuko.com/infolist-13-1.html title=设计>设计</a></li>
+ <li id=infolist-7 class=title1><a href=http://www.bubuko.com/infolist-7-1.html title=布布扣>布布扣</a></li>
+ <li id=infolist-11 class=title1><a href=http://www.bubuko.com/infolist-11-1.html title=其他>其他</a></li>
+ <li id=infolist-12 class=title1><a href=http://www.bubuko.com/analysis.html title=数据分析>数据分析</a></li>
+ <li class="bottomline width5px">&nbsp;</li>
+ </ul>
+ </div>
+ </div>
+ <div class=divfloatclear>
+ </div>
+</div>
+ 
+ <div class=divdaohang>
+ <div class=divtitlefont>
+ <a href=http://www.bubuko.com/info.html title=文章首页>首页</a>
+ <span id=lbltitle> &gt; <a href=http://www.bubuko.com/infolist-4-1.html>编程语言</a> &gt; 详细</span>
+ </div>
+ </div>
+ <div class=divmain>
+ <div class="width70bi divfloatleft">
+ <div class=marginright20>
+ 
+ <div class="detailtitle divtextaligncenter divborderbottomdotted">
+ <h1 id=Htitle class=detailtitle>Sublime text 3编辑python时出现方框的解决办法</h1>
+ </div>
+ <div class="detail1 divtextaligncenter sf-hidden">
+ 时间：
+ &nbsp;&nbsp;&nbsp;&nbsp; 阅读：
+ &nbsp;&nbsp;&nbsp;&nbsp; 评论：
+ &nbsp;&nbsp;&nbsp;&nbsp; 收藏：
+ &nbsp;&nbsp;&nbsp;&nbsp; 
+ </div>
+ 
+ <div class=detailcontennt>
+ <span id=Label3><p>如图：</p>
+<p><img alt=技术分享 src=data:, data-bd-imgshare-binded=1></p>
+<p>&nbsp;</p>
+<p>经过探究发现，出现这个问题的原因是我在Sublime text 3中，安装了Anaconda这款用来增强Python</p>
+<p>编辑的插件导致了标题即图片中的问题，解决方法也非常简单，如果是因为使用anaconda插件而出现这些框框，</p>
+<p>可以在可以在 Sublime &gt; Preferences &gt; Package Settings &gt; Anaconda &gt; Settings User 中设置关闭：</p>
+<p>{"anaconda_linting": false}<p><a href=http://www.bubuko.com/infodetail-1013158.html title="Sublime text 3编辑python时出现方框的解决办法,bubuko.com" style=color:#ffffff>Sublime text 3编辑python时出现方框的解决办法</a><p>原文：http://www.cnblogs.com/idmask/p/4697132.html</p></span>
+ </div>
+ 
+ <div id=divcomment class=sf-hidden>
+ 
+ 
+ 
+ 
+ </div>
+ 
+ </div>
+ </div>
+ <div class="width30bi divfloatright">
+ <div class=paddingbottom20>
+ 
+</div>
+ 
+ 
+<div class="width100bi divborder">
+ <div class=divtitle>
+ <div id=infofile1_div1 class="divfloatleft divtitlefont">
+ 分享档案</div>
+ <div class=divfloatright>
+ <a href=http://www.bubuko.com/infotimemore.html title=分享档案更多 class=colorCheng>更多&gt;</a>
+ </div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+ <div class="divtextalignleft paddingleft10right10 margintop10bottom10 heightline30px">
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210923-1.html title=2021年09月23日技术分享文章>
+ 2021年09月23日
+ (328)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210924-1.html title=2021年09月24日技术分享文章>
+ 2021年09月24日
+ (313)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210917-1.html title=2021年09月17日技术分享文章>
+ 2021年09月17日
+ (191)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210915-1.html title=2021年09月15日技术分享文章>
+ 2021年09月15日
+ (369)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210916-1.html title=2021年09月16日技术分享文章>
+ 2021年09月16日
+ (411)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210913-1.html title=2021年09月13日技术分享文章>
+ 2021年09月13日
+ (439)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210911-1.html title=2021年09月11日技术分享文章>
+ 2021年09月11日
+ (398)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210912-1.html title=2021年09月12日技术分享文章>
+ 2021年09月12日
+ (393)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210910-1.html title=2021年09月10日技术分享文章>
+ 2021年09月10日
+ (160)</a><br>
+ 
+ <a class=taga href=http://www.bubuko.com/infotime-20210908-1.html title=2021年09月08日技术分享文章>
+ 2021年09月08日
+ (222)</a><br>
+ 
+ </div>
+</div>
+ 
+<div class="width100bi margintop20 divborder">
+ <div class=divtitle>
+ <div id=infonew1_divtitle class="divfloatleft divtitlefont">最新文章</div>
+ <div class=divfloatright>
+ <a href=http://www.bubuko.com/info.html id=infonew1_amore class=colorCheng title="最新文章更多>">更多&gt;</a></div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+ <div>
+ <ul>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830785.html title='
+                    6.0&nbsp;scripts元素 1) 内嵌的 JavaScript 代码 <script type="text/javascript"> document.write("I love FishC.com!") </script> 2)&nbsp;通过 src 属性引用来自外部代码文件 ...'>
+ 2021/09/28 scripts
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830783.html title="
+                    问题场景 后台不提供富文本存储，所以emoji表情入库会报错 需求要求前端在输入的时候过滤掉表情符号 全局的input 和富文本textarea输入框都需要过滤emoji表情 问题分析 1.每一个input写事件写正则校验代码量实在太多了还很麻烦；所以想用自定义全局指令，就不需要每个用到的地方都去引 ...">
+ vue自定义全局指令v-emoji限制input输入表情和特殊字符
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830781.html title="
+                    （1）今日计划 四则运算第二阶段 （2）源代码 package size; import java.util.*; import java.lang.Math; public class size { static int count=0; static int ccount=0; static i ...">
+ 9.26学习总结
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830780.html title="vim操作 1. 只在指定的特定行中搜索 /pattern\%>27l # 搜索pattern, 搜索范围是27行以后, 其中l表示按行搜索 /pattern\%>27l\%<40l # 搜索pattern, 搜索范围是27行以后40行以前, 其中l表示按行搜索 注意, 不要在%>27l两边随便加空 ...">
+ vim操作
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830779.html title="
+                    说明 主要是学习汇编 windows10 + notepad++ + DOSBox0.74 网上也有notepad++配置自动编译运行的教程，感觉不如手敲命令行原始链接来的快 中断和中断调用 就是调用Dos下的系统接口 中断一览表 MOV AH,09H INT 21H ...">
+ 深入理解计算机基础 第三章
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830778.html title="记录一下自己将string作为参数传递的结果。（自己感觉与int等基本类型无异。） 1. string 以引用形式传递 #include <iostream>#include<string> using namespace std;void change_string(string&amp; s){ cha ...">
+ C++ string 作为形参与引用传递（转）
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830777.html title="
+                    常用加解密 1. md5 加密 import hashlib def private_passwd(passwd: str) -> str: return hashlib.md5(passwd.encode(encoding='UTF-8')).hexdigest() 2. base64 加解密 i ...">
+ python 加解密
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830775.html title='
+                    let array = [ { id: 1, name: "001", children: [ { id: 2, name: "002", }, ], }, { id: 3, name: "003", children: [] }, ]; function getFlatArr(arr) { ret ...'>
+ JavaScript-对象数组里根据id获取name，对象可能有children属性
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830773.html title="
+                    SQL语句，追加内容： update 表名 set 字段=CONCAT(字段,'追加的内容') where 字段=? 参考链接：https://www.jb51.net/article/113454.htm ...">
+ SQL语句——保持现有内容在后面增加内容
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.bubuko.com/infodetail-3830769.html title="
+                    virsh [options]... [<command_string>]virsh [options]... <command> [args...] options: -c | --connect=URI hypervisor connection URI -d | --debug=NUM deb ...">
+ virsh命令文档
+ &nbsp;<span class=colorlv>2022-05-27</span></a>
+ </li>
+ 
+ </ul>
+ </div>
+</div>
+ 
+<div class="width100bi margintop20 divborder">
+ <div class=divtitle>
+ <div id=jctop1_divtitle class="divfloatleft divtitlefont">教程昨日排行</div>
+ <div class=divfloatright>
+ <a href=http://www.bubuko.com/jiaocheng/ id=jctop1_amore class=colorCheng>更多&gt;</a></div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+ <div class=divtextalignleft>
+ <ul>
+ 
+ <li class=divullilist>
+ 1.<a href=http://www.bubuko.com/jiaocheng/detail-3742.html title=list.reverse()>list.reverse()</a></li>
+ 
+ <li class=divullilist>
+ 2.<a href=http://www.bubuko.com/jiaocheng/detail-898.html title="Django Admin 管理工具">Django Admin 管理工具</a></li>
+ 
+ <li class=divullilist>
+ 3.<a href=http://www.bubuko.com/jiaocheng/detail-1027.html title="AppML 案例模型">AppML 案例模型</a></li>
+ 
+ <li class=divullilist>
+ 4.<a href=http://www.bubuko.com/jiaocheng/detail-51.html title="HTML 标签列表（功能排序）">HTML 标签列表（功能排序）</a></li>
+ 
+ <li class=divullilist>
+ 5.<a href=http://www.bubuko.com/jiaocheng/detail-57.html title="HTML 颜色名">HTML 颜色名</a></li>
+ 
+ <li class=divullilist>
+ 6.<a href=http://www.bubuko.com/jiaocheng/detail-64.html title="HTML 语言代码">HTML 语言代码</a></li>
+ 
+ <li class=divullilist>
+ 7.<a href=http://www.bubuko.com/jiaocheng/detail-208.html title="jQuery 事件">jQuery 事件</a></li>
+ 
+ <li class=divullilist>
+ 8.<a href=http://www.bubuko.com/jiaocheng/detail-303.html title="jEasyUI 创建分割按钮">jEasyUI 创建分割按钮</a></li>
+ 
+ <li class=divullilist>
+ 9.<a href=http://www.bubuko.com/jiaocheng/detail-305.html title="jEasyUI 创建复杂布局">jEasyUI 创建复杂布局</a></li>
+ 
+ <li class=divullilist>
+ 10.<a href=http://www.bubuko.com/jiaocheng/detail-336.html title="jEasyUI 创建简单窗口">jEasyUI 创建简单窗口</a></li>
+ 
+ </ul>
+ </div>
+</div>
+ 
+ </div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+ 
+ <div class="width1000px divmargin0auto paddingtop20bottom20">
+ <div class="width1000px divborder margintop20">
+ <div class=youqingtitle>
+ <a title=友情链接>友情链接</a>
+ </div>
+ <div class=youqingcontent>
+ <a href=http://www.hubwiz.com/ title=汇智网在线编程学习 target=_blank>汇智网</a>&nbsp;&nbsp;
+ <a href=http://www.5ibc.net/ title=专注PHP程序员一站式免费学习站点 target=_blank>PHP教程</a>&nbsp;&nbsp;
+ <a href=http://www.cnplugins.com/ title=插件网 target=_blank>插件网</a>&nbsp;&nbsp;
+ <a href=http://m.bubuko.com/doc42/2022-03-31.html title=守望先锋 target=_blank>守望先锋</a>&nbsp;&nbsp;
+ <a href=http://m.bubuko.com/doc2022-03-31/5e44l.html title=英雄联盟 target=_blank>英雄联盟</a>&nbsp;&nbsp;
+ 
+ <a href=http://www.modouwifi.com/xzz9urfg1/7.html title=永劫无间 target=_blank>永劫无间</a>&nbsp;&nbsp;
+ <a href=http://www.modouwifi.com/xzzaj4o6/2022-04-15.html title=冒险岛 target=_blank>冒险岛</a>&nbsp;&nbsp;
+ <a href=http://www.modouwifi.com/doci/i.html title=妖精的尾巴 target=_blank>妖精的尾巴</a>&nbsp;&nbsp;
+ <a href=http://www.modouwifi.com/doc6/614.html title=钢之炼金术师 target=_blank>钢之炼金术师</a>&nbsp;&nbsp;
+ <a href=http://m.yijinghong.com/doc0tx77/6.html title=浙江省信息公司 target=_blank>浙江省信息公司</a>&nbsp;&nbsp;
+ <a href=http://m.yijinghong.com/docuiwrn/27.html title=海南省信息公司 target=_blank>海南省信息公司</a>&nbsp;&nbsp;
+ <a href=http://m.yijinghong.com/doc91/74.html title=四川省信息公司 target=_blank>四川省信息公司</a>&nbsp;&nbsp;
+ <a href=http://m.mamicode.com/list/ title=新版码迷网 target=_blank>新版码迷网</a>&nbsp;&nbsp;
+ <a href=https://m.tiantingfm.com/list/ title=新版天听网 target=_blank>新版天听网</a> 
+ 
+ 
+ 
+ 
+ 
+ </div>
+ </div>
+</div>
+<div class=bottomdiv>
+ <div class="width1000px divmargin0auto paddingtop20">
+ <div class="divfloatleft width500px">
+ <div class=height30px>
+ <a href=http://www.bubuko.com/about.html title=bubuko.com关于我们>关于我们</a> - <a href=http://www.bubuko.com/contactus.html title=bubuko.com联系我们>联系我们</a> - <a href=http://www.bubuko.com/guest.html title=bubuko.com留言反馈>留言反馈</a> - 联系我们:wmxa8@hotmail.com
+ </div>
+ <div class=height30px>
+ © 2014 <a href=http://www.bubuko.com/ title=bubuko.com技术分享>bubuko.com</a> 版权所有
+ <a href=https://beian.miit.gov.cn/ target=_blank></a>
+ </div>
+ <div>
+ <span class=colorlv>打开技术之扣，分享程序人生！</span>
+ </div>
+ <div class="paddingtop20 paddingbottom20">
+ 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ 
+ </div>
+ </div>
+ <div class="divfloatright width500px">
+ </div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+</div>
+ 
+ 
+ 
+ <div style=z-index:9;right:0;bottom:0;height:110px;width:178px;overflow:hidden;POSITION:fixed>
+<div style=clear:both;margin:auto;height:180px;overflow:hidden;font-weight:bold;text-align:left>
+<a hidefocus=true style=text-decoration:none><div style="text-align:center;width:20px;border:1px #e1e1e1 solid;padding:6px 6px 6px 6px;font-weight:bold;font-size:20px;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px">↑</div></a>
+<a hidefocus=true style=text-decoration:none><div style="text-align:center;width:20px;border:1px #e1e1e1 solid;padding:6px 6px 6px 6px;margin-top:10px;font-weight:bold;font-size:20px;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px">↓</div></a></div> 
+<div style=clear:both;margin:auto;overflow:hidden;text-align:left></div></div>
+<div id=bdSharePopup_selectshare1672813081702box style=display:none share-type=selectshare class=bdselect_share_box data-bd-bind=1672813081701></div><div class="bdshare-slide-button-box bdshare-slide-style-r0" style=top:58px;width:0px;z-index:99999;right:0px data-bd-bind=1672813081714><a href=# class=bdshare-slide-button style=left:-24px></a><div class=bdshare-slide-list-box style=width:0px;display:none></div></div><div id=bdimgshare_1672813081715 class="sr-bdimgshare sr-bdimgshare-list sr-bdimgshare-32 sr-bdimgshare-black" style=height:48px;line-height:38px;font-size:14px;display:none data-bd-bind=1672813081715></div>
