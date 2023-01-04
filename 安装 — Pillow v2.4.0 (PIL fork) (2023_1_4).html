@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns=http://www.w3.org/1999/xhtml style><!--
+ Page saved with SingleFile 
+ url: https://pillow-cn.readthedocs.io/zh_CN/latest/installation.html 
+ saved date: Wed Jan 04 2023 14:13:41 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>安装 — Pillow v2.4.0 (PIL fork)</title>
+<style>div.clearer{clear:both}a.headerlink{visibility:hidden}h1:hover>a.headerlink,h2:hover>a.headerlink,h3:hover>a.headerlink,h4:hover>a.headerlink,h5:hover>a.headerlink,h6:hover>a.headerlink,dt:hover>a.headerlink{visibility:visible}div.body td{text-align:left}.first{margin-top:0!important}div.admonition{margin-top:10px;margin-bottom:10px;padding:7px}p.admonition-title{margin:0px 10px 5px 0px;font-weight:bold}table.docutils{border:0;border-collapse:collapse}table.docutils td{padding:1px 8px 1px 5px;border-top:0;border-left:0;border-right:0;border-bottom:1px solid #aaa}pre{overflow:auto;overflow-y:hidden}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:100%;color:#000000;margin:0;padding:0;line-height:135%}a{color:#008;text-decoration:none}a:visited{color:#208;text-decoration:none}a:hover{text-decoration:underline}p{margin:1rem 0}h1,h2,h3{margin-top:1em;margin-bottom:0.5em;color:#000000;line-height:135%}.body .section:first-child>:first-child,.sphinxsidebarwrapper>:first-child,.sphinxsidebar .search:first-child{margin-top:1rem}h1{font-size:1.5rem;font-weight:bold}h2{font-size:1.5rem;font-weight:normal}h3{font-size:1.25rem;font-weight:bold}header#pageheader,footer#pagefooter,.related,.document{width:100%;max-width:60rem;margin:auto}.documentwrapper{float:left;width:100%}.bodywrapper{margin:0 0 0 15rem}footer#pagefooter,footer#pagefooter a{color:#000000}footer#pagefooter{padding-top:2rem;padding-bottom:2rem;text-align:center}footer#pagefooter a{text-decoration:underline}body>header h1 a,body>header h1 a:visited{color:#000000}a.headerlink{font-size:0.8em;padding:0 4px 0 4px;text-decoration:none}pre,tt{background-color:#eee;color:#333}pre{font-family:Monaco,Consolas,"Lucida Console",monospace;margin:1rem -5px;padding:5px;border-left:none;border-right:none;font-size:0.8rem;line-height:1rem}tt{padding:0 1px 0 1px;font-family:Consolas,Monaco,monospace}.related{line-height:30px;width:100%;font-size:0.9rem}.related.top{border-bottom:1px solid #aaa}.related.bottom{border-top:1px solid #aaa}.related ul{padding:0;margin:0;list-style:none}.related li{display:inline}nav#rellinks{float:right}nav#rellinks li+li:before{content:"|"}.sphinxsidebarwrapper{padding:0 1rem 0 0}.sphinxsidebar{width:15rem;margin-left:-100%;font-size:0.9rem;float:left}.sphinxsidebar h3 a{color:#000000}.sphinxsidebar ul{margin:0;padding:0;margin-bottom:1rem;list-style:none}.sphinxsidebar ul ul{margin-left:20px;list-style:square}.sphinxsidebar ul ul{margin-top:0;margin-bottom:0}.sphinxsidebar input{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;height:1.5rem;font-size:0.9rem;margin:0;background-color:white;border:1px solid #ccc;color:#555}.sphinxsidebar .search{margin-top:2rem}.sphinxsidebar .search input[type=text]{width:90%;display:inline-block}.admonition p.admonition-title+p{display:inline}.admonition p{margin-bottom:5px}p.admonition-title{display:inline;margin-right:0}p.admonition-title:after{content:":"}.note{background-color:#eee;border:1px solid #ccc}.warning{background-color:#ffe4e4;border:1px solid #f66}@media (max-width:820px){.bodywrapper{margin:0}.sphinxsidebar{display:none}header#pageheader,footer#pagefooter,.related,.document{margin:0 1rem;width:calc(100% - 2rem);width:-webkit-calc(100% - 2rem)}}</style>
+<link rel=author title=关于这些文档 href=https://pillow-cn.readthedocs.io/zh_CN/latest/about.html>
+<link rel=top title="Pillow v2.4.0 (PIL fork)" href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>
+<link rel=next title="关于 Pillow" href=https://pillow-cn.readthedocs.io/zh_CN/latest/about.html>
+<link rel=prev title="Pillow 中文文档" href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>
+<meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel=canonical href=http://pillow-cn.readthedocs.org/zh_CN/latest/installation.html>
+<link type=image/x-icon rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYUUYAr6GMAOvn4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREREREAAiIiIiIiIgAAABERERERAAIiIiIiIiIAAAAREREREQACIiIiIiIiAAAAEREREREAAiIiIiIiIgAAABERERERAAIiIiIiIiIAAAAREREREQACIAAAAiIiAAAAEREREREAAiAAAAIiIgAAABERERERAAIgAAACIiIAAAAREREREQACIAAAAiIiAAAAEREREREAAiIiIiIiIgAAABERERERAAIiIiIiIiIAAAAREREREQACIiIiIiIiAAAAERAAAREAAiAAAAIiIgAAABEQAAERAAIgAAACIiIAAAAREAABEQACIAAAAiIiAAAAERAAAREAAiAAAAIiIgAAABERERERAAIiIiIiIiIAAAAREREREQACIiIiIiIiAAAAEREREREAAiIiIiIiIgAAABEQAAERAAIgAAACIiIAAAAREAABEQACIAAAAiIiAAAAERAAAREAAiAAAAIiIgAAABEQAAERAAIgAAACIiIAAAAREREREQACIiIiIiIiAAAAEREREREAAiIiIiIiIgAAABERERERAAIiIiIiIiIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+ <body>
+ <header id=pageheader><h1><a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>
+ Pillow v2.4.0 (PIL fork)
+ </a></h1></header>
+ <div class="related top">
+ <nav id=rellinks>
+ <ul>
+ <li>
+ ←
+ <a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html title="Previous document">Pillow 中文文档</a>
+ </li>
+ <li>
+ <a href=https://pillow-cn.readthedocs.io/zh_CN/latest/about.html title="Next document">关于 Pillow</a>
+ →
+ </li>
+ </ul>
+ </nav>
+ <nav id=breadcrumbs>
+ <ul>
+ <li><a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>Home</a></li> 
+ </ul>
+ </nav>
+ </div> 
+ <div class=document>
+ <div class=documentwrapper>
+ <div class=bodywrapper>
+ <div class=body>
+ 
+ <div class=section id=id1>
+<h1>安装<a class=headerlink href=#id1 title=永久链接至标题>¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class=last>Pillow &gt;= 2.1.0 不支持 “import _imaging”。请使用 “from PIL.Image import core as _imaging” 代替。</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class=last>Pillow &gt;= 1.0 不支持 “import Image”. 请使用 “from PIL import Image” 代替。</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class=last>PIL 和 Pillow 现在不能共存。
+如果你想使用 Pillow, 请首先移除 PIL 。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>Pillow &gt;= 2.0.0 支持 Python 版本 2.6, 2.7, 3.2, 3.3, 3.4</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>Pillow &lt; 2.0.0 支持 Python 版本 2.4, 2.5, 2.6, 2.7.</p>
+</div>
+<div class=section id=id2>
+<h2>简单安装<a class=headerlink href=#id2 title=永久链接至标题>¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>下面的指南将会安装支持大多数格式的 Pillow。
+查看 <a class="reference internal" href=#external-libraries><em>外部库</em></a> 了解安装外部库的信息。这个页面包含了特定平台的安装。</p>
+</div>
+<p>你可以使用 <strong class=command>pip</strong> 命令安装Pillow：</p>
+<blockquote>
+<div>$ pip install Pillow</div></blockquote>
+<p>或者 <strong class=command>easy_install</strong> (for installing <a class="reference external" href=http://peak.telecommunity.com/DevCenter/PythonEggs>Python Eggs</a>, as <strong class=command>pip</strong> does
+not support them):</p>
+<div class=highlight-python><pre>$ easy_install Pillow</pre>
+</div>
+<p>或者从 PyPI 下载 <a class="reference external" href=https://pypi.python.org/pypi/Pillow>compressed archive from PyPI</a> ，解压，进入目录运行:</p>
+<div class=highlight-python><pre>$ python setup.py install</pre>
+</div>
+</div>
+<div class=section id=external-libraries>
+<span id=id3></span><h2>外部库<a class=headerlink href=#external-libraries title=永久链接至标题>¶</a></h2>
+<p>Pillow 的许多功能需要外部库的支持:</p>
+<ul class=simple>
+<li><strong>libjpeg</strong> 提供 JPEG 相关功能<ul>
+<li>Pillow 已经在这些版本测试过：versions <strong>6b</strong>, <strong>8</strong>, and <strong>9</strong></li>
+</ul>
+</li>
+<li><strong>zlib</strong> 提供压缩 PNG 功能</li>
+<li><strong>libtiff</strong> 提供 group4 tiff 功能<ul>
+<li>Pillow 已经在这些版本测试过：versions <strong>3.x</strong> and <strong>4.0</strong></li>
+</ul>
+</li>
+<li><strong>libfreetype</strong> 提供类型相关服务</li>
+<li><strong>littlecms</strong> provides color management<ul>
+<li>Pillow 2.2.1 以及更低版本使用 liblcms1, Pillow 2.3.0 以及更高版本使用 liblcms2. 在这些版本测试通过： <strong>1.19</strong> and <strong>2.2</strong></li>
+</ul>
+</li>
+<li><strong>libwebp</strong> 提供 webp 相关功能<ul>
+<li>Pillow已经在这些版本测试过： version <strong>0.1.3</strong> 不能读取透明webp图像， Versions <strong>0.3.0</strong> and <strong>0.4.0</strong> 支持透明。</li>
+</ul>
+</li>
+<li><strong>tcl/tk</strong> 提供 tkinter bitmap and photo images 的支持</li>
+<li><strong>openjpeg</strong> 提供 JPEG 2000 功能<ul>
+<li>Pillow 在这些版本测试通过： <strong>2.0.0</strong></li>
+</ul>
+</li>
+</ul>
+<p>如果机器上已经使用标准方法在标准目录安装了这些库 (e.g. <tt class="file docutils literal"><span class=pre>/usr</span></tt> or <tt class="file docutils literal"><span class=pre>/usr/local</span></tt>), 那么不需要进行多余的配置了。如果它们安装在非标准目录，你可能需要配置 setuptools 以使用这些目录。 (i.e. by editing
+<tt class="file docutils literal"><span class=pre>setup.py</span></tt> and/or <tt class="file docutils literal"><span class=pre>setup.cfg</span></tt>). 当你安装好依赖包之后, 运行:</p>
+<div class=highlight-python><pre>$ pip install Pillow</pre>
+</div>
+</div>
+<div class=section id=linux>
+<h2>Linux 下安装<a class=headerlink href=#linux title=永久链接至标题>¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>Fedora, Debian/Ubuntu, and ArchLinux 已经包含了 Pillow。</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>你 <strong>不需要</strong> 安装所有的外部库如果你只想让 Pillow 基本能运行。</p>
+</div>
+<p><strong>我们不为 Linux 提供二进制文件</strong> 如果你不是从源码构建的 Python , 那么先确定你安装了 Python 开发环境，在 Debian
+或 Ubuntu:</p>
+<div class=highlight-python><pre>$ sudo apt-get install python-dev python-setuptools</pre>
+</div>
+<p>或者使用 Python 3:</p>
+<div class=highlight-python><pre>$ sudo apt-get install python3-dev python3-setuptools</pre>
+</div>
+<p>在 <strong>Fedora</strong> , 命令是:</p>
+<div class=highlight-python><pre>$ sudo yum install python-devel</pre>
+</div>
+<p>在 <strong>Ubuntu 10.04 LTS</strong> 安装依赖包:</p>
+<div class=highlight-python><pre>$ sudo apt-get install libtiff4-dev libjpeg62-dev zlib1g-dev \
+    libfreetype6-dev tcl8.5-dev tk8.5-dev python-tk</pre>
+</div>
+<p>在 <strong>Ubuntu 12.04 LTS</strong> 或者 <strong>Raspian Wheezy
+7.0</strong> 安装依赖包:</p>
+<div class=highlight-python><pre>$ sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk</pre>
+</div>
+<p>在 <strong>Fedora 20</strong> 安装依赖包:</p>
+<div class=highlight-python><pre>$ sudo yum install libtiff-devel libjpeg-devel libzip-devel freetype-devel \
+    lcms2-devel libwebp-devel tcl-devel tk-devel</pre>
+</div>
+</div>
+<div class=section id=mac-os-x>
+<h2>Mac OS X 下安装<a class=headerlink href=#mac-os-x title=永久链接至标题>¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>你 <strong>不需要</strong> 安装所有的外部库如果你只想让 Pillow 基本能运行。</p>
+</div>
+<p><strong>我们不为 OS X 提供二进制文件</strong>，所以你需要先安装 Xcode 才能安装 Pillow 。 (XCode 4.2 on 10.6 可以和官方 Python 二进制版本使用。或者使用任意版本 XCode 自己编译 Python。)</p>
+<p>安装依赖包最简单的方法是使用 <a class="reference external" href=http://mxcl.github.com/homebrew/>Homebrew</a>。安装 Homebrew 之后，运行:</p>
+<div class=highlight-python><pre>$ brew install libtiff libjpeg webp little-cms2</pre>
+</div>
+<p>如果你已经构建了Python，可以运行:</p>
+<div class=highlight-python><pre>$ pip install Pillow</pre>
+</div>
+</div>
+<div class=section id=windows>
+<h2>Windows 下安装<a class=headerlink href=#windows title=永久链接至标题>¶</a></h2>
+<p>我们在 PyPI 提供 Windows 二进制文件，使用 <a class="reference external" href=http://wheel.readthedocs.org/en/latest/index.html>Python Wheels</a>:</p>
+<div class=section id=id4>
+<h3>Python Eggs<a class=headerlink href=#id4 title=永久链接至标题>¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last><strong class=command>pip</strong> 不支持 Python Eggs; 请使用 <strong class=command>easy_install</strong>
+代替。</p>
+</div>
+<div class=highlight-python><pre>$ easy_install Pillow</pre>
+</div>
+</div>
+<div class=section id=id5>
+<h3>Python Wheels<a class=headerlink href=#id5 title=永久链接至标题>¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>实验性. 需要 setuptools &gt;=0.8 以及 pip &gt;=1.4.1</p>
+</div>
+<div class=highlight-python><pre>$ pip install --use-wheel Pillow</pre>
+</div>
+<p>如果上面都不行，尝试安装指定版本：</p>
+<div class=highlight-python><pre>$ pip install --use-wheel Pillow==2.3.0</pre>
+</div>
+</div>
+</div>
+<div class=section id=id6>
+<h2>平台支持<a class=headerlink href=#id6 title=永久链接至标题>¶</a></h2>
+<p>下面是平台支持情况，一般来说，我们致力于支持大多数平台。</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class=last>如果你在某平台测试过，编辑这个文件然后在 Github 提交 request 。</p>
+</div>
+<table border=1 class=docutils>
+<colgroup>
+<col width=26%>
+<col width=10%>
+<col width=23%>
+<col width=23%>
+<col width=18%>
+</colgroup>
+<tbody valign=top>
+<tr class=row-odd><td><strong>Operating system</strong></td>
+<td><strong>Supported</strong></td>
+<td><strong>Tested Python versions</strong></td>
+<td><strong>Tested Pillow versions</strong></td>
+<td><strong>Tested processors</strong></td>
+</tr>
+<tr class=row-even><td>Mac OS X 10.8 Mountain Lion</td>
+<td>Yes</td>
+<td>2.6,2.7,3.2,3.3</td>
+<td>&nbsp;</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-odd><td>Mac OS X 10.7 Lion</td>
+<td>Yes</td>
+<td>2.6,2.7,3.2,3.3</td>
+<td>2.2.0</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-even><td>Redhat Linux 6</td>
+<td>Yes</td>
+<td>2.6</td>
+<td>&nbsp;</td>
+<td>x86</td>
+</tr>
+<tr class=row-odd><td>CentOS 6.3</td>
+<td>Yes</td>
+<td>2.7,3.3</td>
+<td>&nbsp;</td>
+<td>x86</td>
+</tr>
+<tr class=row-even><td>Fedora 20</td>
+<td>Yes</td>
+<td>2.7,3.3</td>
+<td>2.3.0</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-odd><td>Ubuntu Linux 10.04 LTS</td>
+<td>Yes</td>
+<td>2.6</td>
+<td>2.3.0</td>
+<td>x86,x86-64</td>
+</tr>
+<tr class=row-even><td>Ubuntu Linux 12.04 LTS</td>
+<td>Yes</td>
+<td><p class=first>2.6,2.7,3.2,3.3,PyPy2.1</p>
+<p class=last>2.7,3.2</p>
+</td>
+<td><p class=first>2.3.0</p>
+<p class=last>2.3.0</p>
+</td>
+<td><p class=first>x86,x86-64</p>
+<p class=last>ppc</p>
+</td>
+</tr>
+<tr class=row-odd><td>Ubuntu Linux 13.10</td>
+<td>Yes</td>
+<td>2.7,3.2,3.3</td>
+<td>2.3.0</td>
+<td>x86</td>
+</tr>
+<tr class=row-even><td>Raspian Wheezy</td>
+<td>Yes</td>
+<td>2.7,3.2</td>
+<td>2.3.0</td>
+<td>arm</td>
+</tr>
+<tr class=row-odd><td>Gentoo Linux</td>
+<td>Yes</td>
+<td>2.7,3.2</td>
+<td>2.1.0</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-even><td>Windows 7 Pro</td>
+<td>Yes</td>
+<td>2.7,3.2,3.3</td>
+<td>2.2.1</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-odd><td>Windows Server 2008 R2 Enterprise</td>
+<td>Yes</td>
+<td>3.3</td>
+<td>&nbsp;</td>
+<td>x86-64</td>
+</tr>
+<tr class=row-even><td>Windows 8 Pro</td>
+<td>Yes</td>
+<td>2.6,2.7,3.2,3.3,3.4a3</td>
+<td>2.2.0</td>
+<td>x86,x86-64</td>
+</tr>
+<tr class=row-odd><td>Windows 8.1 Pro</td>
+<td>Yes</td>
+<td>2.6,2.7,3.2,3.3,3.4</td>
+<td>2.3.0, 2.4.0</td>
+<td>x86,x86-64</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+ </div>
+ </div>
+ </div>
+ <div class=sphinxsidebar>
+ <div class=sphinxsidebarwrapper>
+ <h3><a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>內容目录</a></h3>
+ <ul>
+<li><a class="reference internal" href=#>安装</a><ul>
+<li><a class="reference internal" href=#id2>简单安装</a></li>
+<li><a class="reference internal" href=#external-libraries>外部库</a></li>
+<li><a class="reference internal" href=#linux>Linux 下安装</a></li>
+<li><a class="reference internal" href=#mac-os-x>Mac OS X 下安装</a></li>
+<li><a class="reference internal" href=#windows>Windows 下安装</a><ul>
+<li><a class="reference internal" href=#id4>Python Eggs</a></li>
+<li><a class="reference internal" href=#id5>Python Wheels</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href=#id6>平台支持</a></li>
+</ul>
+</li>
+</ul>
+ <h3>本页</h3>
+ <ul class=this-page-menu>
+ <li><a href=https://pillow-cn.readthedocs.io/zh_CN/latest/_sources/installation.txt rel=nofollow>显示源代码</a></li>
+ </ul><h3>帮助信息</h3>
+<p>
+ 你可以从IRC频道获取实时帮助：
+ <a href=irc://irc.freenode.net#pil>irc://irc.freenode.net#pil</a>。你也可以使用邮件列表：
+ <a href=http://mail.python.org/mailman/listinfo/image-sig>
+ Image-SIG mailing list</a>。当然还可以去
+ <a href=http://stackoverflow.com/questions/tagged/pillow>
+ Stack Overflow</a>。
+</p>
+<p>
+ 如果你发现了Bug，可以去
+ <a href=https://github.com/python-imaging/Pillow/issues/new>Github</a>提交issues。
+</p>
+<form class=search action=search.html>
+ <input type=text name=q placeholder="type to search" value>
+ 
+ 
+</form>
+ </div>
+ </div>
+ <div class=clearer></div>
+ </div>
+ <div class="related bottom">
+ <nav id=rellinks>
+ <ul>
+ <li>
+ ←
+ <a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html title="Previous document">Pillow 中文文档</a>
+ </li>
+ <li>
+ <a href=https://pillow-cn.readthedocs.io/zh_CN/latest/about.html title="Next document">关于 Pillow</a>
+ →
+ </li>
+ </ul>
+ </nav>
+ <nav id=breadcrumbs>
+ <ul>
+ <li><a href=https://pillow-cn.readthedocs.io/zh_CN/latest/index.html>Home</a></li> 
+ </ul>
+ </nav>
+ </div>
+ <footer id=pagefooter>© 1997-2011 by Secret Labs AB, 1995-2011 by Fredrik Lundh, 2010-2013 Alex Clark.
+ Created using <a href=http://sphinx-doc.org/>Sphinx</a>
+ 1.1.3
+ with the <a href=http://github.com/irskep/sphinx-better-theme>
+ better</a> theme.
+ </footer>
+ 
+ 
