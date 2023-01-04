@@ -1,0 +1,600 @@
+<!DOCTYPE html> <html lang=zh-cn style=--olcb-folder-code-block-max-height:80vh><!--
+ Page saved with SingleFile 
+ url: https://www.cnblogs.com/codemyzen/p/3678787.html 
+ saved date: Wed Jan 04 2023 14:23:01 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=referrer content=origin-when-cross-origin>
+<meta name=description content=经典的Django项目源码目录结构Django在一个项目的目录结构划分方面缺乏必要的规范。在Django的官方文档中并没有给出大型项目的代码建议目录结构，网上的文章也是根据项目的不同结构也有适当的变化>
+<meta property=og:description content=经典的Django项目源码目录结构Django在一个项目的目录结构划分方面缺乏必要的规范。在Django的官方文档中并没有给出大型项目的代码建议目录结构，网上的文章也是根据项目的不同结构也有适当的变化>
+<meta http-equiv=Cache-Control content=no-transform>
+<meta http-equiv=Cache-Control content=no-siteapp>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<title>【Django】基于Django架构网站代码的目录结构 - openX - 博客园</title>
+<style>:root{--sf-img-5: url("data:image/gif;base64,R0lGODlhFAAUANQHADJKYpKluc3P05qy4jJdta/M92KQ3vv8/nKi4rK/0rLC6mJ6mtHe7sHN4ZW19iJLmUp2wqKy0nKa8iJCgsLV9uLq8qKywnKa2oKy4lKC0qLC8qKqwnKS0oKn7cDI1AAAACH5BAEAAB8ALAAAAAAUABQAAAWE4CeOZGmeaKquLKkoSRwJrXLch7XQa4IfAc+ud6AUGIHCS+NwME6WX6Xw6xAaps2BiUFofpICwVMK3CoVxuDQZBgIhEf50EVc1rgKJSInmRkMDQ0dBx0IBhkZfGUAjY0cOAwUChZ9KQYHiIkZG5YoEAcRohYbAZ4nEHAPq6sTLa+wsSUhADs=")}input[type=button]{-webkit-appearance:button}img{max-width:100%;height:auto}#blog_post_info_block{margin-top:20px}#EntryTag{margin-top:0!important}pre{transition-duration:.2s;transition-property:background-color,border-color,border-radius,padding-top,padding-bottom,margin-top,margin-bottom,color,opacity}.cnblogs_code{background-color:#f5f5f5;font-family:Courier New!important;font-size:12px!important;border:1px solid #ccc;padding:5px;overflow:auto;margin:5px 0;color:#000}.cnblogs_code div{background-color:#f5f5f5}pre{overflow:auto}.cnblogs_code pre{font-family:Courier New,serif;font-size:12px;word-wrap:break-word}.cnblogs_code span{font-family:Courier New,serif;font-size:inherit;line-height:1.5}.cnblogs_code_toolbar a:hover,.cnblogs_code_toolbar a:link,.cnblogs_code_toolbar a:visited,.cnblogs_code_toolbar a:active,.cnblogs_code_toolbar a:link img,.cnblogs_code_toolbar a:visited img{background-color:#f5f5f5!important;border:none!important}.div_my_zzk{margin-top:5px;margin-bottom:5px}.input_my_zzk{vertical-align:middle;height:20px}input.btn_my_zzk{vertical-align:middle;height:22px;font-size:12px;padding-left:5px;padding-right:5px}pre{margin-top:0;margin-bottom:0}#author_profile{float:left;width:280px;margin-top:0;margin-bottom:10px;color:#000;margin-left:0;font-size:12px}#author_profile a:hover{text-decoration:underline}.author_avatar{vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;border:0}.author_profile_info{float:left;line-height:18px}#div_digg{float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px}.diggit{float:left;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP/00P/22vfqt/b29v/11f/45P/56P/34PjtwfXlqf/55v/11//00v/44vnwyfn5+f/22Pbnrf/21vny0Pn00//33vDw8P/12KioqP/10ufm61B1uv/33f/33P////H4+iH5BAAAAAAALAAAAAAuADQAAAX/oJeMZGmeaJqKQOu+cCzPcxLJmZvlcM4DPlosE4kwMsfdLrlEIo8MZvRJjTKbxaZyy+16v94iYUwum8/odDlDjgjU8Lh8LBAs7mQ8YTHmS/aAfHyBeHeCg3l1dxAQFwsXkBeMjJILEJaNko2bk4+Pl4x3knUBpaanqKmqq6sCCAEdsR2ws6mytbSwprGns766HQgIHByxxR3FxMi3y8nIycTO0MqywtTH0Mu30s/PytLRt9bYxt3Hstzf4eDUsePlzc7bzebr8e3Bw+Tx2uj06t/unct3rVzAeeC8pQtXTR+8bAP/1Qs4beA7bRCZLVT4j6E7hxjNaezIkZ1FkOQO//pLGG0hvosp5a3k17LjSwQVcurcybOnz58/ETg4QLSo0aNIkypV6sBBg6dPC0CdWkBqg6pTs1q1qpWrgwlVw4odS7as2bMTJihYy7at27dw48adQMGA3bt48+rdy5cv3b6AAwu2S8EDhcOIEytezLhxYw+QI0ueTLmy5cuYM2veDPmD58+gQ4seTbq0htIPBqguzbq159OjH2jQgEHDANe4RcMWPUCDBwsYHuQe/pr0bA8PMNwmnnt36N6/lYve8Jk69enVdYdO3ds38OWgr4sPv6G8+fOfndPGwB5DdPAf0J8vjz2+ds8eMFigPEB/aOvjVTfffOl91t96+0X2HYB58REYHmu7JWfZgp7RZ9+FDw4I2m79teebgrVVeGGAD5ZYoGcSVjbBBvCJ52CDDb4Y4Xq1SQYcBSWSaN91Ioa222+0WSDkkBiwmGOPJmJ4ooHsbVDkkw4I6CJ62cV4H2gPFHDABVsWAB9zEIIppnFjlrnhbGimqeaabLbp5mwhAAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.diggnum{font-size:14px;color:#075db3;font-family:Verdana}.buryit{float:right;margin-left:20px;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP////39/fn5+fj4+Pb29vX19fPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6ujo6Ofn5+bm5uXl5ePj4+Li4uHh4dzc3NfX19HR0c/Pz6qqqqioqKenp4WFhYODgyH5BAQUAP8ALAAAAAAuADQAAAX/IKCNZGmeaJqKUeu+cCzP80jfeN5mGeT/wKBwSCTyisik0sd7OJ/QqHRKpWYw1ax268RgHGDuFkwuO6Res3rNbre9jbh8Tq/b73fMpcHo+xl2f3iDdRcXC4iJiol/jY2LkIh/hpGQjpcMlYuTh5qMmI+ekn6UogugoaKcpqeofqyrpq6vsqSdqrOZtX2luLOwtsC/uwy9nrm6vsW3x7nCy6zR0ogXFgrX2Nna29zd3RYWCeLj5OXm5+jo4Ajs7e7v8PHy8hQUB/f4+fr7/P399QYCChxIsKDBgwcBIlzIsKGBCQAmSJxIsaLFixgxAtjIsaPHjyBDihxJsqTJjQVS8KpcybKly5cwIcCcSbOmSpk2c+pMiZOlAHYOFDhAQGBnzp4rN2z4wIEp0wpGayIFkOABB3MdPBh4+aHrB5pfb64UYJUDBwgdFXCYsNJr2LZu265EKoBDSAoftqp8O5MvX6QFzJpFyzHBWbhuu+5NmVgxz7EcAoA0XHQxS78FMItdedZsgo4HOFRmnNmy3NKoH6sEwAHBxwEcFlxOzZc06b8sIwg2S5WD3tNfa5cOG3xuSwEECPjoPdq2c8uaVb9ES3l25uKmoxcAPBdt3ebB/Tpu6dV4TAChBUSVClOADw4Smq93yX1scvnzWy7Zzz9ICAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.burynum{font-size:14px;color:#075db3;font-family:Verdana}.diggword{margin-top:5px;margin-left:0;font-size:12px;color:#808080}#profile_block{margin-top:5px;line-height:1.5;text-align:left}#post_next_prev{line-height:1.8;font-size:12px}#post_next_prev a.p_n_p_prefix:link{text-decoration:none}#post_next_prev a.p_n_p_prefix:hover{text-decoration:underline}.under-post-card{margin-top:10px;line-height:1.5}#green_channel{padding:10px 0;margin-bottom:10px;margin-top:10px;border:#c0c0c0 1px dashed;font-size:12px;width:350px;text-align:center}#green_channel a{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D)repeat-x;display:inline-block;padding:3px 8px;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer;margin-right:10px;-moz-border-radius:5px;-webkit-border-radius:10px;-moz-box-shadow:0 1px 3px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 3px rgba(0,0,0,.5);text-shadow:0-1px 1px rgba(0,0,0,.25);vertical-align:middle}#green_channel a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/v//vwMTAwPDfzjBgMpFI/7hFSOT9Y8qRuF3JLoHAQIMAHYtMmRA+CugAAAAAElFTkSuQmCC)}#green_channel #green_channel_digg{background-color:#2daebf}#green_channel #green_channel_follow{background-color:#e33100}#green_channel #green_channel_favorite{background-color:#ffb515}#green_channel #green_channel_weibo img{vertical-align:middle;border:none;margin-left:5px;box-shadow:none}#green_channel #green_channel_weibo,#green_channel #green_channel_wechat{background:none;padding:3px 2px;-moz-border-radius:none;-webkit-border-radius:none;-moz-box-shadow:none;-webkit-box-shadow:none;text-shadow:none}#green_channel #green_channel_wechat img{width:24px;height:24px;border:medium none;box-shadow:none;margin-left:5px;vertical-align:middle}#cnblogs_post_body{margin-bottom:20px}#cnblogs_post_body img{max-width:100%!important;height:auto}#opt_under_post{line-height:1.8}#HistoryToday{max-width:600px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.cnblogs_code_toolbar{margin-top:5px}.cnblogs_code_toolbar span{padding-right:5px}#cnblogs_post_body{word-break:break-word}#cnblogs_post_body p{margin:10px auto}#cnblogs_post_body p{text-indent:0}#cnblogs_post_body h3{font-size:16px;font-weight:bold;line-height:1.5;margin:10px 0}#div_digg .diggnum{line-height:1.5em!important}#div_digg .burynum{line-height:1.5em!important}#green_channel a:link,#green_channel a:visited,#green_channel a:active{color:#fff!important;border:none!important}.vertical-middle>*{vertical-align:middle}#blog-news{overflow:hidden}.blogpost-body-html span img{border:none}.category-item-link{word-break:break-word}#cnblogs_c1{width:300px;height:250px}.sidebar-card-title-a,a.sidebar-card-title-a:link,a.sidebar-card-title-a:visited{font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;color:inherit!important}@keyframes fadeIn{0%{opacity:0}100%{opacity:var(--cnb-code-toolbar-initial-opacity)}}pre:fullscreen,pre:fullscreen code{box-sizing:border-box;border-radius:0;height:100vh;width:100vw}.login_tips{background-image:url(data:image/gif;base64,R0lGODlhEAAQAOZbAOny/v3+/lqIuT1wIOLu/lOMKKnB2omqzbTJ34+8Z9vq/c7c6tfo/ZSwhJOx0WyVwJGugWCJSbLSlff5/Pv8/efu9Y26ZDdrGUFzJXCYwuDt/vP3+uvx94usztrk793s/m6XwYe5YN/s/qO92Iu6YnCWXpeyiOnv9tXm/bHTkKa9mZ241dDj/dzm8Ex7Mejx/lePLd3r/vn7/NHk/eXw/tDk/dPm/dTm/dzq/d7s/tbn/WaOT3ugx2+XwuTv/o+7arbUnNnp/dDmurHFq9zr/X2iyF+Mu+bw/pm21Obx/oe6YFyKuvD2/oWny7HWktrp/Yy8ZYKjk+Pv/uHu/r7Q4z9xItHk/LTUlYGrYViHuP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFsALAAAAAAQABAAAAemgFuCg4SFhoeGGw5LWY2OWU0VhB0GFFqXmFoIGRSCEwIBTABJPlM5CjhaPC2CHA9aL0dSGh8KDChaBwutrzQEGjFPDDczubtbnwEAIkRBOjY1VlpFHoOUAZgELACaGTKDigKNK5dDJTsRKog9FVFYV0I/MBCGI0hGESlOWlAJA4UnQFDZ4gIIJgkXEG2pQkKJlhD+FJooYEGChQL0FDbAcAFDgy2BAAA7);background-repeat:no-repeat;margin-top:10px;padding:0 0 10px 25px;font-weight:400}.login_tips a{text-decoration:underline!important}#comment_nav{text-align:right}#comment_nav a{padding-left:10px}:root{--highlighted-line-bg:#d1e3c9;--highlighted-line-bg-dark:#264b33}@keyframes collapse{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-scroll-height,80vh)}to{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh)}}@keyframes expand{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh);overflow-y:hidden}to{max-height:"";max-height:"";max-height:var(--olcb-folder-code-block-scroll-height,"");overflow-y:hidden}}@keyframes modal-open{0%{height:0;opacity:0}95%{height:505px}100%{height:auto;opacity:1}}:root{--cnblogs-toc-bg-color:rgba(245,245,245,.98);--cnblogs-toc-highlight-color:rgba(255,255,255,.9);--cnblogs-toc-color:#000}@keyframes wb-fade-in{0%{opacity:0}to{opacity:.85}}/*!
+ * ui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */@-webkit-keyframes ui-dialog-loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes ui-dialog-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}#EntryTag{margin-top:20px;font-size:9pt}*{margin:0;padding:0}html{height:100%}body{color:#000;background:#d2d8de;font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue","Helvetica","Arial",sans-serif;font-size:14px;min-height:101%}img{border:0}ul{word-break:break-all}li{list-style:none}h3{font-weight:normal}a:link{color:#000;text-decoration:none}a:visited{color:#000;text-decoration:none}a:hover{color:#f60;text-decoration:underline}a:active{color:#000;text-decoration:none}.clear{clear:both}#home{margin:0 auto}#blogTitle{clear:both}#blogTitle h1{font-size:150%;font-weight:bold;line-height:1.5;margin-left:1em;margin-top:10px;width:50%;float:left}#blogTitle h2{line-height:1.5;width:50%;float:left}#blogLogo{float:right}#navList{min-height:30px;float:left}#navList li{float:left}#navList a{display:block;padding:0 1.5em;height:60px;font-family:"微软雅黑";float:left;font-size:1.2em;text-align:center;transition-duration:.3s}#navList a:link,#navList a:visited,#navList a:active{color:#bbb}#navList a:hover{color:#fff;background-color:#343434;text-decoration:none;text-shadow:0 0 1px #000}.blogStats{float:right;color:#ccc;padding-right:10px;text-align:right}#main{min-width:950px;text-align:left;padding:20px 0 0 10px;overflow:hidden}#mainContent .forFlow{margin-left:21em;float:none;width:auto}#mainContent{min-height:200px;padding:0 0 10px 0;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all;float:right;margin-left:-21em;margin-right:20px;display:inline;width:100%}.postTitle{clear:both}.postTitle a:link,.postTitle a:visited,.postTitle a:active{color:#390;transition:all .4s linear 0s}.postTitle a:hover{color:#f60;text-decoration:none;margin-left:10px}.postDesc{clear:both;line-height:2.5em}.postDesc a:link,.postDesc a:visited,.postDesc a:active{color:#666}.postDesc a:hover{color:#f60;text-decoration:none}#sideBar{width:250px;min-height:200px;padding:0 0 0 5px;float:left;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all}.newsItem,#blog-calendar{margin-bottom:15px;text-indent:0;padding:10px;background:#fafcfd;border-radius:7px;box-shadow:1px 1px 2px #a7a8ad;line-height:1.5}.catListTitle{border-bottom:1px solid #060;border-top-left-radius:7px;border-top-right-radius:7px;color:#fff;font-size:1.2em;height:1.8em;line-height:1.8em;padding:5px;text-indent:.5em;text-shadow:1px 1px 0 rgba(0,0,0,.3)}#sideBarMain ul{line-height:1.5}.catListPostCategory,.catListPostArchive,.catListView,.catListFeedback,.mySearch,.catListBlogRank{margin-bottom:15px;background:#fafcfd;border-radius:7px;box-shadow:1px 1px 2px #a7a8ad;overflow:hidden;zoom:1}.catListPostCategory ul li,.catListPostArchive ul li,.catListView ul li,.catListFeedback ul li,.catListBlogRank ul li{text-indent:1em;padding:10px 5px;border-bottom:1px solid #dadfe1;border-top:1px solid #fff;overflow:hidden}.catListPostCategory ul li a,.catListPostArchive ul li a,.catListView ul li a,.catListFeedback ul li a{text-indent:1em;font-size:12px}.catListEssay ul li a:hover,.catListLink ul li a:hover,.catListNoteBook ul li a:hover,.catListTag ul li a:hover,.catListPostCategory ul li a:hover,.catListPostArchive ul li a:hover,.catListImageCategory ul li a:hover,.catListView ul li a:hover,.catListFeedback ul li a:hover,.catListArticleArchive ul li a:hover,.catListComment ul li a:hover{text-decoration:none}#topics{min-height:200px;margin-bottom:15px;padding:15px;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all;border-radius:7px;box-shadow:1px 1px 2px #a7a8ad}#topics .postTitle{font-size:130%;font-weight:bold;border-bottom:1px solid #999;float:left;line-height:2em;width:100%;padding-left:5px}.postBody{padding:15px 2px 5px 5px;color:#000;border-bottom:1px solid #ccc}#EntryTag{color:#666}#EntryTag a{margin-left:5px}#EntryTag a:link,#EntryTag a:visited,#EntryTag a:active{color:#666}#EntryTag a:hover{color:#f60}#topics .postDesc{float:right;width:100%;text-align:right;padding-right:5px;color:#666;margin-top:5px}#footer{text-align:center;min-height:15px;border-top:1px solid #000;margin-top:10px;padding-top:10px;margin-bottom:10px}.postBody{line-height:1.5}.postBody a:link,.postBody a:visited,.postBody a:active{text-decoration:underline}.div_my_zzk{margin-left:13px}.input_my_zzk{width:120px}#cnblogs_post_body img{max-width:820px}#blogTitle{background:#59A0FF;height:45px}#blogTitle h2{font-size:15px;color:#fff;font-weight:bold;margin-left:1em}#navigator{background-color:#656565;height:35px;line-height:35px;overflow:hidden;clear:both}.catListTitle{background:#00FF7F}#topics{background:#F5F5F5}a#gotop{text-decoration:none;position:fixed;bottom:18px;right:6px;display:block;color:#fff;height:28px;width:28px;border-radius:5px;line-height:30px;text-align:center;background-color:#656565}#topics{margin-right:20px}</style>
+<style media="only screen and (max-width: 767px)">body{font-size:14px!important;-webkit-text-size-adjust:none}#blog_nav_rss{display:none!important}#blog_nav_newpost{display:none!important}#green_channel{width:100%}#sidebar_search_box input[type=text]{width:260px}#cnblogs_c1{text-align:center;margin:10px auto 0 auto}#cnblogs_c1{width:300px}.commentform{margin-left:10px}#main{min-width:auto!important;padding-left:0!important;width:auto!important;padding-right:5px}#navigator{width:auto!important}#sideBar{width:auto!important}#mainContent{margin-left:0!important;float:none!important}#mainContent .forFlow{margin-left:5px!important}#comment_form{padding-left:10px!important}#blogTitle h1{width:auto!important}#home{width:auto;min-width:unset}</style>
+<link type=application/rss+xml rel=alternate href=https://www.cnblogs.com/codemyzen/rss>
+<link type=application/rsd+xml rel=EditURI href=https://www.cnblogs.com/codemyzen/rsd.xml>
+<link type=application/wlwmanifest+xml rel=wlwmanifest href=https://www.cnblogs.com/codemyzen/wlwmanifest.xml>
+<style>#MathJax_Message{position:fixed;left:1em;bottom:1.5em;background-color:#E6E6E6;border:1px solid #959595;margin:0px;padding:2px 8px;z-index:102;color:black;font-size:80%;width:auto;white-space:nowrap}</style><link id=favicon rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJwcmVmaXhfX2NsaXAtcGF0aCI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9InByZWZpeF9fY2xpcC1wYXRoLTIiPjxwYXRoIGNsYXNzPSJwcmVmaXhfX2Nscy0xIiBkPSJNMjAuOTIgMy40NmE0LjI1IDQuMjUgMCAwMS4zMSA1Ljg2IDMuOTEgMy45MSAwIDAxLTUuNjYuMjQgNC4yNSA0LjI1IDAgMDEtLjMxLTUuODYgMy45MSAzLjkxIDAgMDE1LjY2LS4yNG0xLjM1LTEuNTRhNS44OSA1Ljg5IDAgMDAtOC41My4zNiA2LjQxIDYuNDEgMCAwMC40OCA4LjgzIDUuOTEgNS45MSAwIDAwOC41My0uMzYgNi40MSA2LjQxIDAgMDAtLjQ4LTguODN6Ii8+PC9jbGlwUGF0aD48c3R5bGU+LnByZWZpeF9fY2xzLTF7ZmlsbDojM2UzYTM5fUBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7LnByZWZpeF9fY2xzLTF7ZmlsbDojZWZlZmVmfX08L3N0eWxlPjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiPjxnIGlkPSJwcmVmaXhfX2xheWVyXzEiIGRhdGEtbmFtZT0ibGF5ZXIgMSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PGcgY2xpcC1wYXRoPSJ1cmwoI3ByZWZpeF9fY2xpcC1wYXRoKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48cGF0aCBjbGFzcz0icHJlZml4X19jbHMtMSIgZD0iTTIwLjkyIDMuNDZhNC4yNSA0LjI1IDAgMDEuMzEgNS44NiAzLjkxIDMuOTEgMCAwMS01LjY2LjI0IDQuMjUgNC4yNSAwIDAxLS4zMS01Ljg2IDMuOTEgMy45MSAwIDAxNS42Ni0uMjRtMS4zNS0xLjU0YTUuODkgNS44OSAwIDAwLTguNTMuMzYgNi40MSA2LjQxIDAgMDAuNDggOC44MyA1LjkxIDUuOTEgMCAwMDguNTMtLjM2IDYuNDEgNi40MSAwIDAwLS40OC04LjgzeiIvPjxnIGNsaXAtcGF0aD0idXJsKCNwcmVmaXhfX2NsaXAtcGF0aC0yKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" type=image/svg+xml><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.cnblogs.com/codemyzen/p/3678787.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="skin-darkgreentrip no-navbar mathjax2"><div id=MathJax_Message style=display:none></div>
+<a name=top></a>
+<div id=top_nav class="navbar forpc navbar-custom sf-hidden">
+ 
+</div>
+<div id=page_begin_html>
+<a href=# id=gotop>↑</a>
+</div>
+<div id=home>
+<div id=header>
+ <div id=blogTitle>
+ <a id=lnkBlogLogo href=https://www.cnblogs.com/codemyzen/><img id=blogLogo src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=返回主页></a> 
+ 
+<h1><a id=Header1_HeaderTitle class="headermaintitle HeaderMainTitle" href=https://www.cnblogs.com/codemyzen/></a>
+</h1>
+<h2>世界那么大，我们没弄懂的事情还多着呢。</h2>
+ 
+ </div>
+ <div id=navigator>
+ 
+<ul id=navList>
+<li><a id=blog_nav_sitehome class=menu href=https://www.cnblogs.com/>
+博客园</a>
+</li>
+<li>
+<a id=blog_nav_myhome class=menu href=https://www.cnblogs.com/codemyzen/>
+首页</a>
+</li>
+<li>
+<a id=blog_nav_newpost class=menu href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id=blog_nav_contact class=menu href=https://msg.cnblogs.com/send/openX>
+联系</a></li>
+<li>
+<a id=blog_nav_rss class=menu data-rss=https://www.cnblogs.com/codemyzen/rss/>
+订阅</a>
+</li>
+<li>
+<a id=blog_nav_admin class=menu href=https://i.cnblogs.com/>
+管理</a>
+</li>
+</ul>
+ <div class=blogStats>
+ <span id=stats_post_count>随笔 - 15&nbsp; </span>
+<span id=stats_article_count>文章 - 0&nbsp; </span>
+<span id=stats-comment_count>评论 - 2&nbsp; </span>
+<span id=stats-total-view-count>阅读 - 
+<span title="总阅读数: 31498">
+31498</span></span>
+ </div>
+ </div>
+</div>
+<div id=main>
+ <div id=mainContent>
+ <div class=forFlow>
+ <div id=post_detail>
+ 
+ <div id=topics>
+ <div class=post>
+ <h1 class=postTitle>
+ 
+<a id=cb_post_title_url class="postTitle2 vertical-middle" href=https://www.cnblogs.com/codemyzen/p/3678787.html>
+ <span role=heading aria-level=2>【Django】基于Django架构网站代码的目录结构</span>
+ 
+</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航></button>
+ </h1>
+ <div class=clear></div>
+ <div class=postBody>
+ <div id=cnblogs_post_body class="blogpost-body blogpost-body-html">
+<p>&nbsp;</p>
+<p><strong><span>&nbsp;经典的Django项目源码目录结构</span></strong></p>
+<p>&nbsp;Django在一个项目的目录结构划分方面缺乏必要的规范。在Django的官方文档中并没有给出大型项目的代码建议目录结构，网上的文章也是根据项目的不同结构也有适当的变化。</p>
+<p><span><strong>样式一 ：强调模块化设计</strong>&nbsp;</span>&nbsp;参见参考文章二</p>
+<p>··管理项目的依赖文件requirements文件夹，列出项目中需要的依赖的文件，比如项目使用的所有python包。</p>
+<p>··分离应用文件和库文件（apps ,libs）新建apps和libs用来保存application和library</p>
+<p>··创建完善的setting模块</p>
+<p>优势：模块化设计适合规模较大的项目</p>
+<p>&nbsp;缺点：这种布局结构没有说明static文件的放置路径。</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span>$ tree .
+.
+├── djangolicious
+<span style=background-color:rgba(153,204,0,1)>│   ├── apps</span>
+│   │   ├── blog
+│   │   │   ├── </span><span>__init__</span><span>.py
+│   │   │   ├── models.py
+│   │   │   ├── tests.py
+│   │   │   └── views.py
+│   │   ├── </span><span>__init__</span><span>.py
+│   │   ├── news
+│   │   │   ├── </span><span>__init__</span><span>.py
+│   │   │   ├── models.py
+│   │   │   ├── tests.py
+│   │   │   └── views.py
+│   │   └── reader
+│   │       ├── </span><span>__init__</span><span>.py
+│   │       ├── models.py
+│   │       ├── tests.py
+│   │       └── views.py
+│   ├── </span><span>__init__</span><span>.py
+<span style=background-color:rgba(153,204,0,1)>│   ├── libs</span>
+│   │   ├── display
+│   │   │   ├── </span><span>__init__</span><span>.py
+│   │   │   ├── models.py
+│   │   │   ├── tests.py
+│   │   │   └── views.py
+│   │   ├── </span><span>__init__</span><span>.py
+│   │   └── management
+│   │       ├── </span><span>__init__</span><span>.py
+│   │       ├── models.py
+│   │       ├── tests.py
+│   │       └── views.py
+<span style=background-color:rgba(153,204,0,1)>│   ├── settings</span>
+│   │   ├── common.py
+│   │   ├── dev.py
+│   │   ├── </span><span>__init__</span><span>.py
+│   │   ├── prod.py
+│   │   └── test.py
+│   ├── urls.py
+│   └── wsgi.py
+├── manage.py
+<span style=background-color:rgba(153,204,0,1)>├── requirements</span>
+│   ├── common.txt
+│   ├── dev.txt
+│   ├── prod.txt
+│   └── test.txt
+└── requirements.txt
+
+</span>10 directories, 36 files</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<h3>样式二，大型开源Django框架项目的&nbsp;<span>参见参考文章5</span><button class="cnblogs-toc-button sf-hidden" title=显示目录导航></button></h3>
+<p>&nbsp;此模板是开源项目常用的结构，适合大型Django项目开发。</p>
+<p>Project的目录结构，PROJ_NAME指的是项目名</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre>PROJ_NAME/
+     <span>__init__</span><span>.py      这几个文件是django创建project所必须的，不做过多说明
+     manage.py
+     settings.py
+     urls.py  
+     apps</span>/<span>               即使是“小”工程，也建议分成多个app，每个app足够简单，只解决某一个方面的问题 （注1）
+         myapp1</span>/<span>
+         myapp2</span>/<span>
+     extra_apps</span>/<span>     引用的其他app。
+     libs</span>/                加载第三方模块，可以避免版本冲突，按照标准的site-<span>packages管理（注2）
+           python</span>*.*/<span>　　指定python版本号
+               site</span>-packages/<span>   
+               requirements.pip    </span><span>#</span><span>pip的依赖说明文件</span>
+     tests/<span>          project级别的测试，对于每个app，还要有自己的测试代码
+     static</span>/<span>          静态内容
+            css</span>/<span>
+            js</span>/<span>
+            images</span>/<span>
+     uploads</span>/<span>       上传文件所在目录
+     templates</span>/<span><span style=background-color:rgba(153,204,0,1)>    模板目录，覆盖app的模板</span>
+            flatpages</span>/<span>
+            comments</span>/<span>
+            example</span>/<span>
+            app1</span>/<span>
+            app2</span>/<span>
+     templatetags</span>/    tag目录</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>注1：指定app加载，在settings.py中设置：</p>
+<div class=cnblogs_code>
+<pre>sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))<br>sys.path.insert(0, os.path.join(PROJECT_ROOT, 'extras'))<br>sys.path.insert(0, os.path.join(PROJECT_ROOT, 'libs')) &nbsp;</pre>
+</div>
+<p>注2：自定义libs的加载，在settings.py中设置：</p>
+<div class=cnblogs_code>
+<pre>sys.path.insert(0, '/{{MY_LIB)}/site-packages/*****.egg')<br>sys.path.insert(0, '/{{MY_LIB}} /site-packages/')  </pre>
+</div>
+<h3>其中 app目录结构<button class="cnblogs-toc-button sf-hidden" title=显示目录导航></button></h3>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre>$APP_NAME/<span>
+     tests</span>/<span>                    app级别的测试代码
+     models</span>/<span>                 注1
+          </span><span>__init__</span><span>.py
+          Amodels.py
+          Bmodels.py
+     templates</span>/<span>              注2
+     templatetags</span>/        tag目录</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<p>注1：如果很好的控制app的规模，Model类数量少，可以使用惯用的models.py文件中, 否则将models做成一个package<br>接下来可以有两种做法：</p>
+<p>1. 在__init__.py中import所有的Model类<br>2. 指定Model的元类（Meta）的app_label, 参考<a href=http://www.cnblogs.com/holbrook/archive/2012/02/13/2357339.html target=_blank rel=noopener>这里</a></p>
+<p>注2：如果extend 工程下的base.html， 使用 !base.html</p>
+<p>&nbsp;</p>
+<p><strong><span style=font-size:18px>&nbsp;我的总结</span></strong></p>
+<p>&nbsp;···样式一中强调的“Think Modular”思想十分适合大型的项目，大部分大型的项目也是遵循模块化目录结构的原则的。</p>
+<p>如下图所示：&nbsp;</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre>-<span style=color:rgba(0,0,0,1)>project
+ </span>---<span style=color:rgba(0,0,0,1)>app1
+   </span>--<span style=color:rgba(0,0,0,1)>templates
+     </span>--<span style=color:rgba(0,0,0,1)>statics
+   <span style=background-color:rgba(153,204,0,1)>views
+   models
+   tests</span>
+   urls
+ </span>---<span style=color:rgba(0,0,0,1)>app2
+ </span>---<span style=color:rgba(0,0,0,1)>appn
+ statics
+   </span>--<span style=color:rgba(0,0,0,1)>css
+   </span>--<span style=color:rgba(0,0,0,1)>js
+ settings </span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-5)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>···我在开源项目上看到的小型Project的目录结构差异较大，没有清晰的体系结构，规律不是很明显。</p>
+<p>&nbsp;</p>
+<p>参考文章</p>
+<p>1&nbsp;<a href=http://stackoverflow.com/questions/2670031/large-django-application-layout target=_blank rel=noopener>Large Django application layout</a></p>
+<p>2<span style=background-color:rgba(153,204,0,1)>&nbsp;重要</span><a href=http://www.deploydjango.com/django_project_structure/ target=_blank rel=noopener>Django project structure</a>&nbsp; 基于Django 1.4 project</p>
+<p>3&nbsp;<a href=http://stackoverflow.com/questions/44135/project-design-fs-layout-for-large-django-projects target=_blank rel=noopener>Project design / FS layout for large django projects [closed]</a></p>
+<p>4<a href=https://code.djangoproject.com/wiki/DjangoResources#Open-SourceDjangoprojects target=_blank rel=noopener>&nbsp;Django官网提供的大型开源项目</a></p>
+<p>5&nbsp;<span style=background-color:rgba(153,204,0,1)>重要</span>&nbsp;<a href=http://www.cnblogs.com/holbrook/archive/2012/02/25/2368231.html target=_blank rel=noopener>Django最佳实践:项目布局</a>&nbsp; &nbsp;| &nbsp;&nbsp;<a href=http://www.cnblogs.com/holbrook/archive/2012/02/24/2366386.html target=_blank rel=noopener>python开源项目目录结构</a></p>
+<p>6&nbsp;<a href=http://timmyomahony.com/blog/updated-django-project-structure-or-folder-layout/ target=_blank rel=noopener>AN UPDATED GENERAL DJANGO PROJECT (&gt;= 1.5) STRUCTURE OR FOLDER LAYOUT</a></p>
+<p>7&nbsp;<a href=https://groups.google.com/forum/#!topic/python-cn/KRkeiWaexzs target=_blank rel=noopener>Google小组上关于目录结构的讨论</a></p>
+<p>&nbsp;</p>
+</div>
+<div class=clear></div>
+<div id=blog_post_info_block role=contentinfo>
+<div id=EntryTag>
+ 标签: 
+ <a href=https://www.cnblogs.com/codemyzen/tag/Django/>Django</a>, <a href=https://www.cnblogs.com/codemyzen/tag/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/>目录结构</a></div>
+ <div id=blog_post_info>
+<div id=green_channel>
+ <a id=green_channel_digg>好文要顶</a>
+ <a id=green_channel_follow>关注我</a>
+ <a id=green_channel_favorite>收藏该文</a>
+ <a id=green_channel_weibo title=分享至新浪微博><img src=data:image/png;base64,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 alt></a>
+ <a id=green_channel_wechat title=分享至微信><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAABA9pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4M0Q4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NEQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgPC94bXBNTTpEZXJpdmVkRnJvbT4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NkQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwveG1wTU06RG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4NUQ4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 alt></a>
+</div>
+<div id=author_profile>
+ <div id=author_profile_info class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/codemyzen/ target=_blank><img src=data:image/png;base64,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 class=author_avatar alt></a>
+ <div id=author_profile_detail class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/codemyzen/>openX</a><br>
+ <a href=https://home.cnblogs.com/u/codemyzen/followers/>粉丝 - <span class=follower-count>3</span></a>
+ <a href=https://home.cnblogs.com/u/codemyzen/followees/>关注 - <span class=following-count>18</span></a><br>
+ </div>
+ </div>
+ <div class=clear></div>
+ <div id=author_profile_honor></div>
+ <div id=author_profile_follow class=follow-tip>
+ <a>+加关注</a>
+ </div>
+</div>
+<div id=div_digg>
+ <div class=diggit>
+ <span class=diggnum id=digg_count>1</span>
+ </div>
+ <div class=buryit>
+ <span class=burynum id=bury_count>0</span>
+ </div>
+ <div class=clear></div>
+ <div class=diggword id=digg_tips>
+ </div>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=post_next_prev>
+ <a href=https://www.cnblogs.com/codemyzen/p/3624118.html class=p_n_p_prefix>« </a> 上一篇： <a href=https://www.cnblogs.com/codemyzen/p/3624118.html data-featured-image title="发布于 2014-03-25 20:55">【PyInstaller安装及使用】将py程序转换成exe可执行程序</a>
+ <br>
+ <a href=https://www.cnblogs.com/codemyzen/p/3683204.html class=p_n_p_prefix>» </a> 下一篇： <a href=https://www.cnblogs.com/codemyzen/p/3683204.html data-featured-image title="发布于 2014-04-23 16:31">【Ubuntu12.04】安装搜狗输入法</a>
+</div>
+</div>
+ </div>
+ <div class=postDesc>posted @ 
+<span id=post-date>2014-04-21 17:08</span>&nbsp;
+<a href=https://www.cnblogs.com/codemyzen/>openX</a>&nbsp;
+阅读(<span id=post_view_count>6114</span>)&nbsp;
+评论(<span id=post_comment_count>0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=3678787" rel=nofollow>编辑</a>&nbsp;
+<a>收藏</a>&nbsp;
+<a>举报</a></div>
+ </div>
+ 
+ 
+ </div>
+</div>
+<a id=!comments></a>
+<div id=blog-comments-placeholder class=sf-hidden></div>
+<div id=comment_form class=commentform>
+ <a name=commentform></a>
+ <div id=divCommentShow></div>
+ <div id=comment_nav><span id=span_refresh_tips></span><a id=lnk_RefreshComments runat=server clientidmode=Static>刷新评论</a><a href=#>刷新页面</a><a href=#top>返回顶部</a></div>
+ <div id=comment_form_container style=visibility:visible><div class=login_tips>
+ 登录后才能查看或发表评论，立即 <a rel=nofollow class=underline>登录</a> 或者
+ <a href=https://www.cnblogs.com/>逛逛</a> 博客园首页
+</div>
+</div>
+ <div class="ad_text_commentbox sf-hidden" id=ad_text_under_commentbox></div>
+ <div id=cnblogs_ch class=sf-hidden></div>
+ <div id=opt_under_post></div>
+ <div id=cnblogs_c1 class=under-post-card style=display:none>
+ 
+ </div>
+ <div id=under_post_card1><div class=under-post-card>
+<b>编辑推荐：</b>
+<br>
+· <a href=https://www.cnblogs.com/coco1s/p/17021406.html target=_blank>巧用视觉障眼法，还原 3D 文字特效</a>
+ <br>
+· <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit | 基于 StateMachine 实现 Saga 编排式分布式事务 </a>
+ <br>
+· <a href=https://www.cnblogs.com/huangxincheng/p/17015643.html target=_blank>一次 SQL 调优，聊一聊 SQLSERVER 数据页 </a>
+ <br>
+· <a href=https://www.cnblogs.com/makemylife/p/17015499.html target=_blank>终于弄明白了 RocketMQ 的存储模型</a>
+ <br>
+· <a href=https://www.cnblogs.com/JavaArchitect/p/17011865.html target=_blank>应届毕业生程序员在面试时如何做好自我介绍？</a>
+ <br>
+</div></div>
+ <div id=under_post_card2><div class="itnews under-post-card">
+ <b>阅读排行：</b>
+ <br>
+ · <a href=https://www.cnblogs.com/thinkword/p/17020039.html target=_blank>今年回顾，流水账</a>
+ <br>
+ · <a href=https://www.cnblogs.com/edisonchou/p/edison-year-end-retrospective-2022.html target=_blank>我的2022年终总结：再次抉择，以终为始</a>
+ <br>
+ · <a href=https://www.cnblogs.com/eminer/p/17019988.html target=_blank>M.2 SSD固态硬盘上安装windows(win11)问题</a>
+ <br>
+ · <a href=https://www.cnblogs.com/xueweihan/p/17021034.html target=_blank>你的 GitHub 年度报告「GitHub 热点速览 v.22.52」</a>
+ <br>
+ · <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit 知多少 | 基于StateMachine实现Saga编排式分布式事务</a>
+ <br>
+</div></div>
+ <div id=HistoryToday class=under-post-card></div>
+ 
+</div>
+ </div>
+ </div>
+ <div id=sideBar>
+ <div id=sideBarMain>
+ <div id=sidebar_news class=newsItem>
+<h3 class="catListTitle sf-hidden">公告</h3>
+<div id=blog-news>
+ <div align=left>
+Total visitors:
+<br>
+<a href=http://www.amazingcounters.com/><img border=0 src=data:, alt=AmazingCounters.com></a>
+</div>
+<div align=left>
+<a href=http://book.douban.com/people/haonpu/ target=_blank>读书</a>
+</div>
+<div align=left>
+<a href=http://weibo.com/haonpu/ target=_blank>新浪微博</a>
+</div>
+ <div id=profile_block>
+ 昵称：
+ <a href=https://home.cnblogs.com/u/codemyzen/>
+ openX
+ </a>
+ <br>
+ 园龄：
+ <a href=https://home.cnblogs.com/u/codemyzen/ title=入园时间：2013-10-12>
+ 9年2个月
+ </a>
+ <br>
+ 粉丝：
+ <a class=follower-count href=https://home.cnblogs.com/u/codemyzen/followers/>
+ 3
+ </a>
+ <br>
+ 关注：
+ <a class=folowing-count href=https://home.cnblogs.com/u/codemyzen/followees/>
+ 18
+ </a>
+ <div id=p_b_follow class=follow-tip>
+<a>+加关注</a></div>
+ 
+ </div>
+</div>
+</div>
+<div id=sidebar_c3 class=sf-hidden></div>
+ <div id=blog-calendar style=display:none></div> 
+ <div id=leftcontentcontainer>
+ <div id=blog-sidecolumn>
+<div id=sidebar_search class=sidebar-block>
+ <div id=sidebar_search class=mySearch>
+ <h3 class=catListTitle>搜索</h3>
+ <div id=sidebar_search_box>
+ 
+ <div id=widget_my_google class=div_my_zzk>
+ <input type=text name=google_q id=google_q class=input_my_zzk value>&nbsp;<input type=button value=谷歌搜索 class=btn_my_zzk>
+ </div>
+ </div>
+ </div>
+</div>
+<div id=sidebar_scorerank class=sidebar-block><div class=catListBlogRank>
+<h3 class=catListTitle>积分与排名</h3>
+<ul>
+ <li class=liScore>
+ 积分 - 
+16929
+ </li>
+ <li class=liRank>
+ 排名 - 
+77173
+ </li>
+</ul>
+</div>
+</div>
+<div id=sidebar_categories>
+ <div id=sidebar_postcategory class="catListPostCategory sidebar-block">
+ <h3 class=catListTitle>
+ 
+ <a class=sidebar-card-title-a href=https://www.cnblogs.com/codemyzen/categories>随笔分类</a>
+ </h3>
+ <ul>
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/646801.html class=category-item-link rel target>Java Web(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/624490.html class=category-item-link rel target>LeetCode学习笔记(2)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/599904.html class=category-item-link rel target>Linux软件环境配置(2)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/650796.html class=category-item-link rel target>Python学习(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/646802.html class=category-item-link rel target>工具软件的使用(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/648601.html class=category-item-link rel target>生活(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/category/538354.html class=category-item-link rel target>时间管理(1)</a>
+ 
+ </li> 
+ 
+ </ul>
+ </div> 
+ <div id=sidebar_postarchive class="catListPostArchive sidebar-block">
+ <h3 class=catListTitle>
+ 
+随笔档案
+ </h3>
+ <ul>
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2015/05.html class=category-item-link rel target>2015年5月(2)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2015/01.html class=category-item-link rel target>2015年1月(4)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2014/10.html class=category-item-link rel target>2014年10月(2)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2014/07.html class=category-item-link rel target>2014年7月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2014/04.html class=category-item-link rel target>2014年4月(4)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2014/03.html class=category-item-link rel target>2014年3月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/codemyzen/archive/2013/12.html class=category-item-link rel target>2013年12月(1)</a>
+ 
+ </li> 
+ 
+ </ul>
+ </div> 
+</div>
+<div id=sidebar_topviewedposts class=sidebar-block><div class=catListView>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/codemyzen/most-viewed class=sidebar-card-title-a>
+ 阅读排行榜
+</a>
+ </h3>
+ <div id=TopViewPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/4215012.html>
+ 1. 【生活】已经从官网购买iPad，单独购买AppleCare+服务(9485)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/4040548.html>
+ 2. 【Vmware】已有镜像文件的导入(8664)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/3678787.html>
+ 3. 【Django】基于Django架构网站代码的目录结构(6114)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/3690042.html>
+ 4. 【Django】Apache上运行多个Django项目(1064)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/3880275.html>
+ 5. 【Java】Linux下安装配置Oracle JDK 1.7版本(1022)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_topcommentedposts class=sidebar-block><div class=catListFeedback>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/codemyzen/most-commented class=sidebar-card-title-a>评论排行榜</a>
+ </h3>
+ <div id=TopFeedbackPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/3457683.html>
+ 1. 拖延症与自控力(2)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_topdiggedposts class=sidebar-block>
+<div id=topdigg_posts_wrap>
+ <div class=catListView>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/codemyzen/most-liked class=sidebar-card-title-a>推荐排行榜</a>
+ </h3>
+ <div id=TopDiggPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/codemyzen/p/3678787.html>
+ 1. 【Django】基于Django架构网站代码的目录结构(1)
+ </a>
+ </li>
+ </ul>
+ </div>
+ </div>
+</div></div></div>
+ 
+ </div> 
+ </div>
+ </div>
+ <div class=clear></div>
+ </div>
+ <div class=clear></div>
+ <div id=footer>
+ 
+Copyright © 2023 openX
+<br><span id=poweredby>Powered by .NET 7.0 on Kubernetes</span>
+ </div>
+</div>
