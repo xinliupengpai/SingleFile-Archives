@@ -1,0 +1,179 @@
+<!DOCTYPE html> <html><!--
+ Page saved with SingleFile 
+ url: https://mp.weixin.qq.com/debug/ 
+ saved date: Wed Jan 04 2023 14:22:39 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>微信公众平台接口调试工具</title>
+<style>h1{margin:20px 35px;border-bottom:1px dashed #ecede8;font-size:16px;color:#333;font-weight:normal;height:30px;line-height:30px;position:relative;clear:both}body{margin:0;font-family:"Microsoft Yahei","Tahoma",Arial;font-size:14px;color:#333;background-color:#FFF}ul{list-style-type:none}.head_box{position:relative;background-color:#f3f3f3;box-shadow:0 2px 4px rgba(0,0,0,0.15),inset 0-1px 0 0#fcfcfc;-moz-box-shadow:0 2px 4px rgba(0,0,0,0.15),inset 0-1px 0 0#fcfcfc;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.15),inset 0-1px 0 0#fcfcfc;border-top:4px solid #67ad03;border-bottom:1px solid #bdbdbd}.head_box .inner.wrp{width:960px;margin-left:auto;margin-right:auto}.logo{padding-top:10px;padding-bottom:10px;font-size:24px}.logo a{display:block;width:248px;height:40px;overflow:hidden;text-decoration:none;background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPgAAAAoCAYAAADT7zckAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpBNUI5MEJDNTVCRjFFMzExOTg4QkNBRjhFMzQ3NTI1RCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDRUEwQTY2QUYyREExMUUzQUY4MUQwNDQ3MjFEQkY4QSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDRUEwQTY2OUYyREExMUUzQUY4MUQwNDQ3MjFEQkY4QSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkEyNjFBRDkyREFGMkUzMTE5QjgzQUQyNTM4MUJDODA3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkE1QjkwQkM1NUJGMUUzMTE5ODhCQ0FGOEUzNDc1MjVEIi8+IDwvcmRmOkRlc2NyaXB0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)no-repeat 0 0}.main{width:960px;min-height:400px;margin:0 auto;border-left:1px solid #ecede8;border-right:1px solid #ecede8;border-bottom:1px solid #ecede8}.main .panel{padding:0 35px}.unsubmit{margin-left:139px;display:inline-block;overflow:visible;padding:0 40px;height:30px;line-height:30px;color:#000;font-size:14px;text-align:center;vertical-align:middle;text-decoration:none;margin-top:6px;border:1px solid #bebebe;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;box-shadow:0 1px 1px #dddedb;background-color:#e4e4e4;background:-webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#d5d5d5),color-stop(0.1,#f1f1f1),color-stop(0.5,#e4e4e4),color-stop(0.9,#d7d7d7),color-stop(1,#d5d5d5));background-image:-moz-linear-gradient(top,#f1f1f1 10%,#e4e4e4 50%,#d7d7d7 90%,#d5d5d5 100%)}.des{text-align:center;border:1px solid #aaa;background-color:#f9f9f9;padding:5px;font-size:95%;margin-bottom:.5em;margin-left:0;margin-right:0}.content{padding:10px 15px;border:1px solid #ccc;color:#333;background-color:#f8f8f8;border-radius:3px;margin-bottom:20px}.frm_control_group{margin-bottom:20px}.frm_control_group label{margin-right:38px;display:inline-block;vertical-align:top;zoom:1}.name{display:inline-block;zoom:1;width:125px}.inputDiv span{vertical-align:top}.manual{padding:0}.manual li{margin-top:10px;list-style:none}.manual li b{font-weight:bold}.frm_label{float:left}.frm_controls{overflow:hidden}.frm_input_box{display:inline-block;zoom:1;line-height:30px;vertical-align:middle;border:1px solid #b3b3b3;box-shadow:inset 0 1px 1px rgba(0,0,0,0.15);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,0.15);-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.15);border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#fff}.frm_tips{color:#a3a3a3}.red{color:red}#formSelector{min-width:330px}.frm_tips{display:inline-block;zoom:1;margin-left:5px}.inputDiv input[type="text"]{width:200px}.inputDiv .tips{display:block;margin-left:139px;color:#a3a3a3}.inputDiv .errMsg{display:block;margin-left:139px}.footer{text-align:center;color:#516e81;margin:25px auto 60px;font-size:12px;height:49px;line-height:20px;text-shadow:0 1px 0#fff}.footer ul{text-align:center;list-style:none;margin:0;padding:0}.footer li{display:inline}.footer a{color:#3a8dc9;margin:0 5px;text-decoration:none}</style>
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyw1GeMsNRQAAAAAAyw1EEMsNRNDLDUVIyw1FKMsNRMDLDUQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMsNRnjLDUf8yw1HUMsNR8jLDUf8yw1H/MsNR/zLDUf8yw1HyMsNRojLDUS4AAAAAAAAAAAAAAAAAAAAAAAAAADLDUZwyw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H6MsNRfgAAAAAAAAAAAAAAADLDUYQyw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1GEAAAAADLDUTYyw1H8MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/DLDUTgyw1GmMsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1GmMsNR6jLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR5DLDUfwyw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUfgyw1HaMsNR/zLDUf8yw1H/AAAAAAAAAAAyw1H/MsNR/zLDUf8yw1H/AAAAAAAAAAAyw1H/MsNR/zLDUf8yw1HWMsNRhjLDUf8yw1H/MsNR/wAAAAAAAAAAMsNR/zLDUf8yw1H/MsNR/wAAAAAAAAAAMsNR/zLDUf8yw1H/MsNRhjLDURQyw1HqMsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR6jLDURQAAAAAMsNRQjLDUfQyw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR9DLDUUIAAAAAAAAAAAAAAAAyw1EuMsNRzjLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR/zLDUf8yw1H/MsNR0DLDUTIAAAAAAAAAAAAAAAAAAAAAAAAAADLDUQIyw1FMMsNRojLDUd4yw1H6MsNR+jLDUd4yw1GiMsNRTDLDUQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAN//AADADwAAwAcAAIABAACAAQAAAAAAAAAAAAAAAAAADDAAAAwwAACAAQAAwAMAAOAHAAD4HwAA//8AAA==" type=image/x-icon><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://mp.weixin.qq.com/debug/><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style><body>
+ <div class=head id=header>
+ <div class=head_box>
+ <div class="inner wrp">
+ <h1 class=logo>
+ <a href=http://mp.weixin.qq.com/ title=微信公众平台></a>
+ </h1>
+ </div>
+ </div>
+ </div>
+ <div id=main class=main>
+ <h1>微信公众平台接口调试工具</h1>
+ 
+ <div class=panel>
+ <div id=description class=des>
+ 此工具旨在帮助开发者检测调用【微信公众平台开发者API】时发送的请求参数是否正确，提交相关信息后可获得服务器的验证结果 </div>
+ <ol id=manual class=manual>
+ <li><b>使用说明：</b></li>
+ <li>（1）选择合适的接口。</li>
+ <li>（2）系统会生成该接口的参数表，您可以直接在文本框内填入对应的参数值。（红色星号表示该字段必填）</li>
+ <li>（3）点击检查问题按钮，即可得到相应的调试信息。</li>
+ </ol>
+ <div id=content class=content>
+ <div id=typeSelectorDiv class=frm_control_group>
+ <label class=frm_label>一、接口类型：</label>
+ <div class=frm_controls>
+ <select id=typeSelector class=frm_input_box>
+			
+				
+					<option value=0 selected>基础支持</option>
+						
+			
+				
+					<option value=1>向用户发送消息</option>
+						
+			
+				
+					<option value=2>用户管理</option>
+						
+			
+				
+					<option value=3>自定义菜单</option>
+						
+			
+				
+					<option value=4>推广支持</option>
+						
+			
+				
+					<option value=5>消息接口调试</option>
+						
+			
+				
+					<option value=6>硬件接入api接口调试</option>
+						
+			
+				
+					<option value=7>硬件接入消息接口调试</option>
+						
+			
+				
+					<option value=8>卡劵接口</option>
+						
+			
+				
+					<option value=9>评论接口</option>
+						
+			
+		</select>
+ </div>
+ </div>
+ <div id=formSelectorDiv class=frm_control_group>
+ <label class=frm_label>二、接口列表：</label>
+ <div class=frm_controls>
+ <select id=formSelector class=frm_input_box>
+			
+				<option value=0 selected>获取access_token接口 /token</option>
+			
+				<option value=1>多媒体文件上传接口 /media/upload</option>
+			
+				<option value=2>下载多媒体文件接口 /media/get</option>
+			
+				<option value=3>上传logo接口 /media/uploadimg</option>
+			
+		</select>
+ <span id=methodType class=frm_tips>方法：GET</span>
+ </div>
+ </div> 
+ <div id=formContent class=frm_control_group>
+ <label>三、参数列表：</label>
+ <br><br>
+ <div id=formContainer><form method=POST action-target=https://api.weixin.qq.com/cgi-bin/token target=result-iframe form-method=GET form-type=args return-type=json>
+ 
+ 
+ <div class=inputDiv>
+ 
+ <span class=red>*</span> 
+ 
+ <span class=name>grant_type : </span>
+ <input type=text reserved-name=grant_type method=GET data-type=string required value=client_credential disabled readonly>
+ <span class=tips>获取access_token填写client_credential</span>
+ <span class=errMsg></span>
+ <br>
+ </div> 
+ 
+ <div class=inputDiv>
+ 
+ <span class=red>*</span> 
+ 
+ <span class=name>appid : </span>
+ <input type=text reserved-name=appid method=GET data-type=string required value>
+ <span class=tips>填写appid</span>
+ <span class=errMsg></span>
+ <br>
+ </div> 
+ 
+ <div class=inputDiv>
+ 
+ <span class=red>*</span> 
+ 
+ <span class=name>secret : </span>
+ <input type=text reserved-name=secret method=GET data-type=string required value>
+ <span class=tips>填写appsecret</span>
+ <span class=errMsg></span>
+ <br>
+ </div> 
+ 
+ 
+ <input type=submit class=unsubmit id=submit value=检查问题>
+ </form></div>
+ </div>
+ </div>
+ 
+ <div id=resultContainer></div>
+ <div class="iframe-container hide sf-hidden">
+ --&gt;
+ 
+ </div>
+ </div>
+ </div>
+ <div class=footer>
+ <ul class=footer-places>
+ <li class=footer-about>
+ <a target=_blank href=http://www.tencent.com/zh-cn/index.shtml>关于腾讯</a>
+ &nbsp;|&nbsp; 
+ </li>
+ <li class=footer-policy> 
+ <a target=_blank href="http://mp.weixin.qq.com/cgi-bin/readtemplate?t=wxm-agreement&amp;type=info&amp;lang=zh_CN">服务协议</a>
+ &nbsp;|&nbsp;
+ </li>
+ <li class=footer-contactus>
+ <a target=_blank href=http://kf.qq.com/special_auto/weixin.html>客服中心</a>
+ &nbsp;|&nbsp;
+ </li>
+ <li class=footer-online><a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=40012345&amp;f=1&amp;ty=1&amp;ap=000011:400792:|f:Ggzpt1" target=_blank>在线客服</a></li>
+ </ul>
+ <div style=clear:both>Copyright&nbsp;© 2012-2023 Tencent. All Rights Reserved.</div>
+ </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
