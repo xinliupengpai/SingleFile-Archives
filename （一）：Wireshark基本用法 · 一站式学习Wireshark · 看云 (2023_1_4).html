@@ -1,0 +1,73 @@
+<!DOCTYPE html> <html><!--
+ Page saved with SingleFile 
+ url: https://www.kancloud.cn/digest/wireshark/62470 
+ saved date: Wed Jan 04 2023 14:09:08 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>（一）：Wireshark基本用法 · 一站式学习Wireshark · 看云</title>
+<meta name=description content=看云是一个现代化文档写作、托管及数字出版平台，基于MarkDown语法和Git版本库管理，让你专注于知识创作，可以用于企业知识库、产品手册、项目文档和个人数字出版。>
+<meta name=keywords content=Wireshark,新手入门>
+<meta name=viewport content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" data-react-helmet=true>
+<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+<style data-react-helmet=true>.dimmer{box-sizing:content-box;display:flex;position:absolute;top:0!important;left:0!important;width:100%;height:100%;text-align:center;vertical-align:middle;padding:0;background-color:#FFFFFF;opacity:1;line-height:1;animation-fill-mode:both;animation-duration:.5s;transition:background-color .5s linear;flex-direction:column;align-items:center;justify-content:center;user-select:none;will-change:opacity;z-index:1000}.loader{box-sizing:content-box;display:block;position:absolute;top:50%;left:50%;margin:0;text-align:center;z-index:1000;-webkit-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.loader:before{position:absolute;content:"";top:0;left:50%;width:50px;height:50px;margin:0 0 0-25px;border-radius:50px;border:4px solid rgba(0,0,0,.1)}.loader:after{position:absolute;content:"";top:0;left:50%;width:50px;height:50px;margin:0 0 0-25px;animation:loader .6s linear;animation-iteration-count:infinite;border-radius:50px;border:4px solid transparent;border-top-color:#767676;box-shadow:0 0 0 1px transparent}@keyframes loader{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}body{margin:0;padding:0;height:100vh;overflow:hidden}#main{display:block!important;height:100vh;overflow:hidden}</style>
+<link type=image/x-icon rel="shortcut icon" href="data:image/vnd.microsoft.icon;base64,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RP81sET9NbBE3zWwRHw1sEQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADWwRAo1sEQ6NbBEcjSwRJc0sESfNbBEgTWwRFA1sEQWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////8P///8A///gGAf4ADwAHAD/AD+H/+H///////AAH//AAA//j//D/5//8/8f//n/P//5/z///P8f7/z/n+/8/4+P/P/AH/z/4D/4////+f////H//4/j//+AB///4B////x/////////////////8="><link rel=canonical href=https://www.kancloud.cn/digest/wireshark/62470><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+<div id=main>
+ <div class=seo>
+ <div class=content>
+ &gt; 原文出处：[EMC中文支持论坛](https://community.emc.com/thread/194901)
+按照国际惯例，从最基本的说起。
+**抓取报文****:**
+下载和安装好Wireshark之后，启动Wireshark并且在接口列表中选择接口名，然后开始在此接口上抓包。例如，如果想要在无线网络上抓取流量，点击无线接口。点击Capture Options可以配置高级属性，但现在无此必要。
+[![01](https://box.kancloud.cn/2015-09-09_55efb000da5c4.png)](https://box.kancloud.cn/2015-09-09_55efb000da5c4.png "一站式学习Wireshark（一）：Wireshark基本用法")
+点击接口名称之后，就可以看到实时接收的报文。Wireshark会捕捉系统发送和接收的每一个报文。如果抓取的接口是无线并且选项选取的是混合模式，那么也会看到网络上其他报文。
+上端面板每一行对应一个网络报文，默认显示报文接收时间（相对开始抓取的时间点），源和目标IP地址，使用协议和报文相关信息。点击某一行可以在下面两个窗口看到更多信息。“+”图标显示报文里面每一层的详细信息。底端窗口同时以十六进制和ASCII码的方式列出报文内容。
+![](https://box.kancloud.cn/2015-09-09_55efb0060f1b9.jpg)
+需要停止抓取报文的时候，点击左上角的停止按键。
+![](https://box.kancloud.cn/2015-09-09_55efb00a36129.jpg)
+**色彩标识****:**
+进行到这里已经看到报文以绿色，蓝色，黑色显示出来。Wireshark通过颜色让各种流量的报文一目了然。比如默认绿色是TCP报文，深蓝色是DNS，浅蓝是UDP，黑色标识出有问题的TCP报文——比如乱序报文。
+![](https://box.kancloud.cn/2015-09-09_55efb00a89a0b.jpg)
+**报文样本****:**
+比如说你在家安装了Wireshark，但家用LAN环境下没有感兴趣的报文可供观察，那么可以去Wireshark wiki下载[报文样本文件](http://wiki.wireshark.org/SampleCaptures)。
+打开一个抓取文件相当简单，在主界面上点击Open并浏览文件即可。也可以在Wireshark里保存自己的抓包文件并稍后打开。
+![](https://box.kancloud.cn/2015-09-09_55efb00adc47a.jpg)
+**过滤报文****:**
+如果正在尝试分析问题，比如打电话的时候某一程序发送的报文，可以关闭所有其他使用网络的应用来减少流量。但还是可能有大批报文需要筛选，这时要用到Wireshark过滤器。
+最基本的方式就是在窗口顶端过滤栏输入并点击Apply（或按下回车）。例如，输入“dns”就会只看到DNS报文。输入的时候，Wireshark会帮助自动完成过滤条件。
+![](https://box.kancloud.cn/2015-09-09_55efb00b2695a.jpg)
+也可以点击Analyze菜单并选择Display Filters来创建新的过滤条件。
+![](https://box.kancloud.cn/2015-09-09_55efb0156e600.jpg)
+另一件很有趣的事情是你可以右键报文并选择Follow TCP Stream。
+![](https://box.kancloud.cn/2015-09-09_55efb0158e142.jpg)
+你会看到在服务器和目标端之间的全部会话。
+![](https://box.kancloud.cn/2015-09-09_55efb01fbd121.jpg)
+关闭窗口之后，你会发现过滤条件自动被引用了——Wireshark显示构成会话的报文。
+![](https://box.kancloud.cn/2015-09-09_55efb033e8ac9.jpg)
+**检查报文****:**
+选中一个报文之后，就可以深入挖掘它的内容了。
+[![imgfergfergfergfreage012](https://box.kancloud.cn/2015-09-09_55efb03447eba.png)](https://box.kancloud.cn/2015-09-09_55efb03447eba.png "一站式学习Wireshark（一）：Wireshark基本用法")
+也可以在这里创建过滤条件——只需右键细节并使用Apply as Filter子菜单，就可以根据此细节创建过滤条件。
+![](https://box.kancloud.cn/2015-09-09_55efb0346aeff.jpg)
+Wireshark是一个非常之强大的工具，第一节只介绍它的最基本用法。网络专家用它来debug网络协议实现细节，检查安全问题，网络协议内部构件等等。
+ </div>
+ <div class=catalog>
+ <ul>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62470>（一）：Wireshark基本用法</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62471>（二）：应用Wireshark观察基本网络协议</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62472>（三）：应用Wireshark IO图形工具分析数据流</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62473>（四）：网络性能排查之TCP重传与重复ACK</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62474>（五）：TCP窗口与拥塞处理</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62475>（六）：狙击网络高延时点</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62476>（七）：Statistics统计工具功能详解与应用</a></li>
+ <li><a href=https://www.kancloud.cn/digest/wireshark/62477>（八）：应用Wireshark过滤条件抓取特定数据流</a></li>
+ </ul>
+ </div>
+ </div>
+ <div class=dimmer>
+ <div class=loader></div>
+ </div>
+</div>
+ 
+ 
+ 
+ 
