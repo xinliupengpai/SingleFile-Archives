@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns=http://www.w3.org/1999/xhtml dir=ltr lang=zh-CN style><!--
+ Page saved with SingleFile 
+ url: http://blog.51yip.com/shell/1022.html 
+ saved date: Wed Jan 04 2023 14:26:42 GMT+0800 (中国标准时间)
+--><head profile=http://gmpg.org/xfn/11><meta charset=utf-8>
+<meta property=qc:admins content=1161332111106375>
+<meta property=wb:webmaster content=b1906381053a1c93>
+<link rel=canonical href=http://blog.51yip.com/shell/1022.html><meta name=keywords content=linux,shell,uniq>
+<meta name=description content=实例详细说明linux下去除重复行命令uniq>
+<title> 实例详细说明linux下去除重复行命令uniq</title>
+<meta name=google-site-verification content=Z1PF5NCqkdtwbxzUTwlOmG4skCjHJETmCtJKx7U4s4E>
+<style>:root{--sf-img-2: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAECAMAAACwak/eAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFvLy88fHz1+kUSwAAAB1JREFUeNpiYGRkZIBhMEDwYQJweagAgg8RAAgwAAU6ACN8i6eqAAAAAElFTkSuQmCC");--sf-img-5: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAeCAMAAADaS4T1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFdHR04d3SKbA14QAAABJJREFUeNpiYGRgYGAkDwIEGAADhwAeAtyXcQAAAABJRU5ErkJggg==")}</style><style media=screen>a,body{color:#000}#footer,#page{clear:both}#aside,#content,#content .comments,#description h3,#footer,#header,#logo h2,#page{overflow:hidden}#description,#header,#page,#page .columns,#wrapper,html{width:100%}#aside,#aside h3,#content,#page,#page .columns{position:relative}#logo h2 a,a:hover{text-decoration:none}a,b,body,div,form,h1,h2,h3,html,li,ol,p,pre,small,span,strong,ul{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:0 0}body{line-height:1;background:#f1f1f3}ul{list-style:none}:focus{outline:0}body,html{height:100%}body,input{font:13px/18px Arial,Tahoma,Verdana}p{margin:10px 0 0}ol,ul{margin:5px 0 5px 20px}pre{font:14px/18px"Courier New",Courier,monospace;color:#333;margin:10px 0}.alignleft{float:left}.alignright{float:right}#description,#logo{display:inline;float:left}#searchform div{margin:0}#wrapper{float:left}#header{background:#000;float:left;height:120px}#header .headerwrap{float:left;height:110px;width:100%}#page{float:left}#page .columns{background:#000;right:75%;float:left}#aside,#content{float:left}#content{left:100%;width:67%}#aside{left:10%;width:22%}#footer,#header .headerwrap,#page{min-width:990px;max-width:1400px}#logo{margin:20px 0 0 25px;width:67%}#logo h2{color:#fff;font:italic 30px/40px Georgia;height:54px;letter-spacing:-2px}#logo h2 a{color:#fff;display:block}#search{float:right;margin:25px 20px 0 0;width:28%}#searchform{background:url(data:image/png;base64,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)no-repeat;float:left;height:33px;width:267px}#searchform input{background:0 0;border:0;color:#000;float:left;height:33px;margin:0;padding:9px 0 0 30px;width:165px}#searchform input#searchsubmit{cursor:pointer;height:33px;margin:0 0 0 5px;text-indent:-1000px;width:65px}#description{margin:0 0 0 25px}#description h3{color:#fff;font:italic 18px/22px Georgia;height:22px;letter-spacing:-1px}#content .posts,#content .posts .post,#content .posts .post .title{width:100%;float:left}#content ul{list-style:disc}#content ol{list-style:decimal}#content ul ul li{list-style-type:circle}#content .posts{display:inline;margin:11px 0 0}#content .posts .post{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAFCAMAAACzWnatAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFvLy88fHz1+kUSwAAABFJREFUeNpiYGBgBEMGgAADAAAZAASkuBC2AAAAAElFTkSuQmCC)0 bottom repeat-x;margin:0 0 20px 30px;padding:0 0 20px}#content .posts .post .title h1{background:#6D94BB;display:inline;font:400 23px/26px Arial;letter-spacing:-1px;padding:2px 5px}#content .posts .post .entry{float:left;margin:10px 0 0;width:95%}#content .posts .post .meta{background:var(--sf-img-2) repeat-y;display:inline;float:left;font:italic 14px/20px Georgia,Arial;margin:10px 0 8px;width:100%}#content .comments h3{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRFkZGSu7u90dHSZmZnfHx8sbGy5ubopqan3NzdxsbIhoaHUVFRW1tccXFxm5uc8fHzRkZGBqGzMAAAALlJREFUeNpskYkOwyAMQ1PabZCr/v+vXYBS2GGhSjyliYnpbCqsCCmnfqf6yQbBJcsDb3LwjSG54w28q98YpeEsLMbQiV85sB277UoLdjupgJX1wOxeHIkYwiCQmLsNzO1nURavvvzCSsNuf4Z1jIGj2L2XF/qH5dSJZ5PHI6633zFSn0E0DI76ZtBybc/xnA/lNjXRaSuNVloH1VVh3Z631bbFThFF0TZimBnE2ZbQ8BtaKH1F/BZgAK3LGkKQ5oxtAAAAAElFTkSuQmCC)no-repeat;height:22px;letter-spacing:-1px;padding-left:30px;width:100%;float:left}#content .posts .post .meta p{margin:0 0 2px 20px}#content .comments{float:left;display:inline;margin:0;width:100%}#content .lastlist{margin-left:30px}#content .lastlist a{color:#00f}#content .lastlist p{color:#000;font-weight:800}#content .comments h3{color:#464646;display:inline-block;font:700 italic 19px/22px Georgia,Arial;margin:0}#content .comments h3#comments{margin:20px 0 0 30px}.commentlist,.commentrespond{display:inline;float:left;margin:20px 0 0 30px;width:95%}.commentrespond{margin-left:15px}.commentlist li{list-style-type:none;margin:0 0 10px}.commentlist li .comment-meta{background:var(--sf-img-2) repeat-y #e3e3e3;float:left;font:italic 13px/42px Georgia;height:42px;width:100%}.commentlist li .comment-meta cite{color:#464646;font-weight:700}.commentlist li .comment-author{float:left;margin-left:22px}.commentlist li .comment-avatar{float:right;height:42px;width:42px}.commentlist li .comment-text{float:left;margin:5px 15px 20px;width:100%}.cancel-comment-reply{margin:10px 0 0;float:left}.commentlist li .comment-text p:first-child{font-size:13px}#respond{display:inline;float:left;margin:0 0 20px 15px;width:100%}div.related_post ul{width:100%;list-style-type:circle}div.related_post li{width:50%;float:left}#aside ul{display:inline;float:left;font:13px/20px Arial;list-style-type:none;margin:0}#aside ul li{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAFCAMAAABRhm3UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRFQEBAICAg/3/xXQAAABZJREFUeNpiYGBgYGRkBGFMCiIHEGAAAb4AGTixZnQAAAAASUVORK5CYII=)repeat-x;color:#6D94BB;float:left;margin:0 0 10px;width:100%}#aside ul li ul{color:#fff;list-style-type:disc;margin:10px 0 10px 20px}#aside ul li ul li{background:0 0;float:none;margin:0}#aside a{color:#fff}#aside h3{color:#6D94BB;font:700 18px/20px Arial;letter-spacing:-1px;margin:20px 0 0}#aside h3 span{height:25px;margin-left:5px;position:absolute;width:22px}.navigation_line{border-top:solid 1px #ccc;border-bottom:solid 1px #ccc;height:3px}.navigation{float:left;margin:0 0 10px;width:100%}.top{float:right;margin:7px 0 10px;width:60%}#footer,#footer .columns{width:100%;position:relative;float:left}.navigation a{color:#00f}.navigation .alignleft{margin-left:30px}.navigation_line{margin:-5px 0 20px 30px}#footer .columns{background:#000;right:75%}#footer .left,#footer .right{float:left;overflow:hidden;position:relative}#footer .right{left:100%;width:67%}#footer .left{border-top:1px dotted #404040;left:10%;width:22%}#footer p{font:700 12px/18px Arial}#footer .right p{border-top:1px solid #bcbcbc;padding:10px 0 0;margin:0 0 10px 30px;text-align:left}#blackband_top_right{color:#CCC;height:30px;line-height:40px;width:780px;font-size:15px;margin-top:-9px;margin-right:80px;text-align:right;float:right;padding:2px}#blackband_top_right ul{float:right;margin:1px 23px 0;width:780px;height:30px}#blackband_top_right ul li{float:right;line-height:30px}#blackband_top_right ul li a{padding:6px 7px;background-image:var(--sf-img-5);background-position:-30% -30%;background-repeat:no-repeat}#blackband_top_right a,#blackband_top_right a:active,#blackband_top_right a:visited{color:#FFF;display:block;text-decoration:none}#blackband_top_right ul li a:hover{background:var(--sf-img-5) repeat-x;color:#747474}</style>
+<link rel=pingback href=http://blog.51yip.com/xmlrpc.php>
+<link rel=archives title=2021年十月 href=http://blog.51yip.com/date/2021/10>
+<link rel=archives title=2021年九月 href=http://blog.51yip.com/date/2021/09>
+<link rel=archives title=2021年八月 href=http://blog.51yip.com/date/2021/08>
+<link rel=archives title=2021年五月 href=http://blog.51yip.com/date/2021/05>
+<link rel=archives title=2021年四月 href=http://blog.51yip.com/date/2021/04>
+<link rel=archives title=2021年三月 href=http://blog.51yip.com/date/2021/03>
+<link rel=archives title=2021年二月 href=http://blog.51yip.com/date/2021/02>
+<link rel=archives title=2021年一月 href=http://blog.51yip.com/date/2021/01>
+<link rel=archives title=2020年十二月 href=http://blog.51yip.com/date/2020/12>
+<link rel=archives title=2020年十月 href=http://blog.51yip.com/date/2020/10>
+<link rel=archives title=2020年九月 href=http://blog.51yip.com/date/2020/09>
+<link rel=archives title=2020年五月 href=http://blog.51yip.com/date/2020/05>
+<link rel=archives title=2020年四月 href=http://blog.51yip.com/date/2020/04>
+<link rel=archives title=2020年三月 href=http://blog.51yip.com/date/2020/03>
+<link rel=archives title=2020年二月 href=http://blog.51yip.com/date/2020/02>
+<link rel=archives title=2020年一月 href=http://blog.51yip.com/date/2020/01>
+<link rel=archives title=2019年十二月 href=http://blog.51yip.com/date/2019/12>
+<link rel=archives title=2019年十一月 href=http://blog.51yip.com/date/2019/11>
+<link rel=archives title=2019年十月 href=http://blog.51yip.com/date/2019/10>
+<link rel=archives title=2019年九月 href=http://blog.51yip.com/date/2019/09>
+<link rel=archives title=2019年八月 href=http://blog.51yip.com/date/2019/08>
+<link rel=archives title=2019年七月 href=http://blog.51yip.com/date/2019/07>
+<link rel=archives title=2019年五月 href=http://blog.51yip.com/date/2019/05>
+<link rel=archives title=2019年四月 href=http://blog.51yip.com/date/2019/04>
+<link rel=archives title=2019年三月 href=http://blog.51yip.com/date/2019/03>
+<link rel=archives title=2019年二月 href=http://blog.51yip.com/date/2019/02>
+<link rel=archives title=2019年一月 href=http://blog.51yip.com/date/2019/01>
+<link rel=archives title=2018年十二月 href=http://blog.51yip.com/date/2018/12>
+<link rel=archives title=2018年十一月 href=http://blog.51yip.com/date/2018/11>
+<link rel=archives title=2018年九月 href=http://blog.51yip.com/date/2018/09>
+<link rel=archives title=2018年八月 href=http://blog.51yip.com/date/2018/08>
+<link rel=archives title=2018年七月 href=http://blog.51yip.com/date/2018/07>
+<link rel=archives title=2018年六月 href=http://blog.51yip.com/date/2018/06>
+<link rel=archives title=2018年五月 href=http://blog.51yip.com/date/2018/05>
+<link rel=archives title=2018年四月 href=http://blog.51yip.com/date/2018/04>
+<link rel=archives title=2018年三月 href=http://blog.51yip.com/date/2018/03>
+<link rel=archives title=2017年十一月 href=http://blog.51yip.com/date/2017/11>
+<link rel=archives title=2017年十月 href=http://blog.51yip.com/date/2017/10>
+<link rel=archives title=2017年九月 href=http://blog.51yip.com/date/2017/09>
+<link rel=archives title=2017年八月 href=http://blog.51yip.com/date/2017/08>
+<link rel=archives title=2017年七月 href=http://blog.51yip.com/date/2017/07>
+<link rel=archives title=2017年六月 href=http://blog.51yip.com/date/2017/06>
+<link rel=archives title=2017年五月 href=http://blog.51yip.com/date/2017/05>
+<link rel=archives title=2017年四月 href=http://blog.51yip.com/date/2017/04>
+<link rel=archives title=2017年三月 href=http://blog.51yip.com/date/2017/03>
+<link rel=archives title=2017年二月 href=http://blog.51yip.com/date/2017/02>
+<link rel=archives title=2017年一月 href=http://blog.51yip.com/date/2017/01>
+<link rel=archives title=2016年十二月 href=http://blog.51yip.com/date/2016/12>
+<link rel=archives title=2016年十一月 href=http://blog.51yip.com/date/2016/11>
+<link rel=archives title=2016年八月 href=http://blog.51yip.com/date/2016/08>
+<link rel=archives title=2016年七月 href=http://blog.51yip.com/date/2016/07>
+<link rel=archives title=2016年六月 href=http://blog.51yip.com/date/2016/06>
+<link rel=archives title=2016年五月 href=http://blog.51yip.com/date/2016/05>
+<link rel=archives title=2016年四月 href=http://blog.51yip.com/date/2016/04>
+<link rel=archives title=2016年三月 href=http://blog.51yip.com/date/2016/03>
+<link rel=archives title=2016年二月 href=http://blog.51yip.com/date/2016/02>
+<link rel=archives title=2016年一月 href=http://blog.51yip.com/date/2016/01>
+<link rel=archives title=2015年十二月 href=http://blog.51yip.com/date/2015/12>
+<link rel=archives title=2015年十一月 href=http://blog.51yip.com/date/2015/11>
+<link rel=archives title=2015年十月 href=http://blog.51yip.com/date/2015/10>
+<link rel=archives title=2015年九月 href=http://blog.51yip.com/date/2015/09>
+<link rel=archives title=2015年八月 href=http://blog.51yip.com/date/2015/08>
+<link rel=archives title=2015年七月 href=http://blog.51yip.com/date/2015/07>
+<link rel=archives title=2015年六月 href=http://blog.51yip.com/date/2015/06>
+<link rel=archives title=2015年五月 href=http://blog.51yip.com/date/2015/05>
+<link rel=archives title=2015年四月 href=http://blog.51yip.com/date/2015/04>
+<link rel=archives title=2015年三月 href=http://blog.51yip.com/date/2015/03>
+<link rel=archives title=2015年二月 href=http://blog.51yip.com/date/2015/02>
+<link rel=archives title=2015年一月 href=http://blog.51yip.com/date/2015/01>
+<link rel=archives title=2014年十二月 href=http://blog.51yip.com/date/2014/12>
+<link rel=archives title=2014年十一月 href=http://blog.51yip.com/date/2014/11>
+<link rel=archives title=2014年十月 href=http://blog.51yip.com/date/2014/10>
+<link rel=archives title=2014年九月 href=http://blog.51yip.com/date/2014/09>
+<link rel=archives title=2014年八月 href=http://blog.51yip.com/date/2014/08>
+<link rel=archives title=2014年七月 href=http://blog.51yip.com/date/2014/07>
+<link rel=archives title=2014年六月 href=http://blog.51yip.com/date/2014/06>
+<link rel=archives title=2014年五月 href=http://blog.51yip.com/date/2014/05>
+<link rel=archives title=2014年四月 href=http://blog.51yip.com/date/2014/04>
+<link rel=archives title=2014年三月 href=http://blog.51yip.com/date/2014/03>
+<link rel=archives title=2014年二月 href=http://blog.51yip.com/date/2014/02>
+<link rel=archives title=2013年十二月 href=http://blog.51yip.com/date/2013/12>
+<link rel=archives title=2013年十一月 href=http://blog.51yip.com/date/2013/11>
+<link rel=archives title=2013年十月 href=http://blog.51yip.com/date/2013/10>
+<link rel=archives title=2013年九月 href=http://blog.51yip.com/date/2013/09>
+<link rel=archives title=2013年八月 href=http://blog.51yip.com/date/2013/08>
+<link rel=archives title=2013年七月 href=http://blog.51yip.com/date/2013/07>
+<link rel=archives title=2013年六月 href=http://blog.51yip.com/date/2013/06>
+<link rel=archives title=2013年五月 href=http://blog.51yip.com/date/2013/05>
+<link rel=archives title=2013年四月 href=http://blog.51yip.com/date/2013/04>
+<link rel=archives title=2013年三月 href=http://blog.51yip.com/date/2013/03>
+<link rel=archives title=2013年二月 href=http://blog.51yip.com/date/2013/02>
+<link rel=archives title=2013年一月 href=http://blog.51yip.com/date/2013/01>
+<link rel=archives title=2012年十二月 href=http://blog.51yip.com/date/2012/12>
+<link rel=archives title=2012年十一月 href=http://blog.51yip.com/date/2012/11>
+<link rel=archives title=2012年十月 href=http://blog.51yip.com/date/2012/10>
+<link rel=archives title=2012年九月 href=http://blog.51yip.com/date/2012/09>
+<link rel=archives title=2012年八月 href=http://blog.51yip.com/date/2012/08>
+<link rel=archives title=2012年七月 href=http://blog.51yip.com/date/2012/07>
+<link rel=archives title=2012年六月 href=http://blog.51yip.com/date/2012/06>
+<link rel=archives title=2012年五月 href=http://blog.51yip.com/date/2012/05>
+<link rel=archives title=2012年四月 href=http://blog.51yip.com/date/2012/04>
+<link rel=archives title=2012年三月 href=http://blog.51yip.com/date/2012/03>
+<link rel=archives title=2012年二月 href=http://blog.51yip.com/date/2012/02>
+<link rel=archives title=2012年一月 href=http://blog.51yip.com/date/2012/01>
+<link rel=archives title=2011年十二月 href=http://blog.51yip.com/date/2011/12>
+<link rel=archives title=2011年十一月 href=http://blog.51yip.com/date/2011/11>
+<link rel=archives title=2011年十月 href=http://blog.51yip.com/date/2011/10>
+<link rel=archives title=2011年九月 href=http://blog.51yip.com/date/2011/09>
+<link rel=archives title=2011年八月 href=http://blog.51yip.com/date/2011/08>
+<link rel=archives title=2011年七月 href=http://blog.51yip.com/date/2011/07>
+<link rel=archives title=2011年六月 href=http://blog.51yip.com/date/2011/06>
+<link rel=archives title=2011年五月 href=http://blog.51yip.com/date/2011/05>
+<link rel=archives title=2011年四月 href=http://blog.51yip.com/date/2011/04>
+<link rel=archives title=2011年三月 href=http://blog.51yip.com/date/2011/03>
+<link rel=archives title=2011年二月 href=http://blog.51yip.com/date/2011/02>
+<link rel=archives title=2011年一月 href=http://blog.51yip.com/date/2011/01>
+<link rel=archives title=2010年十二月 href=http://blog.51yip.com/date/2010/12>
+<link rel=archives title=2010年十一月 href=http://blog.51yip.com/date/2010/11>
+<link rel=archives title=2010年十月 href=http://blog.51yip.com/date/2010/10>
+<link rel=archives title=2010年九月 href=http://blog.51yip.com/date/2010/09>
+<link rel=archives title=2010年八月 href=http://blog.51yip.com/date/2010/08>
+<link rel=archives title=2010年七月 href=http://blog.51yip.com/date/2010/07>
+<link rel=archives title=2010年六月 href=http://blog.51yip.com/date/2010/06>
+<link rel=archives title=2010年五月 href=http://blog.51yip.com/date/2010/05>
+<link rel=archives title=2010年四月 href=http://blog.51yip.com/date/2010/04>
+<link rel=archives title=2010年三月 href=http://blog.51yip.com/date/2010/03>
+<link rel=archives title=2010年二月 href=http://blog.51yip.com/date/2010/02>
+<link rel=alternate type=application/rss+xml title="海底苍鹰(tank)博客 » 实例详细说明linux下去除重复行命令uniq 评论 Feed" href=http://blog.51yip.com/shell/1022.html/feed>
+<link rel=EditURI type=application/rsd+xml title=RSD href=http://blog.51yip.com/xmlrpc.php?rsd>
+<link rel=wlwmanifest type=application/wlwmanifest+xml href=http://cdn.51yip.com/wp-includes/wlwmanifest.xml>
+<link rel=index title=海底苍鹰(tank)博客 href=http://blog.51yip.com/>
+<link rel=start title="linux  eclipse 安装  php 插件安装" href=http://blog.51yip.com/eclipse/15.html>
+<link rel=prev title=我的买菜策略 href=http://blog.51yip.com/social/1020.html>
+<link rel=next title=wordpress无插件添加验证码，告别垃圾留言 href=http://blog.51yip.com/wordpress/1024.html>
+<meta name=generator content="WordPress 2.9.1">
+<link rel=canonical href=http://blog.51yip.com/shell/1022.html>
+<style>.dp-highlighter{font-family:Consolas,"Courier New",Courier,mono;font-size:12px;background-color:#E7E5DC;width:99%;overflow:auto;margin:18px 0;padding-top:1px}.dp-highlighter .bar{padding-left:45px}.dp-highlighter ol{list-style:decimal-leading-zero;background-color:#fff;margin:0 0 1px 45px;padding:0;color:#5C5C5C}.dp-highlighter ol li{border-left:3px solid #6CE26C;background-color:#f8f8f8;padding-left:10px;line-height:14px}.dp-highlighter ol li.alt{background-color:#fff}.dp-highlighter ol li span{color:#000}.dp-highlighter .tools{padding:3px 8px 10px 10px;font:9px Verdana,Geneva,Arial,Helvetica,sans-serif;color:silver;background-color:#f8f8f8;border-left:3px solid #6CE26C}.dp-highlighter .tools a{font-size:9px;color:#a0a0a0;text-decoration:none;margin-right:10px}.dp-highlighter .tools a:hover{color:red;text-decoration:underline}.dp-highlighter .comment{color:#008200}.dp-highlighter .keyword{color:#069;font-weight:700}.recentcomments a{display:inline!important;padding:0!important;margin:0!important}</style>
+<link rel="shortcut icon" type=image/ico href=data:image/x-icon;base64,AAABAAEAICAAAAEACACoCAAAFgAAACgAAAAgAAAAQAAAAAEACAAAAAAAAAQAAAAAAAAAAAAAAAEAAAAAAACGXhMApX5AAINgEACUbSgAo3w+ALKLVACSayYAsIlSAJBpJACfeDoAnXY4AJ50OQB8VAkAmXI0AJhuMwCWcScAhF0YAC4eEQCAWRQAZkgHAK6JTQCfdjcAelcOAIxnHQCqhUkAeFEMAKeHRgCmgUUAh10YAJhvJgC1kVEAoHs/AJFoKQCSayAAjmUcAItiIwCKYxgAiGEWAHFODACXcCwAtJJXAG9MCgCVbioATjcKAJNsKAChfT0AsYxUAI9oJACuhlEAsIdJALuaWwB6UwgAqoFDAJZwKACXbikAkW0tALSOVAC1jFUAs4pTALCKUACRaCMAn3k4AJ51NwCqhkoAqoRKAItiHQCpgEkAcEsPAJRxLQCSbysAonxCAIBaEgCwiE0AelQMAI5kHQC7k18AmXUvAKiARQCIXhcAlXErAKZ+QwCjfkAApHxBAKF8PgCiej8An3o8AKB4PQB/WA4AjWkjAJt2OACcdDkAmnI3AJdyNACKZBYAm3EuAIJhGACGYBIAtI9VAKd6QQCCXA4AoHo6AF5DCwCLYR4Al28nAJBqKgBqRgoAk2sjAGRHDgCRaSEAn3o2AJt2MgCacjEAc1AQAKaDRACYcC8Ap39FAIdfFwCWbi0Aon9AAKN7QQCBXREAk2sgAK+IVACOZiUAsIlLALuUXQCLYxgAq4FGAJlyLQCUcTIAqIFDALeQWQCnfUIAtY5XAJNwJwB+XhUAk2wnAINbEACjeT4AkWolAJ57OQBkRQgAnHU3AKuETQCedC8AqYJLAJhxMwCFYhkApX5HAJVwJgB/XBMAonk6AK+KTgCPaiAAe1gPAK2ITACNaB4AeVINALmVXwCJZBoAVzsMAKeCRgCYbzAAo35CAJduJQCbdjoAnnczAJ91NACNZhsAm3EwAKiERAC4k1sAuZFcALePWgCzi1YAg1oRAKB8PACxiVQAkGklAH1WCwCMZSEAr4ZIAJp2NgCqhU0AnXcvAJhvKgClgj4AtY9VAIVgEACgejkAkmckAK2HTQCuhU4Am3g0AKuFSwCpg0kAmHIxAHNTCACngUcAlnAvAKd8PQChfUEAlWskAJNpIgCxiU4Anno0AK+HTACsh0kAmXM5AIthGgCog0UAqYFGAFc8CgClfUIAbkoKAIBaGQCgez0AgFkPAJx3OQCbczgAnHIvALmUWgC3klgAmG4rAJ95OQCddzcArIJNAKmESgCZczMAh2QaAKuDQgCUbCQAj2kpAJBoIACOZh4AnXU0AKyESgCMZBwAiGAYAIZiFgCWcS0AcE0NAKZ+RACVbSwAsI1VAGxHCQB6WRQArIlRAJ52PACviEoAmncuAIpiFwCpgkQAiGAVALaPWACWbyoAKyugoPFlK2Vl8WVlafYroCkrcPZw9hMRKxEREREREaArK6ARoCsRKxErZSsTKxERK4drh9e01GVlZdQREREr1BERERERK2Vl1GURoI0RcGUrK2sR9ivX9REREREREUMRERERESsRK8URKxErESsTKyvoayvX1GWgERERERERESsREREroBERERERaxErERERK9crESsRKxERESsREaDUcBERERERERERERERERERERERKysrEWsjEWXXcCvUZSkmhxER8RERERERERERERHooKBrMjJG12v2ERERERERERFjXxm6MiOKHshY6IEyMskeMtQy3lEy1xERgYEREREREUERcBERa/UX6IDX9qXEtBHU9ujo9vijMmsRa41woGsjERERERERERERETKMkcae8vQyz0NlozYQ6FRcgcgrnbcRESsREREREREREREREaAyu56eMjKr+TLQ6PbQLhhoNxERERERERERERERERERERGFO3qjcd4YydSl0Kv2m5SUERERERERERERERERERERERGeMjg7092eMp4R4zKRejIRK0OTkRERERERERERERERERGugfDQEZQRjjL00H2enhEREStpoBERERERERERERERESgREREREWuuU56enveeF4y983BrERERERERERERoBEr1xEREREREREREfYjnp4rK9Rla5ZwNxERERERERGenp6UIxERERERERGenoGensUhCNeatM/PMYERESsRERGenjJrEREREREREZ4yMp6eR8sSkxlfAJ8h7uxEnBUerTcRnhEREREREZ6enhERERFw1vGgKytlaWUmSXASu7vEexSRIxEREREREREREfeea/FroGuohyYTK2volrw2NGCQ+g8eKxEREREREZ6eMp6elmpHF9ZpEx116+2JIYQQ8WUr9UkRKREREegR0DrA14dJqCQ2AIBHAF2A7XkJRSSZPUjvZY0RcCsrojZ+BclF8AoLThJ7ENdoTKm+DNtAcd+JzG66N4cqgeWT5IWuGAeGLO4AyC7Sx+hbCcLYe2e8/UTPzeb03TIoguQCxbNsJO8+NueX07/gfM75G4R/p5D79Zpj6Ypt+iyVZnV2BBUIIm9yQZ+dIMQYGh4/mDiOSDG4OxQ68r0PSo3xM11FlmVrdXW5qPbWSa9HcJmhu/w0prWFfaurYa1LolIHlG9fKxF3j1olV5zKftmgaRkWJl7L0WCGgCPt6jzBHw7wNXgT1NpNw4uoPTAtMIwDkylDHNBTWC/znbRidJJGB5H/F4hmHbLrQlxUAY9RVePiT7D3BbHJCAYK7FlQBayD/sBW+Nx5pCGiDWon06Nk1ca2pbc5nt6qjJuujhswwnqRc1vhJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+<div id=wrapper>
+ <div id=header>
+ <div class=headerwrap>
+ <div id=logo>
+ <h2><a href=http://blog.51yip.com/ title=－－一步，二步，三步，N步，二行脚印>海底苍鹰(tank)博客</a></h2>
+ </div>
+ <div id=search>
+ <form id=searchform action=http://blog.51yip.com/>
+ <div>
+ <input type=text value name=s id=s>
+ <input type=submit id=searchsubmit value=Search>
+ </div>
+</form> </div>
+ 
+ <div id=description>
+ <h3>－－一步，二步，三步，N步，二行脚印</h3>
+ </div>
+ <div id=blackband_top_right>
+ <h2>
+ <ul id=dropmenu>
+ <li class=page_item><a href=http://blog.51yip.com/donate title=赞助本站>赞助本站</a></li>
+ <li class=page_item><a href=http://blog.51yip.com/aboutme title=海底苍鹰(tank)博客>关于我</a></li>
+ 
+ <li class=page_item><a href=http://blog.51yip.com/message title=留言板>留言板</a></li> 
+ <li class=page_item><a href=http://manual.51yip.com/ title=开发手册>开发手册</a></li>
+ <li class=page_item><a href=http://linux.51yip.com/ target=_black title=linux命令手册>linux命令</a></li>
+ <li class=page_item><a href=http://blog.51yip.com/ title=海底苍鹰(tank)博客>首页</a></li>
+ </ul>
+ </h2>
+ </div>
+ 
+ 
+ </div>
+ </div>
+ <div id=page>
+ <div class=columns>
+<div id=content>
+ 
+<div class=top></div>
+ <div class=posts>
+<div class=navigation>
+ <div class=alignleft>&lt;&lt; <a href=http://blog.51yip.com/wordpress/1024.html rel=next>wordpress无插件添加验证码，告别垃圾留言</a></div>
+ <div class=alignright><a href=http://blog.51yip.com/social/1020.html rel=prev>我的买菜策略</a> &gt;&gt;</div>
+ 
+</div>
+<div style=clear:both></div>
+<div class=navigation_line></div>
+ <div class="post-1022 post hentry category-shell tag-linux tag-shell tag-uniq" id=post-1022>
+ <div class=title>
+ <h1 class="title entry-title">实例详细说明linux下去除重复行命令uniq</h1>
+ </div>
+ <div class=meta>
+ <p><span class="vcard author"><span class=fn>张映</span></span> 发表于 <span class="date updated">2010-09-18</span></p>
+ <p>分类目录： <a href=http://blog.51yip.com/category/shell title="查看 shell 的全部文章" rel="category tag">shell</a></p>
+ <p>标签：<a href=http://blog.51yip.com/tag/linux rel=tag>linux</a>, <a href=http://blog.51yip.com/tag/shell rel=tag>shell</a>, <a href=http://blog.51yip.com/tag/uniq rel=tag>uniq</a></p> </div>
+ 
+ <div class=entry>
+ <p><strong>一，uniq干什么用的</strong></p>
+<p style=padding-left:30px>文本中的重复行，基本上不是我们所要的，所以就要去除掉。linux下有其他命令可以去除重复行，但是我觉得uniq还是比较方便的一个。使用uniq的时候要注意以下二点</p>
+<p style=padding-left:30px>1，对文本操作时，它一般会和sort命令进行组合使用，因为uniq 不会检查重复的行，除非它们是相邻的行。如果您想先对输入排序，使用sort -u。</p>
+<p style=padding-left:30px>2，对文本操作时，若域中为先空字符(通常包括空格以及制表符)，然后非空字符，域中字符前的空字符将被跳过</p>
+<p><span id=more-1022></span><strong>二，uniq参数说明</strong></p>
+<div class=dp-highlighter><div class=bar><div class=tools><a href=#>查看</a><a href=#>复制</a><a href=#>打印</a><a href=#>?</a></div></div><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;~]$&nbsp;uniq&nbsp;--help&nbsp;&nbsp;</span></span><li><span>用法：uniq&nbsp;[选项]...&nbsp;[文件]&nbsp;&nbsp;</span><li class=alt><span>从输入文件或者标准输入中筛选相邻的匹配行并写入到输出文件或标准输出。&nbsp;&nbsp;</span><li><span>&nbsp;&nbsp;</span><li class=alt><span>不附加任何选项时匹配行将在首次出现处被合并。&nbsp;&nbsp;</span><li><span>&nbsp;&nbsp;</span><li class=alt><span>长选项必须使用的参数对于短选项时也是必需使用的。&nbsp;&nbsp;</span><li><span>&nbsp;-c,&nbsp;--<span class=func>count</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=comment>//在每行前加上表示相应行目出现次数的前缀编号</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;-d,&nbsp;--repeated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//只输出重复的行</span><span>&nbsp;&nbsp;</span></span><li><span>&nbsp;-D,&nbsp;--all-repeated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//只输出重复的行，不过有几行输出几行</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;-f,&nbsp;--skip-fields=N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//-f&nbsp;忽略的段数，-f&nbsp;1&nbsp;忽略第一段</span><span>&nbsp;&nbsp;</span></span><li><span>&nbsp;-i,&nbsp;--ignore-<span class=keyword>case</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=comment>//不区分大小写</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;-s,&nbsp;--skip-chars=N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//根-f有点像，不过-s是忽略，后面多少个字符&nbsp;-s&nbsp;5就忽略后面5个字符</span><span>&nbsp;&nbsp;</span></span><li><span>&nbsp;-u,&nbsp;--unique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//去除重复的后，全部显示出来，根mysql的distinct功能上有点像</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;-z,&nbsp;--zero-terminated&nbsp;&nbsp;&nbsp;<span class=func>end</span><span>&nbsp;lines&nbsp;with&nbsp;0&nbsp;byte,&nbsp;not&nbsp;newline&nbsp;&nbsp;</span></span><li><span>&nbsp;-w,&nbsp;--check-chars=N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//对每行第N&nbsp;个字符以后的内容不作对照</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;--help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//显示此帮助信息并退出</span><span>&nbsp;&nbsp;</span></span><li><span>&nbsp;--version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//显示版本信息并退出</span><span>&nbsp;&nbsp;</span></span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost ~]$ uniq --help
+用法：uniq [选项]... [文件]
+从输入文件或者标准输入中筛选相邻的匹配行并写入到输出文件或标准输出。
+
+不附加任何选项时匹配行将在首次出现处被合并。
+
+长选项必须使用的参数对于短选项时也是必需使用的。
+ -c, --count&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //在每行前加上表示相应行目出现次数的前缀编号
+ -d, --repeated&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //只输出重复的行
+ -D, --all-repeated&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //只输出重复的行，不过有几行输出几行
+ -f, --skip-fields=N&nbsp;&nbsp;&nbsp;&nbsp; //-f 忽略的段数，-f 1 忽略第一段
+ -i, --ignore-case&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //不区分大小写
+ -s, --skip-chars=N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //根-f有点像，不过-s是忽略，后面多少个字符 -s 5就忽略后面5个字符
+ -u, --unique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //去除重复的后，全部显示出来，根mysql的distinct功能上有点像
+ -z, --zero-terminated&nbsp;&nbsp; end lines with 0 byte, not newline
+ -w, --check-chars=N&nbsp;&nbsp; &nbsp;&nbsp; //对每行第N 个字符以后的内容不作对照
+ --help&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //显示此帮助信息并退出
+ --version&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //显示版本信息并退出
+</pre>
+<p>其中-z不知道有什么用</p>
+<p><strong>三，测试文本文件uniqtest</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span></span><li><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li><span>i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>WhoM&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li><span>those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li class=alt><span>we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>this is a test
+this is a test
+this is a test
+i am tank
+i love tank
+i love tank
+this is a test
+whom have a try
+WhoM have a try
+you&nbsp; have a try
+i want to abroad
+those are good men
+we are good men
+</pre>
+<p><strong>四，实例详解</strong></p>
+<div class=dp-highlighter><div class=bar><div class=tools><a href=#>查看</a><a href=#>复制</a><a href=#>打印</a><a href=#>?</a></div></div><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>&nbsp;3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=comment>//和第一行是重复的</span><span>&nbsp;&nbsp;</span></span><li><span>&nbsp;1&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;WhoM&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -c uniqtest
+ 3 this is a test
+ 1 i am tank
+ 2 i love tank
+ 1 this is a test &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //和第一行是重复的
+ 1 whom have a try
+ 1 WhoM have a try
+ 1 you&nbsp; have a try
+ 1 i want to abroad
+ 1 those are good men
+ 1 we are good men
+</pre>
+<p><strong>从上例子中我们可以看出，uniq的一个特性，检查重复行的时候，只会检查相邻的行。重复数据，肯定有很多不是相邻在一起的。</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;sort&nbsp;uniqtest&nbsp;|uniq&nbsp;-c&nbsp;&nbsp;</span></span><li><span>&nbsp;1&nbsp;WhoM&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li><span>&nbsp;4&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ sort uniqtest |uniq -c
+ 1 WhoM have a try
+ 1 i am tank
+ 2 i love tank
+ 1 i want to abroad
+ 4 this is a test
+ 1 those are good men
+ 1 we are good men
+ 1 whom have a try
+ 1 you&nbsp; have a try
+</pre>
+<p><strong>这样就可以解决上个例子中提到的问题</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-d&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>&nbsp;3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -d -c uniqtest
+ 3 this is a test
+ 2 i love tank
+</pre>
+<p><strong>uniq -d 只显示重复的行</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-D&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li><span>i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -D uniqtest
+this is a test
+this is a test
+this is a test
+i love tank
+i love tank
+</pre>
+<p><strong>uniq -D 只显示重复的行，并且把重复几行都显示出来。他不能和-c一起使用</strong></p>
+<div class=dp-highlighter><div class=bar><div class=tools><a href=#>查看</a><a href=#>复制</a><a href=#>打印</a><a href=#>?</a></div></div><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-f&nbsp;1&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>&nbsp;3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li class=alt><span>&nbsp;2&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;&nbsp;<span class=comment>//只有一行，显示二行</span><span>&nbsp;&nbsp;</span></span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -f 1 -c uniqtest
+ 3 this is a test
+ 1 i am tank
+ 2 i love tank
+ 1 this is a test
+ 2 whom have a try
+ 1 you&nbsp; have a try
+ 1 i want to abroad
+ 2 those are good men &nbsp; //只有一行，显示二行
+</pre>
+<p><strong>在这里those只有一行，显示的却是重复了，这是因为，-f 1 忽略了第一列，检查重复从第二字段开始的。</strong></p>
+<div class=dp-highlighter><div class=bar><div class=tools><a href=#>查看</a><a href=#>复制</a><a href=#>打印</a><a href=#>?</a></div></div><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-i&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>&nbsp;3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>&nbsp;2&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;<span class=comment>//一个大写，一个小写</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>&nbsp;1&nbsp;you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -i -c uniqtest
+ 3 this is a test
+ 1 i am tank
+ 2 i love tank
+ 1 this is a test
+ 2 whom have a try &nbsp;//一个大写，一个小写
+ 1 you&nbsp; have a try
+ 1 i want to abroad
+ 1 those are good men
+ 1 we are good men
+</pre>
+<p><strong>检查的时候，不区分大小写</strong></p>
+<div class=dp-highlighter><div class=bar><div class=tools><a href=#>查看</a><a href=#>复制</a><a href=#>打印</a><a href=#>?</a></div></div><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-s&nbsp;4&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>1&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>2&nbsp;i&nbsp;love&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>1&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>3&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;&nbsp;<span class=comment>//根上一个例子有什么不同</span><span>&nbsp;&nbsp;</span></span><li class=alt><span>1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li><span>1&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li class=alt><span>1&nbsp;we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none> [zhangy@BlackGhost mytest]$ uniq -s 4 -c uniqtest
+ 3 this is a test
+ 1 i am tank
+ 2 i love tank
+ 1 this is a test
+ 3 whom have a try &nbsp; //根上一个例子有什么不同
+ 1 i want to abroad
+ 1 those are good men
+ 1 we are good men
+</pre>
+<p><strong>检查的时候，不考虑前4个字符，这样whom have a try 就和 you have a try 就一样了。</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-u&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li class=alt><span>this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li><span>whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>WhoM&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li><span>those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li class=alt><span>we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -u uniqtest
+i am tank
+this is a test
+whom have a try
+WhoM have a try
+you&nbsp; have a try
+i want to abroad
+those are good men
+we are good men
+</pre>
+<p><strong>去重复的项，然后全部显示出来</strong></p>
+<div class=dp-highlighter><ol start=1 class=dp-c><li class=alt><span><span>[zhangy@BlackGhost&nbsp;mytest]$&nbsp;uniq&nbsp;-w&nbsp;2&nbsp;-c&nbsp;uniqtest&nbsp;&nbsp;</span></span><li><span>&nbsp;3&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;3&nbsp;i&nbsp;am&nbsp;tank&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;this&nbsp;is&nbsp;a&nbsp;test&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;whom&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;WhoM&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;you&nbsp;&nbsp;have&nbsp;a&nbsp;try&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;i&nbsp;want&nbsp;to&nbsp;abroad&nbsp;&nbsp;</span><li class=alt><span>&nbsp;1&nbsp;those&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span><li><span>&nbsp;1&nbsp;we&nbsp;are&nbsp;good&nbsp;men&nbsp;&nbsp;</span></ol></div><pre class=php name=code style=display:none>[zhangy@BlackGhost mytest]$ uniq -w 2 -c uniqtest
+ 3 this is a test
+ 3 i am tank
+ 1 this is a test
+ 1 whom have a try
+ 1 WhoM have a try
+ 1 you&nbsp; have a try
+ 1 i want to abroad
+ 1 those are good men
+ 1 we are good men
+</pre>
+<p><strong>对每行第2个字符以后的内容不作检查，所以i am tank 根 i love tank就一样了。</strong></p>
+ <br><br><b>转载请注明<br>作者:海底苍鹰<br>地址:<a href=http://blog.51yip.com/shell/1022.html>http://blog.51yip.com/shell/1022.html</a></b> </div>
+ </div>
+ </div>
+<div class=navigation>
+ <div class=alignleft>&lt;&lt; <a href=http://blog.51yip.com/wordpress/1024.html rel=next>wordpress无插件添加验证码，告别垃圾留言</a></div>
+ <div class=alignright><a href=http://blog.51yip.com/social/1020.html rel=prev>我的买菜策略</a> &gt;&gt;</div>
+</div>
+<div style=clear:both></div>
+<div class=navigation_line></div>
+ 
+ <div class=lastlist>
+ <p>相关文章</p>
+ <ul>
+ <div class=related_post><ul><li><a href=http://blog.51yip.com/linux/1774.html title="shell awk 检查程序是否执行">shell awk 检查程序是否执行 </a><li><a href=http://blog.51yip.com/shell/1091.html title=shell备份，重命名，删除目录下面的文件>shell备份，重命名，删除目录下面的文件 </a><li><a href=http://blog.51yip.com/shell/1080.html title=shell字符串操作方法，以及实例>shell字符串操作方法，以及实例 </a><li><a href=http://blog.51yip.com/shell/986.html title=sed很强大的文本操作命令>sed很强大的文本操作命令 </a><li><a href=http://blog.51yip.com/linux/861.html title=shell编程必须要掌握的命令,xargs>shell编程必须要掌握的命令,xargs </a><li><a href=http://blog.51yip.com/server/2372.html title="linux ssh windows openssh安装配置">linux ssh windows openssh安装配置 </a><li><a href=http://blog.51yip.com/hadoop/2189.html title="hbase filter 简介与实例">hbase filter 简介与实例 </a><li><a href=http://blog.51yip.com/linux/2075.html title="dell r740 u盘 安装 centos 7.4">dell r740 u盘 安装 centos 7.4 </a><li><a href=http://blog.51yip.com/server/1960.html title="ubuntu sentry 安装配置">ubuntu sentry 安装配置 </a><li><a href=http://blog.51yip.com/linux/1845.html title="linux mac tab 不区分大小 自动补全">linux mac tab 不区分大小 自动补全 </a></ul></div> 
+ </ul>
+ </div>
+ <div class=comments>
+ 
+<h3 id=comments>2 条评论</h3>
+<ol class=commentlist>
+ 
+ <li class="comment even thread-even depth-1" id=comment-17418>
+ <div id=div-comment-17418 class=comment-body>
+ <div class=comment-meta>
+ <div class=comment-author>
+ <a href=#comment-17418></a><cite class=fn>komiles</cite> <span class=says>留言</span> <span class=commentmetadata>(2016年4月8日 09:16 ):</span></div>
+ <div class=comment-avatar></div>
+ </div>
+ <div class=comment-text>
+ <p>谢谢</p>
+ 
+ </div>
+ </div>
+</li>
+ <li class="comment odd alt thread-odd thread-alt depth-1" id=comment-17545>
+ <div id=div-comment-17545 class=comment-body>
+ <div class=comment-meta>
+ <div class=comment-author>
+ <a href=#comment-17545></a><cite class=fn>momaer</cite> <span class=says>留言</span> <span class=commentmetadata>(2016年12月26日 02:35 ):</span></div>
+ <div class=comment-avatar></div>
+ </div>
+ <div class=comment-text>
+ <p>uniq -u 表示只输出唯一的记录。而不是排重。</p>
+<p>uniq -z 表示 使用字符 表示一行的结束，和C语言的string以表示结束一样。</p>
+<p>博主涉猎挺多的，学习到不少东西 ，这篇文章 有以上两个错误/疏漏，请更正一下哈。谢谢。</p>
+ 
+ </div>
+ </div>
+</li>
+</ol>
+<div class=commentrespond>
+ <div id=respond>
+ <h3>留下评论</h3>
+ <div class=cancel-comment-reply>
+ <small><a rel=nofollow id=cancel-comment-reply-link href=#respond style=display:none>点击这里取消回复</a></small>
+ </div>
+ <p><a href="http://blog.51yip.com/wp-login.php?redirect_to=http%3A%2F%2Fblog.51yip.com%2Fshell%2F1022.html">抱歉，发表回复评论您必须登录。</a></p>
+ </div>
+</div>
+ </div>
+ 
+ 
+</div>
+<div id=aside>
+ <ul>
+ <li id=categories-3 class="widget widget_categories"><h3 class=widgettitle>分类目录<span></span></h3> <ul>
+ <li class="cat-item cat-item-9"><a href=http://blog.51yip.com/category/apachenginx title=根apache和nginx有关的文章>apache/nginx</a> (36)
+</li>
+ <li class="cat-item cat-item-7"><a href=http://blog.51yip.com/category/cache title="根cache有关的文章 ">cache</a> (21)
+</li>
+ <li class="cat-item cat-item-1273"><a href=http://blog.51yip.com/category/clickhouse title=根clickhouse有关的文章>clickhouse</a> (14)
+</li>
+ <li class="cat-item cat-item-461"><a href=http://blog.51yip.com/category/drupal title=drupal>drupal</a> (7)
+</li>
+ <li class="cat-item cat-item-13"><a href=http://blog.51yip.com/category/eclipse title=根eclipse有关的文章>eclipse</a> (8)
+</li>
+ <li class="cat-item cat-item-1042"><a href=http://blog.51yip.com/category/elasticsearch title="查看 elasticsearch 下的所有文章">elasticsearch</a> (18)
+</li>
+ <li class="cat-item cat-item-98"><a href=http://blog.51yip.com/category/google title=google,google地图,google新闻>google</a> (3)
+</li>
+ <li class="cat-item cat-item-1129"><a href=http://blog.51yip.com/category/hadoop title=大数据>hadoop/spark/scala</a> (96)
+</li>
+ <li class="cat-item cat-item-88"><a href=http://blog.51yip.com/category/htmlcss title=根html和css有关的文章>html/css</a> (12)
+</li>
+ <li class="cat-item cat-item-790"><a href=http://blog.51yip.com/category/android title=安卓>java/android</a> (14)
+</li>
+ <li class="cat-item cat-item-8"><a href=http://blog.51yip.com/category/linux title=根linux和windows有关的文章>linux</a> (87)
+</li>
+ <li class="cat-item cat-item-891"><a href=http://blog.51yip.com/category/mariadb title="查看 mariadb 下的所有文章">mariadb</a> (2)
+</li>
+ <li class="cat-item cat-item-5"><a href=http://blog.51yip.com/category/mysql title=根mysql有关的文章>mysql</a> (74)
+</li>
+ <li class="cat-item cat-item-6"><a href=http://blog.51yip.com/category/jsjquery title=根js,javascript和jquery有关的文章>nodejs/vue/js/jquery</a> (72)
+</li>
+ <li class="cat-item cat-item-756"><a href=http://blog.51yip.com/category/nosql title="查看 nosql 下的所有文章">nosql</a> (39)
+</li>
+ <li class="cat-item cat-item-520"><a href=http://blog.51yip.com/category/oracle title=oracle数据库>oracle</a> (9)
+</li>
+ <li class="cat-item cat-item-702"><a href=http://blog.51yip.com/category/pgsql title="PostgreSQL是以加州大学伯克利分校计算机系开发的 POSTGRES 版本 4.2 为基础的对象关系型数据库管理系统（ORDBMS）,简称pgsql,它支持大部分 SQL">pgsql</a> (8)
+</li>
+ <li class="cat-item cat-item-4"><a href=http://blog.51yip.com/category/php title=根php有关的文章>php</a> (107)
+</li>
+ <li class="cat-item cat-item-38"><a href=http://blog.51yip.com/category/seo title=根seo优化有关的文章>seo</a> (16)
+</li>
+ <li class="cat-item cat-item-44"><a href=http://blog.51yip.com/category/shell title="查看 shell 下的所有文章">shell</a> (11)
+</li>
+ <li class="cat-item cat-item-189"><a href=http://blog.51yip.com/category/smarty title=smarty学习,smarty使用,smarty技巧>smarty</a> (5)
+</li>
+ <li class="cat-item cat-item-1253"><a href=http://blog.51yip.com/category/tidb title="查看 tidb 下的所有文章">tidb</a> (21)
+</li>
+ <li class="cat-item cat-item-36"><a href=http://blog.51yip.com/category/wordpress title=根wordpress有关的文章>wordpress</a> (13)
+</li>
+ <li class="cat-item cat-item-1027"><a href=http://blog.51yip.com/category/cloud title=云服务器，虚拟服务器，kvm，docker>云计算</a> (22)
+</li>
+ <li class="cat-item cat-item-135"><a href=http://blog.51yip.com/category/social title=看到的社会现象>双眼看社会</a> (13)
+</li>
+ <li class="cat-item cat-item-10"><a href=http://blog.51yip.com/category/other title=杂谈文章>技术其他</a> (41)
+</li>
+ <li class="cat-item cat-item-3"><a href=http://blog.51yip.com/category/server title=根服务器架构有关的文章，集群，分部式>服务器相关</a> (136)
+</li>
+ <li class="cat-item cat-item-705"><a href=http://blog.51yip.com/category/safe title=系统安全>系统安全</a> (7)
+</li>
+ </ul>
+</li> <li id=recent-posts-3 class="widget widget_recent_entries"> <h3 class=widgettitle>最近文章<span></span></h3> <ul>
+ <li><a href=http://blog.51yip.com/tidb/2541.html title="tidb 误删库，表，数据恢复">tidb 误删库，表，数据恢复 </a></li>
+ <li><a href=http://blog.51yip.com/tidb/2540.html title="ticdc 同步有规律的数据库">ticdc 同步有规律的数据库 </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2537.html title="canal 同步mysql数据到clickhouse 支持update delete truncate">canal 同步mysql数据到clickhouse 支持update delete truncate </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2536.html title="canal 同步mysql数据到clickhouse 忽略delete update">canal 同步mysql数据到clickhouse 忽略delete update </a></li>
+ <li><a href=http://blog.51yip.com/tidb/2534.html title="tidb 扩容和缩容">tidb 扩容和缩容 </a></li>
+ <li><a href=http://blog.51yip.com/tidb/2533.html title="clickhouse,tidb,mysql 读取速度对比">clickhouse,tidb,mysql 读取速度对比 </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2532.html title="clickhouse  right join 问题">clickhouse right join 问题 </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2531.html title="canal 同步mysql数据到clickhouse">canal 同步mysql数据到clickhouse </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2530.html title="nginx clickhouse  反向代理">nginx clickhouse 反向代理 </a></li>
+ <li><a href=http://blog.51yip.com/clickhouse/2529.html title="clickhouse  MaterializeMySQL 同步 mysql 数据">clickhouse MaterializeMySQL 同步 mysql 数据 </a></li>
+ </ul>
+ </li> <li id=recent-comments-3 class="widget widget_recent_comments"> <h3 class=widgettitle>最近评论和留言<span></span></h3> <ul id=recentcomments><li class=recentcomments>banner 在 <a href=http://blog.51yip.com/shell/985.html/comment-page-1#comment-25486>awk是命令还是编程语言</a> 上的评论<li class=recentcomments>lin 在 <a href=http://blog.51yip.com/hadoop/2066.html/comment-page-1#comment-25485>hadoop 查看 mr日志报错</a> 上的评论<li class=recentcomments>ccc 在 <a href=http://blog.51yip.com/hadoop/2391.html/comment-page-1#comment-25484>cdh hive 2.1.1 升级到 2.3.4</a> 上的评论<li class=recentcomments>简简单单 在 <a href=http://blog.51yip.com/aboutme/comment-page-1#comment-25481>关于我</a> 上的评论<li class=recentcomments>www 在 <a href=http://blog.51yip.com/tidb/2533.html/comment-page-1#comment-25480>clickhouse,tidb,mysql 读取速度对比</a> 上的评论<li class=recentcomments>zzq 在 <a href=http://blog.51yip.com/mysql/1029.html/comment-page-1#comment-25472>mysql分表，分区的区别和联系</a> 上的评论<li class=recentcomments>Bill 在 <a href=http://blog.51yip.com/other/577.html/comment-page-1#comment-25471>怎么在网上找到你要的信息</a> 上的评论<li class=recentcomments>11 在 <a href=http://blog.51yip.com/message/comment-page-3#comment-18767>留言板</a> 留言了<li class=recentcomments>Michael 在 <a href=http://blog.51yip.com/clickhouse/2537.html/comment-page-1#comment-18766>canal 同步mysql数据到clickhouse 支持update delete truncate</a> 上的评论<li class=recentcomments>我兜里有糖 在 <a href=http://blog.51yip.com/pgsql/1520.html/comment-page-1#comment-18765>linux postgresql 安装配置详解</a> 上的评论</ul>
+ <li id=linkcat-2 class="widget widget_links"><h3 class=widgettitle>友情链接<span></span></h3>
+ <ul class="xoxo blogroll">
+<li><a href=http://www.enjoydiy.com/ target=_blank>Enjoy Diy</a></li>
+<li><a href=http://blog.itblood.com/ target=_blank>IT热血青年</a></li>
+<li><a href=http://www.magentonotes.com/ target=_blank>Magento架构师</a></li>
+<li><a href=http://www.iitshare.com/ target=_blank>爱积累爱分享</a></li>
+<li><a href=http://www.nowamagic.net/ rel=friend target=_blank>简明现代魔法</a></li>
+ </ul>
+</li>
+<li id=meta-3 class="widget widget_meta"><h3 class=widgettitle>登录<span></span></h3> <ul>
+ <li><a href=http://blog.51yip.com/wp-login.php>登录</a></li>
+ 
+ </ul>
+</li>
+ </ul>
+</div>
+ </div>
+ </div>
+ <div id=footer>
+ <div class=columns>
+ <div class=right>
+ <p>© 2010 海底苍鹰(tank)博客 ٠ Powered by 51yip.com ٠<a href=http://www.miitbeian.gov.cn/ target=_black> 沪ICP备16002029号-1</a> 
+ </p>
+ </div>
+ <div class=left>
+ </div>
+ </div>
+ </div>
+</div>
