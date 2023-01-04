@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html xmlns=http://www.w3.org/1999/xhtml style><!--
+ Page saved with SingleFile 
+ url: http://djangobook.py3k.cn/appendixH/ 
+ saved date: Wed Jan 04 2023 14:13:54 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>附录H HTTP请求（Request）和回应（Response）对象</title>
+<style>:root{--sf-img-0: url("data:image/png;base64,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")}body,div,dl,dt,dd,ul,li,h1,h2,h3,p,th,td{margin:0;padding:0}table{border-spacing:0}caption,em,th{font-style:normal;font-weight:normal}ul{list-style:none}body{text-align:center}#doc{width:57.69em;min-width:770px;margin:auto;text-align:left}#hd,#bd{margin-bottom:1em;text-align:left}#ft{font-family:verdana;clear:both}#bd:after,.yui-g:after,.yui-gb:after,.yui-gc:after,.yui-gd:after,.yui-ge:after,.yui-gf:after{content:".";display:block;height:0;clear:both;visibility:hidden}#bd{zoom:1}body{font:12px/1.5 Verdana,sans-serif;background:#092e20;color:white}#bd{background:#487858}#doc{padding-top:16px}a img{border:none}a{text-decoration:none}a:hover{color:#ffe761}a:link,a:visited{color:#ffc757}div.nav{margin:0;font-size:11px;text-align:right;color:#487858}#hd div.nav{margin-top:-27px}#ft div.nav{margin-bottom:-18px}#hd h1 a{color:white}#global-nav{position:absolute;top:5px;padding:7px 0;color:#263E2B}#global-nav a:link,#global-nav a:visited{color:#487858}#global-nav a{padding:0 4px}#global-nav a.about{padding-left:0}#global-nav:hover{color:#fff}#global-nav:hover a:link,#global-nav:hover a:visited{color:#ffc757}#chapter-body{position:relative}#yui-main div.yui-b{margin:0 20px 0 20px;background:white;color:black;padding:0.3em 2em 1em 2em}dd{margin-left:15px}h1{font-size:218%;margin-bottom:.4em;line-height:1.1em}h1,h2,h3{margin-top:1.4em;font-family:"Trebuchet MS",sans-serif;font-weight:normal}h2{font-size:140%;color:#487858}h3{font-size:150%;margin-bottom:.6em;line-height:1.2em;color:#092e20}p,ul,dl{margin-top:.6em;margin-bottom:1em;padding-bottom:0.1em}table{color:#000;margin-bottom:1em;width:100%}table.docutils td p{margin-top:0;margin-bottom:.5em}table.docutils td,table.docutils th{border-bottom:1px solid #dfdfdf;padding:4px 2px}table.docutils thead th{border-bottom:2px solid #dfdfdf;text-align:left;font-weight:bold;white-space:nowrap}table.docutils{border-collapse:collapse}caption{font-size:1em;font-weight:bold;margin-top:0.5em;margin-bottom:0.5em;margin-left:2px;text-align:center}em{font-style:italic}ul{padding-left:30px}ul li{list-style-type:square;margin-bottom:.4em}dt{font-weight:bold;margin-top:.5em;font-size:1.1em}dd{margin-bottom:.8em}.literal{white-space:nowrap}.literal,.literal-block{color:#234f32}.literal-block{font-size:medium;background:#E0FFB8;border:1px solid #94da3a;border-width:1px 0;margin:1em 0;padding:.3em .4em;overflow:hidden}table .literal{background:none}.cn{position:relative}#djangobookcomments{padding:0;border:1px #092e20 solid;top:0;position:absolute;z-index:10;background-color:#E0FFB8;color:black;overflow:hidden;text-align:left}#highlight-floater{position:absolute;z-index:5;background:#487858;top:0;left:0;height:10px;border-top:1px black solid;border-bottom:1px black solid;border-left:20px black solid}div.comment-indicator{position:absolute;width:20px;z-index:999;text-align:center;color:black;font-size:11px;left:-44px;top:0}li.cn div.comment-indicator{left:-74px}pre div.comment-indicator{left:-44px;width:64px}pre div.comment-indicator span{position:absolute;top:0px;left:700px;width:25px;height:25px}pre div.comment-indicator:hover span{background-image:var(--sf-img-0)}pre div.has-comments>span,div.has-comments:hover>span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKTWlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAPQGAAgJlCLMwAIDgCAEMeE80DIEwDoDDSv+CpX3CFuEgBAMDLlc2XS9IzFLiV0Bp38vDg4iHiwmyxQmEXKRBmCeQinJebIxNI5wNMzgwAABr50cH+OD+Q5+bk4eZm52zv9MWi/mvwbyI+IfHf/ryMAgQAEE7P79pf5eXWA3DHAbB1v2upWwDaVgBo3/ldM9sJoFoK0Hr5i3k4/EAenqFQyDwdHAoLC+0lYqG9MOOLPv8z4W/gi372/EAe/tt68ABxmkCZrcCjg/1xYW52rlKO58sEQjFu9+cj/seFf/2OKdHiNLFcLBWK8ViJuFAiTcd5uVKRRCHJleIS6X8y8R+W/QmTdw0ArIZPwE62B7XLbMB+7gECiw5Y0nYAQH7zLYwaC5EAEGc0Mnn3AACTv/mPQCsBAM2XpOMAALzoGFyolBdMxggAAESggSqwQQcMwRSswA6cwR28wBcCYQZEQAwkwDwQQgbkgBwKoRiWQRlUwDrYBLWwAxqgEZrhELTBMTgN5+ASXIHrcBcGYBiewhi8hgkEQcgIE2EhOogRYo7YIs4IF5mOBCJhSDSSgKQg6YgUUSLFyHKkAqlCapFdSCPyLXIUOY1cQPqQ28ggMor8irxHMZSBslED1AJ1QLmoHxqKxqBz0XQ0D12AlqJr0Rq0Hj2AtqKn0UvodXQAfYqOY4DRMQ5mjNlhXIyHRWCJWBomxxZj5Vg1Vo81Yx1YN3YVG8CeYe8IJAKLgBPsCF6EEMJsgpCQR1hMWEOoJewjtBK6CFcJg4Qxwicik6hPtCV6EvnEeGI6sZBYRqwm7iEeIZ4lXicOE1+TSCQOyZLkTgohJZAySQtJa0jbSC2kU6Q+0hBpnEwm65Btyd7kCLKArCCXkbeQD5BPkvvJw+S3FDrFiOJMCaIkUqSUEko1ZT/lBKWfMkKZoKpRzame1AiqiDqfWkltoHZQL1OHqRM0dZolzZsWQ8ukLaPV0JppZ2n3aC/pdLoJ3YMeRZfQl9Jr6Afp5+mD9HcMDYYNg8dIYigZaxl7GacYtxkvmUymBdOXmchUMNcyG5lnmA+Yb1VYKvYqfBWRyhKVOpVWlX6V56pUVXNVP9V5qgtUq1UPq15WfaZGVbNQ46kJ1Bar1akdVbupNq7OUndSj1DPUV+jvl/9gvpjDbKGhUaghkijVGO3xhmNIRbGMmXxWELWclYD6yxrmE1iW7L57Ex2Bfsbdi97TFNDc6pmrGaRZp3mcc0BDsax4PA52ZxKziHODc57LQMtPy2x1mqtZq1+rTfaetq+2mLtcu0W7eva73VwnUCdLJ31Om0693UJuja6UbqFutt1z+o+02PreekJ9cr1Dund0Uf1bfSj9Rfq79bv0R83MDQINpAZbDE4Y/DMkGPoa5hpuNHwhOGoEctoupHEaKPRSaMnuCbuh2fjNXgXPmasbxxirDTeZdxrPGFiaTLbpMSkxeS+Kc2Ua5pmutG003TMzMgs3KzYrMnsjjnVnGueYb7ZvNv8jYWlRZzFSos2i8eW2pZ8ywWWTZb3rJhWPlZ5VvVW16xJ1lzrLOtt1ldsUBtXmwybOpvLtqitm63Edptt3xTiFI8p0in1U27aMez87ArsmuwG7Tn2YfYl9m32zx3MHBId1jt0O3xydHXMdmxwvOuk4TTDqcSpw+lXZxtnoXOd8zUXpkuQyxKXdpcXU22niqdun3rLleUa7rrStdP1o5u7m9yt2W3U3cw9xX2r+00umxvJXcM970H08PdY4nHM452nm6fC85DnL152Xlle+70eT7OcJp7WMG3I28Rb4L3Le2A6Pj1l+s7pAz7GPgKfep+Hvqa+It89viN+1n6Zfgf8nvs7+sv9j/i/4XnyFvFOBWABwQHlAb2BGoGzA2sDHwSZBKUHNQWNBbsGLww+FUIMCQ1ZH3KTb8AX8hv5YzPcZyya0RXKCJ0VWhv6MMwmTB7WEY6GzwjfEH5vpvlM6cy2CIjgR2yIuB9pGZkX+X0UKSoyqi7qUbRTdHF09yzWrORZ+2e9jvGPqYy5O9tqtnJ2Z6xqbFJsY+ybuIC4qriBeIf4RfGXEnQTJAntieTE2MQ9ieNzAudsmjOc5JpUlnRjruXcorkX5unOy553PFk1WZB8OIWYEpeyP+WDIEJQLxhP5aduTR0T8oSbhU9FvqKNolGxt7hKPJLmnVaV9jjdO31D+miGT0Z1xjMJT1IreZEZkrkj801WRNberM/ZcdktOZSclJyjUg1plrQr1zC3KLdPZisrkw3keeZtyhuTh8r35CP5c/PbFWyFTNGjtFKuUA4WTC+oK3hbGFt4uEi9SFrUM99m/ur5IwuCFny9kLBQuLCz2Lh4WfHgIr9FuxYji1MXdy4xXVK6ZHhp8NJ9y2jLspb9UOJYUlXyannc8o5Sg9KlpUMrglc0lamUycturvRauWMVYZVkVe9ql9VbVn8qF5VfrHCsqK74sEa45uJXTl/VfPV5bdra3kq3yu3rSOuk626s91m/r0q9akHV0IbwDa0b8Y3lG19tSt50oXpq9Y7NtM3KzQM1YTXtW8y2rNvyoTaj9nqdf13LVv2tq7e+2Sba1r/dd3vzDoMdFTve75TsvLUreFdrvUV99W7S7oLdjxpiG7q/5n7duEd3T8Wej3ulewf2Re/ranRvbNyvv7+yCW1SNo0eSDpw5ZuAb9qb7Zp3tXBaKg7CQeXBJ9+mfHvjUOihzsPcw83fmX+39QjrSHkr0jq/dawto22gPaG97+iMo50dXh1Hvrf/fu8x42N1xzWPV56gnSg98fnkgpPjp2Snnp1OPz3Umdx590z8mWtdUV29Z0PPnj8XdO5Mt1/3yfPe549d8Lxw9CL3Ytslt0utPa49R35w/eFIr1tv62X3y+1XPK509E3rO9Hv03/6asDVc9f41y5dn3m978bsG7duJt0cuCW69fh29u0XdwruTNxdeo94r/y+2v3qB/oP6n+0/rFlwG3g+GDAYM/DWQ/vDgmHnv6U/9OH4dJHzEfVI0YjjY+dHx8bDRq98mTOk+GnsqcTz8p+Vv9563Or59/94vtLz1j82PAL+YvPv655qfNy76uprzrHI8cfvM55PfGm/K3O233vuO+638e9H5ko/ED+UPPR+mPHp9BP9z7nfP78L/eE8/sl0p8zAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAD2SURBVHja7JUxC0FRFIC/d1nu5Aco5QcoZdAtZVCK+fkfMlFvVEwmP+OuyiRKvVImqzKRSSllUpY7vITkvWPyrffe83XPOZ3j4biGfhXoACUgy/fsgTUw0sYuADwn6AIDkqenjR1619CvAHMgJSC5ATUF9IUEuLh9BRSRpaCAjLAko/gBf8lfIiu5CDvOyk1MSTYKCNwgk+AGBEobu3QiCQJt7MKLLK0mMEkg8BFYRZdWOnJ4ePNwCzS0sdu4LZx7cWcGlL8VfCIZA3Vt7ClO/qLpyj90RVsbO06i+uknP7kALW3sNKkWe/xJrAJ/UpNd3AK/4j4Aagg5dKoei1UAAAAASUVORK5CYII=)}div.comment-indicator:hover{background-color:#406b4e}div.comment-indicator span{position:absolute;top:-10px;left:-10px;width:25px;height:25px}div.comment-indicator:hover span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1goeFyEnwjl44gAAARhJREFUSMft1CFLQ2EUh/Hf7qpsYBuCQxCEgeBmMA0NYtHoB/ALWEyCRrNp3SKmt2tRlLu6iyAsCeJA1gTBojCw3BVxRe9r2hNfDufhvPzPKclp7bbXcYBVzPk9L+jhNAvpHZRzwSHOsYSKv1HJ++zVGvWPYX/QLeUTXI+FBTPCRoKTSILxT50kWBaXlQTVyJJq4h+YSqaSuJK3yI73BA+RJb0Ex/khi8EIx+Vhf/Bca9Q/sRlBcpSF9KIMw/6gW2vUbzGb37KZAgTbWUjPoPTbDq3d9iIusTihpJmF9P5PEc5C+og13EwomS9kT7KQvmILnWiSXDTKQrqP/W8pXSh847OQdrCD98In+Sa6QhOPUSb5IRBP47cv8ydLL3abjl0AAAAASUVORK5CYII=)}div.has-comments>span,div.has-comments:hover>span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1goeFyI5ExsWQgAAAB10RVh0Q29tbWVudABDcmVhdGVkIHdpdGggVGhlIEdJTVDvZCVuAAAA+ElEQVRIx+3VL0tDURjH8c+9ppNWBUEQVgWHoJykyaJxb2PFpHDjwCXTXsbJalEQhKWBYB2YrIIwWBpYroaxlXmPad94eDhffvD8KdTMRt0TXOIQO9bnA2PchpieoagFV7jRPNchpkFRJ3jEVgbJHKcl+pkE6n/7Jfbl5aBEK7OkVfoHNpKNJK/kK7NjWuIts2RcoqoXWQ7mqMp651eZJFWI6aVYcrSOsN2A4DzEdPd7tNZhNuq2cY/2ipJOiOn1Ty0cYprgGE8rSnYbmZMQ0yfOMMwmqUXzEFMPvYUu3Wt84kNMQ1xg2niSBdEDOphkSbKkId5/3r4BpaM56yfzZaQAAAAASUVORK5CYII=)}#djangobooktranslations{padding:0;border:1px #092e20 solid;top:0;position:absolute;z-index:10;background-color:#E0FFB8;color:black;overflow:hidden;text-align:left}div.translation-indicator{position:absolute;width:20px;z-index:999;text-align:center;color:black;background-color:#406b4e;font-size:11px;right:-44px;top:0}div.translation-indicator:hover{background-color:#406b4e}div.translation-indicator span{position:absolute;top:-10px;left:10px;width:25px;height:25px}div.translation-indicator:hover span{background-image:var(--sf-img-0)}#ft{color:#487858;font-size:90%;padding-bottom:2em}* pre{width:100%}</style>
+<style media=screen>.yresizable-proxy{border:1px dashed #6593cf;position:absolute;overflow:hidden;visibility:hidden;z-index:1001}</style>
+<link type=image/x-icon rel="shortcut icon" href=data:,><link rel=canonical href=http://djangobook.py3k.cn/appendixH/><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body><div class=yresizable-proxy id=djangobooktranslations-rzproxy></div><div class=yresizable-proxy id=djangobookcomments-rzproxy></div>
+<div id=doc class=yui-t7>
+ <div id=hd>
+ <h1><a href=http://djangobook.py3k.cn/>The Django Book</a></h1>
+ <div id=global-nav>
+ <a class=about href=http://new.djangobook.com/about/>About</a>
+ |
+ <a class=comment-help href=http://new.djangobook.com/about/comments/>Comment help</a>
+ |
+ <a class=contact href=http://new.djangobook.com/contact/>Contact us</a>
+ |
+ <a class=errata href=http://new.djangobook.com/errata/>Errata</a>
+ |
+ <a class=buy href="http://www.amazon.com/gp/product/1590597257?ie=UTF8&amp;tag=jacobianorg-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1590597257">
+ Buy the print version on Amazon.com</a>
+ </div>
+ <div class=nav>
+ 已完成 61段 共有 61段 完成度 100%
+ <a href=http://djangobook.py3k.cn/appendixH/ecn/>| 中英文对照</a> |
+ <a href=http://djangobook.py3k.cn/appendixH/en/>英文</a> |
+ <a href=http://djangobook.py3k.cn/appendixH/>中文</a>
+ <a href=http://djangobook.py3k.cn/appendixG/>| 上一章</a> |
+ <a href=http://djangobook.py3k.cn/>目 录</a> |
+ <a href=http://djangobook.py3k.cn/appendix/>下一章 </a> |
+ <a href=http://djangobook.py3k.cn/appendixH/translate/>翻译 </a> |
+ </div>
+ </div>
+<div id=bd>
+<div id=yui-main>
+ <div class=yui-b>
+ <div id=chapter-body> 
+ 
+ <div class=document id=h-http-request-response>
+<h1 class="cn title" id=cn0>附录H HTTP请求（Request）和回应（Response）对象<div class="comment-indicator has-comments" id=c0 style=height:29px><span>57</span></div><div class="translation-indicator has-translations" id=b0 style=height:29px><span> </span></div></h1>
+<p class=cn id=cn1>Django使用request和response对象在系统间传递状态。<div class=comment-indicator id=c1 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b1 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn2>当一个页面被请示时，Django创建一个包含请求元数据的 <tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 对象。
+然后Django调入合适的视图，把 <tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 作为视图函数的第一个参数
+传入。每个视图要负责返回一个 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 对象。<div class=comment-indicator id=c2 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b2 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn3>我们在书中已经使用过这些对象了；这篇附录说明了 <tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 和 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt>
+的全部API。<div class=comment-indicator id=c3 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b3 style=height:19px><span> </span></div><p></p>
+<div class=section id=httprequest>
+<span id=cn4></span><h2 class=cn id=cn4>HttpRequest对象<div class=comment-indicator id=c4 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b4 style=height:0px><span> </span></div></h2>
+<p class=cn id=cn5><tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 表示来自某客户端的一个单独的HTTP请求。<div class="comment-indicator has-comments" id=c5 style=height:19px><span>1</span></div><div class="translation-indicator has-translations" id=b5 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn6>HttpRequest实例的属性包含了关于此次请求的大多数重要信息(详见表H-1)。 除了session外的所有属性都应该认为是只读的.<div class=comment-indicator id=c6 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b6 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c7 style=height:1421px;top:0px><span></span></div><div class="translation-indicator has-translations" id=b7 style=height:1421px;top:0px><span> </span></div><table class="cn docutils" id=cn7>
+<caption>表 H-1. HttpRequest对象的属性</caption>
+<colgroup>
+<col width=22%>
+<col width=78%>
+</colgroup>
+<thead valign=bottom>
+<tr><th class=head>属性</th>
+<th class=head>描述</th>
+</tr>
+</thead>
+<tbody valign=top>
+<tr><td><tt class="docutils literal"><span class=pre>path</span></tt></td>
+<td>表示提交请求页面完整地址的字符串，
+不包括域名，如 <tt class="docutils literal"><span class=pre>"/music/bands/the_beatles/"</span></tt> 。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>method</span></tt></td>
+<td><p class=first>表示提交请求使用的HTTP方法。
+它总是大写的。例如：</p>
+<pre class="last literal-block">if request.method == 'GET':
+    do_something()
+elif request.method == 'POST':
+    do_something_else()
+</pre>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>GET</span></tt></td>
+<td>一个类字典对象，包含所有的HTTP的GET参数的信息。
+见 <tt class="docutils literal"><span class=pre>QueryDict</span></tt> 文档。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>POST</span></tt></td>
+<td><p class=first>一个类字典对象，包含所有的HTTP的POST参数的信息。
+见 <tt class="docutils literal"><span class=pre>QueryDict</span></tt> 文档。</p>
+<p>通过POST提交的请求有可能包含一个空的 <tt class="docutils literal"><span class=pre>POST</span></tt> 字典，
+也就是说， 一个通过POST方法提交的表单可能不包含数据。
+因此，不应该使用 <tt class="docutils literal"><span class=pre>if</span> <span class=pre>request.POST</span></tt> 来判断POST方法的使用，
+而是使用 <tt class="docutils literal"><span class=pre>if</span> <span class=pre>request.method</span> <span class=pre>==</span> <span class=pre>"POST"</span></tt>
+（见表中的 <tt class="docutils literal"><span class=pre>method</span></tt> 条目）。</p>
+<p class=last>注意： <tt class="docutils literal"><span class=pre>POST</span></tt> 并 <em>不</em> 包含文件上传信息。
+见 <tt class="docutils literal"><span class=pre>FILES</span></tt> 。</p>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>REQUEST</span></tt></td>
+<td><p class=first>为了方便而创建，这是一个类字典对象，先搜索 <tt class="docutils literal"><span class=pre>POST</span></tt> ，
+再搜索 <tt class="docutils literal"><span class=pre>GET</span></tt> 。 灵感来自于PHP的 <tt class="docutils literal"><span class=pre>$_REQEUST</span></tt> 。</p>
+<p>例如， 若 <tt class="docutils literal"><span class=pre>GET</span> <span class=pre>=</span> <span class=pre>{"name":</span> <span class=pre>"john"}</span></tt> ， <tt class="docutils literal"><span class=pre>POST</span> <span class=pre>=</span>
+<span class=pre>{"age":</span> <span class=pre>'34'}</span></tt> ， <tt class="docutils literal"><span class=pre>REQUEST["name"]</span></tt> 会是 <tt class="docutils literal"><span class=pre>"john"</span></tt> ，
+<tt class="docutils literal"><span class=pre>REQUEST["age"]</span></tt> 会是 <tt class="docutils literal"><span class=pre>"34"</span></tt> 。</p>
+<p class=last>强烈建议使用 <tt class="docutils literal"><span class=pre>GET</span></tt> 和 <tt class="docutils literal"><span class=pre>POST</span></tt> ，而不是 <tt class="docutils literal"><span class=pre>REQUEST</span></tt> 。
+这是为了向前兼容和更清楚的表示。</p>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>COOKIES</span></tt></td>
+<td>一个标准的Python字典，包含所有cookie。
+键和值都是字符串。cookie使用的更多信息见第12章。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>FILES</span></tt></td>
+<td><p class=first>一个类字典对象，包含所有上传的文件。
+<tt class="docutils literal"><span class=pre>FILES</span></tt> 的键来自 <tt class="docutils literal"><span class=pre>&lt;input</span> <span class=pre>type="file"</span> <span class=pre>name=""</span> <span class=pre>/&gt;</span></tt>
+中的 <tt class="docutils literal"><span class=pre>name</span></tt> 。 <tt class="docutils literal"><span class=pre>FILES</span></tt> 的值是一个标准的Python字典，
+包含以下三个键：</p>
+<ul class=simple>
+<li><tt class="docutils literal"><span class=pre>filename</span></tt> ：字符串，表示上传文件的文件名。</li>
+<li><tt class="docutils literal"><span class=pre>content-type</span></tt> ：上传文件的内容类型。</li>
+<li><tt class="docutils literal"><span class=pre>content</span></tt> ：上传文件的原始内容。</li>
+</ul>
+<p class=last>注意 <tt class="docutils literal"><span class=pre>FILES</span></tt> 只在请求的方法是 <tt class="docutils literal"><span class=pre>POST</span></tt> ，并且提交的
+<tt class="docutils literal"><span class=pre>&lt;form&gt;</span></tt> 包含 <tt class="docutils literal"><span class=pre>enctype="multipart/form-data"</span></tt> 时
+才包含数据。否则， <tt class="docutils literal"><span class=pre>FILES</span></tt> 只是一个空的类字典对象。</p>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>META</span></tt></td>
+<td><p class=first>一个标准的Python字典，包含所有有效的HTTP头信息。
+有效的头信息与客户端和服务器有关。
+这里有几个例子：</p>
+<ul class=simple>
+<li><tt class="docutils literal"><span class=pre>CONTENT_LENGTH</span></tt></li>
+<li><tt class="docutils literal"><span class=pre>CONTENT_TYPE</span></tt></li>
+<li><tt class="docutils literal"><span class=pre>QUERY_STRING</span></tt> ：未解析的原始请求字符串。</li>
+<li><tt class="docutils literal"><span class=pre>REMOTE_ADDR</span></tt> ：客户端IP地址。</li>
+<li><tt class="docutils literal"><span class=pre>REMOTE_HOST</span></tt> ：客户端主机名。</li>
+<li><tt class="docutils literal"><span class=pre>SERVER_NAME</span></tt> ：服务器主机名。</li>
+<li><tt class="docutils literal"><span class=pre>SERVER_PORT</span></tt> ：服务器端口号。</li>
+</ul>
+<p>在 <tt class="docutils literal"><span class=pre>META</span></tt> 中有效的任一HTTP头信息都是带有 <tt class="docutils literal"><span class=pre>HTTP_</span></tt> 前缀的
+键，例如：</p>
+<ul class="last simple">
+<li><tt class="docutils literal"><span class=pre>HTTP_ACCEPT_ENCODING</span></tt></li>
+<li><tt class="docutils literal"><span class=pre>HTTP_ACCEPT_LANGUAGE</span></tt></li>
+<li><tt class="docutils literal"><span class=pre>HTTP_HOST</span></tt> ：客户端发送的 <tt class="docutils literal"><span class=pre>Host</span></tt> 头信息。</li>
+<li><tt class="docutils literal"><span class=pre>HTTP_REFERER</span></tt> ：被指向的页面，如果存在的。</li>
+<li><tt class="docutils literal"><span class=pre>HTTP_USER_AGENT</span></tt> ：客户端的user-agent字符串。</li>
+<li><tt class="docutils literal"><span class=pre>HTTP_X_BENDER</span></tt> ： <tt class="docutils literal"><span class=pre>X-Bender</span></tt> 头信息的值，
+如果已设的话。</li>
+</ul>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>user</span></tt></td>
+<td><p class=first>一个 <tt class="docutils literal"><span class=pre>django.contrib.auth.models.User</span></tt> 对象表示
+当前登录用户。 若当前用户尚未登录，
+<tt class="docutils literal"><span class=pre>user</span></tt> 会设为
+<tt class="docutils literal"><span class=pre>django.contrib.auth.models.AnonymousUser</span></tt> 的一个实例。
+可以将它们与 <tt class="docutils literal"><span class=pre>is_authenticated()</span></tt> 区别开：</p>
+<pre class=literal-block>if request.user.is_authenticated():
+    # Do something for logged-in users.
+else:
+    # Do something for anonymous users.
+</pre>
+<p><tt class="docutils literal"><span class=pre>user</span></tt> 仅当Django激活 <tt class="docutils literal"><span class=pre>AuthenticationMiddleware</span></tt>
+时有效。</p>
+<p class=last>关于认证和用户的完整细节，见第12章。</p>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>session</span></tt></td>
+<td>一个可读写的类字典对象，表示当前session。
+仅当Django已激活session支持时有效。
+见第12章。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>raw_post_data</span></tt></td>
+<td>POST的原始数据。 用于对数据的复杂处理。</td>
+</tr>
+</tbody>
+</table>
+<p class=cn id=cn10>Request对象同样包含了一些有用的方法，见表H-2。<div class=comment-indicator id=c10 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b10 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c11 style=height:260px;top:0px><span></span></div><div class="translation-indicator has-translations" id=b11 style=height:260px;top:0px><span> </span></div><table class="cn docutils" id=cn11>
+<caption>表 H-2. HttpRequest 的方法</caption>
+<colgroup>
+<col width=26%>
+<col width=74%>
+</colgroup>
+<thead valign=bottom>
+<tr><th class=head>方法</th>
+<th class=head>描述</th>
+</tr>
+</thead>
+<tbody valign=top>
+<tr><td><tt class="docutils literal"><span class=pre>__getitem__(key)</span></tt></td>
+<td><p class=first>请求所给键的GET/POST值，先查找POST，然后是GET。
+若键不存在，则引发异常 <tt class="docutils literal"><span class=pre>KeyError</span></tt> 。</p>
+<p>该方法使用户可以以访问字典的方式来访问一个
+<tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 实例。</p>
+<p class=last>例如， <tt class="docutils literal"><span class=pre>request["foo"]</span></tt> 和先检查
+<tt class="docutils literal"><span class=pre>request.POST["foo"]</span></tt> 再检查 <tt class="docutils literal"><span class=pre>request.GET["foo"]</span></tt> 一
+样。</p>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>has_key()</span></tt></td>
+<td>返回 <tt class="docutils literal"><span class=pre>True</span></tt> 或 <tt class="docutils literal"><span class=pre>False</span></tt> ，
+标识 <tt class="docutils literal"><span class=pre>request.GET</span></tt> 或 <tt class="docutils literal"><span class=pre>request.POST</span></tt> 是否包含所给的
+键。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>get_full_path()</span></tt></td>
+<td>返回 <tt class="docutils literal"><span class=pre>path</span></tt> ，若请求字符串有效，则附加于其后。
+例如， <tt class="docutils literal"><span class=pre>"/music/bands/the_beatles/?print=true"</span></tt> 。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>is_secure()</span></tt></td>
+<td>如果请求是安全的，则返回 <tt class="docutils literal"><span class=pre>True</span></tt> 。
+也就是说，请求是以HTTPS的形式提交的。</td>
+</tr>
+</tbody>
+</table>
+<div class=section id=querydict>
+<span id=cn14></span><h3 class=cn id=cn14>QueryDict 对象<div class=comment-indicator id=c14 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b14 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn15>在一个 <tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 对象中， <tt class="docutils literal"><span class=pre>GET</span></tt> 和 <tt class="docutils literal"><span class=pre>POST</span></tt> 属性都是 <tt class="docutils literal"><span class=pre>django.http.QueryDict</span></tt> 的实例。 <tt class="docutils literal"><span class=pre>QueryDict</span></tt> 是一个类似于字典的类，专门用来处理用一个键的多值。当处理一些HTML表单中的元素，特别是 <tt class="docutils literal"><span class=pre>&lt;select</span> <span class=pre>multiple="multiple"&gt;</span></tt> 之类传递同一key的多值的元素时，就需要这个类了。<div class=comment-indicator id=c15 style=height:55px><span></span></div><div class="translation-indicator has-translations" id=b15 style=height:55px><span> </span></div><p></p>
+<p class=cn id=cn16><tt class="docutils literal"><span class=pre>QueryDict</span></tt> 实例是不可变的，除非创建了一个 <tt class="docutils literal"><span class=pre>copy()</span></tt> 副本。也就是说不能直接更改 <tt class="docutils literal"><span class=pre>request.POST</span></tt> 和 <tt class="docutils literal"><span class=pre>request.GET</span></tt> 的属性。<div class=comment-indicator id=c16 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b16 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn17><tt class="docutils literal"><span class=pre>QueryDict</span></tt> 实现了所有标准的字典的方法，因为它正是字典的一个子类。与其不同的东西都已在表H-3中列出。<div class=comment-indicator id=c17 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b17 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c18 style=height:544px;top:0px><span></span></div><div class="translation-indicator has-translations" id=b18 style=height:544px;top:0px><span> </span></div><table class="cn docutils" id=cn18>
+<caption>表 H-3. QueryDicts 与标准字典的区别</caption>
+<colgroup>
+<col width=20%>
+<col width=80%>
+</colgroup>
+<thead valign=bottom>
+<tr><th class=head>方法</th>
+<th class=head>与标准字典实现的不同</th>
+</tr>
+</thead>
+<tbody valign=top>
+<tr><td><tt class="docutils literal"><span class=pre>__getitem__</span></tt></td>
+<td>与一个字典一样。但是，当一个键有多个值时，
+<tt class="docutils literal"><span class=pre>__getitem__()</span></tt> 返回最后一个值。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>__setitem__</span></tt></td>
+<td>将所给键的值设为 <tt class="docutils literal"><span class=pre>[value]</span></tt> （一个只有一个 <tt class="docutils literal"><span class=pre>value</span></tt> 元素的
+Python列表）。 注意，因对其它的字典函数有副作用，故它只能被称
+为一个可变的 <tt class="docutils literal"><span class=pre>QueryDict</span></tt> （通过 <tt class="docutils literal"><span class=pre>copy()</span></tt> 创建）。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>get()</span></tt></td>
+<td>如果一个键多个值，和 <tt class="docutils literal"><span class=pre>__getitem__</span></tt> 一样， <tt class="docutils literal"><span class=pre>get()</span></tt> 返回
+最后一个值。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>update()</span></tt></td>
+<td><dl class="first docutils">
+<dt>参数是一个 <tt class="docutils literal"><span class=pre>QueryDict</span></tt> 或标准字典。 和标准字典的</dt>
+<dd><tt class="docutils literal"><span class=pre>update</span></tt> 不同，这个方法*增加*而不是替换一项内容：</dd>
+</dl>
+<pre class="last literal-block">&gt;&gt;&gt; q = QueryDict('a=1')
+&gt;&gt;&gt; q = q.copy() # 使其可变
+&gt;&gt;&gt; q.update({'a': '2'})
+&gt;&gt;&gt; q.getlist('a')
+['1', '2']
+&gt;&gt;&gt; q['a'] # 返回最后一个值
+['2']
+</pre>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>items()</span></tt></td>
+<td><p class=first>和标准字典的 <tt class="docutils literal"><span class=pre>items()</span></tt> 方法一样， 不同的是它和
+<tt class="docutils literal"><span class=pre>__getitem()__</span></tt> 一样，返回最后一个值：</p>
+<pre class="last literal-block">&gt;&gt;&gt; q = QueryDict('a=1&amp;a=2&amp;a=3')
+&gt;&gt;&gt; q.items()
+[('a', '3')]
+</pre>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>values()</span></tt></td>
+<td>和标准字典的 <tt class="docutils literal"><span class=pre>values()</span></tt> 方法一样， 不同的是它和
+<tt class="docutils literal"><span class=pre>__getitem()__</span></tt> 一样，返回最后一个值。</td>
+</tr>
+</tbody>
+</table>
+<p class=cn id=cn21>另外， <tt class="docutils literal"><span class=pre>QueryDict</span></tt> 还有在表H-4中列出的方法。<div class=comment-indicator id=c21 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b21 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c22 style=height:378px;top:0px><span></span></div><div class="translation-indicator has-translations" id=b22 style=height:378px;top:0px><span> </span></div><table class="cn docutils" id=cn22>
+<caption>表 H-4. 附加的 (非字典的) QueryDict 方法</caption>
+<colgroup>
+<col width=28%>
+<col width=72%>
+</colgroup>
+<thead valign=bottom>
+<tr><th class=head>方法</th>
+<th class=head>描述</th>
+</tr>
+</thead>
+<tbody valign=top>
+<tr><td><tt class="docutils literal"><span class=pre>copy()</span></tt></td>
+<td>返回一个对象的副本，使用的是Python标准库中的
+<tt class="docutils literal"><span class=pre>copy.deepcopy()</span></tt> 。 该副本是可变的，
+也就是说，你能改变它的值。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>getlist(key)</span></tt></td>
+<td>以Python列表的形式返回所请求键的数据。
+若键不存在则返回空列表。
+它保证了一定会返回某种形式的list。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>setlist(key,</span>
+<span class=pre>list_)</span></tt></td>
+<td>将所给键的键值设为 <tt class="docutils literal"><span class=pre>list_</span></tt>
+（与 <tt class="docutils literal"><span class=pre>__setitem__()</span></tt> 不同）。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>appendlist(key,</span>
+<span class=pre>item)</span></tt></td>
+<td>在 <tt class="docutils literal"><span class=pre>key</span></tt> 相关的list上增加 <tt class="docutils literal"><span class=pre>item</span></tt> 。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>setlistdefault(key,</span>
+<span class=pre>l)</span></tt></td>
+<td>和 <tt class="docutils literal"><span class=pre>setdefault</span></tt> 一样， 不同的是它的第二个参数是
+一个列表，而不是一个值。</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>lists()</span></tt></td>
+<td><p class=first>和 <tt class="docutils literal"><span class=pre>items()</span></tt> 一样， 不同的是它以一个列表的形式
+返回字典每一个成员的所有值。 例如：</p>
+<pre class="last literal-block">&gt;&gt;&gt; q = QueryDict('a=1&amp;a=2&amp;a=3')
+&gt;&gt;&gt; q.lists()
+[('a', ['1', '2', '3'])]
+</pre>
+</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class=pre>urlencode()</span></tt></td>
+<td>返回一个请求字符串格式的数据字符串
+（如， <tt class="docutils literal"><span class=pre>"a=2&amp;b=3&amp;b=5"</span></tt> ）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class=section id=id1>
+<span id=cn25></span><h3 class=cn id=cn25>一个完整的例子<div class=comment-indicator id=c25 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b25 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn26>例如, 给定这个HTML表单:<div class=comment-indicator id=c26 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b26 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn27>&lt;form action="/foo/bar/" method="post"&gt;
+&lt;input type="text" name="your_name" /&gt;
+&lt;select multiple="multiple" name="bands"&gt;
+    &lt;option value="beatles"&gt;The Beatles&lt;/option&gt;
+    &lt;option value="who"&gt;The Who&lt;/option&gt;
+    &lt;option value="zombies"&gt;The Zombies&lt;/option&gt;
+&lt;/select&gt;
+&lt;input type="submit" /&gt;
+&lt;/form&gt;
+<div class="comment-indicator has-comments" id=c27 style=height:185px><span>1</span></div></pre>
+<p class=cn id=cn29>如果用户在 <tt class="docutils literal"><span class=pre>your_name</span></tt> 中输入 <tt class="docutils literal"><span class=pre>"John</span> <span class=pre>Smith"</span></tt> ，并且在多选框中同时选择了The Beatles和The Zombies，那么以下就是Django的request对象所拥有的：<div class=comment-indicator id=c29 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b29 style=height:37px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn30>&gt;&gt;&gt; request.GET
+{}
+&gt;&gt;&gt; request.POST
+{'your_name': ['John Smith'], 'bands': ['beatles', 'zombies']}
+&gt;&gt;&gt; request.POST['your_name']
+'John Smith'
+&gt;&gt;&gt; request.POST['bands']
+'zombies'
+&gt;&gt;&gt; request.POST.getlist('bands')
+['beatles', 'zombies']
+&gt;&gt;&gt; request.POST.get('your_name', 'Adrian')
+'John Smith'
+&gt;&gt;&gt; request.POST.get('nonexistent_field', 'Nowhere Man')
+'Nowhere Man'
+<div class=comment-indicator id=c30 style=height:283px><span></span></div></pre>
+<p class=cn id=cn32>使用时请注意:<div class=comment-indicator id=c32 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b32 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn33><tt class="docutils literal"><span class=pre>GET</span></tt> , <tt class="docutils literal"><span class=pre>POST</span></tt> , <tt class="docutils literal"><span class=pre>COOKIES</span></tt> , <tt class="docutils literal"><span class=pre>FILES</span></tt> , <tt class="docutils literal"><span class=pre>META</span></tt> , <tt class="docutils literal"><span class=pre>REQUEST</span></tt> ,
+<tt class="docutils literal"><span class=pre>raw_post_data</span></tt> 和 <tt class="docutils literal"><span class=pre>user</span></tt> 这些属性都是延迟加载的。 也就是说除非代码中访问它们，否则Django并不会花费资源来计算这些属性值。<div class=comment-indicator id=c33 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b33 style=height:37px><span> </span></div><p></p>
+</div>
+</div>
+<div class=section id=httpresponse>
+<span id=cn34></span><h2 class=cn id=cn34>HttpResponse<div class=comment-indicator id=c34 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b34 style=height:0px><span> </span></div></h2>
+<p class=cn id=cn35>与Django自动创建的 <tt class="docutils literal"><span class=pre>HttpRequest</span></tt> 对象相比， <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 对象则是由你创建的。
+你创建的每个视图都需要实例化，处理和返回一个 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 对象。<div class="comment-indicator has-comments" id=c35 style=height:37px><span>1</span></div><div class="translation-indicator has-translations" id=b35 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn36><tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 类存在于 <tt class="docutils literal"><span class=pre>django.http.HttpResponse</span></tt> 。<div class=comment-indicator id=c36 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b36 style=height:19px><span> </span></div><p></p>
+<div class=section id=id2>
+<span id=cn37></span><h3 class=cn id=cn37>构造HttpResponse<div class=comment-indicator id=c37 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b37 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn38>一般情况下，你创建一个 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 时，以字符串的形式来传递页面的内容给 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 的构造函数：<div class=comment-indicator id=c38 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b38 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn39>&gt;&gt;&gt; response = HttpResponse("Here's the text of the Web page.")
+&gt;&gt;&gt; response = HttpResponse("Text only, please.", mimetype="text/plain")
+<div class=comment-indicator id=c39 style=height:49px><span></span></div></pre>
+<p class=cn id=cn41>但是如果希望逐渐增加内容，则可以把 <tt class="docutils literal"><span class=pre>response</span></tt> 当作一个类文件对象使用：<div class=comment-indicator id=c41 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b41 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn42>&gt;&gt;&gt; response = HttpResponse()
+&gt;&gt;&gt; response.write("&lt;p&gt;Here's the text of the Web page.&lt;/p&gt;")
+&gt;&gt;&gt; response.write("&lt;p&gt;Here's another paragraph.&lt;/p&gt;")
+<div class=comment-indicator id=c42 style=height:68px><span></span></div></pre>
+<p class=cn id=cn44>你可以将一个迭代器传递给 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> ，而不是固定的字符串。如果你要这样做的话，请遵循以下规则：<div class=comment-indicator id=c44 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b44 style=height:19px><span> </span></div><p></p>
+<ul class=simple>
+<li class=cn id=cn45><p class="first cn" id=cn45>迭代器应返回字符串。<div class=comment-indicator id=c45 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b45 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c45 style=height:19px><span></span></div><div class=translation-indicator id=b45 style=height:19px><span></span></div></li>
+</ul>
+<ul class=simple>
+<li class=cn id=cn46><p class="first cn" id=cn46>若一个 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 已经通过实例化，并以一个迭代器作为其内容，就不能以一个类文件对象使用 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 实例。这样做的话，会导致一个 <tt class="docutils literal"><span class=pre>Exception</span></tt> 。<div class=comment-indicator id=c46 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b46 style=height:37px><span> </span></div><p></p>
+<div class=comment-indicator id=c46 style=height:37px><span></span></div><div class=translation-indicator id=b46 style=height:37px><span></span></div></li>
+</ul>
+<p class=cn id=cn47>最后，注意 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 实现了一个 <tt class="docutils literal"><span class=pre>write()</span></tt> 方法，使其可以在任何可以使用类文件对象的地方使用。
+这方面的例子见第11章。<div class=comment-indicator id=c47 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b47 style=height:37px><span> </span></div><p></p>
+</div>
+<div class=section id=headers>
+<span id=cn48></span><h3 class=cn id=cn48>设置 Headers<div class=comment-indicator id=c48 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b48 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn49>您可以使用字典一样地添加和删除头信息。<div class=comment-indicator id=c49 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b49 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn50>&gt;&gt;&gt; response = HttpResponse()
+&gt;&gt;&gt; response['X-DJANGO'] = "It's the best."
+&gt;&gt;&gt; del response['X-PHP']
+&gt;&gt;&gt; response['X-DJANGO']
+"It's the best."
+<div class=comment-indicator id=c50 style=height:107px><span></span></div></pre>
+<p class=cn id=cn52>你也可以使用 <tt class="docutils literal"><span class=pre>has_header(header)</span></tt> 来检查一个头信息项是否存在。<div class=comment-indicator id=c52 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b52 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn53>请避免手工设置 <tt class="docutils literal"><span class=pre>Cookie</span></tt> 头，参见第12章Django中cookie工作原理的说明。<div class=comment-indicator id=c53 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b53 style=height:19px><span> </span></div><p></p>
+</div>
+<div class=section id=id3>
+<span id=cn54></span><h3 class=cn id=cn54>HttpResponse的子类<div class=comment-indicator id=c54 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b54 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn55>Django包含许多处理不同类型的HTTP请求的 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 子类（见表H-5）。像 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 一样，这些类在 <tt class="docutils literal"><span class=pre>django.http</span></tt> 中。<div class=comment-indicator id=c55 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b55 style=height:37px><span> </span></div><p></p>
+<div class=system-message>
+<p class=system-message-title>System Message: ERROR/3 (<tt class=docutils>&lt;string&gt;</tt>, line 537)</p>
+<p class=cn id=cn56>Error parsing content block for the “table” directive: exactly one table expected.<div class=comment-indicator id=c56 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b56 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn56>.. table:: 表 H-5. HttpResponse 子类
+
+    +---------------------------------+-------------------------------------------+
+    |类名                             |描述                                       |
+    +=================================+===========================================+
+    |``HttpResponseRedirect``         |构造函数的参数有一个：                     |
+    |                                 |重定向的路径。 它可以是一个完整的URL       |
+    |                                 |（例如， ``'http://search.yahoo.com/'`` ） |
+    |                                 |或者不包括域名的绝对路径（如               |
+    |                                 |``'/search/'`` ）。 注意它返回             |
+    |                                 |HTTP 状态码 302。                          |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponsePermanentRedirect``|类似 ``HttpResponseRedirect`` ， 但是它    |
+    |                                 |返回一个永久重定向 （HTTP 状态码 301），     |
+    |                                 |而不是暂时性重定向（状态码302）。            |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseNotModified``      |构造函数没有任何参数。                     |
+    |                                 |用它来表示这个页面在上次请求后未改变。     |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseBadRequest``       |类似 ``HttpResponse`` ，但使用400状态码。  |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseNotFound``         |类似 ``HttpResponse`` ，但使用404状态码。  |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseForbidden``        |类似 ``HttpResponse`` ，但使用403状态码。  |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseNotAllowed``       |类似 ``HttpResponse`` ，但使用405状态码。  |
+    |                                 |它必须有一个参数：                         |
+    |                                 |允许方法的列表。                           |
+    |                                 |（例如， ``['GET', 'POST']`` ）。          |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseGone``             |类似 ``HttpResponse`` ，但使用410状态码。  |
+    +---------------------------------+-------------------------------------------+
+    |``HttpResponseServerError``      |类似 ``HttpResponse`` ，但使用500状态码。  |
+    +---------------------------------+-------------------------------------------+
+
+
+
+
+
+
+
+<div class=comment-indicator id=c56><span></span></div></pre>
+</div>
+<p class=cn id=cn59>当然，如果框架不支持一些特性，你也可以定义自己的 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> 子类来处理不同的请求。<div class=comment-indicator id=c59 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b59 style=height:19px><span> </span></div><p></p>
+</div>
+<div class=section id=id4>
+<span id=cn60></span><h3 class=cn id=cn60>返回错误<div class=comment-indicator id=c60 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b60 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn61>在Django中返回HTTP错误代码很容易。我们前面已经提到 <tt class="docutils literal"><span class=pre>HttpResponseNotFound</span></tt> ， <tt class="docutils literal"><span class=pre>HttpResponseForbidden</span></tt> ， <tt class="docutils literal"><span class=pre>HttpResponseServerError</span></tt> ，和其它子类。为了更好地表示一个错误，只要返回这些子类之一的一个实例，而不是一个通常的 <tt class="docutils literal"><span class=pre>HttpResponse</span></tt> ，例如：<div class=comment-indicator id=c61 style=height:55px><span></span></div><div class="translation-indicator has-translations" id=b61 style=height:55px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn62>def my_view(request):
+    # ...
+    if foo:
+        return HttpResponseNotFound('&lt;h1&gt;Page not found&lt;/h1&gt;')
+    else:
+        return HttpResponse('&lt;h1&gt;Page was found&lt;/h1&gt;')
+<div class=comment-indicator id=c62 style=height:127px><span></span></div></pre>
+<p class=cn id=cn64>至今为止，404错误是最常见的HTTP错误，有一种更容易的方式来处理。<div class=comment-indicator id=c64 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b64 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn65>当返回一个错误，比如 <tt class="docutils literal"><span class=pre>HttpResponseNotFound</span></tt> 时，需要定义错误页面的HTML：<div class=comment-indicator id=c65 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b65 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn66>return HttpResponseNotFound('&lt;h1&gt;Page not found&lt;/h1&gt;')
+<div class=comment-indicator id=c66 style=height:29px><span></span></div></pre>
+<p class=cn id=cn68>为了方便，而且定义一个通用的应用于网站的404错误页面也是一个很好的选择，Django提供了一个 <tt class="docutils literal"><span class=pre>Http404</span></tt> 异常。如果在视图的任何地方引发 <tt class="docutils literal"><span class=pre>Http404</span></tt> 异常，Django就会捕获错误并返回应用程序的标准错误页面，当然，还有HTTP错误代码404。<div class=comment-indicator id=c68 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b68 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn69>例如：<div class=comment-indicator id=c69 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b69 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn70>from django.http import Http404
+
+def detail(request, poll_id):
+    try:
+        p = Poll.objects.get(pk=poll_id)
+    except Poll.DoesNotExist:
+        raise Http404
+    return render_to_response('polls/detail.html', {'poll': p})
+<div class="comment-indicator has-comments" id=c70 style=height:166px><span>1</span></div></pre>
+<p class=cn id=cn72>为了完全发挥出 <tt class="docutils literal"><span class=pre>Http404</span></tt> 的功能，应创建一个模板，在404错误被引发时显示。模板的名字应该是 <tt class="docutils literal"><span class=pre>404.html</span></tt> ，而且应该位于模板树的最高层。<div class=comment-indicator id=c72 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b72 style=height:37px><span> </span></div><p></p>
+</div>
+<div class=section id=id5>
+<span id=cn73></span><h3 class=cn id=cn73>自定义 404 (无法找到) 视图<div class=comment-indicator id=c73 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b73 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn74>当引发 <tt class="docutils literal"><span class=pre>Http404</span></tt> 异常，Django加载一个专门处理404错误的视图。默认情况下，这个视图是 <tt class="docutils literal"><span class=pre>django.views.defaults.page_not_found</span></tt> ，它会加载并显示模板 <tt class="docutils literal"><span class=pre>404.html</span></tt> 。<div class=comment-indicator id=c74 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b74 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn75>这意味着需要在根模板目录定义一个 <tt class="docutils literal"><span class=pre>404.html</span></tt> 模板。这个模板会作用于所有404错误。<div class=comment-indicator id=c75 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b75 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn76>视图 <tt class="docutils literal"><span class=pre>page_not_found</span></tt> 适用于99%的网站应用程序，但若是希望重载该视图，可以在URLconf中指定 <tt class="docutils literal"><span class=pre>handler404</span></tt> ，就像这样：sfas<div class=comment-indicator id=c76 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b76 style=height:37px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn77>from django.conf.urls.defaults import *
+
+urlpatterns = patterns('',
+    ...
+)
+
+handler404 = 'mysite.views.my_custom_404_view'
+<div class=comment-indicator id=c77 style=height:146px><span></span></div></pre>
+<p class=cn id=cn79>后台执行时，Django以 <tt class="docutils literal"><span class=pre>handler404</span></tt> 来确定404视图。默认情况下，URLconf包含以下内容：<div class=comment-indicator id=c79 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b79 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn80>from django.conf.urls.defaults import *
+<div class="comment-indicator has-comments" id=c80 style=height:29px><span>1</span></div></pre>
+<p class=cn id=cn82>这句话负责当前模块中的 <tt class="docutils literal"><span class=pre>handler404</span></tt> 设置。正如你所见，在 <tt class="docutils literal"><span class=pre>django/conf/urls/defaults.py</span></tt> 中， <tt class="docutils literal"><span class=pre>handler404</span></tt> 默认被设为 <tt class="docutils literal"><span class=pre>'django.views.defaults.page_not_found'</span></tt> 。<div class=comment-indicator id=c82 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b82 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn83>关于404视图，有三点需要注意：<div class=comment-indicator id=c83 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b83 style=height:19px><span> </span></div><p></p>
+<ul class=simple>
+<li class=cn id=cn84><p class="first cn" id=cn84>当Django在URLconf无法找到匹配的正则表达式时，404视图会显示。<div class=comment-indicator id=c84 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b84 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c84 style=height:19px><span></span></div><div class=translation-indicator id=b84 style=height:19px><span></span></div></li>
+</ul>
+<ul class=simple>
+<li class=cn id=cn85><p class="first cn" id=cn85>如果没有定义自己的404视图，而只是简单地使用默认的视图，此时就需要在模板目录的根目录创建一个 <tt class="docutils literal"><span class=pre>404.html</span></tt> 模板。默认的404视图会对所有404错误使用改模板。<div class=comment-indicator id=c85 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b85 style=height:37px><span> </span></div><p></p>
+<div class=comment-indicator id=c85 style=height:37px><span></span></div><div class=translation-indicator id=b85 style=height:37px><span></span></div></li>
+</ul>
+<ul class=simple>
+<li class=cn id=cn86><p class="first cn" id=cn86>若 <tt class="docutils literal"><span class=pre>DEBUG</span></tt> 被设为 <tt class="docutils literal"><span class=pre>True</span></tt> （在settings模块内），则404视图不会被使用，此时显示的是跟踪信息。<div class=comment-indicator id=c86 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b86 style=height:19px><span> </span></div><p></p>
+<div class=comment-indicator id=c86 style=height:19px><span></span></div><div class=translation-indicator id=b86 style=height:19px><span></span></div></li>
+</ul>
+</div>
+<div class=section id=id6>
+<span id=cn87></span><h3 class=cn id=cn87>自定义 500 (服务器错误) 视图<div class=comment-indicator id=c87 style=height:0px><span></span></div><div class="translation-indicator has-translations" id=b87 style=height:0px><span> </span></div></h3>
+<p class=cn id=cn88>同样地，若是在试图代码中出现了运行时错误，Django会进行特殊情况处理。如果视图引发了一个异常，Django会默认访问视图 <tt class="docutils literal"><span class=pre>django.views.defaults.server_error</span></tt> ，加载并显示模板 <tt class="docutils literal"><span class=pre>500.html</span></tt> 。<div class=comment-indicator id=c88 style=height:37px><span></span></div><div class="translation-indicator has-translations" id=b88 style=height:37px><span> </span></div><p></p>
+<p class=cn id=cn89>这意味着需要在根模板目录定义一个 <tt class="docutils literal"><span class=pre>500.html</span></tt> 模板。该模板作用于所有服务器错误。<div class=comment-indicator id=c89 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b89 style=height:19px><span> </span></div><p></p>
+<p class=cn id=cn90>视图 <tt class="docutils literal"><span class=pre>server_error</span></tt> 适用于99%的网站应用程序，但若是希望重载该视图，可以在URLconf中指定 <tt class="docutils literal"><span class=pre>handler500</span></tt> ，就像这样：<div class=comment-indicator id=c90 style=height:19px><span></span></div><div class="translation-indicator has-translations" id=b90 style=height:19px><span> </span></div><p></p>
+<pre class="cn literal-block" id=cn91>from django.conf.urls.defaults import *
+
+urlpatterns = patterns('',
+    ...
+)
+
+handler500 = 'mysite.views.my_custom_error_view'
+<div class=comment-indicator id=c91 style=height:146px><span></span></div></pre>
+</div>
+</div>
+</div>
+ 
+ </div>
+ </div>
+</div>
+</div>
+<div id=ft>
+ <div class=nav>
+ <a href=http://djangobook.py3k.cn/appendixH/ecn/>| 中英文对照</a> |
+ <a href=http://djangobook.py3k.cn/appendixH/en/>英文</a> |
+ <a href=http://djangobook.py3k.cn/appendixH/>中文</a>
+ <a href=http://djangobook.py3k.cn/appendixG/>| 上一章</a> |
+ <a href=http://djangobook.py3k.cn/>目 录</a> |
+ <a href=http://djangobook.py3k.cn/appendix/>下一章 </a> |
+ <a href=http://djangobook.py3k.cn/appendixH/translate/>翻译 </a> |
+</div>
+</div>
+</div>
+<div style=visibility:hidden;opacity:0.3;width:750px id=highlight-floater></div>
+<div style=display:none;width:498px;height:398px id=djangobookcomments class=yresizable-pinned>
+ 
+ 
+ 
+</div>
+<div style=display:none;width:648px;height:438px id=djangobooktranslations class=yresizable-pinned>
+ 
+ 
+ 
+</div> 
+<div id=ft>
+ 
+ Copyright 2006 Adrian Holovaty and Jacob Kaplan-Moss.<br>This
+ work is licensed under the <a href=http://new.djangobook.com/license/>GNU Free Document
+ License</a>.
+ <br>
+ Hosting graciously provided by <a href=http://mediatemple.net/>
+ <img style=vertical-align:middle;position:relative;top:-1px src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAQCAYAAACV3GYgAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPues852zzwfACAyWSDNRNYAMqUIeEeCDx8TG4eQuQIEKJHAAEAizZCFz/SMBAPh+PDwrIsAHvgABeNMLCADATZvAMByH/w/qQplcAYCEAcB0kThLCIAUAEB6jkKmAEBGAYCdmCZTAKAEAGDLY2LjAFAtAGAnf+bTAICd+Jl7AQBblCEVAaCRACATZYhEAGg7AKzPVopFAFgwABRmS8Q5ANgtADBJV2ZIALC3AMDOEAuyAAgMADBRiIUpAAR7AGDIIyN4AISZABRG8lc88SuuEOcqAAB4mbI8uSQ5RYFbCC1xB1dXLh4ozkkXKxQ2YQJhmkAuwnmZGTKBNA/g88wAAKCRFRHgg/P9eM4Ors7ONo62Dl8t6r8G/yJiYuP+5c+rcEAAAOF0ftH+LC+zGoA7BoBt/qIl7gRoXgugdfeLZrIPQLUAoOnaV/Nw+H48PEWhkLnZ2eXk5NhKxEJbYcpXff5nwl/AV/1s+X48/Pf14L7iJIEyXYFHBPjgwsz0TKUcz5IJhGLc5o9H/LcL//wd0yLESWK5WCoU41EScY5EmozzMqUiiUKSKcUl0v9k4t8s+wM+3zUAsGo+AXuRLahdYwP2SycQWHTA4vcAAPK7b8HUKAgDgGiD4c93/+8//UegJQCAZkmScQAAXkQkLlTKsz/HCAAARKCBKrBBG/TBGCzABhzBBdzBC/xgNoRCJMTCQhBCCmSAHHJgKayCQiiGzbAdKmAv1EAdNMBRaIaTcA4uwlW4Dj1wD/phCJ7BKLyBCQRByAgTYSHaiAFiilgjjggXmYX4IcFIBBKLJCDJiBRRIkuRNUgxUopUIFVIHfI9cgI5h1xGupE7yAAygvyGvEcxlIGyUT3UDLVDuag3GoRGogvQZHQxmo8WoJvQcrQaPYw2oefQq2gP2o8+Q8cwwOgYBzPEbDAuxsNCsTgsCZNjy7EirAyrxhqwVqwDu4n1Y8+xdwQSgUXACTYEd0IgYR5BSFhMWE7YSKggHCQ0EdoJNwkDhFHCJyKTqEu0JroR+cQYYjIxh1hILCPWEo8TLxB7iEPENyQSiUMyJ7mQAkmxpFTSEtJG0m5SI+ksqZs0SBojk8naZGuyBzmULCAryIXkneTD5DPkG+Qh8lsKnWJAcaT4U+IoUspqShnlEOU05QZlmDJBVaOaUt2ooVQRNY9aQq2htlKvUYeoEzR1mjnNgxZJS6WtopXTGmgXaPdpr+h0uhHdlR5Ol9BX0svpR+iX6AP0dwwNhhWDx4hnKBmbGAcYZxl3GK+YTKYZ04sZx1QwNzHrmOeZD5lvVVgqtip8FZHKCpVKlSaVGyovVKmqpqreqgtV81XLVI+pXlN9rkZVM1PjqQnUlqtVqp1Q61MbU2epO6iHqmeob1Q/pH5Z/YkGWcNMw09DpFGgsV/jvMYgC2MZs3gsIWsNq4Z1gTXEJrHN2Xx2KruY/R27iz2qqaE5QzNKM1ezUvOUZj8H45hx+Jx0TgnnKKeX836K3hTvKeIpG6Y0TLkxZVxrqpaXllirSKtRq0frvTau7aedpr1Fu1n7gQ5Bx0onXCdHZ4/OBZ3nU9lT3acKpxZNPTr1ri6qa6UbobtEd79up+6Ynr5egJ5Mb6feeb3n+hx9L/1U/W36p/VHDFgGswwkBtsMzhg8xTVxbzwdL8fb8VFDXcNAQ6VhlWGX4YSRudE8o9VGjUYPjGnGXOMk423GbcajJgYmISZLTepN7ppSTbmmKaY7TDtMx83MzaLN1pk1mz0x1zLnm+eb15vft2BaeFostqi2uGVJsuRaplnutrxuhVo5WaVYVVpds0atna0l1rutu6cRp7lOk06rntZnw7Dxtsm2qbcZsOXYBtuutm22fWFnYhdnt8Wuw+6TvZN9un2N/T0HDYfZDqsdWh1+c7RyFDpWOt6azpzuP33F9JbpL2dYzxDP2DPjthPLKcRpnVOb00dnF2e5c4PziIuJS4LLLpc+Lpsbxt3IveRKdPVxXeF60vWdm7Obwu2o26/uNu5p7ofcn8w0nymeWTNz0MPIQ+BR5dE/C5+VMGvfrH5PQ0+BZ7XnIy9jL5FXrdewt6V3qvdh7xc+9j5yn+M+4zw33jLeWV/MN8C3yLfLT8Nvnl+F30N/I/9k/3r/0QCngCUBZwOJgUGBWwL7+Hp8Ib+OPzrbZfay2e1BjKC5QRVBj4KtguXBrSFoyOyQrSH355jOkc5pDoVQfujW0Adh5mGLw34MJ4WHhVeGP45wiFga0TGXNXfR3ENz30T6RJZE3ptnMU85ry1KNSo+qi5qPNo3ujS6P8YuZlnM1VidWElsSxw5LiquNm5svt/87fOH4p3iC+N7F5gvyF1weaHOwvSFpxapLhIsOpZATIhOOJTwQRAqqBaMJfITdyWOCnnCHcJnIi/RNtGI2ENcKh5O8kgqTXqS7JG8NXkkxTOlLOW5hCepkLxMDUzdmzqeFpp2IG0yPTq9MYOSkZBxQqohTZO2Z+pn5mZ2y6xlhbL+xW6Lty8elQfJa7OQrAVZLQq2QqboVFoo1yoHsmdlV2a/zYnKOZarnivN7cyzytuQN5zvn//tEsIS4ZK2pYZLVy0dWOa9rGo5sjxxedsK4xUFK4ZWBqw8uIq2Km3VT6vtV5eufr0mek1rgV7ByoLBtQFr6wtVCuWFfevc1+1dT1gvWd+1YfqGnRs+FYmKrhTbF5cVf9go3HjlG4dvyr+Z3JS0qavEuWTPZtJm6ebeLZ5bDpaql+aXDm4N2dq0Dd9WtO319kXbL5fNKNu7g7ZDuaO/PLi8ZafJzs07P1SkVPRU+lQ27tLdtWHX+G7R7ht7vPY07NXbW7z3/T7JvttVAVVN1WbVZftJ+7P3P66Jqun4lvttXa1ObXHtxwPSA/0HIw6217nU1R3SPVRSj9Yr60cOxx++/p3vdy0NNg1VjZzG4iNwRHnk6fcJ3/ceDTradox7rOEH0x92HWcdL2pCmvKaRptTmvtbYlu6T8w+0dbq3nr8R9sfD5w0PFl5SvNUyWna6YLTk2fyz4ydlZ19fi753GDborZ752PO32oPb++6EHTh0kX/i+c7vDvOXPK4dPKy2+UTV7hXmq86X23qdOo8/pPTT8e7nLuarrlca7nuer21e2b36RueN87d9L158Rb/1tWeOT3dvfN6b/fF9/XfFt1+cif9zsu72Xcn7q28T7xf9EDtQdlD3YfVP1v+3Njv3H9qwHeg89HcR/cGhYPP/pH1jw9DBY+Zj8uGDYbrnjg+OTniP3L96fynQ89kzyaeF/6i/suuFxYvfvjV69fO0ZjRoZfyl5O/bXyl/erA6xmv28bCxh6+yXgzMV70VvvtwXfcdx3vo98PT+R8IH8o/2j5sfVT0Kf7kxmTk/8EA5jz/GMzLdsAAAAgY0hSTQAAeiUAAICDAAD5/wAAgOkAAHUwAADqYAAAOpgAABdvkl/FRgAAAk1JREFUeNrE1UuIz1EUB/DP/P1HniMmBs0wJJNHksdC2Yo8dpSdFQpNlh5pPAeRjcYoWbCyQCF5FBGlPEJ55jlGeQ+ijMdgc/51+/WfZjbGt273nnNP537vPd97b8n6jVskWIFHOKNrkcMiPMXF1FlAPXajQtfjD+pwAWVZcoOwGm9wsIsIlaFnQm5JjHdkyS2PvuEfE5qIlTiGJoxI5s7iS5Asg3y0xRFwvIPkFbHbT9GyKEcffMWHIvOnM7LJxpzEQizA/hwmYQi+4zZG4SEe4B6W4Si+4TWe4TFuhhSm43Ds+j2e4wXuYg96YGfMZfV8P/xHwi5chlmozmNcOB4m+hudJGgIkrvwErMxN05pYsS0oRF3MDkqMTbacJwIslMTnRXIteFJ2E3Rj8G4PPqF41OyUIojmJ/YjbHb8rDfxsn/TmKqMSPGszEHe6MaNUnczJBAAR+jr0RlrhMiPpexu6M1sS9niIkSF9AaOoTSTNygjF3Ik0dpDp/D0T8ToJ2EpeiW2D+KbKh7Mm5LqtE3E/e1HbIv0ZzDrXDUtENuYJHXfHBiDytCrjIZ90avZNEUV3ElqU7hgO7hbj7IPQ+dVMVt3BckczifSdiKTTFXjhtFyO3DlDjV73HTYR5qMR4lmBAbuR7z06K/hMcl8beuxeZ4GrZ1QofdMADvMqf1M36ZzqAKzRm5tIQ+h+JVPrmBm7EUO+vWrfnVQeK2DLFiJesIKTEbNtWPDGKH8Cr9vlqwPUq7xP/BgehrJVe2gFW4Fq/7/8ApbE0r8ncAR96MV7RM4uwAAAAASUVORK5CYII=" alt="media temple"></a>
+ <br>
+ Chinese translate hosting by <a href=mailto:info@py3k.cn>py3k.cn</a>.
+ 粤ICP备16122281号-1
+</div>
