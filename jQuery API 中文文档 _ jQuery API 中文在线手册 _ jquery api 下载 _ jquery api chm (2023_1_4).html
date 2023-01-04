@@ -1,0 +1,673 @@
+<!DOCTYPE html> <html class=no-js lang=zh><!--
+ Page saved with SingleFile 
+ url: https://jquery.cuishifeng.cn/index.html 
+ saved date: Wed Jan 04 2023 14:28:55 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+<meta name=keywords content="jQuery,API,中文,jquery api,1.11,chm,手册,教程,文档">
+<meta name=description content="jQuery API 1.x - 3.x 中文在线版，jQuery API 中文最新版，jQuery 是一个兼容多浏览器的 JavasSript 框架，核心理念是 - write less, do more。jQuery API 中文文档(适用jQuery 1.0 - jQuery 3.x).">
+<meta name=robots content=all>
+<meta name=renderer content=webkit>
+<meta name=author content="Shifone -https://jquery.cuishifeng.cn">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>jQuery API 中文文档 | jQuery API 中文在线手册 | jquery api 下载 | jquery api chm</title>
+<style>:root{--sf-img-2: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjhCQzU3MjcxQjQyMTFFNzk1MTg5NEZCMkI1OUY1NDEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjhCQzU3MjgxQjQyMTFFNzk1MTg5NEZCMkI1OUY1NDEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2OEJDNTcyNTFCNDIxMUU3OTUxODk0RkIyQjU5RjU0MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2OEJDNTcyNjFCNDIxMUU3OTUxODk0RkIyQjU5RjU0MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrPf94wAAAIlSURBVHjaxJNPSJNxGMc/7/44cU1bZNSUNCikJSYegkzs2BLLQ3SJ6GiHIDp2qFt3T4OiLkIQ4aGgYBOVlFnqyMqkkATdnIG5udfFNvf/6fcuMtchAg994eV9f8/3eb48z/N+f5qIsBuY2CUsjE5Aw0HQN2EpDM462GOH0Ap0dd5mK23hhf8eVVW19Hq8SKnAxOQNUuk0FosS2AlNPfkibCagu/M+R5qvY4zo3Gtn9esALUevlvMaDt2lVEqjaTsETGqaZArMKnTh3Cx2ewfjgUtopiJnzzzH6byGsTBNVSVTJSWA0YFpu3gjDvuch+nrKVFTc5zhsXZOuPtpOXYT30ibKi6Ui42OsrmfAqk0iH8MeT2DfJj3iIG4Pi3jk25ZjwblF+L6R/GPtsrat6Hy+cviFQnOIi+HlcC7OZtsxAfKxMKiV0ZenZZcblP+RD6flMBUtyyH75TP0dgDJdKEeB91KVIUMSiBN+elWJS/4v1cr4RWvLKVEZkK3tLEfUrjYg9c7muio335n35+ONLI46dR5j+plfd6hEaX2qhVq0hKpRLk8v04HGpOeYjVUrvNOezCydYcB+oV93kBmXmrFjndXNFqNBaRoWdILI5kMmsVXGTVJbqObCkvkfgORWWealulrattFrJZyGSgzmGr4Or3m35beSkEhQJYreu0tfrU26riVZQkgvFpNqs28amYy/Cpyi0w+EQnny8bSfvvt/GHAAMAOc1Zq27E4LsAAAAASUVORK5CYII=")}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;font-size:62.5%}body{font-family:"Helvetica Neue",Helvetica,"Microsoft YaHei",Arial,sans-serif;margin:0;font-size:1.6rem;background-color:#f9f9f9;color:#4E546B}.clearfix:before,.clearfix:after{content:" ";display:table}.clearfix:after{clear:both}.left-panel{position:fixed;top:0;left:0;height:100%;background-color:#2b2f3e;width:230px;padding:20px 0;-webkit-box-shadow:inset -5px 0 8px rgba(0,0,0,.3);box-shadow:inset -5px 0 8px rgba(0,0,0,.3);overflow-y:auto;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.left-panel .auto-query-con{padding:3px 10px;position:relative}.left-panel .auto-query-con::before{position:absolute;top:8px;left:17px;width:16px;height:16px;content:" ";cursor:pointer;color:#c4c4cd;display:inline-block;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODg2NUQxMzYxQjU0MTFFNzlEM0FENTAyN0MxRkQ5OTEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODg2NUQxMzcxQjU0MTFFNzlEM0FENTAyN0MxRkQ5OTEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4ODY1RDEzNDFCNTQxMUU3OUQzQUQ1MDI3QzFGRDk5MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4ODY1RDEzNTFCNTQxMUU3OUQzQUQ1MDI3QzFGRDk5MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlokbjUAAANVSURBVHjaTFNLbxNXFD5z77xtx6/YhoQ2DQRKBBSo2ohAUVsVETVhgUACsUCqEBILxC/opov+h+6I2ETqpt0kaoW6aKmEGhyIeJQgkQRqUsd5+DnxeN7ud51NR7ozV3PP+c53v/Md6eLl65RO9dHgYJ5UVSVD167KXJ7QdXVMkqTAcd0Hvh/M2rZzv/Rund68XSNZ5oQzEo8sXjgkXdOO5vOZGXyPqYpCQRhSFEXUl4gdx/4O9r//W964Yu20t1KpBHWj7i6A47hUyGVHh4cGixJjehAEVK01Xkbd7hPOmcwZGzd0fcg09C9OnhidL5c3j7astm0YGnWBwfbuydHxjz6cUxRZ9zyPqtXGjZXVd0cajdb1Tse9BsrDzZb1HQBFoeGvvjz1czaTIrFy/WniU1NTk6h+2w9CevH36xtraxvTiUSMTNPoLcvaocWnS39IEjPSqcRnhqkfwO1/hAjbyb44MQRdUlWFmk1rpVLZnvZ8nxoNi3Y1iqhWb1Gr1aalVyvftu2OrSHWjBlXXLAVOsn92fR5u+OSHwTFfYMFUjWVOh2HCPcTiYLq0PsDBK1CiF3Ude3zQi4zEo+bBH1IDsOwic17UNWwkSiQiSQSdxatCsOILABF3YgkJiVFkucFARiTIsvEkPSrqikEVc+gTbT6Zk2wIUXhWDIJ0PmFZ/RPab0fLT3B4YHN7drT18slelsqE99/YHR7YKBwyzR1E5ULYDSXTCaQrPQowkgwmEyffHzkp0wmOVKvt3aKj5/fbDQtGwYjbsZzFRhoPJdNjyDxU1QptG3nlcx5XVglCsNjhw/tn84Xsl/7HjxSrc9A2Jl8LkNCUOn02Un6YGifOTlx9jfGpXHhsA6q+p6/BEYyrH1Q0AYgiVY7jlPB/5u44hwMR0yCYIxJdrmyeXpjo3rPcT1ha0ok4qOxmHGQcSGa315eLd1F8g5Y7oFDZ6OoO+W6/u4sCO8LxTEs38Bd38Mb5zjnhxEYwtrPHNf/5cniy03o88Oli+cf6ZqKcGkW5xd6AF20rNdTtAVBy7Vac1lMHCaSfD8UDKkftn3wZ3Hh4V+LYxPnzsyjOyyTTs4y+t8j3McAJNonwMCiN7rinygSj8eETxbWK1tjQRBuwSMP/xNgAEOLlPuyhekWAAAAAElFTkSuQmCC);-webkit-background-size:100%auto;background-size:100%auto}.left-panel .auto-query-con input{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:5px;border-radius:5px;width:100%;height:26px;padding:3px 10px 3px 30px;border:0;outline:0;background:#efefef}.left-panel .auto-query-con input:focus{background:#fff}.left-panel .navigation{padding-top:20px}.left-panel .main-menu{margin:0;padding:0;list-style:none}.left-panel .main-menu .fa{display:inline-block;width:16px;height:16px;-webkit-background-size:100%auto;background-size:100%auto;vertical-align:bottom}.left-panel .main-menu .fa.fa-leaf{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Nzg1MkRFODkxQjQyMTFFN0JBQTVEMTI3MzkxNzRGMkMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Nzg1MkRFOEExQjQyMTFFN0JBQTVEMTI3MzkxNzRGMkMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3ODUyREU4NzFCNDIxMUU3QkFBNUQxMjczOTE3NEYyQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3ODUyREU4ODFCNDIxMUU3QkFBNUQxMjczOTE3NEYyQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmgfeccAAAKCSURBVHjapFNNaxNhEJ733e/dfGzCtiFJibSIOXpSWvTqqSK16E08CfXgUTyJJ+1vKIJ/QETUgwhSRHroRaqCxYsVY6WJTZq4m3R3s19xZmNLUTx14CVkMvPM88wzYaPRCI4T4sWF6xAEAZRKJXwTYNsOqJoKgiBA3+mDqqpgGHqa55yntf3+IFevn7q9tfV1WfwfcpIkEIYhSJIExDKO4zQnyVKmWq08UVXlQi6bbfwDEEUxNeBg9ZplWXOiKOgiRqFgKowxS1GUOWIXhgHohnblEICm0ATTzD0wdP0OFwQRGzCfYH4EmqYd1tAjOQh2WjygG0UR5PP59WSUzMbIgr7TJCpkLIGjg8bA6afOAVhaODlpPWaczYZBmBaSdgR5Z9v2rW63V2s1fxY913shSWPSBIy/b4qqIkOhkK8Xi8WrQ3+YggkCH2LTvOf6q7i0GlJdyGSMMvbViS2FLMvQbnfWRU3XAJsvE60xXbbdaGzXkEHZmrAaiiLXqIkoj3cwvhuUCo7jrHDX9SGKY4Mmo8evG9++1xDoUqVS3kEHauT7gYUHILquQ6vZetRstr5wgTPYHwyeUkEQhG+yuczi1FT1OS2RcsTsaKAc2N9337ZauzdMMwuiPxxCpVpexP2iFHM5+uPA30EMKbD5IWpfyuc06Nkh8OnpE8/wsu46zuBlu713H+l6gigcWogyUhZ4la96vV9n9jp7S2Zeg07Xg4+bTRDxQM46ePMbG+/nEYg03sN3XtPUcwiiuq77AQevIrP+WL8CP3Zs+PR5F+VITES7bsqydBLRYWZmmrY88j1/jXO2RrfgeT6Q95yTBFpiDJ2eD5mcARlDAXbcv/NvAQYAffRQAY1gbXsAAAAASUVORK5CYII=)}.left-panel .main-menu>li.active>a{background:#ff404b;color:#fff}.left-panel .main-menu>li.active .fa-home{background-image:var(--sf-img-2)}.left-panel .main-menu .menu-title{display:block;padding:8px 12px;color:#7a7e8a;text-transform:uppercase;font-size:13px;text-decoration:none;font-weight:700;border-bottom:1px solid #2f3444;transition:all .4s;-moz-transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.left-panel .main-menu .menu-title>i{font-size:16px;margin-right:3px}.left-panel .main-menu .menu-title:hover{background:#ff404b;color:#fff}.left-panel .main-menu .menu-title:hover .fa-home{background-image:var(--sf-img-2)}.left-panel .main-menu .menu-title:hover .fa-leaf{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzExNEI0MkUxQjQyMTFFN0IzREJBMzAwQ0M5NEJFNkMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzExNEI0MkYxQjQyMTFFN0IzREJBMzAwQ0M5NEJFNkMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MTE0QjQyQzFCNDIxMUU3QjNEQkEzMDBDQzk0QkU2QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3MTE0QjQyRDFCNDIxMUU3QjNEQkEzMDBDQzk0QkU2QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmkqfX8AAAIzSURBVHjapJPdS1NxGMc/20443dbcnLXpTC1fwpxh2Wy0oCjyQgqpLqKgC4ki6o+wrrrqIkKJGUHddFF00ctNF0EUWWKIWUgX6pjLkLY2zc1tbqfnbGBYTAMPnPPjPL/n+7x8n++jU1WVjTw69dwFSKfBZAK/D2rd4HTCchZsVgiFYW4OOjtgYRFm5D+Z3MSWyl4ePr6nFA2dyUiQZVhMQDwuSTIaUN4laGsdpLbmPOFZ9U8Ana5wJpKFisqthzCb/bS1uGjcruCoKMVWbmdnUyelRkfe9/DBs4UAej0sSeSYZPLtu8yO+uuUlDjWJaDUWKeQSsH8L7BaoKf7iYB7/ptBo9GsCADpBS713v4HnMvFmPkWEA5eSO8hqpz9uKuPrdxHojNab7DbU4N//5VV4JHRi0xOBzCVmdhWc4Cysi4MhspVPrH4Z4XmRmhsOL1iVHMJAvdt4pym68hL3FVHi7bwYeSOcCCMW8wNecPs93FevfHgaWnH5/24Zv+jn55za+C1noUFGBt/kDeGwo9wbfWvC06lJxgYPI7djsJPGZ1nly9/4d3bJ9++NcFTwaeS8JRMQBWtoKe76y4d7TeJz79jMhgoCoxExxgaPsnboROkRKYWszYl2YX4fIbNFoVrNypwuaJ499ix286ISFpFnYpI+auw/YwvExNkZT+k7LzM3w9r1UgL08Gr1NdVMx2K0tykaT3Kj0g/mrL1Bj3JRI5sDgyKpjyZkvrXNm5wnX8LMAAgyMJApHJyigAAAABJRU5ErkJggg==)}.autocomplete-suggestions{background:#fff;color:#444;cursor:default;text-align:left;overflow-y:auto;overflow-x:hidden}.main-loading{position:fixed;left:0;top:0;right:0;bottom:0;width:100%;height:100%;background:#ccc;z-index:99}@keyframes spin{0%{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);transform:rotate(360deg)}}@-moz-keyframes spin{0%{-moz-transform:rotate(0deg)}100%{-moz-transform:rotate(360deg)}}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}.main-header{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:5px 10px;min-height:30px;font-size:14px;color:#4E546B}.main-header h1{font-size:14px;margin:0;font-weight:500}.main-header a{text-decoration:none;color:#4E546B}.main-header a:hover{color:#ff404b;text-decoration:underline}.main-header a.source{float:right;margin-right:100px;color:red}.main-container{min-height:500px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding-left:230px}.main-container .main-wraper{width:100%;padding:0 10px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.main-container .main-wraper #col-list{position:relative}.main-container .main-wraper a{color:#2B2F3E;text-decoration:none;font-size:12px}.main-container .main-wraper a:hover{text-decoration:underline;color:#FF404B}.main-container .main-wraper h2,.main-container .main-wraper h3{font-size:13px;font-weight:400;margin:0;list-style:none;font-family:Verdana,Tahoma,arial,sans-serif,"宋体";line-height:16px}.main-container .main-wraper h2{background:#4E546B;color:#eee;padding:4px 5px}.main-container .main-wraper h3{color:#444;padding:3px 0}.main-container .main-wraper ul,.main-container .main-wraper li{list-style:none}.main-container .main-wraper ul{margin:0 0 5px 10px;padding:0}.main-container .main-wraper li{line-height:16px}.main-container .main-wraper .col-item{width:210px;overflow:hidden;margin-right:2px;-webkit-transition:all .5s ease-in;-moz-transition:all .5s ease-in;transition:all .5s ease-in}.main-container .main-wraper sup{position:relative;top:2px;left:3px;vertical-align:super;font-family:icon;font-size:12px;color:#ff404b}.main-container .main-wraper del{text-decoration:line-through}.main-container .main-wraper del a{color:#999!important}.main-container .footer{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;background:#2B2F3E;text-align:center;padding:15px;color:#fff}.main-container .footer a{color:#fff;text-decoration:none}.main-container .footer a:hover{color:#FF404B;text-decoration:underline}.main-container .footer p{margin:0;font-size:14px}@media screen and (max-width:640px){.left-panel{position:relative;width:100%}.left-panel .navigation{margin:15px 0}.left-panel-hide{display:block;height:0;padding:0}.main-container{padding-left:0}}.tongji{height:0;overflow:hidden}.mCustomScrollbar{-ms-touch-action:pinch-zoom}.mCustomScrollbar.mCS_no_scrollbar{-ms-touch-action:auto;touch-action:auto}.mCustomScrollBox{position:relative;overflow:hidden;height:100%;max-width:100%;outline:0;direction:ltr}.mCSB_container{overflow:hidden;width:auto;height:auto}.mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden{margin-right:0}.mCSB_scrollTools{position:absolute;width:16px;height:auto;left:auto;top:0;right:0;bottom:0}.mCSB_scrollTools{-webkit-transition:opacity .2s ease-in-out,background-color .2s ease-in-out;-moz-transition:opacity .2s ease-in-out,background-color .2s ease-in-out;transition:opacity .2s ease-in-out,background-color .2s ease-in-out}.mCSB_scrollTools{opacity:.75;-ms-filter:"alpha(opacity=75)"}.mCS-autoHide:hover>.mCustomScrollBox>.mCSB_scrollTools,.mCS-autoHide:hover>.mCustomScrollBox~.mCSB_scrollTools,.mCustomScrollBox:hover>.mCSB_scrollTools,.mCustomScrollBox:hover~.mCSB_scrollTools,.mCustomScrollbar>.mCustomScrollBox>.mCSB_scrollTools.mCSB_scrollTools_onDrag,.mCustomScrollbar>.mCustomScrollBox~.mCSB_scrollTools.mCSB_scrollTools_onDrag{opacity:1;filter:"alpha(opacity=100)";-ms-filter:"alpha(opacity=100)"}@-webkit-keyframes bounceInUp{from,60%,75%,90%,to{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}from{opacity:0;-webkit-transform:translate3d(0,800px,0);transform:translate3d(0,800px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}to{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@-moz-keyframes bounceInUp{from,60%,75%,90%,to{-moz-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}from{opacity:0;-moz-transform:translate3d(0,800px,0);transform:translate3d(0,800px,0)}60%{opacity:1;-moz-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-moz-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-moz-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}to{-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@keyframes bounceInUp{from,60%,75%,90%,to{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);-moz-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}from{opacity:0;-webkit-transform:translate3d(0,800px,0);-moz-transform:translate3d(0,800px,0);transform:translate3d(0,800px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);-moz-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);-moz-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);-moz-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}to{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@-webkit-keyframes swing{20%{-webkit-transform:rotate3d(0,0,1,15deg);transform:rotate3d(0,0,1,15deg)}40%{-webkit-transform:rotate3d(0,0,1,-10deg);transform:rotate3d(0,0,1,-10deg)}60%{-webkit-transform:rotate3d(0,0,1,5deg);transform:rotate3d(0,0,1,5deg)}80%{-webkit-transform:rotate3d(0,0,1,-5deg);transform:rotate3d(0,0,1,-5deg)}to{-webkit-transform:rotate3d(0,0,1,0deg);transform:rotate3d(0,0,1,0deg)}}@-moz-keyframes swing{20%{-moz-transform:rotate3d(0,0,1,15deg);transform:rotate3d(0,0,1,15deg)}40%{-moz-transform:rotate3d(0,0,1,-10deg);transform:rotate3d(0,0,1,-10deg)}60%{-moz-transform:rotate3d(0,0,1,5deg);transform:rotate3d(0,0,1,5deg)}80%{-moz-transform:rotate3d(0,0,1,-5deg);transform:rotate3d(0,0,1,-5deg)}to{-moz-transform:rotate3d(0,0,1,0deg);transform:rotate3d(0,0,1,0deg)}}@keyframes swing{20%{-webkit-transform:rotate3d(0,0,1,15deg);-moz-transform:rotate3d(0,0,1,15deg);transform:rotate3d(0,0,1,15deg)}40%{-webkit-transform:rotate3d(0,0,1,-10deg);-moz-transform:rotate3d(0,0,1,-10deg);transform:rotate3d(0,0,1,-10deg)}60%{-webkit-transform:rotate3d(0,0,1,5deg);-moz-transform:rotate3d(0,0,1,5deg);transform:rotate3d(0,0,1,5deg)}80%{-webkit-transform:rotate3d(0,0,1,-5deg);-moz-transform:rotate3d(0,0,1,-5deg);transform:rotate3d(0,0,1,-5deg)}to{-webkit-transform:rotate3d(0,0,1,0deg);-moz-transform:rotate3d(0,0,1,0deg);transform:rotate3d(0,0,1,0deg)}}.top-head-img{height:40px;line-height:40px;overflow:hidden;background:#ac1719;text-align:center}.top-head-img a{display:block;text-align:center;background:#ff404b;color:#fff!important;font-size:16px!important}@-webkit-keyframes wobble{from{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}15%{-webkit-transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg);transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg)}30%{-webkit-transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg);transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg)}45%{-webkit-transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg)}60%{-webkit-transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg);transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg)}75%{-webkit-transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg)}to{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@-moz-keyframes wobble{from{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}15%{-webkit-transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg);-moz-transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg);transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg)}30%{-webkit-transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg);-moz-transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg);transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg)}45%{-webkit-transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);-moz-transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg)}60%{-webkit-transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg);-moz-transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg);transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg)}75%{-webkit-transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);-moz-transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg)}to{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@keyframes wobble{from{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}15%{-webkit-transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg);-moz-transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg);transform:translate3d(-25%,0,0) rotate3d(0,0,1,-5deg)}30%{-webkit-transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg);-moz-transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg);transform:translate3d(20%,0,0) rotate3d(0,0,1,3deg)}45%{-webkit-transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);-moz-transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);transform:translate3d(-15%,0,0) rotate3d(0,0,1,-3deg)}60%{-webkit-transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg);-moz-transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg);transform:translate3d(10%,0,0) rotate3d(0,0,1,2deg)}75%{-webkit-transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);-moz-transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);transform:translate3d(-5%,0,0) rotate3d(0,0,1,-1deg)}to{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.top-head-img a{text-decoration:none}.top-head-img a:hover{text-decoration:underline}</style>
+<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8ArWkEBq1pBGStaQTArWkE8K1pBP+taQT6rWkE2K1pBJCtaQQi////AP///wD///8A////AP///wD///8ArWkEOK1pBNqtaQT/rWkE/61pBP+taQT/rWkE/61pBP+taQT/rWkE+K1pBGr///8A////AP///wD///8ArWkETq1pBPqtaQT/rWkE/61pBOytaQSIrWkEQq1pBBytaQQQrWkEKq1pBGStaQTIrWkEbP///wD///8ArWkENK1pBPitaQT/rWkE/61pBIytaQQM////AP///wD///8A////AP///wD///8ArWkEAK1pBGataQQqrWkEBK1pBNataQT/rWkE+q1pBFT///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ArWkEGK1pBFataQT/rWkE/61pBGL///8A////AP///wCtaQQErWkEXq1pBLataQTQrWkE0q1pBKataQRC////AP///wCtaQSwrWkE/61pBLL///8A////AP///wCtaQQcrWkEzq1pBP+taQT/rWkE3K1pBKytaQSqrWkE3q1pBJqtaQQArWkE7K1pBP+taQQu////AP///wCtaQQUrWkE3K1pBP+taQTGrWkEOP///wD///8A////AK1pBACtaQROrWkEZK1pBP+taQTS////AP///wD///8ArWkEnK1pBP+taQSkrWkEBP///wD///8A////AP///wD///8A////AK1pBCKtaQT6rWkElv///wD///8ArWkEEK1pBPitaQTKrWkEBv///wD///8A////AK1pBCitaQRMrWkEMP///wD///8ArWkEyq1pBID///8A////AK1pBEitaQT/rWkEPP///wD///8ArWkEDq1pBLCtaQT8rWkExK1pBKqtaQSSrWkECK1pBG6taQSI////AP///wCtaQRgrWkE4P///wD///8A////AK1pBLytaQTKrWkEJv///wD///8ArWkEBK1pBCKtaQQGrWkEiv///wD///8ArWkEQK1pBLT///8A////AK1pBDqtaQTkrWkEEv///wD///8A////AP///wD///8A////AK1pBCCtaQQI////AK1pBAStaQSg////AP///wCtaQRqrWkEdv///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8ArWkEQq1pBAr///8ArWkESK1pBET///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wCtaQQI////AK1pBAKtaQQ8////AP///wD///8A////AP///wD///8A/A8AAPAHAADg+wAAw/8AAI//AACfhwAAHgEAADx/AAA4/wAAOf8AADvBAAC7nwAAu78AAPv/AAD//wAA//8AAA=="><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://jquery.cuishifeng.cn/index.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+<!--[if lt IE 9]>
+<div class="browser-happy">
+    <div class="content">
+        <p>作为前端开发人员，还用这么low的浏览器，再不更新会遭鄙视的～～</p>
+        <p>本站不支持IE9以下浏览器访问！</p>
+        <a href="https://browsehappy.com/">立即更新</a>
+        <img src="https://jquery.cuishifeng.cn/images/logo_4fa80ea.jpg" alt="logo" style="display: none;">
+    </div>
+</div>
+<![endif]-->
+<div class=main-loading id=main-loading style=display:none>
+ 
+</div>
+<div class=main-container>
+ <div class=top-head-img><a href=https://www.cuishifeng.cn/go/tencent target=_blank class=top-item ref=nofollow id=top-item>本站粉丝福利，腾讯云超低价，最低一折起，点我围观~</a></div><div class="dialog-panel sf-hidden" id=tencent-1111></div>
+ <header class="main-header clearfix">
+ <h1>jQuery API 3.5.1 速查表&nbsp;&nbsp;--作者：<a href=https://www.cuishifeng.cn/ target=_blank>Shifone</a>
+ <a class=source href=https://jquery.cuishifeng.cn/source.html target=_blank>源码下载</a></h1>
+ </header>
+ <div id=main-wraper class=main-wraper>
+ <div id=col-list style=height:1534px>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <div class=col-item style=position:absolute;left:0px;top:0px>
+ <h2>选择器</h2>
+ <ul>
+ <li>
+ <h3>基本</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/id.html>#id</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/element.html>element</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/class.html>.class</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/all.html>*</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/multiple.html>selector1,selector2,selectorN</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>层级</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/descendant.html>ancestor descendant</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/child.html>parent &gt; child</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/next_1.html>prev + next</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/siblings_1.html>prev ~ siblings</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>基本筛选器</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/first_1.html>:first</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/not_1.html>:not(selector)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/even.html>:even</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/odd.html>:odd</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/eq_1.html>:eq(index)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/gt.html>:gt(index)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/lang.html>:lang</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/last_1.html>:last</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/lt.html>:lt(index)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/header.html>:header</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/animated.html>:animated</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/focus_1.html>:focus</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/root.html>:root</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/target.html>:target</a><sup>1.9+</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>内容</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/contains.html>:contains(text)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/empty_1.html>:empty</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/has_1.html>:has(selector)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/parent_1.html>:parent</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>可见性</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/hidden_1.html>:hidden</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/visible.html>:visible</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>属性</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/attributeHas.html>[attribute]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeEquals.html>[attribute=value]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeNotEqual.html>[attribute!=value]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeStartsWith.html>[attribute^=value]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeEndsWith.html>[attribute$=value]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeContains.html>[attribute*=value]</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/attributeMultiple.html>[attrSel1][attrSel2][attrSelN]</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>子元素</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/firstChild.html>:first-child</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/firstOfType.html>:first-of-type</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/lastChild.html>:last-child</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/lastOfType.html>:last-of-type</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/nthChild.html>:nth-child</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/nthLastChild.html>:nth-last-child()</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/nthLastOfType.html>:nth-last-of-type()</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/nthOfType.html>:nth-of-type()</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/onlyChild.html>:only-child</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/onlyOfType.html>:only-of-type</a><sup>1.9+</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>表单</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/input.html>:input</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/text_1.html>:text</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/password.html>:password</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/radio.html>:radio</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/checkbox.html>:checkbox</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/submit_1.html>:submit</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/image.html>:image</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/reset.html>:reset</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/button.html>:button</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/file_1.html>:file</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>表单对象属性</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/enabled_1.html>:enabled</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/disabled_1.html>:disabled</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/checked_1.html>:checked</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/selected_1.html>:selected</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>混淆选择器</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.escapeSelector.html>$.escapeSelector(selector)</a><sup>3.0+</sup></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:213px;top:0px>
+ <h2>核心</h2>
+ <ul>
+ <li>
+ <h3>jQuery 核心函数</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery_selector_context.html>jQuery([sel,[context]])</a>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery_html_ownerDocument.html>jQuery(html,[ownerDoc])</a><sup>1.8*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery_callback.html>jQuery(callback)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.holdReady.html>jQuery.holdReady(hold)</a></del><sup>3.2-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery_readyException.html>jQuery.readyException( error )</a><sup>3.1+</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>jQuery 对象访问</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/each.html>each(callback)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/size.html>size()</a></del><sup>1.8-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/length.html>length</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/selector.html>selector</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/context.html>context</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/get.html>get([index])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/index_1.html>index([selector|element])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>数据缓存</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/data.html>data([key],[value])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/removeData.html>removeData([name|list])</a><sup>1.7*</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.data.html>$.data(ele,[key],[val])</a></del><sup>1.8-</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>队列控制</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/queue.html title=queue(element,[queueName])>queue(e,[q])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/dequeue.html title=dequeue([queueName])>dequeue([queueName])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/clearQueue.html title=clearQueue([queueName])>clearQueue([queueName])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>插件机制</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.fn.extend.html>jQuery.fn.extend(object)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.extend_object.html>jQuery.extend(object)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>多库共存</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.noConflict.html title=jQuery.noConflict([extreme])>jQuery.noConflict([ex])</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:426px;top:0px>
+ <h2>ajax</h2>
+ <ul>
+ <li>
+ <h3>ajax 请求</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.Ajax.html>$.ajax(url,[settings])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.get.html>$.get(url,[data],[fn],[type])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.getJSON.html>$.getJSON(url,[data],[fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.getScript.html>$.getScript(url,[callback])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.post.html>$.post(url,[data],[fn],[type])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>ajax 事件</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxComplete.html>ajaxComplete(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxError.html>ajaxError(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxSend.html>ajaxSend(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxStart.html>ajaxStart(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxStop.html>ajaxStop(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/ajaxSuccess.html>ajaxSuccess(callback)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>其它</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/load.html>load(url,[data],[callback])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.ajaxPrefilter.html>$.ajaxPrefilter([type],fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.ajaxSetup.html>$.ajaxSetup([options])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/serialize.html>serialize()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/serializeArray.html>serializeArray()</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:639px;top:0px>
+ <h2>属性</h2>
+ <ul>
+ <li>
+ <h3>属性</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/attr.html title=attr(name|properties|key,value|fn)>attr(name|pro|key,val|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/removeAttr.html>removeAttr(name)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prop.html title=prop(name|properties|key,value|fn)>prop(n|p|k,v|f)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/removeProp.html>removeProp(name)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>CSS 类</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/addClass.html>addClass(class|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/removeClass.html>removeClass([class|fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/toggleClass.html>toggleClass(class|fn[,sw])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>HTML代码/文本/值</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/html.html>html([val|fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/text.html>text([val|fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/val.html>val([val|fn|arr])</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:852px;top:0px>
+ <h2>CSS</h2>
+ <ul>
+ <li>
+ <h3>CSS</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/css.html title=css(name|properties|[,value|fn])>css(name|pro|[,val|fn])</a><sup>1.9*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.cssHooks.html>jQuery.cssHooks</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>位置</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/offset.html>offset([coordinates])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/position.html>position()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/scrollTop.html>scrollTop([val])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/scrollLeft.html>scrollLeft([val])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>尺寸</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/height.html>height([val|fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/width.html>width([val|fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/innerHeight.html>innerHeight()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/innerWidth.html>innerWidth()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/outerHeight.html>outerHeight([options])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/outerWidth.html>outerWidth([options])</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:639px;top:278px>
+ <h2>文档处理</h2>
+ <ul>
+ <li>
+ <h3>内部插入</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/append.html>append(content|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/appendTo.html>appendTo(content)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prepend.html>prepend(content|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prependTo.html>prependTo(content)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>外部插入</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/after.html>after(content|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/before.html>before(content|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/insertAfter.html>insertAfter(content)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/insertBefore.html>insertBefore(content)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>包裹</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/wrap.html title=wrap(html|element|fn)>wrap(html|ele|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/unwrap.html>unwrap()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/wrapAll.html title=wrapall(html|element)>wrapAll(html|ele)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/wrapInner.html title=wrapInner(html|element|fn)>wrapInner(html|ele|fn)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>替换</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/replaceWith.html>replaceWith(content|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/replaceAll.html>replaceAll(selector)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>删除</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/empty.html>empty()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/remove.html>remove([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/detach.html>detach([expr])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>复制</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/clone.html>clone([Even[,deepEven]])</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:852px;top:318px>
+ <h2>事件</h2>
+ <ul>
+ <li>
+ <h3>页面载入</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/ready.html>ready(fn)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>事件处理</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/on.html title=on(events,[selector],[data],fn)>on(eve,[sel],[data],fn)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/off.html title=off(events,[selector],[data],fn)>off(eve,[sel],[fn])</a><sup>1.7+</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/bind.html>bind(type,[data],fn)</a></del><sup>3.0-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/one.html>one(type,[data],fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/trigger.html>trigger(type,[data])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/triggerHandler.html>triggerHandler(type, [data])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/unbind.html title=unbind(type,[data|fn])>unbind(t,[d|f])</a></del><sup>3.0-</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>事件委派</h3>
+ <ul>
+ <li><del><a href=https://jquery.cuishifeng.cn/live.html>live(type,[data],fn)</a></del><sup>1.7-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/die.html>die(type,[fn])</a></del><sup>1.7-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/delegate.html title=delegate(selector,[type],[data],fn)>delegate(s,[t],[d],fn)</a></del><sup>3.0-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/undelegate.html title=undelegate([selector,[type],fn])>undelegate([s,[t],fn])</a></del><sup>3.0-</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>事件切换</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/hover.html>hover([over,]out)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/toggle.html>toggle([spe],[eas],[fn])</a><sup>1.9*</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>事件</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/blur.html>blur([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/change.html>change([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/click.html>click([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/dblclick_1.html>dblclick([[data],fn])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/error.html>error([[data],fn])</a></del><sup>1.8-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/focus.html>focus([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/focusin.html>focusin([data],fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/focusout.html>focusout([data],fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/keydown.html>keydown([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/keypress.html>keypress([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/keyup.html>keyup([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mousedown.html>mousedown([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mouseenter.html>mouseenter([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mouseleave.html>mouseleave([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mousemove.html>mousemove([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mouseout.html>mouseout([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mouseover.html>mouseover([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/mouseup.html>mouseup([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/resize.html>resize([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/scroll.html>scroll([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/select.html>select([[data],fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/submit.html>submit([[data],fn])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/unload.html>unload([[data],fn])</a></del><sup>1.8-</sup></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:426px;top:380px>
+ <h2>效果</h2>
+ <ul>
+ <li>
+ <h3>基本</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/show.html title=show([speed,[easing],[fn]])>show([s,[e],[fn]])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/hide.html title=hide([speed,[easing],[fn]])>hide([s,[e],[fn]])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/toggle.html title=toggle([speed],[easing],[fn])>toggle([s],[e],[fn])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>滑动</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/slideDown.html title=slideDown([speed],[easing],[fn])>slideDown([s],[e],[fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/slideUp.html title=slideUp([speed,[easing],[fn]])>slideUp([s,[e],[fn]])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/slideToggle.html title=slideToggle([speed],[easing],[fn])>slideToggle([s],[e],[fn])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>淡入淡出</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/fadeIn.html title=fadeIn([speed],[easing],[fn])>fadeIn([s],[e],[fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/fadeOut.html title=fadeOut([speed],[easing],[fn])>fadeOut([s],[e],[fn])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/fadeTo.html title=fadeTo([[speed],opacity,[easing],[fn]])>fadeTo([[s],o,[e],[fn]])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/fadeToggle.html title=fadeToggle([speed,[easing],[fn]])>fadeToggle([s,[e],[fn]])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>自定义</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/animate.html title=animate(params,[speed],[easing],[fn])>animate(p,[s],[e],[fn])</a><sup>1.8*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/stop.html title=stop([clearQueue],[jumpToEnd])>stop([c],[j])</a><sup>1.7*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/delay.html title=delay(duration,[queueName])>delay(d,[q])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/finish.html title=finish([queue])>finish([queue])</a><sup>1.9+</sup></li>
+ </ul>
+ <li>
+ <h3>设置</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.fx.off.html>jQuery.fx.off</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.fx.interval.html>jQuery.fx.interval</a></del><sup>3.0-</sup></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:213px;top:584px>
+ <h2>工具</h2>
+ <ul>
+ <li>
+ <h3>浏览器及特性检测</h3>
+ <ul>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.support.html>$.support</a></del><sup>1.9-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.browser.html>$.browser</a></del><sup>1.9-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.browser.version.html>$.browser.version</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.boxModel.html>$.boxModel</a></del></li>
+ </ul>
+ </li>
+ <li>
+ <h3>数组和对象操作</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.each.html>$.each(object,[callback])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.extend.html>$.extend([d],tgt,obj1,[objN])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.grep.html>$.grep(array,fn,[invert])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.sub.html>$.sub()</a></del><sup>1.9-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.when.html>$.when(deferreds)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.makeArray.html>$.makeArray(obj)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.map.html>$.map(arr|obj,callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.inArray.html>$.inArray(val,arr,[from])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.toArray.html>$.toArray()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.merge.html>$.merge(first,second)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.unique.html>$.unique(array)</a></del><sup>3.0-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.uniqueSort.html>$.uniqueSort(array)</a><sup>3.0+</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.parseJSON.html>$.parseJSON(json)</a></del><sup>3.0-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.parseXML.html>$.parseXML(data)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>函数操作</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.noop.html>$.noop</a>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.proxy.html>$.proxy(function,context)</a></li>
+ </ul>
+ <li>
+ <h3>测试操作</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.contains.html title=$.contains(container,contained)>$.contains(c,c)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.type.html>$.type(obj)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.isArray.html>$.isArray(obj)</a></del><sup>3.2-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.isFunction.html>$.isFunction(obj)</a></del><sup>3.3-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.isEmptyObject.html>$.isEmptyObject(obj)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.isPlainObject.html>$.isPlainObject(obj)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/jQuery.isWindow.html>$.isWindow(obj)</a></del><sup>3.3-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.isNumeric.html>$.isNumeric(value)</a><sup>1.7+</sup></li>
+ </ul>
+ </li>
+ <li>
+ <h3>字符串操作</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.trim.html>$.trim(str)</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>URL</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.param.html>$.param(obj,[traditional])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>插件编写</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.error.html>$.error(message)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/jquery.html>$.fn.jquery</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:639px;top:773px>
+ <h2>筛选</h2>
+ <ul>
+ <li>
+ <h3>过滤</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/eq.html>eq(index|-index)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/first.html>first()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/last.html>last()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/hasClass.html>hasClass(class)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/filter.html title=filter(expr|object|element|fn)>filter(expr|obj|ele|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/is.html title=is(expr|object|element|fn)>is(expr|obj|ele|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/map.html>map(callback)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/has.html title=has(expr|element)>has(expr|ele)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/not.html title=not(expr|element|fn)>not(expr|ele|fn)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/slice.html title=slice(start,[end])>slice(start,[end])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>查找</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/children.html>children([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/closest.html title=closest(expr,[context]|object|element)>closest(e|o|e)</a><sup>1.7*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/find.html title=find(expr|object|element)>find(e|o|e)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/next.html>next([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/nextAll.html>nextAll([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/nextUntil.html title=nextUntil([expr|element][,filter])>nextUntil([e|e][,f])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/offsetParent.html>offsetParent()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/parent.html>parent([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/parents.html>parents([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/parentsUntil.html title=parentsUntil([expr|element][,filter])>parentsUntil([e|e][,f])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prev.html>prev([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prevAll.html>prevAll([expr])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/prevUntil.html title=prevUntil([expr|element][,filter])>prevUntil([e|e][,f])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/siblings.html>siblings([expr])</a></li>
+ </ul>
+ </li>
+ <li>
+ <h3>串联</h3>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/add.html title=add(expr|element|html|object[,context])>add(e|e|h|o[,c])</a><sup>1.9*</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/andSelf.html>andSelf()</a></del><sup>1.8-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/addBack.html>addBack()</a><sup>1.9+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/contents.html>contents()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/end.html>end()</a></li>
+ </ul>
+ </li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:426px;top:839px>
+ <h2>事件对象</h2>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/event.currentTarget.html>eve.currentTarget</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.data.html>eve.data</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.delegateTarget.html>eve.delegateTarget</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.isDefaultPrevented.html>eve.isDefaultPrevented()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.isImmediatePropagationStopped.html title=event.isImmediatePropagationStopped>eve.isImmediatePropag...()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.isPropagationStopped.html>eve.isPropagationStopped()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.namespace.html>eve.namespace</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.pageX.html>eve.pageX</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.pageY.html>eve.pageY</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.preventDefault.html>eve.preventDefault()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.relatedTarget.html>eve.relatedTarget</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.result.html>eve.result</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.stopImmediatePropagation.html title=event.stopImmediatePropagation>eve.stopImmediatePro...()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.stopPropagation.html>eve.stopPropagation()</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.target.html>eve.target</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.timeStamp.html>eve.timeStamp</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.type.html>eve.type</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/event.which.html>eve.which</a></li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:852px;top:1179px>
+ <h2>延迟对象</h2>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.done.html title=deferred.done(doneCallbacks[,doneCallbacks])>def.done(d,[d])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.fail.html>def.fail(failCallbacks)</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/deferred.isRejected.html>def.isRejected()</a></del><sup>1.7-</sup></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/deferred.isResolved.html>def.isResolved()</a></del><sup>1.7-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.reject.html>def.reject(args)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.rejectWith.html title=deferred.rejectWith(context,[args])>def.rejectWith(c,[a])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.resolve.html>def.resolve(args)</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.resolveWith.html title=deferred.resolveWith(context,[args])>def.resolveWith(c,[a])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/deferred.then.html title="deferred.then(doneCallbacks,failCallbacks[, progressCallbacks])">def.then(d[,f][,p])</a></del><sup>1.8*</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.promise.html title=deferred.promise([type],[target])>def.promise([ty],[ta])</a></li>
+ <li><del><a href=https://jquery.cuishifeng.cn/deferred.pipe.html title=deferred.pipe([doneFilter],[failFilter],[progressFilter])>def.pipe([d],[f],[p])</a></del><sup>1.8-</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.always.html title=deferred.always(alwaysCallbacks,[alwaysCallbacks])>def.always(al,[al])</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.notify.html>def.notify(args)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.notifyWith.html title=deferred.notifyWith(context,[args])>def.notifyWith(c,[a])</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.progress.html title=deferred.progress(progressCallbacks)>def.progress(proCal)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/deferred.state.html>def.state()</a><sup>1.7+</sup></li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:426px;top:1183px>
+ <h2>回调函数</h2>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.add.html>cal.add(callbacks)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.disable.html>cal.disable()</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.empty.html>cal.empty()</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.fire.html>cal.fire(arguments)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.fired.html>cal.fired()</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.fireWith.html title="callbacks.fireWith([context] [, args])">cal.fireWith([c] [,a])</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.has.html>cal.has(callback)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.lock.html>cal.lock()</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.locked.html>cal.locked()</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/callbacks.remove.html>cal.remove(callbacks)</a><sup>1.7+</sup></li>
+ <li><a href=https://jquery.cuishifeng.cn/jQuery.callbacks.html>$.callbacks(flags)</a><sup>1.7+</sup></li>
+ </ul>
+ </div><div class=col-item style=position:absolute;left:0px;top:1397px>
+ <h2>其它</h2>
+ <ul>
+ <li><a href=https://jquery.cuishifeng.cn/regexp.html>正则表达式</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/html5.html>HTML5速查表</a></li>
+ <li><a href=https://jquery.cuishifeng.cn/source.html target=_blank>源码下载</a></li>
+ </ul>
+ </div></div> 
+ </div>
+ <footer id=footer-con class=footer>
+ <p id=footer>Copyright © <a href=https://www.cuishifeng.cn/ target=_blank>Shifone</a> &nbsp;&nbsp; 2012 - 2020 &nbsp;&nbsp; All rights reserved. <a target=_blank href=https://www.miitbeian.gov.cn/>苏ICP备17065895号-1</a>
+ <a href=https://www.cuishifeng.cn/cooperate.html target=_blank style=margin-left:30px>广告合作</a>
+ </p>
+ </footer>
+</div>
+<aside class="left-panel left-panel-hide mCustomScrollbar _mCS_1 mCS_no_scrollbar" id=left-panel><div id=mCSB_1 class="mCustomScrollBox mCS-rounded mCSB_vertical mCSB_inside" style=max-height:none tabindex=0><div id=mCSB_1_container class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style=position:relative;top:0;left:0 dir=ltr><div class=auto-query-con><input type=text name=query id=autoquery placeholder=请输入关键字 autocomplete=off value></div><nav class=navigation><ul id=main-menu class=main-menu><li class=active id=menu-home><a class=menu-title id=dashboard-menu href=https://jquery.cuishifeng.cn/index.html><i class="fa fa-home"></i><span class=nav-label>Dashboard</span></a><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>核心</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>选择器</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>Ajax</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>属性</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>CSS</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>文档处理</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>筛选</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>事件</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>效果</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>工具</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>事件对象</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>延迟对象</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>回调函数</span></a><ul class="sub-menu sf-hidden"></ul><li class=has-submenu><a class=menu-title><i class="fa fa-leaf"></i> <span class=nav-label>其它</span></a><ul class="sub-menu sf-hidden"></ul><li><a class=menu-title href=https://www.cuishifeng.cn/go/linode target=_blank><i class="fa fa-leaf"></i> <span class=nav-label>免费云主机</span></a><li><a class=menu-title href=https://www.cuishifeng.cn/go/tencent target=_blank><i class="fa fa-leaf"></i> <span class=nav-label>腾讯云秒杀</span></a><li><a class=menu-title href=https://www.cuishifeng.cn/go/aliyun target=_blank><i class="fa fa-leaf"></i> <span class=nav-label>阿里云服务器</span></a></ul></nav></div><div id=mCSB_1_scrollbar_vertical class="mCSB_scrollTools mCSB_1_scrollbar mCS-rounded mCSB_scrollTools_vertical" style=display:none></div></div></aside>
+<div class=autocomplete-suggestions style=position:absolute;display:none;width:210px;max-height:300px;z-index:9999></div>
+<div class=tongji>
+ 
+</div>
