@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> <html><!--
+ Page saved with SingleFile 
+ url: http://docs.30c.org/djangobook2/ 
+ saved date: Wed Jan 04 2023 14:22:53 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>The Django Book 2.0--中文版</title>
+<style>body,div,ol,li,h1,h2,h5{margin:0;padding:0}ol{list-style:none}body{text-align:center}#doc{width:57.69em;min-width:770px;margin:auto;text-align:left}#hd,#bd{margin-bottom:1em;text-align:left}#ft{font-family:verdana;clear:both}#bd:after,.yui-g:after,.yui-gb:after,.yui-gc:after,.yui-gd:after,.yui-ge:after,.yui-gf:after{content:".";display:block;height:0;clear:both;visibility:hidden}#bd{zoom:1}body{font:12px/1.5 Verdana,sans-serif;background:#092e20;color:white}#bd{background:#487858}#doc{padding-top:16px}a{text-decoration:none}a:hover{color:#ffe761}a:link,a:visited{color:#ffc757}h2 a{text-decoration:none!important}#bd a:hover{background-color:#E0FFB8;color:#234f32;text-decoration:none}#bd a:link,#bd a:visited{color:#ab5603}#hd h1 a{color:#ffc757}#ft h1 a{color:#ffc757}#yui-main div.yui-b{margin:0 20px 0 20px;background:white;color:black;padding:0.3em 2em 1em 2em}h1{font-size:218%;margin-bottom:.4em;line-height:1.1em}h1,h2{margin-top:1.4em;font-family:"Trebuchet MS",sans-serif;font-weight:normal}h2{font-size:140%;color:#487858}h2#chapter-title{font-size:218%;line-height:1.2em;margin-bottom:0.8em}h2#chapter-subtitle{font-size:140%;margin-top:-1.2em!important;margin-bottom:1.6em;margin-left:.2em;color:#487858}h5{font-size:1em;font-weight:bold;margin-top:1.5em;margin-bottom:3px}ol{padding-left:30px}ol li{margin-bottom:.4em}ol.toc{margin-bottom:2em}ol.toc li{font-size:125%;padding:.5em;line-height:1.2em;clear:right}ol.toc li.b{background-color:#E0FFB8}ol.toc li a:hover{background-color:transparent!important;text-decoration:underline!important}ol.toc span.release-date{color:#487858;float:right;font-size:85%;padding-right:.5em}#ft{color:#487858;font-size:90%;padding-bottom:2em}<!----></style>
+<link type=image/x-icon rel="shortcut icon" href=data:image/x-icon;base64,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><link rel=canonical href=http://docs.30c.org/djangobook2/><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style><body><div align=center></div>
+ <div id=doc class=yui-t7>
+ <div id=hd>
+ <h1><a href=http://docs.30c.org/djangobook2/index.html>The Django Book 2.0--中文版</a></h1>
+ <h2>Collected by <a href=http://30c.org/>Clove</a></h2><h5><a href=http://docs.30c.org/>回到文档目录</a></h5>
+ </div>
+ <div id=bd>
+ <div id=yui-main>
+ <div class=yui-b>
+ <h2 id=chapter-title>Table of contents</h2>
+ <h2 id=chapter-subtitle>2.0, English -&gt; Chinese</h2>
+ <ol class=toc>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter01/>
+ 第一章：介紹Django </a> <a href=http://docs.30c.org/djangobook2/chapter01/>阅读</a> 01</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter02/>
+ 第二章 入门 </a> <a href=http://docs.30c.org/djangobook2/chapter02/>阅读</a> 02</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter03/>
+ 第三章 视图和URL配置 </a> <a href=http://docs.30c.org/djangobook2/chapter03/>阅读</a> 03</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter04/>
+ 第四章：模版 </a> <a href=http://docs.30c.org/djangobook2/chapter04/>阅读</a> 04</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter05/>
+ 第五章：模型 </a> <a href=http://docs.30c.org/djangobook2/chapter05/>阅读</a> 05</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter06/>
+ 第六章：Admin </a> <a href=http://docs.30c.org/djangobook2/chapter06/>阅读</a> 06</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter07/>
+ 第七章：表单 </a> <a href=http://docs.30c.org/djangobook2/chapter07/>阅读</a> 07</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter08/>
+ 第八章 高级视图和URL配置 </a> <a href=http://docs.30c.org/djangobook2/chapter08/>阅读</a> 08</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter09/>
+ 第九章：模版高级进阶 </a> <a href=http://docs.30c.org/djangobook2/chapter09/>阅读</a> 09</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter10/>
+ 第十章 模型高级进阶 </a> <a href=http://docs.30c.org/djangobook2/chapter10/>阅读</a> 10</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter11/>
+ 第十一章：通用视图 </a> <a href=http://docs.30c.org/djangobook2/chapter11/>阅读</a> 11</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter12/>
+ 第二十章： 部署Django </a> <a href=http://docs.30c.org/djangobook2/chapter12/>阅读</a> 12</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter13/>
+ 第十三章： 输出非HTML内容 </a> <a href=http://docs.30c.org/djangobook2/chapter13/>阅读</a> 13</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter14/>
+ 第十四章： 会话、用户和注册 </a> <a href=http://docs.30c.org/djangobook2/chapter14/>阅读</a> 14</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter15/>
+ 第十五章： 缓存机制 </a> <a href=http://docs.30c.org/djangobook2/chapter15/>阅读</a> 15</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter16/>
+ 第十四章 集成的子框架 django.contrib </a> <a href=http://docs.30c.org/djangobook2/chapter16/>阅读</a> 16</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter17/>
+ 第十七章： 中间件</a> <a href=http://docs.30c.org/djangobook2/chapter17/>阅读</a> 17</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter18/>
+ 第十八章： 集成已有的数据库和应用 </a> <a href=http://docs.30c.org/djangobook2/chapter18/>阅读</a> 18</li>
+ 
+ <li class=a>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter19/>
+ 第十九章： 国际化 </a> <a href=http://docs.30c.org/djangobook2/chapter19/>阅读</a> 19</li>
+ 
+ <li class=b>
+ <span class=release-date></span>
+ <a href=http://docs.30c.org/djangobook2/chapter20/>
+ 第二十章： 安全 </a> <a href=http://docs.30c.org/djangobook2/chapter20/>阅读</a> 20</li>
+ </ol></div>
+ </div>
+ </div>
+ <div id=ft> 
+ <h2>Collected by <a href=http://30c.org/>Clove</a>--Mail to <a href=mailto:clove@30c.org>Me</a></h2>
+ <h1><a href=http://docs.30c.org/djangobook2/>The Django Book 2.0--中文版</a></h1> 
+ </div>
+ </div>
+ <br><br><center><br><noscript><a href="http://www.51.la/?4554171" target="_blank"><img alt="我要啦免费统计" src="http://img.users.51.la/4554171.asp" style="border:none"></a></noscript> </center>
