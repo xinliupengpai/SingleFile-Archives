@@ -1,0 +1,162 @@
+<!DOCTYPE html> <html lang=zh-Hans dir=ltr class=client-js><!--
+ Page saved with SingleFile 
+ url: https://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97 
+ saved date: Wed Jan 04 2023 14:27:43 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>MySQL安装指南 - Ubuntu中文</title>
+<style>@media screen{.mw-content-ltr{direction:ltr}.sitedir-ltr input{direction:ltr}input[type="submit"]{direction:ltr}@supports (text-decoration:underline dotted){abbr[title],.explain[title]{border-bottom:none;text-decoration:underline dotted}}a.new{color:#BA0000}.visualClear{clear:both}h1:lang(anp),h1:lang(as),h1:lang(bh),h1:lang(bho),h1:lang(bn),h1:lang(gu),h1:lang(hi),h1:lang(kn),h1:lang(ks),h1:lang(ml),h1:lang(mr),h1:lang(my),h1:lang(mai),h1:lang(ne),h1:lang(new),h1:lang(or),h1:lang(pa),h1:lang(pi),h1:lang(sa),h1:lang(ta),h1:lang(te){line-height:1.6em!important}h2:lang(anp),h3:lang(anp),h4:lang(anp),h5:lang(anp),h6:lang(anp),h2:lang(as),h3:lang(as),h4:lang(as),h5:lang(as),h6:lang(as),h2:lang(bho),h3:lang(bho),h4:lang(bho),h5:lang(bho),h6:lang(bho),h2:lang(bh),h3:lang(bh),h4:lang(bh),h5:lang(bh),h6:lang(bh),h2:lang(bn),h3:lang(bn),h4:lang(bn),h5:lang(bn),h6:lang(bn),h2:lang(gu),h3:lang(gu),h4:lang(gu),h5:lang(gu),h6:lang(gu),h2:lang(hi),h3:lang(hi),h4:lang(hi),h5:lang(hi),h6:lang(hi),h2:lang(kn),h3:lang(kn),h4:lang(kn),h5:lang(kn),h6:lang(kn),h2:lang(ks),h3:lang(ks),h4:lang(ks),h5:lang(ks),h6:lang(ks),h2:lang(ml),h3:lang(ml),h4:lang(ml),h5:lang(ml),h6:lang(ml),h2:lang(mr),h3:lang(mr),h4:lang(mr),h5:lang(mr),h6:lang(mr),h2:lang(my),h3:lang(my),h4:lang(my),h5:lang(my),h6:lang(my),h2:lang(mai),h3:lang(mai),h4:lang(mai),h5:lang(mai),h6:lang(mai),h2:lang(ne),h3:lang(ne),h4:lang(ne),h5:lang(ne),h6:lang(ne),h2:lang(new),h3:lang(new),h4:lang(new),h5:lang(new),h6:lang(new),h2:lang(or),h3:lang(or),h4:lang(or),h5:lang(or),h6:lang(or),h2:lang(pa),h3:lang(pa),h4:lang(pa),h5:lang(pa),h6:lang(pa),h2:lang(pi),h3:lang(pi),h4:lang(pi),h5:lang(pi),h6:lang(pi),h2:lang(sa),h3:lang(sa),h4:lang(sa),h5:lang(sa),h6:lang(sa),h2:lang(ta),h3:lang(ta),h4:lang(ta),h5:lang(ta),h6:lang(ta),h2:lang(te),h3:lang(te),h4:lang(te),h5:lang(te),h6:lang(te){line-height:1.2em}}@media screen{#column-content,#side{background:#FFF;line-height:1.7em;color:#000}#column-content #content{margin-top:0}body{font-family:Verdana,"DejaVu Sans",sans-serif;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABaCAIAAAB1+pLRAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACKSURBVHja7NRRCYBAEEXRWfFnG4iFrGsgzSBYQDeCn084k+BwH0y7r73ybn6eimRVomuuyFxjRCwsLKx/sY7zSmQt65bI6r0nssYlslprgaypIk8tI6qlllpqqaWWWkZUSy211FJLLbWwjKiWWh6EEY1oRCMaEQsLCwsLCwsLCwsLCwsL68u9AgwAJjQk+xfuqXQAAAAASUVORK5CYII=)repeat-x;background-color:#FFF;margin-top:0;margin-left:1%;margin-right:1%;margin-bottom:20px;padding-top:0;color:#000}h1,h3,h6{color:black;background:none;margin-top:0.5em;margin-bottom:0.3em;padding-top:.5em;padding-bottom:.17em;border-bottom:1px solid #aaa;overflow:hidden}h6{border-bottom:none;font-weight:bold}h1{font-size:16pt;font-weight:normal}#firstHeading{margin-top:0.1em;padding-top:0.2em}h6{border:0}:link,a{text-decoration:none;color:#039}:visited{color:#5a3696;text-decoration:none}:link :hover,:visited :hover,a:hover{color:#333;text-decoration:underline}:link :focus,:visited :focus,a:focus{color:#333;text-decoration:underline}:link :active,a:active{color:#faa700}a.new{color:#ba0000}a.new:visited,#p-personal a.new:visited{color:#a55858}table{line-height:1.6em}#globalWrapper{margin:0 auto;font-size:9.5pt}#mBody{clear:both;padding:0;font-size:9pt}#side{float:left;width:15%;margin-bottom:1em;font-size:8.5pt}#column-content{float:right;width:83%;margin-bottom:1em}#header{margin-bottom:1em;position:relative;min-height:39px;height:3em;padding:18px 0}#p-cactions{position:absolute;bottom:0;right:0;margin:0;padding:0 10px 0 0;overflow:hidden;z-index:3;white-space:nowrap}#p-cactions ul{list-style:none;line-height:0.8em}#p-cactions li{float:left;margin:0 2px 0 0;padding:0 6px 0 0;overflow:visible;display:inline;white-space:nowrap;font-size:7.5pt;border-top-right-radius:6px;border-top-left-radius:6px;border-top-width:2px;border-top-style:solid}#p-cactions li a{display:block;float:left;margin:0;padding:2px 2px 4px 8px;z-index:0;color:#FFF;border:none;text-decoration:none}#p-cactions li:hover a,#p-cactions li a:hover{text-decoration:none;border-bottom:0px}#p-cactions li.selected,#p-cactions li.selected:hover{border-top-color:#FFC600;background-color:#FFFFFF}#p-cactions li.selected{border-bottom:1px solid #FFF;font-weight:bold}#p-cactions .new a{color:#FFD955}#p-cactions li#ca-talk{margin-right:1.6em}div#header{clear:both;border-radius:6px}#header h6 a{display:block;text-indent:-700em;text-decoration:none;background-size:100%}#header h6{position:absolute;top:0;left:0;margin:0;font-size:2px;height:8px;z-index:100;padding-left:5px;overflow:visible}#p-personal{margin-bottom:0}#p-personal .pBody{line-height:19px;margin-right:0;margin-left:0;margin-top:0;margin-bottom:1.4em;text-align:right;white-space:nowrap;border:none;z-index:0;overflow:visible;background:none;padding:0}#p-personal .top-nav-element{display:inline;margin:0;height:25px;font-size:10px;padding:0}#p-personal .top-nav-left{width:7px;height:25px;display:inline;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAZCAIAAABy7KNvAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACrSURBVHja1JFdCsIwEISTdVMwCsYfEPXRA+gRPLIX8kVU+lZrJY3iGrcWtI25gMuEwLfDZCDykm3Fz6D3IkZFBKOImTnhrygcjkVxvT+9bwq6ep3nN98eGJiFc4+AolKKg4J0lFIKKUNaXzHvG4feDigiD9Doy6fXn5eO2P0RcIIZLq0lW5KofqtSlaD1ZDrbnLPdKd23XuNFkpjReEVE32a8Q0QAqCu+BBgAZoeIYb4LGu8AAAAASUVORK5CYII=)no-repeat;padding-top:5px;padding-right:4px;padding-bottom:8px;margin-left:3px;margin-right:-1px}#p-personal .top-nav-right{width:7px;height:25px;display:inline;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAZCAIAAABy7KNvAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACcSURBVHja1JFNCsIwEIUzkwYzBetCdCEIHsGje6VsxJ1UaBp/kjihIKaJB/CR1cfH45GB2/UkijQxihoVFdyImswN/0VDTofh2ff3ucuI2iPGPM69qN1UepVSBQVAKX9sKH8SATI3BCFRzS80Or/Q26SLdKH07Oit9cvuANxwvjwmkWjXrfZEa6ZgjPk0SN40RWv9tRUQeQK8BRgAxadmGgkoUBMAAAAASUVORK5CYII=)no-repeat;padding-top:5px;padding-left:4px;padding-bottom:8px;margin-left:-1px;margin-right:3px}#p-personal .top-nav-mid{text-decoration:none;height:25px;display:inline;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAZCAIAAAB/8tMoAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAA1SURBVHjaYvr0fgPT//8MTP8Z/jMx/P8PZOPH/3CII/QyMDEAzXr24heTjKwXEwcHB0CAAQAMvT3uN8JIagAAAABJRU5ErkJggg==)repeat-x;padding-top:5px;padding-left:3px;padding-right:3px;padding-bottom:8px;margin-left:-4px;margin-right:-4px;font-size:10px}#p-personal ul{border:none;line-height:22px;color:#2f6fab;margin:0;text-align:right;list-style:none;z-index:0;background:none}#contentSub{font-size:8pt;line-height:1.2em;margin:0 0 0.8em 0;color:#7d7d7d;width:auto}p{margin:.4em 0 .5em 0;line-height:1.6em}ul{line-height:1.6em;list-style-type:square;margin:0.4em 0 0.4em 1.5em;padding:0;list-style-image:url(data:image/gif;base64,R0lGODlhBQANAIAAAGOMnP///yH5BAEAAAEALAAAAAAFAA0AAAIJjI+pu+APo4SpADs=);font-weight:normal}li{margin-top:0.2em;margin-bottom:0.2em}form{border:none;margin:0}input{margin:2px;vertical-align:middle}input[type="submit"]{cursor:pointer}td>div{margin:0;padding:0}.portlet{border:none;margin:0 0 0.5em 0em;float:none;padding:0;overflow:hidden}.portlet h3{background:transparent;height:1em;white-space:nowrap;border-bottom:none}#nav{padding-top:6px;padding-bottom:6px;padding-left:0;padding-right:0;line-height:1em;margin-bottom:1em;margin-left:0;margin-right:0;margin-top:0;border-radius:6px;box-shadow:1px 1px 1px grey}#nav ul{margin:0;padding:0;list-style:none}#nav div,#nav li{display:inline;padding:0;margin:0}#nav div h3{display:block;padding:0.5em 1.0em;font-weight:bold;color:#666;font-size:8.5pt}#nav div li a{padding:6px 8px 6px 20px}#nav .pBody{border:none}#nav div a{display:block;text-decoration:none;font-size:8pt}#header form{display:inline}#header #p-search{position:absolute;font-size:10pt;top:0;right:0;padding:15px 20px 0 0;margin:0;text-align:right;white-space:nowrap}#searchBody{display:inline}#header form input{font-size:8.5pt}#header form #searchInput:hover,#header form #searchInput:focus{background:#fff}#p-search{z-index:3;border-bottom:none}#searchGoButton{padding-left:.5em;padding-right:.5em;font-weight:bold}#header form #searchInput{width:270px;font-size:8.5pt;padding:2px;margin:0 0.5em 0 0.5em;border-radius:6px}#footer{clear:both;margin-top:1em;font-size:7pt;border-top:1px solid #999;padding-top:2em;color:#666}#footer ul{margin:0 0 1em 0;padding:0;line-height:1.6em;list-style:none}#footer li{margin:0;white-space:nowrap}#footer table{width:100%;text-align:center}#f-list{width:70%}#f-list #f-credits{white-space:normal}#footer td.f-iconsection{width:5%;text-align:center;vertical-align:top;padding-right:1em;white-space:nowrap}#f-list li{list-style:none;list-style-image:none;list-style-type:none}#footer a{margin:0.6em 0;display:inline;white-space:nowrap}#f-about,#f-disclaimer,#f-privacy{display:inline;padding-left:5px;padding-right:5px}}</style>
+<!--[if IE 6]><link rel="stylesheet" href="/skins/Cavendish/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/skins/Cavendish/IE70Fixes.css?303" media="screen" /><![endif]-->
+<style media=screen>#header{background:-moz-linear-gradient(top,#e3cead 0%,#dac39e 35%,#ccb186 75%,#c5aa7d 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#e3cead),color-stop(35%,#dac39e),color-stop(75%,#ccb186),color-stop(100%,#c5aa7d));background:-webkit-linear-gradient(top,#e3cead 0%,#dac39e 35%,#ccb186 75%,#c5aa7d 100%);background:-o-linear-gradient(top,#e3cead 0%,#dac39e 35%,#ccb186 75%,#c5aa7d 100%);background:-ms-linear-gradient(top,#e3cead 0%,#dac39e 35%,#ccb186 75%,#c5aa7d 100%);background:linear-gradient(to bottom,#e3cead 0%,#dac39e 35%,#ccb186 75%,#c5aa7d 100%)}#header form #searchInput{border:1px solid #774f03;background-color:#fbf4e8}#p-cactions li{border-bottom:1px solid #b48a48;background-color:#885e1b;border-top-color:#885e1b}#p-cactions li:hover{border-top-color:#b48a48;background-color:#b48a48}#p-cactions li.selected a{color:#780000}#nav{background:#e8ddca}#nav div a:hover{background:#e8ddca}#nav div a{background-color:#fbf4e8;border-bottom:1px solid #ddd;border-right:1px solid #ddd;border-top:1px solid #fff}.portlet li a:link{color:#780000;text-decoration:none}.portlet li a:visited{color:#774f03;text-decoration:none}#header h6 a{background-color:transparent;background-image:url(data:text/css;base64,I2hlYWRlciBoNiBhIHsgCgliYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDsgCgliYWNrZ3JvdW5kLWltYWdlOiB1cmwoIiIpOyAKCWJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7IAoJd2lkdGg6IDMyMnB4OwoJaGVpZ2h0OiA1M3B4OwoJbWFyZ2luLXRvcDogMTBweDsKCX0KI2YtcG93ZXJlZGJ5aWNvIHsKCWRpc3BsYXk6bm9uZTsKfQoJCQk=);background-repeat:no-repeat;width:322px;height:53px;margin-top:10px}</style>
+<meta name=ResourceLoaderDynamicStyles content>
+<style>.portlet a{text-decoration:none}.portlet a:hover{text-decoration:underline}a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}</style>
+<meta name=generator content="MediaWiki 1.26.3">
+<link rel=search type=application/opensearchdescription+xml href=https://wiki.ubuntu.org.cn/opensearch_desc.php title="Ubuntu中文 (zh-hans)">
+<link rel=EditURI type=application/rsd+xml href="https://wiki.ubuntu.org.cn/api.php?action=rsd">
+<link rel=alternate type=application/atom+xml title="Ubuntu中文的Atom feed" href="https://wiki.ubuntu.org.cn/index.php?title=%E7%89%B9%E6%AE%8A:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom">
+<link rel=canonical href=https://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97>
+<style>.sf-hidden{display:none!important}</style><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-MySQL安装指南 skin-cavendish action-view">
+<div id=internal></div>
+<div id=globalWrapper class=view>
+<div id=p-personal class=portlet>
+<h5 class=sf-hidden>个人工具</h5>
+<div class=pBody>
+<ul>
+<li id=pt-login class=top-nav-element>
+<span class=top-nav-left>&nbsp;</span>
+<a class=top-nav-mid href="https://wiki.ubuntu.org.cn/index.php?title=%E7%89%B9%E6%AE%8A:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97">
+登录</a>
+<span class=top-nav-right>&nbsp;</span></li>
+</ul>
+</div>
+</div>
+<div id=header>
+<a name=top id=contentTop></a>
+<h6>
+<a href=https://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5 title=首页>MySQL安装指南 - Ubuntu中文</a></h6>
+<div id=p-cactions class=portlet><ul>
+<li id=ca-nstab-main class=selected><a href=https://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97 title=查看内容页面>页面</a></li>
+<li id=ca-talk class=new><a href="https://wiki.ubuntu.org.cn/index.php?title=%E8%AE%A8%E8%AE%BA:MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;action=edit&amp;redlink=1" title=关于内容页面的讨论>讨论</a></li>
+<li id=ca-viewsource><a href="https://wiki.ubuntu.org.cn/index.php?title=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;action=edit" title="本页面受到保护。
+您可以查看其源代码">查看源代码</a></li>
+<li id=ca-history><a href="https://wiki.ubuntu.org.cn/index.php?title=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;action=history" title=本页面过去的版本>历史</a></li> </ul></div>
+<div id=p-search class=portlet role=search>
+<h3 class=sf-hidden></h3>
+<div id=searchBody class=pBody>
+<form action=/index.php id=searchform>
+<input type=search name=search placeholder=搜索 title=搜索Ubuntu中文[f] accesskey=f id=searchInput value>
+<input type=submit name=go value=前往 title=若相同标题存在，则直接前往该页面 id=searchGoButton class=searchButton>&nbsp;
+<input type=submit name=fulltext value=搜索 title=搜索含这些文字的页面 id=mw-searchButton class=searchButton>
+</form>
+</div>
+</div>
+</div>
+<div id=mBody>
+<div id=side>
+<div id=nav>
+<div class="generated-sidebar portlet" id=p-navigation role=navigation>
+<h3>导航</h3>
+<div class=pBody>
+<ul>
+<li id=n-mainpage-description><a href=https://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5 title=访问首页[z] accesskey=z>首页</a></li>
+<li id=n-recentchanges><a href=https://wiki.ubuntu.org.cn/%E7%89%B9%E6%AE%8A:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9 title=本wiki最近更改的列表[r] accesskey=r>最近更改</a></li>
+<li id=n-randompage><a href=https://wiki.ubuntu.org.cn/%E7%89%B9%E6%AE%8A:%E9%9A%8F%E6%9C%BA title=载入一个随机页面[x] accesskey=x>随机页面</a></li>
+<li id=n-.E9.A1.B5.E9.9D.A2.E5.88.86.E7.B1.BB><a href=https://wiki.ubuntu.org.cn/%E5%88%86%E7%B1%BB:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB>页面分类</a></li>
+<li id=n-help><a href=https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents title=查找帮助的地方>帮助</a></li>
+</ul>
+</div>
+</div>
+<div class="generated-sidebar portlet" id=p-.E7.BC.96.E8.BE.91 role=navigation>
+<h3>编辑</h3>
+<div class=pBody>
+<ul>
+<li id=n-.E7.BC.96.E8.BE.91.E6.8C.87.E5.8D.97><a href=https://wiki.ubuntu.org.cn/%E5%88%86%E7%B1%BB:%E8%B4%A1%E7%8C%AE>编辑指南</a></li>
+<li id=n-.E6.B2.99.E7.9B.92><a href=https://wiki.ubuntu.org.cn/%E6%B2%99%E7%9B%92>沙盒</a></li>
+<li id=n-currentevents><a href=https://wiki.ubuntu.org.cn/Ubuntu%E4%B8%AD%E6%96%87:%E6%96%B0%E9%97%BB%E5%8A%A8%E6%80%81 title=查看当前事件的背景信息>新闻动态</a></li>
+<li id=n-.E5.AD.97.E8.AF.8D.E5.A4.84.E7.90.86><a href=https://wiki.ubuntu.org.cn/MediaWiki:Conversiontable/zh-hant>字词处理</a></li>
+</ul>
+</div>
+</div>
+<div class=portlet id=p-tb role=navigation>
+<h3>工具</h3>
+<div class=pBody>
+<ul>
+<li id=t-whatlinkshere><a href=https://wiki.ubuntu.org.cn/%E7%89%B9%E6%AE%8A:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97 title=所有链接至本页面的wiki页面的列表[j] accesskey=j>链入页面</a></li>
+<li id=t-recentchangeslinked><a href=https://wiki.ubuntu.org.cn/%E7%89%B9%E6%AE%8A:%E6%9C%80%E8%BF%91%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97 title=链自本页的页面的最近更改[k] accesskey=k>相关更改</a></li>
+<li id=t-specialpages><a href=https://wiki.ubuntu.org.cn/%E7%89%B9%E6%AE%8A:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2 title=所有特殊页面的列表[q] accesskey=q>特殊页面</a></li>
+<li id=t-print><a href="https://wiki.ubuntu.org.cn/index.php?title=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;printable=yes" rel=alternate title=本页面的可打印版本[p] accesskey=p>打印版本</a></li>
+<li id=t-permalink><a href="https://wiki.ubuntu.org.cn/index.php?title=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;oldid=142681" title=本页面该版本的固定链接>固定链接</a></li>
+<li id=t-info><a href="https://wiki.ubuntu.org.cn/index.php?title=MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97&amp;action=info" title=关于此页面的更多信息>页面信息</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id=column-content>
+<div id=content>
+<a id=top></a>
+<h1 id=firstHeading class=firstHeading>MySQL安装指南</h1>
+<div id=bodyContent>
+<h3 id=siteSub class=sf-hidden>来自Ubuntu中文</h3>
+<div id=contentSub></div>
+<div id=jump-to-nav class=sf-hidden>跳转至： , </div> 
+<div id=mw-content-text lang=zh-Hans dir=ltr class=mw-content-ltr><p>安装MySQL
+<p>sudo apt-get install mysql-server
+<p>这个应该很简单了，而且我觉得大家在安装方面也没什么太大问题，所以也就不多说了，下面我们来讲讲配置。
+<p>配置MySQL
+<p>注意，在Ubuntu下MySQL缺省是只允许本地访问的，如果你要其他机器也能够访问的话，那么需要改变/etc/mysql/my.cnf配置文件了！下面我们一步步地来：
+<p>默认的MySQL安装之后根用户是没有密码的，所以首先用根用户进入：
+<p>$mysql -u root
+<p>在这里之所以用-u root是因为我现在是一般用户（firehare），如果不加-u root的话，mysql会以为是firehare在登录。注意，我在这里没有进入根用户模式，因为没必要。一般来说，对mysql中的数据库进行操作，根本没必要进入根用户模式，只有在设置时才有这种可能。
+<p>进入mysql之后，最要紧的就是要设置Mysql中的root用户密码了，否则，Mysql服务无安全可言了。
+<p>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO root@localhost IDENTIFIED BY "123456";
+<p>注意，我这儿用的是123456做为root用户的密码，但是该密码是不安全的，请大家最好使用大小写字母与数字混合的密码，且不少于8位。
+<p>这样的话，就设置好了MySQL中的root用户密码了，然后就用root用户建立你所需要的数据库。我这里就以xoops为例：
+<p>mysql&gt;CREATE DATABASE xoops；
+<p>mysql&gt;GRANT ALL PRIVILEGES ON xoops.* TO xoops_root@localhost IDENTIFIED BY "654321";
+<p>这样就建立了一个xoops_roots的用户，它对数据库xoops有着全部权限。以后就用xoops_root来对xoops数据库进行管理，而无需要再用root用户了，而该用户的权限也只被限定在xoops数据库中。
+<p>如果你想进行远程访问或控制，那么你要做两件事：
+<p>其一：
+<p>mysql&gt;GRANT ALL PRIVILEGES ON xoops.* TO xoops_root@"%" IDENTIFIED BY "654321";
+<p>允许xoops_root用户可以从任意机器上登入MySQL。
+<p>其二：
+<p>$sudo gedit /etc/mysql/my.cnf
+<p>老的版本中
+<p>&gt;skip-networking =&gt; # skip-networking
+<p>新的版本中
+<p>&gt;bind-address=127.0.0.1 =&gt; bind-address= 你机器的IP
+<p>这样就可以允许其他机器访问MySQL了。
+</p>
+</div><div class="printfooter sf-hidden">
+取自“”</div>
+<div id=catlinks class="catlinks catlinks-allhidden sf-hidden"></div> 
+</div>
+</div>
+</div>
+</div>
+<div class=visualClear></div>
+<div id=footer>
+<table>
+<tbody><tr>
+<td rowspan=2 class=f-iconsection>
+</td>
+<td align=center>
+<ul id=f-list>
+<li id=f-credits>本页面被<a href="https://wiki.ubuntu.org.cn/index.php?title=%E7%94%A8%E6%88%B7:Wc52110&amp;action=edit&amp;redlink=1" class=new title=用户:Wc52110（页面不存在）>wc52110</a>最后修改于2011年2月16日 (星期三) 21:17。 </li>
+<li id=f-privacy><a href=https://wiki.ubuntu.org.cn/Ubuntu%E4%B8%AD%E6%96%87:%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96 title=Ubuntu中文:隐私政策>隐私政策</a></li>
+<li id=f-about><a href=https://wiki.ubuntu.org.cn/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%B3%E4%BA%8E title=Ubuntu中文:关于>关于Ubuntu中文</a></li>
+<li id=f-disclaimer><a href=https://wiki.ubuntu.org.cn/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E title=Ubuntu中文:免责声明>免责声明</a></li>
+</ul></td>
+<td rowspan=2 class=f-iconsection>
+<div id=f-poweredbyico class=sf-hidden></div>
+</td>
+</tr>
+<tr>
+<td><div id=skin-info>
+Mozilla Cavendish Theme based on Cavendish style by Gabriel Wicke modified by <a href=http://www.dasch-tour.de/ title="DaSch-Tour Blog" target=_blank>DaSch</a> for the <a href=http://www.wecowi.de/ title="Web Community Wiki">Web Community Wiki</a><br>
+<a href=https://github.com/DaSchTour/Cavendish title="github projectpage">github Projectpage</a> – <a href=https://github.com/DaSchTour/Cavendish/issues title="Bug reporting at github">Report Bug</a> – Skin-Version: 2.3.4 </div></td>
+</tr>
+</table>
+</div>
