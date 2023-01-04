@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> <html style><!--
+ Page saved with SingleFile 
+ url: https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd.htm 
+ saved date: Wed Jan 04 2023 14:10:05 GMT+0800 (中国标准时间)
+--><meta charset=utf-8><style>.truste_caIcon_display{display:inline-block!important}.truste_cursor_pointer{cursor:pointer}</style>
+<meta name=description content="BEA Tuxedo Documentation">
+<meta name=keywords content=Tuxedo>
+<title>Section 1 - Commands</title>
+<style id=banner_footer_style>p{MARGIN-LEFT:0.2in;MARGIN-RIGHT:0;MARGIN-TOP:0.1in;MARGIN-BOTTOM:0;FONT-FAMILY:Verdana,Geneva,Arial,Helvetica,sans-serif;FONT-SIZE:10pt;COLOR:#000000}p.cnavbar{MARGIN-LEFT:0;MARGIN-RIGHT:0;MARGIN-TOP:0;MARGIN-BOTTOM:0.01in;FONT-FAMILY:Arial,Helvetica,sans-serif;FONT-SIZE:8pt;COLOR:#FFFFFF;TEXT-DECORATION:None}p.copyright{FONT-SIZE:8pt}p.dnavbar{MARGIN-LEFT:0;MARGIN-RIGHT:0;MARGIN-TOP:0;MARGIN-BOTTOM:0.01in;FONT-FAMILY:Arial,Helvetica,sans-serif;FONT-SIZE:9pt;FONT-WEIGHT:Bold;COLOR:#000000;TEXT-DECORATION:None}p.headmain{MARGIN-LEFT:0.15in;MARGIN-RIGHT:0;MARGIN-TOP:0.2in;MARGIN-BOTTOM:0;FONT-FAMILY:Arial,Helvetica,sans-serif;FONT-WEIGHT:bold;FONT-SIZE:24pt;COLOR:#FF0000}p.navbar{MARGIN-LEFT:0;MARGIN-RIGHT:0;MARGIN-TOP:0;MARGIN-BOTTOM:0.01in;FONT-FAMILY:Arial,Helvetica,sans-serif;FONT-SIZE:9pt;FONT-WEIGHT:Bold;COLOR:#000000;TEXT-DECORATION:None}p.small{MARGIN-LEFT:0;MARGIN-RIGHT:0;MARGIN-TOP:0;MARGIN-BOTTOM:0;FONT-SIZE:1pt}p.table{MARGIN-LEFT:0;MARGIN-RIGHT:0;MARGIN-TOP:0}p.titletable{FONT-WEIGHT:Bold}ul{MARGIN-LEFT:0.5in;MARGIN-RIGHT:0;MARGIN-TOP:0.1in;MARGIN-BOTTOM:0;FONT-FAMILY:Verdana,Geneva,Arial,Helvetica,sans-serif;FONT-SIZE:10pt;COLOR:#000000}a:link{COLOR:#3366CC}a:active{COLOR:#0000CC}a:hover{COLOR:#FF0000}a:visited{COLOR:#9999CC}#footer-banner ul li:nth-child(2){margin-left:0}#footer-banner{z-index:9999;position:fixed;margin:0 auto 0 auto;bottom:0;left:0;right:0;background-color:#EBEBEB!important;border-top:1px solid #ACB7BF;color:#1958AA;padding:0.0em 1em;text-align:center;font-size:12px!important;line-height:15px;font-weight:normal;font-family:Arial;clear:both}#teconsent{display:inline-block}#footer-banner ul{list-style:none;font-size:12px!important;padding:0;margin:0;margin-right:20px}#footer-banner li{display:inline-block}#footer-banner li+li:before{content:"|";margin-right:4px;margin-left:4px;color:#aaa}#footer-banner a{color:#1958AA;text-decoration:none;font-size:12px!important}#footer-banner a:focus,#footer-banner a:hover{color:#1958AA;text-decoration:underline}</style><link type=image/x-icon rel="shortcut icon" href=data:image/x-icon;base64,AAABAAYAICAQAAEABADoAgAAZgAAABAQEAABAAQAKAEAAE4DAAAgIAAAAQAIAKgIAAB2BAAAEBAAAAEACABoBQAAHg0AACAgAAABACAAqBAAAIYSAAAQEAAAAQAgAGgEAAAuIwAAKAAAACAAAABAAAAAAQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8A/wCAAIAA/wAAAIAAAAD//wAAgIAAAAD/AAAAgAAAAP//AACAgAAAAP8AAACAAP///wDAwMAAgICAAAAAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq7MzMzMzMzMzaqqqqqqqqrczMzMzMzMzMzOqqqqqqqtzMzN3d3d3czMzOqqqqqq7MzOqqqqqqqq3MzKqqqqqszMqqqqqqqqqq7Mzaqqqq7Myqqqqqqqqqqq3MyqqqqtzMqqqqqqqqqqqqzMqqqqrczaqqqqqqqqqqqszKqqqq3M2qqqqqqqqqqqrMyqqqqtzMqqqqqqqqqqqqzMqqqqrszKqqqqqqqqqqrczKqqqqrMzKqqqqqqqqqqzM2qqqqq3MzKqqqqqqqq3MzKqqqqqq3MzM3d3d3d3MzM6qqqqqqq3MzMzMzMzMzMzqqqqqqqqq7MzMzMzMzMzaqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAABAAAAAgAAAAAQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8A/wCAAIAA/wAAAIAA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HBwcHBwcHBwcHBwAAAAVHBwcHBwcDgAADhwcHBwcHBwcHBwcHBwcHBwcHAAAABUcHBwcHBwOAAAHHBwcHBwcHBwcHBwcHBwcHBwcAAAAHBwcHBwcHBUAAAAVHBwcHBwcHBwcHBwcHBwcHA4AAAAcHBwcHBwcHAAAAAccHBwcHBwcHBwcHBwcHBwVAAAADhwcHBwcHBwcDgAAAPUVHBwcHBwcHBwcHBwcDgAAAAAcHBwcHBwcHBwcBwAAAAAABwcHBwcHBwcHBwAAAAAAFRwcHBwcHBwcHBwcBwAAAAAAAAAAAAAAAAAAAAAAABUcHBwcHBwcHBwcHBwcFfUAAAAAAAAAAAAAAAAAAAccHBwcHBwcHBwcHBwcHBwcHBwVFRUVFRUVFRUVFRUcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8AzP//AJn//wBm//8AM///AAD//wD/zP8AzMz/AJnM/wBmzP8AM8z/AADM/wD/mf8AzJn/AJmZ/wBmmf8AM5n/AACZ/wD/Zv8AzGb/AJlm/wBmZv8AM2b/AABm/wD/M/8AzDP/AJkz/wBmM/8AMzP/AAAz/wD/AP8AzAD/AJkA/wBmAP8AMwD/AAAA/wD//8wAzP/MAJn/zABm/8wAM//MAAD/zAD/zMwAzMzMAJnMzABmzMwAM8zMAADMzAD/mcwAzJnMAJmZzABmmcwAM5nMAACZzAD/ZswAzGbMAJlmzABmZswAM2bMAABmzAD/M8wAzDPMAJkzzABmM8wAMzPMAAAzzAD/AMwAzADMAJkAzABmAMwAMwDMAAAAzAD//5kAzP+ZAJn/mQBm/5kAM/+ZAAD/mQD/zJkAzMyZAJnMmQBmzJkAM8yZAADMmQD/mZkAzJmZAJmZmQBmmZkAM5mZAACZmQD/ZpkAzGaZAJlmmQBmZpkAM2aZAABmmQD/M5kAzDOZAJkzmQBmM5kAMzOZAAAzmQD/AJkAzACZAJkAmQBmAJkAMwCZAAAAmQD//2YAzP9mAJn/ZgBm/2YAM/9mAAD/ZgD/zGYAzMxmAJnMZgBmzGYAM8xmAADMZgD/mWYAzJlmAJmZZgBmmWYAM5lmAACZZgD/ZmYAzGZmAJlmZgBmZmYAM2ZmAABmZgD/M2YAzDNmAJkzZgBmM2YAMzNmAAAzZgD/AGYAzABmAJkAZgBmAGYAMwBmAAAAZgD//zMAzP8zAJn/MwBm/zMAM/8zAAD/MwD/zDMAzMwzAJnMMwBmzDMAM8wzAADMMwD/mTMAzJkzAJmZMwBmmTMAM5kzAACZMwD/ZjMAzGYzAJlmMwBmZjMAM2YzAABmMwD/MzMAzDMzAJkzMwBmMzMAMzMzAAAzMwD/ADMAzAAzAJkAMwBmADMAMwAzAAAAMwD//wAAzP8AAJn/AABm/wAAM/8AAAD/AAD/zAAAzMwAAJnMAABmzAAAM8wAAADMAAD/mQAAzJkAAJmZAABmmQAAM5kAAACZAAD/ZgAAzGYAAJlmAABmZgAAM2YAAABmAAD/MwAAzDMAAJkzAABmMwAAMzMAAAAzAAD/AAAAzAAAAJkAAABmAAAAMwAAAAAA7gAAAN0AAAC7AAAAqgAAAIgAAAB3AAAAVQAAAEQAAAAiAAAAEQAA7gAAAN0AAAC7AAAAqgAAAIgAAAB3AAAAVQAAAEQAAAAiAAAAEQAA7gAAAN0AAAC7AAAAqgAAAIgAAAB3AAAAVQAAAEQAAAAiAAAAEQAAAO7u7gDd3d0Au7u7AKqqqgCIiIgAd3d3AFVVVQBEREQAIiIiABEREQAAAAAAHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcFQcHBwcHBwcHFRwcHBwcBwAAAAAAAAAAAAAOHBwcDgAHFRwcHBwcHBUAAA4cHAAAHBwcHBwcHBwcFQAHHBwABxwcHBwcHBwcHBwAABwcAAAcHBwcHBwcHBwcAAAcHAcADhwcHBwcHBwcBwAOHBwcAAD1BwcHBwcHAAAAHBwcHBwHAAAAAAAAAAAHHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAIAAAAEAAAAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8/OO//W1Xy/1tV8v9bVfL/W1Xy/1tV8v9bVfL/W1Xy/1tV8v9bVfL/W1Xy/1tV8v9bVfL/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f9pY/P/1tT8////////////////////////////////////////////////////////////////////////////rar4/z847/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/rar4////////////////////////////////////////////////////////////////////////////////////////////8fH+/3Zx9P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/62q+P///////////////////////////8jG+v/Ixvr/yMb6/8jG+v/Ixvr/yMb6/8jG+v/Ixvr/yMb6/+Tj/f///////////////////////////2lj8/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f92cfT/////////////////8fH+/3Zx9P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/zIq7v+Sjvb/////////////////8fH+/zIq7v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/+Tj/f///////////+Tj/f8yKu7/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f92cfT/////////////////n5v3/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f9pY/P/////////////////W1Xy/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f+tqvj////////////x8f7/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/5KO9v///////////9bU/P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/01H8P////////////////8/OO//JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/ko72////////////rar4/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/////////////////1tV8v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f+Sjvb///////////+fm/f/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/////////////////W1Xy/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/5KO9v///////////9bU/P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/01H8P////////////////9NR/D/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/aWPz/////////////////1tV8v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/rar4////////////8fH+/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/8fH+////////////1tT8/zIq7v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/1tV8v////////////////+tqvj/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f+Sjvb/////////////////5OP9/1tV8v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/zIq7v+Sjvb/////////////////8fH+/z847/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f/Ixvr///////////////////////Hx/v/Ixvr/yMb6/8jG+v/Ixvr/yMb6/8jG+v/Ixvr/yMb6/8jG+v/Ixvr///////////////////////////92cfT/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/zIq7v/Ixvr/////////////////////////////////////////////////////////////////////////////////////////////////dnH0/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f92cfT/5OP9////////////////////////////////////////////////////////////////////////////yMb6/01H8P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/TUfw/1tV8v9bVfL/W1Xy/1tV8v9bVfL/W1Xy/1tV8v9bVfL/W1Xy/1tV8v9bVfL/W1Xy/z847/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAABAAAAAgAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/3Zx9P/Ixvr/yMb6/8jG+v/Ixvr/yMb6/8jG+v/Ixvr/urj5/3Zx9P8kHO3/JBzt/yQc7f8kHO3/Miru/9bU/P//////////////////////////////////////////////////////rar4/yQc7f8kHO3/JBzt/5+b9///////1tT8/1tV8v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f9pY/P/8fH+//////+EgPX/JBzt/yQc7f///////////z847/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/1tV8v//////1tT8/yQc7f8kHO3//////8jG+v8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3///////////8kHO3/JBzt///////x8f7/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/Pzjv///////x8f7/JBzt/yQc7f/Ixvr//////62q+P8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/Miru/7q4+f//////rar4/yQc7f8kHO3/TUfw//Hx/v//////5OP9/8jG+v/Ixvr/yMb6/8jG+v/Ixvr/yMb6//Hx/v//////8fH+/zIq7v8kHO3/JBzt/yQc7f9NR/D/yMb6////////////////////////////////////////////urj5/z847/8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8kHO3/JBzt/yQc7f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd.htm><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+<table cellspacing=0 cellpadding=0 border=0 width=100%>
+ <tbody><tr>
+ <td valign=top width=145 bgcolor=#FFCC66 rowspan=3>
+ <img src=data:image/gif;base64,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 width=145 height=133 alt="BEA Logo" border=0>
+ </td>
+ 
+ <td valign=top width=100% bgcolor=#FFCC66>
+ <img src=data:image/gif;base64,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 alt="BEA Tuxedo Release 8.0" border=0>
+ </td>
+ </tr>
+ 
+ <tr>
+ <td valign=middle width=100% height=15 bgcolor=#000000>
+ <p class=cnavbar>&nbsp;
+ <a href=http://www.bea.com/index.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>BEA Home</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/events/index.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Events</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/solutions/index.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Solutions</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/partners/index.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Partners</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/products/index.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Products</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/services.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Services</a>
+ &nbsp;|&nbsp;
+ <a href=http://www.bea.com/download.shtml style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Download</a>
+ &nbsp;|&nbsp;
+ <a href=http://developer.bea.com/index.jsp style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>Developer Center</a>
+ &nbsp;|&nbsp;
+ <a href=http://websupport.bea.com/ style=COLOR:#FFFFFF;TEXT-DECORATION:none target=window2>WebSUPPORT</a>
+ </p>
+ </td>
+ </tr>
+ <tr>
+ <td valign=middle width=100% bgcolor=#FFFFFF>
+ <p class=navbar>&nbsp;&nbsp;
+ <a href=http://www.oracle.com/technology/documentation/index.html style=COLOR:#000000;TEXT-DECORATION:none>http://www.oracle.com/technology/documentation/index.html</a>
+ &nbsp;&nbsp;<font color=#FFCC66>|</font>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/interm/sitemap.htm style=COLOR:#000000;TEXT-DECORATION:none>Site Map</a>
+ &nbsp;&nbsp;<font color=#FFCC66>|</font>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/search/search.htm style=COLOR:#000000;TEXT-DECORATION:none target=new>Search</a>
+ &nbsp;&nbsp;<font color=#FFCC66>|</font>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/interm/pdf.htm style=COLOR:#000000;TEXT-DECORATION:none>PDF Files</a>
+ &nbsp;&nbsp;<font color=#FFCC66>|</font>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/interm/contact.htm style=COLOR:#000000;TEXT-DECORATION:none>Contact</a>
+ &nbsp;&nbsp;<font color=#FFCC66>|</font>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/glossary/glossary.htm style=COLOR:#000000;TEXT-DECORATION:none>Glossary</a>
+ </p>
+ </td>
+ </tr>
+ <tr>
+ <td valign=middle width=100% bgcolor=#FF0000 colspan=2 height=1>
+ <p class=small>&nbsp;</p>
+ </td>
+ </tr>
+ 
+ <tr>
+ <td valign=middle width=100% height=16 bgcolor=#FFCC66 colspan=2>
+ <p class=dnavbar>&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/index.htm style=COLOR:#000000;TEXT-DECORATION:none>Tuxedo Documentation</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/interm/ref.htm style=COLOR:#FF0000;TEXT-DECORATION:none>Command Reference</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd.htm style=COLOR:#000000;TEXT-DECORATION:none target=_top>Local Topics</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <font color=#999999>Previous Topic</font>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd2.htm style=COLOR:#000000;TEXT-DECORATION:none>Next Topic</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a style=COLOR:#000000;TEXT-DECORATION:none>Contents</a>
+ </p>
+ </td>
+ </tr>
+</table>
+ 
+<a name=1468212><p class=headmain>Section 1 - Commands</p></a>
+<p>&nbsp;</p>
+<a name=1468558> 
+<p class=titletable>
+<span name=1468215></span><p class=titletable><span name=1468215> BEA Tuxedo Commands</span><p>
+<table border=1 bordercolorlight=#FFFFFF bordercolordark=#000000 cellpadding=3 cellspacing=0>
+ <tbody><tr bgcolor=#CCCCCC>
+ <th align=left valign=top>
+ <b>
+ <span name=1468219><p class=table><strong>Name</strong></p></span>
+ </b>
+ </th>
+ <th align=left valign=top>
+ <b>
+ <span name=1468221><p class=table><strong>Description</strong></p></span>
+ </b>
+ </th>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468225></span><p class=table><span name=1468225></span><span href=rfcmd2.htm#1330814>Introduction to BEA Tuxedo Commands</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468228><p class=table>Provides an introduction to the commands available for setting up and maintaining your BEA Tuxedo application</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468233></span><p class=table><span name=1468233><font face=Courier></font></span><font face=Courier><span href=rfcmd3.htm#998238>bldc_dce(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468235><p class=table>Builds a BEA Tuxedo system client that can be called via <font face=Courier>OSF/DCE</font></p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468240></span><p class=table><span name=1468240><font face=Courier></font></span><font face=Courier><span href=rfcmd4.htm#1308445>blds_dce(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468242><p class=table>Builds a BEA Tuxedo system server that calls <font face=Courier>OSF/DCE</font></p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468247></span><p class=table><span name=1468247><font face=Courier></font></span><font face=Courier><span href=rfcmd5.htm#998347>buildclient(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468249><p class=table>Constructs a BEA Tuxedo client module</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1496771></span><p class=table><span name=1496771></span><span href=rfcmd6.htm#1485640>buildobjclient(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1496773><p class=table>Constructs a CORBA client application.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1496778></span><p class=table><span name=1496778></span><span href=rfcmd7.htm#1485762>buildobjserver(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1496780><p class=table>Constructs a CORBA server application.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468261></span><p class=table><span name=1468261><font face=Courier></font></span><font face=Courier><span href=rfcmd8.htm#998489>buildserver(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468263><p class=table>Constructs a BEA Tuxedo server load module</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468268></span><p class=table><span name=1468268><font face=Courier></font></span><font face=Courier><span href=rfcmd9.htm#1478367>buildtms(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468270><p class=table>Constructs a transaction manager server load module</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468275></span><p class=table><span name=1468275><font face=Courier></font></span><font face=Courier><span href=rfcmd10.htm#998619>buildwsh(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468277><p class=table>Builds a customized workstation handler process</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468282></span><p class=table><span name=1468282><font face=Courier></font></span><font face=Courier><span href=rfcmd11.htm#998663>cobcc(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468284><p class=table>COBOL compilation interface</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468289></span><p class=table><span name=1468289><font face=Courier></font></span><font face=Courier><span href=rfcmd12.htm#998708>dmadmin(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468291><p class=table>Administration command interpreter for BEA Tuxedo Domains</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468296></span><p class=table><span name=1468296><font face=Courier></font></span><font face=Courier><span href=rfcmd13.htm#1307396>dmloadcf(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468298><p class=table>Parses a <font face=Courier>DMCONFIG</font> file and loads a binary <font face=Courier>BDMCONFIG</font> configuration file</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468303></span><p class=table><span name=1468303><font face=Courier></font></span><font face=Courier><span href=rfcmd14.htm#1030175>dmunloadcf(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468305><p class=table>Unloads a <font face=Courier>BDMCONFIG</font> file (a binary Domains configuration file)</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468310></span><p class=table><span name=1468310><font face=Courier></font></span><font face=Courier><span href=rfcmd15.htm#999835>gencat(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468312><p class=table>Generates a formatted message catalog</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495742></span><p class=table><span name=1495742></span><span href=rfcmd16.htm#1486740>genicf(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495744><p class=table>Generates an ICF file.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495746></span><p class=table><span name=1495746></span><span href=rfcmd17.htm#1490280>idl(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495748><p class=table>Compiles the Object Management Group (OMG) Interface Definition Language (IDL) file and generates the files required for the interface.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495750></span><p class=table><span name=1495750></span><span href=rfcmd18.htm#1490343>idl2ir(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495752><p class=table>Creates the Interface Repository and loads interface definitions into it.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495754></span><p class=table><span name=1495754></span><span href=rfcmd19.htm#1490369>idltojava(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495756><p class=table>Compiles IDL files to Java source code based on IDL to Java mappings defined by the OMG.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495758></span><p class=table><span name=1495758></span><span href=rfcmd20.htm#1490513>ir2idl(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495760><p class=table>Shows the contents of an Interface Repository.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495762></span><p class=table><span name=1495762></span><span href=rfcmd21.htm#1490546>irdel(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495764><p class=table>Deletes the specified object from an Interface Repository. </p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495766></span><p class=table><span name=1495766></span><span href=rfcmd22.htm#1490561>ISL(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495768><p class=table>Enables access to BEA Tuxedo objects by remote BEA Tuxedo clients using IIOP.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1495770></span><p class=table><span name=1495770></span><span href=rfcmd23.htm#1490761>m3idltojava(1)</span></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1495772><p class=table>Compiles the Object Management Group (OMG) Interface Definition Language (IDL) file and generates client stub and server skeleton files required for the interface definitions being implemented in Java.</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468316></span><p class=table><span name=1468316><font face=Courier></font></span><font face=Courier><span href=rfcmd24.htm#1000080>mkfldhdr, mkfldhdr32(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468319><p class=table>Creates header files from field tables</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468324></span><p class=table><span name=1468324><font face=Courier></font></span><font face=Courier><span href=rfcmd25.htm#1000123>mklanginfo(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468326><p class=table>Compiles language-information constants for a locale</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468331></span><p class=table><span name=1468331><font face=Courier></font></span><font face=Courier><span href=rfcmd26.htm#1000233>qmadmin(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468333><p class=table>Administration command interpreter for Queue manager </p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468338></span><p class=table><span name=1468338><font face=Courier></font></span><font face=Courier><span href=rfcmd27.htm#1341769>rex(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468340><p class=table>Offline regular expression compiler and tester</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468345></span><p class=table><span name=1468345><font face=Courier></font></span><font face=Courier><span href=rfcmd28.htm#1000463>tidl(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468347><p class=table>Interface Definition Language compiler</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468352></span><p class=table><span name=1468352><font face=Courier></font></span><font face=Courier><span href=rfcmd29.htm#1000566>tlisten(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468354><p class=table>Generic listener process</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468359></span><p class=table><span name=1468359><font face=Courier></font></span><font face=Courier><span href=rfcmd30.htm#1242017>tmadmin(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468361><p class=table>Command interpreter for BEA Tuxedo bulletin boards</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468366></span><p class=table><span name=1468366><font face=Courier></font></span><font face=Courier><span href=rfcmd31.htm#1032112>tmboot(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468368><p class=table>Brings up a BEA Tuxedo configuration</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468372></span><p class=table><span name=1468372><font face=Courier></font></span><font face=Courier><span href=rfcmd32.htm#1308271>tmconfig, wtmconfig(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468375><p class=table>Dynamically updates and retrieves information about a running BEA Tuxedo application, as either a native client or a Workstation client</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468380></span><p class=table><span name=1468380><font face=Courier></font></span><font face=Courier><span href=rfcmd33.htm#1282506>tmipcrm(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468382><p class=table>Removes IPC resources allocated by a BEA Tuxedo application on a local machine</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468387></span><p class=table><span name=1468387><font face=Courier></font></span><font face=Courier><span href=rfcmd34.htm#1330826>tmloadcf(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468389><p class=table>Parses a <font face=Courier>UBBCONFIG</font> file (a text-format configuration file) and loads a <font face=Courier>TUXCONFIG</font> file (a binary configuration file)</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468394></span><p class=table><span name=1468394><font face=Courier></font></span><font face=Courier><span href=rfcmd35.htm#1335246>tmshutdown(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468396><p class=table>Shuts down a set of BEA Tuxedo servers</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468401></span><p class=table><span name=1468401><font face=Courier></font></span><font face=Courier><span href=rfcmd36.htm#1001507>tmunloadcf(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468403><p class=table>Unloads a <font face=Courier>TUXCONFIG</font> file (a binary configuration file)</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468408></span><p class=table><span name=1468408><font face=Courier></font></span><font face=Courier><span href=rfcmd37.htm#1257797>topendpasswd(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468410><p class=table>Adds a BEA TOP END password for the TOP END Domain Gateway feature of the BEA Tuxedo system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468415></span><p class=table><span name=1468415><font face=Courier></font></span><font face=Courier><span href=rfcmd38.htm#1257564>tpacladd(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468417><p class=table>Adds a new Access Control List entry on the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468422></span><p class=table><span name=1468422><font face=Courier></font></span><font face=Courier><span href=rfcmd39.htm#1001579>tpaclcvt(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468424><p class=table>Converts BEA Tuxedo security data files</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468429></span><p class=table><span name=1468429><font face=Courier></font></span><font face=Courier><span href=rfcmd40.htm#1001610>tpacldel(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468431><p class=table>Deletes an Access Control List entry</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468436></span><p class=table><span name=1468436><font face=Courier></font></span><font face=Courier><span href=rfcmd41.htm#1001646>tpaclmod(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468438><p class=table>Modifies an Access Control List entry on the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468443></span><p class=table><span name=1468443><font face=Courier></font></span><font face=Courier><span href=rfcmd42.htm#1001683>tpaddusr(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468445><p class=table>Creates a BEA Tuxedo password file</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468450></span><p class=table><span name=1468450><font face=Courier></font></span><font face=Courier><span href=rfcmd43.htm#1001734>tpdelusr(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468452><p class=table>Deletes a user from a BEA Tuxedo password file</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468457></span><p class=table><span name=1468457><font face=Courier></font></span><font face=Courier><span href=rfcmd44.htm#1001772>tpgrpadd(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468459><p class=table>Adds a new group to the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468464></span><p class=table><span name=1468464><font face=Courier></font></span><font face=Courier><span href=rfcmd45.htm#1142293>tpgrpdel(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468466><p class=table>Deletes a group from the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468471></span><p class=table><span name=1468471><font face=Courier></font></span><font face=Courier><span href=rfcmd46.htm#1001898>tpgrpmod(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468473><p class=table>Modifies a group on the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468478></span><p class=table><span name=1468478><font face=Courier></font></span><font face=Courier><span href=rfcmd47.htm#1317097>tpmodusr(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468480><p class=table>Maintains a BEA Tuxedo system password file</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468485></span><p class=table><span name=1468485><font face=Courier></font></span><font face=Courier><span href=rfcmd48.htm#1001977>tpusradd(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468487><p class=table>Adds a new principal to the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468492></span><p class=table><span name=1468492><font face=Courier></font></span><font face=Courier><span href=rfcmd49.htm#1002035>tpusrdel(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468494><p class=table>Deletes a user from the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468499></span><p class=table><span name=1468499><font face=Courier></font></span><font face=Courier><span href=rfcmd50.htm#1002069>tpusrmod(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468501><p class=table>Modifies user information on the system</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468506></span><p class=table><span name=1468506><font face=Courier></font></span><font face=Courier><span href=rfcmd51.htm#1002121>tuxadm(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468508><p class=table>CGI gateway for the BEA Tuxedo Administration Console</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468513></span><p class=table><span name=1468513><font face=Courier></font></span><font face=Courier><span href=rfcmd52.htm#1002205>tuxwsvr(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468515><p class=table>Mini-Web server for use with the BEA Tuxedo Administration Console</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468520></span><p class=table><span name=1468520><font face=Courier></font></span><font face=Courier><span href=rfcmd53.htm#1002357>txrpt(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468522><p class=table>BEA Tuxedo system server/service report program</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468527></span><p class=table><span name=1468527><font face=Courier></font></span><font face=Courier><span href=rfcmd54.htm#1002408>ud, wud(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468529><p class=table>BEA Tuxedo driver program</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468534></span><p class=table><span name=1468534><font face=Courier></font></span><font face=Courier><span href=rfcmd55.htm#1002539>uuidgen(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468536><p class=table>Generates a Universal Unique Identifier (<font face=Courier>UUID</font>)</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468541></span><p class=table><span name=1468541><font face=Courier></font></span><font face=Courier><span href=rfcmd56.htm#1002599>viewc, viewc32(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468543><p class=table>Views compiler for BEA Tuxedo <font face=Courier>views</font></p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468548></span><p class=table><span name=1468548><font face=Courier></font></span><font face=Courier><span href=rfcmd57.htm#1002650>viewdis, viewdis32(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468550><p class=table>Views disassembler for binary viewfiles</p></span>
+ </td>
+ </tr>
+ <tr>
+ <td align=left valign=top>
+ 
+ <span name=1468555></span><p class=table><span name=1468555><font face=Courier></font></span><font face=Courier><span href=rfcmd58.htm#1304547>wlisten(1)</span></font></p>
+ </td>
+ <td align=left valign=top>
+ 
+ <span name=1468557><p class=table>BEA Tuxedo Administration Console listener process</p></span>
+ </td>
+ </tr>
+</table></a>
+<br>&nbsp;
+<p>&nbsp;</p>
+<table cellspacing=5 cellpadding=5 border=0>
+ <tbody><tr>
+ <td align=left valign=middle width=200>
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd.htm><img src=data:image/gif;base64,R0lGODlhegAZAPcAAP8xAP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ywAAAAAegAZAEAI9gADCBxIsKDBgwgTKlzIsKHDhwwBSJxYkGJFixIHZrw4EYBGixxBdiTYceNCjxATlkQZwKTJlhhZviTJUuBIhDNv2qwZcqXPlECDCh1KtKjRo0iTCl1JE+ZHg0xxyqw5c+fTqy55fvyptKvXr2DDih1LtqxZo1mfpr3oVOXUplDfYpUrFeTQtVyrbqx6ta3VuH3b8qXpU+fZw4gTK17MuLHjx5AjS55MuTLbvzt57vW42S3cwS87Yx689ehap6e3kvYbWitrqihT91zd8HRG2YJdj4Z9MPVmw4QL35VrOzZnupf/gub9WmFhrpajS59Ovbr160kDAgA7 alt="back to top" border=0></a>
+ </td>
+ <td align=left valign=middle width=200>
+ &nbsp;
+ </td>
+ <td align=left valign=middle width=200>
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/atmi/rfcmd2.htm><img src=data:image/gif;base64,R0lGODlhZgAZAJH/AP8xAP8AAP///////ywAAAAAZgAZAEACwJSPqcvtD6M8IVArqsb15o1dGzIaYNiZWgO07aR6X5l+8lKLaEjueeJ6wYbEovGITCqJgGPHkjr1eDZG7grdxX6MoHcJDk+a4rL5jE4XXcVVlWvDNuSeWjQb8Qojdw51ywMXcxP3V5inp6YIxrbo+AgZKTlJWVm5Z5mpEETkdqdgp2VF9Vn15je4+TUxUpoA0jMXOGv6KQikRwbx5GkIS/hKW/d7CJGr+9CXehMqGzwIVyqYqFnNWY2Nib3N3Q1RAAA7 alt="next page" border=0></a>
+ </td>
+ </tr>
+</table>
+<table cellspacing=0 cellpadding=0 border=0 width=100%>
+ <tbody><tr>
+ <td valign=middle width=100% bgcolor=#FF0000 height=1>
+ <p class=small>&nbsp;</p>
+ </td>
+ </tr>
+ <tr>
+ <td valign=left align=top>
+ <p class=copyright>
+ <a href=https://docs.oracle.com/cd/E13203_01/tuxedo/tux80/interm/copyrite.htm>Copyright</a> © 2001 BEA Systems, Inc. All rights reserved. 
+ <br>Required browser: Netscape 4.0 or higher, or Microsoft Internet Explorer 4.0 or higher.
+ </p>
+ </td>
+ </tr>
+</table>
+<br>
+ 
+<div id=footer-banner style=display:inline-block><ul><li><div id=teconsent consent=undefined aria-label="Open Cookie Preferences Modal" class=truste_caIcon_display role=complementary><a role=link id=icon-id05145206539057703 tabindex=0 lang=zh aria-haspopup=true aria-label="Cookie 喜好设置" class=truste_cursor_pointer>Cookie 喜好设置</a></div><li><a id=adchoices class="new-window sf-hidden" target=_blank href=https://www.oracle.com/legal/privacy/marketing-cloud-data-cloud-privacy-policy.html#12>Ad Choices</a></ul></div>
