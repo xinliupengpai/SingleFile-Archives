@@ -1,0 +1,406 @@
+<!DOCTYPE html> <html lang=zh-cn style><!--
+ Page saved with SingleFile 
+ url: http://www.mamicode.com/info-detail-1104211.html 
+ saved date: Wed Jan 04 2023 14:24:06 GMT+0800 (中国标准时间)
+--><head id=Head1><meta charset=utf-8><style id=znBdcsStyle>.bdcs-container .bdcs-main,.bdcs-container .bdcs-main *{box-sizing:content-box;margin:0;padding:0;float:none;clear:none;overflow:hidden;white-space:nowrap;word-wrap:normal;border:0;background:0 0;width:auto;height:auto;max-width:none;max-height:none;border-radius:0;box-shadow:none;transition:none;text-align:left}.bdcs-container .bdcs-clearfix:after{content:"";display:block;clear:both;height:0}.bdcs-container .bdcs-clearfix{zoom:1}.bdcs-container .bdcs-main{overflow:visible}.bdcs-container .bdcs-search{display:block;position:relative;border-style:solid}.bdcs-container .bdcs-search-form-input{border-width:1px;border-style:solid;display:inline-block;vertical-align:top;text-indent:5px;float:left}.bdcs-container .bdcs-search-form-input:focus{border-width:1px;border-style:solid;outline:0}.bdcs-container .bdcs-search-form-submit{display:inline-block;cursor:pointer;border-width:1px;border-style:solid;vertical-align:top;text-align:center}.bdcs-container .bdcs-search{width:299px;height:36px;overflow:hidden;border-color:#1a89ed;border-radius:5px;border-width:2px;box-shadow:none}.bdcs-container .bdcs-search-form-input{border-color:#ffffff;width:246px;font-family:Arial,SimSun,sans-serif;color:#000000;font-size:14px;border-radius:1px;background-color:#FFFFFF}.bdcs-container .bdcs-search-form-input:focus{border-color:#1a89ed}.bdcs-container .bdcs-search-form-submit{border-color:#1c89ea;height:34px;width:50px;background-color:#1c89ea;color:#ffffff;font-family:Arial,SimSun,sans-serif;font-size:14px;border-radius:0px}.bdcs-container .bdcs-search-form-submit{line-height:34px}.bdcs-container .bdcs-search-form-input{margin-right:-1px}</style><meta name=keywords content=码迷,mamicode.com,互联网,软件开发,开源,asp,asp.net,android,apple,jsp,php,Windows,数据库,HTML,JS,CSS,技术文章,游戏,手机相关><meta name=description content="原文：http://www.yihaomen.com/article/python/355.htm使用url标签和reverse()函数，可以避免在模板和view中对url进行硬编码，这样即使url改变了，对模板和view也没有影响 起初用django 开发应用的时候，完全是在urls.py 中硬...."><title>
+ Django url 标签和reverse()函数的使用（转）
+</title><style>*{font-family:Arial,Helvetica,sans-serif;padding:0px}body,html{background-color:#ffffff;font-size:12px;color:#3f3f3f;text-decoration:none;height:100%;margin:0px auto}div{font-size:12px;color:#3f3f3f;text-decoration:none}p{color:#3f3f3f;text-decoration:none}A:link{text-decoration:none}A:visited{text-decoration:none}A:hover{text-decoration:none}A:active{text-decoration:none}a:hover{text-decoration:underline}a{color:#333333}a:hover{color:#333333;text-decoration:underline}.tb{padding:3px 0 0 0;border:1px #dadada solid;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px}.mbtn1{padding:3px 20px 3px 20px;font-size:14px;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px}.divfloatleft{float:left}.divfloatright{float:right}.divfloatclear{clear:both}.overflowauto{overflow:auto}.divtextalignleft{text-align:left}.divtextaligncenter{text-align:center}.divtextalignright{text-align:right}.divmargin0auto{margin:0px auto}.divbackgroundcolor{background-color:#f0f0f0}.divbackgroundcolor1{background-color:#f9f9f9}.divborder{border:1px #e1e1e1 solid;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px}.divborderbottomdotted{border-bottom:1px #dadada dotted}.divtitle{margin:10px 10px 0 10px;padding-bottom:5px;border-bottom:1px #dadada dotted;overflow:auto}.divtitlefont{font-size:14px;font-weight:bold}.divullititle{list-style-type:decimal;margin-left:28px;padding:1px 10px 1px 0;table-layout:fixed;word-break:break-all;word-wrap:break-word}.divmain{width:1015px;text-align:center;min-height:300px;height:auto!important;height:360px;margin:0px auto}.divdaohang{width:1000px;text-align:left;height:25px;margin:0px auto;padding-top:10px}.width10px{width:10px}.width120px{width:120px}.width880px{width:880px}.width1000px{width:1010px}.width30bi{width:30%}.width70bi{width:70%}.width99bi{width:99%}.width100bi{width:100%}.height23px{height:23px}.height30px{height:30px}.heightline25px{line-height:25px}.heightline30px{line-height:30px}.margintop10{margin-top:10px}.margintop20{margin-top:20px}.margintop10bottom10{margin-top:10px;margin-bottom:10px}.margintop20bottom20{margin-top:20px;margin-bottom:20px}.marginright20{margin-right:20px}.paddingtop3{padding-top:3px}.paddingtop10{padding-top:10px}.paddingtop20{padding-top:20px}.paddingbottom20{padding-bottom:20px}.paddingtop20bottom20{padding-top:20px;padding-bottom:20px}.paddingleft10right10{padding-left:10px;padding-right:10px}.paddingright2{padding-right:2px}.bottomline{border-bottom:1px #E6E6E6 solid;margin-top:1px}.acursorpointer{cursor:pointer}.colorboldHong{font-weight:bold;color:#DA4631}.colorboldlan{font-weight:bold;color:#1065E7}.colorlan{color:#1065E7}.bottomdiv{border-top:1px #e1e1e1 solid;background-color:#fafafa}.menuDiv{width:100%;margin-top:26px}.menuDiv ul{list-style:none;margin:0px}.menuDiv ul li{float:left;padding:8px 12px 8px 12px;font-size:14px;height:19px}.title0{background-color:#f8f8f8;border-top:1px #d9d9d9 solid;border-left:1px #d9d9d9 solid;border-right:1px #d9d9d9 solid;border-bottom:1px #d9d9d9 solid}.title1{background-color:#f8f8f8;border-top:1px #d9d9d9 solid;border-right:1px #d9d9d9 solid;border-bottom:1px #d9d9d9 solid}.taga{color:#DA4631;font-size:14px;padding:1px 10px 1px 1px;word-wrap:break-word}.detailtitle{padding:15px 0 15px 0;color:#023E9A;font-size:16px;font-weight:bold;word-wrap:break-word}.detail1{margin:20px 0 20px 0}.detailcontennt{text-align:left;margin:20px 0 20px 0;font-size:12px;line-height:30px;word-wrap:break-word}.detailcontennt p{font-size:14px;line-height:30px}.detailcontennt div{font-size:14px;line-height:30px}.detailcontennt img{max-width:680px;overflow:hidden}.detailcontennt pre{background-color:#f6f6f6;border:1px dotted #aaa;padding:5px;white-space:pre-wrap;word-wrap:break-word}.detailcontennt *{max-width:680px!important}.detailpinglun1{height:33px;border-bottom:1px #e1e1e1 solid}.detailpinglun2{float:left;text-align:center;display:block;padding:5px 20px 4px 20px;border-left:1px #e1e1e1 solid;border-top:1px #e1e1e1 solid;border-right:1px #e1e1e1 solid}.detailpinglun3{float:left;text-align:center;display:block;padding:10px 0 2px 5px}.detailcai{width:60px;margin-left:20px;float:right;cursor:pointer}.detailcai1{width:60px;padding:10px 0 6px 0;font-size:22px;border:1px #e1e1e1 solid}.detailcai2{width:60px;padding:5px 0 5px 0;border-left:1px #e1e1e1 solid;border-bottom:1px #e1e1e1 solid;border-right:1px #e1e1e1 solid}.detailzan{width:60px;float:right;cursor:pointer}.detailzan1{width:60px;padding:10px 0 6px 0;font-size:22px;border:1px #e1e1e1 solid}.detailzan2{width:60px;padding:5px 0 5px 0;border-left:1px #e1e1e1 solid;border-bottom:1px #e1e1e1 solid;border-right:1px #e1e1e1 solid}.detailjubao{padding:4px 8px 4px 8px;color:red;font-size:14px;font-weight:bold;border:1px #e1e1e1 solid;cursor:pointer}.title6{font-size:18px;font-weight:bold;color:#5d5d5d}.youqingtitle{margin:10px 30px 10px 10px;padding:0 0 5px 0;font-size:14px;font-weight:bold}.youqingcontent{margin:10px 30px 10px 10px;line-height:25px}</style>
+<meta http-equiv=x-ua-compatible content="IE=9" class=sf-hidden><link type=image/x-icon rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAADnZRDh52UQ8OdlEPDnZRDw52UQ8OdlEPDnZRDw52UQ8OdlD/DmYAjw52MM8OZdBPDmYQrw52UQ8OdlEPDnZRDh52UQ9OdlEP/nZA7/5mEJ/+ZcAv/mXQP/5l4F/+ZbAP/mXAP/8aJu//zTtP/2tIX/6nYr/+ZdBP/nZA//52UQ9OdkDvDmXAL/52QO/+t+Nf/zpXD/8p9o/+6SVf/0qHT/8qBo///69P/c5v//7PP////05v/wmmD/5l8G/+dkD/DoaRfw8aFt//zXvf//+/X/9vr///z+//////3/7/T///n6/v////3/tbvu/2585P/Fzfj////6/+6QU//mXgbw86l48Pv////s8f//sbrx/4mU6P9LXuD/1dj1/5ag6/9hceP/dIHl/5ul6//j5Pf/jZfo/8XO+f/+7Nj/6GsZ8PKmcvD6////maPr/09g3//BxvD/YHDi/2x74//+/fv/rLPt/2Ny4v95huX/6er3/+zr9/95h+j//f/9/+6NTPDnaBXw/eLK/9vh/f8+Utz/UWLf/1do4P+SnOn////9/4iT5/86Ttz/S17e/2l44/90geT/UGLg//n9///zpXDw5l4F8O2JSP///fL/pa7v/3B+5P+1u+//8O/3///9+f+aouv/maLq/7a98P9/jOf/Y3Hh/7bB+P////7/7YhG8OdlD/DmXQT/98Of//z9//+NmOn/uL3w////+P//9Oj/4uP3/2175P9vfuX/09bz/////f//6NH/8Jtk/+diDPDnZA7w52UQ//zav//W3Pz/jJfo/0NW3f+2u+////77/////P+6v+//Z3Xj/3mG5v/5/P//9rKF/+VZAP/nZA7w52QP8OZgCf/5xJ7/5/D//2l55f8yR9v/hpLp/////v/Lz/L/4uL1/////v+yuO7/tb72///q0//naBX/52MN8OdlEPDmYgv/6HAh//vUuf////7/7vL///r6/v///vv/v8b2/0xe3v9+i+b/dIHl/5Of7v////H/6XAh/+diDPDnZRDw52UQ/+ZhCv/naBT/75BQ//Wncf/xml//7pJW///y5v/j7P//oq7z/4yZ7P/c5v///OHK/+hnE//nYw7w52UQ8OdlEP/nZRD/52MN/+ZeBv/mXAL/5l0D/+ZdBP/rejH/+r2S///t0/////D//t7G/+uDPv/mYAj/52UQ8OdlEPTnZRD/52UQ/+dlEP/nZRD/52UQ/+dlEP/nZRD/5mAJ/+ZeBf/oaRb/6XEi/+dmEv/mYAn/52UQ/+dlEPTnZRDh52UQ8OdlEPDnZRDw52UQ8OdlEPDnZRDw52UQ8OdlEPDnZQ/w52MN8OdiC/DnYw3w52UQ8OdlEPDnZRDhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="><style>.sf-hidden{display:none!important}</style><link rel=canonical href=http://www.mamicode.com/info-detail-1104211.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body>
+ <div class="width100bi height23px divbackgroundcolor overflowauto">
+ <div class="width1000px divmargin0auto">
+ <div class=divfloatleft>
+ </div>
+ <div class=divfloatright>
+ <div id=logintopdescription class=paddingtop3><a href=http://member.mamicode.com/login.aspx>[登录]</a>&nbsp;&nbsp;<a href=http://member.mamicode.com/reg.aspx>[注册]</a></div>
+ </div>
+ </div>
+</div>
+<div class="width1000px divmargin0auto margintop20bottom20 overflowauto">
+ <div class="width120px divfloatleft">
+ <a href=http://www.mamicode.com/ title=码迷，mamicode.com>
+ <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG0AAAA8CAMAAABb9MQ2AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGAUExUReNzY/TKxOaDdf329LrT+PbSzVmU7t5cSRBl5+uckWCY7zN86kGF7N1UQXuq8uPt/Prk4TyB69tNOdtKNXSl8fne2vj7/qPE9uvy/emQhPC2rvK9tfH2/hxt6OuZjSh16YCt8kmJ7fnh3vX4/iRy6fG4sP78/I629PfW0W2h8NxRPa3K91SR7uJuXt3p/P3y8crd+uqUiPro5ffY1PLAudHi+mad8Jq+9UyM7cPY+eR5atbk++iLfumOgfr8/5G49OV8bv74+N5YReFqWeFmVfPEvvXOye6poPvs6v77+/vq6OeGeVCO7eyglfzu7NpHM+2kmfCzqueJe++upYSw85S69OyimNnm++BiUe+wpy146u2mnImz8/zw7vjb199fTUWI7J3A9fTGwOBkU4u08+V/cRdq6KfG9v3+//z9/9tLN9pIM//9/f339v76+RRn5+6onuV7bPPCu5e89f308/K+t/C0rOFoV+JsXO6sotTj++R2Z/TGv87g+tpGMf////9aArkAAACAdFJOU/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AOAVLZwAACedJREFUeNpiqCcG5LAGFEZoRdiw1pMGBNzyUPgAAcRAhB6PYAb/OjDIdiXJMl+tOiZPZAGAACJsm0khbx0cCLkRb5dXKlCDFjOyEEAAEbJNILUOBQQRbVmODUh9tadRma1kWSxEDCCACNhWxI5qWV25Jy7DjZVQBfycQOqTGYTAVC5YDCCA8NvmJgyzRTiCE+zL5DwcKhmEsww9YDxmxrj6nGAkR2qVgMUBAgjVNk+NaDlbW9tSmKZkaGwxSRs71gtkAZmpOCzTAqljZwRzNFLj63zr6yNBQs6QwHGGBAlAAKHYVuScDZaLgPKlIe4yFADz4kAe9cVumxXEWTYgNisvRB043mx0wRKSEGUAAYRkm5s3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" alt=码迷，mamicode.com width=109 height=60 border=0>
+ </a>
+ </div>
+ <div class="width880px divfloatright">
+ <div class=menuDiv>
+ <ul>
+ <li class="bottomline width10px">&nbsp;</li>
+ <li id=default-aspx class=title0><a href=http://www.mamicode.com/ title=码迷，mamicode.com>首页</a></li>
+ <li id=infolist-2 class=title1><a href=http://www.mamicode.com/info-list-2-1.html title=Web开发>Web开发</a></li>
+ <li id=infolist-3 class=title1><a href=http://www.mamicode.com/info-list-3-1.html title=Windows程序>Windows程序</a></li>
+ <li id=infolist-4 class=title1><a href=http://www.mamicode.com/info-list-4-1.html title=编程语言>编程语言</a></li>
+ <li id=infolist-5 class=title1><a href=http://www.mamicode.com/info-list-5-1.html title=数据库>数据库</a></li>
+ <li id=infolist-6 class=title1><a href=http://www.mamicode.com/info-list-6-1.html title=移动开发>移动开发</a></li>
+ <li id=infolist-8 class=title1><a href=http://www.mamicode.com/info-list-8-1.html title=系统相关>系统相关</a></li>
+ <li id=infolist-9 class=title1><a href=http://www.mamicode.com/info-list-9-1.html title=微信>微信</a></li>
+ <li id=infolist-11 class=title1><a href=http://www.mamicode.com/info-list-11-1.html title=其他好文>其他好文</a></li>
+ <li id=memberhtml class=title1><a href=http://www.mamicode.com/member.html title=会员>会员</a></li>
+ <li class="bottomline width10px">&nbsp;</li>
+ </ul>
+ </div>
+ </div>
+</div>
+ 
+ <div class=divdaohang>
+ <div class=divtitlefont>
+ <a href=http://www.mamicode.com/ title=码迷首页>首页</a>
+ <span id=lbltitle> &gt; <a href=http://www.mamicode.com/info-list-2-1.html>Web开发</a> &gt; 详细</span>
+ </div>
+ </div>
+ <div class=divmain>
+ <div class="width70bi divfloatleft" style=min-height:2000px>
+ <div class=marginright20>
+ 
+ <div class="detailtitle divtextaligncenter divborderbottomdotted">
+ <h1 id=Htitle class=detailtitle>Django url 标签和reverse()函数的使用（转）</h1>
+ </div>
+ <div class="detail1 divtextaligncenter">
+ 时间：<span id=Label2 class=colorlv>2015-11-05 06:06:47</span>
+ &nbsp;&nbsp;&nbsp;&nbsp; 阅读：<span id=Label1 class=colorCheng>13225</span>
+ &nbsp;&nbsp;&nbsp;&nbsp; 评论：<span id=lblcommentcount class=colorCheng>0</span>
+ &nbsp;&nbsp;&nbsp;&nbsp; 收藏：<span id=lblfavorite class=colorCheng>0</span>
+ &nbsp;&nbsp;&nbsp;&nbsp; <a id=infofavorite class=acursorpointer>[点我收藏+]</a>
+ </div>
+ 
+ <div class=detailcontennt>
+ <span id=Label3><p>标签：<p>原文：http://www.yihaomen.com/article/python/355.htm</p>
+<p>使用url标签和reverse()函数，可以避免在模板和view中对url进行硬编码，这样即使url改变了，对模板和view也没有影响</p>
+<p>&nbsp; &nbsp; 起初用django 开发应用的时候，完全是在urls.py 中硬编码配置地址,在views.py中HttpResponseRedirect()也是硬编码转向地址，当然在template 中也是一样了，这样带来一个问题，如果在urls.py 中修改了某个页面的地址，那么所有的地方(views.py和template中)都要修改。如果是个很大的工程，那么要修改的地方就很多。当然，你也许会选择一个工具，直接查找替换来实现。除此之外呢.....<br><br>其实django 本身就提供了这个功能，就是 url 标签,利用 django 的 url 标签来实现这样的功能,在这个模块中：django/conf/urls/defaults<br><br>利用url 标签之后，不管urlpatterns里的某个地址叫法怎么改变，Templates里的地址都不用修改了。在模版中调用url标签的时候，需要：{% load url from future %}<br><br>比如没有采用url函数的时候：<br>urlpatterns里定义了资讯的首页地址,</p>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre>urlpatterns = patterns(<span style=color:#800000>‘‘</span><span style=color:#000000>,    
+    (r</span><span style=color:#800000>‘</span><span style=color:#800000>^article$</span><span style=color:#800000>‘</span>,<span style=color:#800000>‘get_</span><span style=color:#800000>news_index</span><span style=color:#800000>‘</span><span style=color:#000000> ),
+)</span></pre>
+</div>
+<p><span style=line-height:1.5>Templates里的html为</span></p>
+</div>
+</div>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>&lt;</span><span style=color:#800000>a </span><span style=color:#ff0000>href</span><span style=color:#0000ff>="/article"</span><span style=color:#0000ff>&gt;</span>资讯<span style=color:#0000ff>&lt;/</span><span style=color:#800000>a</span><span style=color:#0000ff>&gt;</span> </pre>
+</div>
+<p><span style=line-height:1.5>而且不止一个页面，可能有很多个页面使用到资讯的链接，这时你的Templates上就会有许多那样的页面a标签，当有一天，你突然想改变地址的叫法，</span></p>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre>urlpatterns = patterns(<span style=color:#800000>‘‘</span><span style=color:#000000>,    
+    (r</span><span style=color:#800000>‘</span><span style=color:#800000>^news$</span><span style=color:#800000>‘</span>,<span style=color:#800000>‘get_</span><span style=color:#800000>news_index</span><span style=color:#800000>‘</span><span style=color:#000000> ),
+)</span></pre>
+</div>
+<p><span style=line-height:1.5>你会发现，你在Templates中得修改10个&lt;a href="/article"&gt;资讯&lt;/a&gt;成&lt;a href="/news"&gt;资讯&lt;/a&gt;</span></p>
+</div>
+</div>
+<p>可恨的是那样的标签分布在不同的页面上，有更糟糕的时候就是 你不知道到底有多少个那样的a标签（总不能一个个数嘛）。<br><br>有了url情况就大为不一样了，<br>urlpatterns里定义了资讯的首页地址, 如果要在模板中使用url标签，那么要在urlpatterns中为相应的url增加name参数，如下</p>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre>urlpatterns = patterns(<span style=color:#800000>‘‘</span><span style=color:#000000>,    
+    url(r</span><span style=color:#800000>‘</span><span style=color:#800000>^article$</span><span style=color:#800000>‘</span>,<span style=color:#800000>‘</span><span style=color:#800000>get_news_index</span><span style=color:#800000>‘</span> ，name=<span style=color:#800000>"</span><span style=color:#800000>news_index</span><span style=color:#800000>"</span><span style=color:#000000>),
+)</span></pre>
+</div>
+<p><span style=line-height:1.5>Templates里的html为</span></p>
+</div>
+</div>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>&lt;</span><span style=color:#800000>a </span><span style=color:#ff0000>href</span><span style=color:#0000ff>="{%url ‘appname:news_index‘%}"</span><span style=color:#0000ff>&gt;</span>资讯<span style=color:#0000ff>&lt;/</span><span style=color:#800000>a</span><span style=color:#0000ff>&gt;</span></pre>
+</div>
+<p>其中appname是该url所在的app的name，而new_index是url(r‘^article$‘,‘get_news_index‘ ，name="news_index")中的name参数</p>
+<p><span style=line-height:1.5>你怎么修改urlpatterns的地址，Template都会随着改变，省事了不少。</span></p>
+</div>
+</div>
+<p><span style=line-height:1.5>地址链接就能使用了。注意的是name是全局的，你整个urlpatterns里只能一个唯一的name，这个道理应该好理解，就像网站的地址也是唯一性的。</span></p>
+<p>Templates中使用url标签非常简单，那在views中用到url怎么办呢？以前在没有使用的url函数的时候，可能指向一个地址使用</p>
+<p>HttpResponseRedirect("/article")</p>
+<p>当然urlpatterns改变地址叫法的时候，所有的views的指向函数的参数都得跟着变。有了url函数，变成：</p>
+<p>HttpResponseRedirect(reverse("news_index"))</p>
+<p>好处和Template里使用的情形一样的。<br><br>当遇到urlpatterns的地址包含有参数的时候，如：</p>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre>(r<span style=color:#800000>‘</span><span style=color:#800000>^(?P&lt;year&gt;\d{4})/(?P&lt;month&gt;\d{1,2})/$</span><span style=color:#800000>‘</span>,<span style=color:#800000>‘get_</span><span style=color:#800000>news_list</span><span style=color:#800000>‘</span> ),</pre>
+</div>
+<p><span style=line-height:1.5>有两个参数，最终的地址如归档的地址</span><a style=line-height:1.5 href=http://www.yihaomen.com/2010/02 rel=external target=_blank>http://www.yihaomen.com/2010/02</a></p>
+</div>
+</div>
+<p>情况变复杂点了，urlpatterns的以上的用法不变：</p>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre>url(r<span style=color:#800000>‘</span><span style=color:#800000>^(?P&lt;year&gt;\d{4})/(?P&lt;month&gt;\d{1,2})/$</span><span style=color:#800000>‘</span>,<span style=color:#800000>‘</span><span style=color:#800000>get_news_list</span><span style=color:#800000>‘</span>,name=<span style=color:#800000>"</span><span style=color:#800000>news_archive</span><span style=color:#800000>"</span> ),</pre>
+</div>
+<p><span style=line-height:1.5>Templates里的用法就需要改改了，我们把url看成一个方法，结合templates的语法，结果就出来了：</span></p>
+</div>
+</div>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>&lt;</span><span style=color:#800000>a </span><span style=color:#ff0000>href</span><span style=color:#0000ff>="{%url ‘appname:news_archive‘ 2010  02%}"</span><span style=color:#0000ff>&gt;</span>2010年02月<span style=color:#0000ff>&lt;/</span><span style=color:#800000>a</span><span style=color:#0000ff>&gt;</span> </pre>
+</div>
+<p><span style=line-height:1.5>或者这样:</span></p>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>&lt;</span><span style=color:#800000>a </span><span style=color:#ff0000>href</span><span style=color:#0000ff>="{%url ‘appname:news_archive‘ year=2010  month=02%}"</span><span style=color:#0000ff>&gt;</span>2010年02月<span style=color:#0000ff>&lt;/</span><span style=color:#800000>a</span><span style=color:#0000ff>&gt;</span></pre>
+</div>
+<p><span style=line-height:1.5>当然，在你后台的views.py 中的方法上也必须有这两个参数，比如</span></p>
+</div>
+</div>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>def</span><span style=color:#000000> news_list(request,year,month):
+    </span><span style=color:#0000ff>print</span> <span style=color:#800000>‘</span><span style=color:#800000>year:</span><span style=color:#800000>‘</span><span style=color:#000000>,year
+    </span><span style=color:#0000ff>print</span> <span style=color:#800000>‘</span><span style=color:#800000>monty:</span><span style=color:#800000>‘</span><span style=color:#000000>,month
+    ......</span></pre>
+</div>
+<p><span style=line-height:1.5>后面的2010, 02 就是参数了，参数之间用逗号隔开，多少个参数用法都一样的。当然，2010 02 参数是某个实体获得的，具体的情况具体分析。</span></p>
+<p><span style=line-height:1.5>在views呢，有了参数怎么写，万变不离宗：</span></p>
+</div>
+</div>
+<div class="UBBPanel codePanel">
+<div class=UBBTitle><img alt=技术分享 src=data:,>&nbsp;程序代码</div>
+<div class=UBBContent>
+<div class=cnblogs_code>
+<pre><span style=color:#0000ff>from</span> django.core.urlresolvers <span style=color:#0000ff>import</span><span style=color:#000000> reverse
+......
+reverse(</span><span style=color:#800000>"appname:</span><span style=color:#800000>news_archive</span><span style=color:#800000>"</span>,kwargs={<span style=color:#800000>"</span><span style=color:#800000>year</span><span style=color:#800000>"</span>:2010,<span style=color:#800000>"</span><span style=color:#800000>month</span><span style=color:#800000>"</span>:02})</pre>
+</div>
+<p><span style=line-height:1.5>比如: return HttpResponseRedirect(reverse("appname:news_archive",kwargs={"year":2010,"month":02}))</span></p>
+</div>
+</div>
+<p>即可，最后解析出来的地址为“/2010/02”。<br><br>由此看出，在用 django开发应用的时候，url 标签和reverse()函数是很屌的东西，应该多用，也为以后维护带来方便。<p><a href=http://www.mamicode.com/info-detail-1104211.html title="Django url 标签和reverse()函数的使用（转）,mamicode.com" style=color:#ffffff target=_blank>Django url 标签和reverse()函数的使用（转）</a><p>标签：<p>原文地址：http://www.cnblogs.com/ajianbeyourself/p/4937951.html</p></span>
+ </div>
+ <div id=divcomment>
+ <div>
+ <div class="divtextaligncenter paddingright2 overflowauto">
+ <div class=detailcai id=infono>
+ <div class="detailcai1 colorboldlan">
+ 踩</div>
+ <div class="detailcai2 colorboldlan">
+ (<span id=spanNo>2</span>)</div>
+ </div>
+ <div class=detailzan id=infoyes>
+ <div class="detailzan1 colorboldHong">
+ 赞</div>
+ <div class="detailzan2 colorboldHong">
+ (<span id=spanYes>14</span>)</div>
+ </div>
+ </div>
+ <div class="divtextalignright margintop10">
+ <div class="width100bi paddingleft10right10">
+ <span id=spanYesContent class=colorboldHong></span>&nbsp; <span id=spanNoContent class=colorboldlan></span>&nbsp; <span id=spanBadContent class=colorboldHong>
+ </span>
+ </div>
+ </div>
+ </div>
+ <div class="divtextalignright margintop10">
+ <span class=detailjubao id=infobad>举报</span>
+ </div>
+ 
+ <div id=comment class="divtextalignleft margintop20">
+ <div class=detailpinglun1>
+ <span class="detailpinglun2 title6">评论</span> <span class=detailpinglun3>一句话评论（<span id=commentCount class=colorboldHong>0</span>）</span>
+ </div>
+ <div class=paddingtop20>
+ 
+ <div id=commentlistend name=commentlistend class="divtextaligncenter margintop20">
+ <span id=lblpage></span>
+ </div>
+ </div>
+ <div class=margintop20>
+ <form method=post action=/ajaxjs/info_detail_commentadd.aspx>
+ <div class="divtextalignleft paddingtop20">
+ <div id=commenthf class=divbackgroundcolor1>
+ </div>
+ <div>
+ <textarea name=tbcommentcontent id=tbcommentcontent class=tb disabled style=width:680px;height:120px></textarea>
+ </div>
+ </div>
+ <div class="divtextalignright paddingtop10">
+ <span id=addCommentTishi class=colorboldHong>登录后才能评论！</span>
+ <span id=loginno><input type=button class=mbtn1 value=登录></span>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ 
+ </div>
+ </div>
+ <div class="width30bi divfloatright">
+ 
+ <div class=paddingbottom20>
+<div id=bdcs><div class=bdcs-container> <div class="bdcs-main bdcs-clearfix" id=default-searchbox> <div class="bdcs-search bdcs-clearfix" id=bdcs-search-inline> <form action=http://zhannei.baidu.com/cse/search target=_blank class=bdcs-search-form autocomplete=off id=bdcs-search-form> <input type=text name=q class=bdcs-search-form-input id=bdcs-search-form-input placeholder=请输入关键词 style=height:34px;line-height:34px value> <input type=submit class=bdcs-search-form-submit id=bdcs-search-form-submit value=搜索> </form> </div> </div> </div></div>
+</div>
+ 
+ 
+<div class="width99bi divborder">
+ <div class=divtitle>
+ <div id=infofile1_div1 class="divfloatleft divtitlefont">
+ 分享档案</div>
+ <div class=divfloatright>
+ <a href=http://www.mamicode.com/infotimemore.html title=分享档案更多 class=colorCheng>更多&gt;</a>
+ </div>
+ </div>
+ <div class="divtextalignleft paddingleft10right10 margintop10bottom10 heightline30px">
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210729-1.html target=_blank title=2021年07月29日技术分享文章>
+ 2021年07月29日
+ (22)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210728-1.html target=_blank title=2021年07月28日技术分享文章>
+ 2021年07月28日
+ (40)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210727-1.html target=_blank title=2021年07月27日技术分享文章>
+ 2021年07月27日
+ (32)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210726-1.html target=_blank title=2021年07月26日技术分享文章>
+ 2021年07月26日
+ (79)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210723-1.html target=_blank title=2021年07月23日技术分享文章>
+ 2021年07月23日
+ (29)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210722-1.html target=_blank title=2021年07月22日技术分享文章>
+ 2021年07月22日
+ (30)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210721-1.html target=_blank title=2021年07月21日技术分享文章>
+ 2021年07月21日
+ (42)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210720-1.html target=_blank title=2021年07月20日技术分享文章>
+ 2021年07月20日
+ (16)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210719-1.html target=_blank title=2021年07月19日技术分享文章>
+ 2021年07月19日
+ (90)</a><br>
+ 
+ <a class=taga href=http://www.mamicode.com/info-time-20210716-1.html target=_blank title=2021年07月16日技术分享文章>
+ 2021年07月16日
+ (35)</a><br>
+ 
+ </div>
+</div>
+ 
+<div class="width99bi margintop20 divborder">
+ <div class=divtitle>
+ <div id=infotop2_divtitle class="divfloatleft divtitlefont">周排行</div>
+ <div class=divfloatright>
+ <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAPAAA/+4ADkFkb2JlAGTAAAAAAf/bAIQABgQEBAUEBgUFBgkGBQYJCwgGBggLDAoKCwoKDBAMDAwMDAwQDA4PEA8ODBMTFBQTExwbGxscHx8fHx8fHx8fHwEHBwcNDA0YEBAYGhURFRofHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8f/8AAEQgADgAOAwERAAIRAQMRAf/EAHAAAQEBAAAAAAAAAAAAAAAAAAUEBwEBAQEAAAAAAAAAAAAAAAAABAMGEAACAgEDBAIDAAAAAAAAAAABAgMEEgAFBhEhMSJBE2FxFBEAAQMCBQMFAAAAAAAAAAAAAgERAwAhMWESIgRRoSRxscHhFP/aAAwDAQACEQMRAD8A2C0/L+Tbk0lF5YNoSwYFeKRUCqrdGdlyVnPTvrNmvI5JuLpG7WWtNGnG4oMbLJpe6dsLVVVPKVmucVs3G/pkRJaO4ZHMRiVczkPbumXn9aqCzopQEW7ESye/apH+dUHkCO1FYhza3dqF3Gqse/8A28euGcNaDLXxmVUmzHqSVCFcvnLxoUwNM8JPuwvj7U6E3haYW242wb1d6Ro1L62dyka9ny5wn1w4SARoJoy3sUxII6Dt64/jrpMUZ6iXV5Futrpl9NlRZZAUQTT49+l7Lm/y+df/2Q==" width=14 height=14 alt=mamicode.com排行更多图片></div>
+ <div class=divfloatright>
+ <a href=http://www.mamicode.com/info-toplist-2-2-1.html id=infotop2_amore title=周排行更多>更多</a></div>
+ </div>
+ <div>
+ <ul>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126730.html title="36.VUE — 认识 Webpack 和 安装" target=_blank>
+ 36.VUE — 认识 Webpack 和 安装
+ &nbsp;<span class=colorlan>2021-07-28</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126727.html title=【PHP】上传图片翻转问题 target=_blank>
+ 【PHP】上传图片翻转问题
+ &nbsp;<span class=colorlan>2021-07-28</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126714.html title=php对数字进行万。亿的转化 target=_blank>
+ php对数字进行万。亿的转化
+ &nbsp;<span class=colorlan>2021-07-28</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126710.html title="五个 .NET 性能小贴士" target=_blank>
+ 五个 .NET 性能小贴士
+ &nbsp;<span class=colorlan>2021-07-28</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126697.html title=Three.js中显示坐标轴、平面、球体、四方体 target=_blank>
+ Three.js中显示坐标轴、平面、球体、四方体
+ &nbsp;<span class=colorlan>2021-07-28</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126678.html title=".net 5+ 知新：【1】 .Net 5 基本概念和开发环境搭建" target=_blank>
+ .net 5+ 知新：【1】 .Net 5 基本概念和开发环境搭建
+ &nbsp;<span class=colorlan>2021-07-27</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126676.html title=1.html,css target=_blank>
+ 1.html,css
+ &nbsp;<span class=colorlan>2021-07-27</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126663.html title="基于Docker搭建 Php-fpm + Nginx 环境" target=_blank>
+ 基于Docker搭建 Php-fpm + Nginx 环境
+ &nbsp;<span class=colorlan>2021-07-27</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126662.html title="nginx + http + svn" target=_blank>
+ nginx + http + svn
+ &nbsp;<span class=colorlan>2021-07-27</span> </a>
+ </li>
+ 
+ <li class="divullititle heightline25px divtextalignleft"><a href=http://www.mamicode.com/info-detail-3126657.html title="kubernets kube-proxy的代理   iptables和ipvs" target=_blank>
+ kubernets kube-proxy的代理 iptables和ipvs
+ &nbsp;<span class=colorlan>2021-07-26</span> </a>
+ </li>
+ 
+ </ul>
+ </div>
+</div>
+ 
+ </div>
+ <div class=divfloatclear>
+ </div>
+ </div>
+ 
+ <div class="width1000px divmargin0auto paddingtop20bottom20">
+ <div class="width1000px divborder margintop20">
+ <div class=youqingtitle>
+ <a title=友情链接>友情链接</a>
+ </div>
+ <div class=youqingcontent>
+ <a href=http://www.lightinit.com/ target=_blank title=互联网产品定制开发专家>兰亭集智</a>&nbsp;&nbsp;
+ <a href=http://www.guozhihua.net/ target=_blank>国之画</a>&nbsp;&nbsp;
+ <a href=http://tongji.baidu.com/ target=_blank>百度统计</a>&nbsp;&nbsp; 
+ <a href=http://www.cnzz.com/ target=_blank> 站长统计</a>&nbsp;&nbsp;
+ <a href=http://www.aliyun.com/ target=_blank>阿里云</a>&nbsp;&nbsp;
+ <a href=http://www.cnplugins.com/ target=_blank>chrome插件</a>&nbsp;&nbsp;
+ <a href=http://m.mamicode.com/list/ target=_blank>新版码迷网</a>&nbsp;&nbsp;
+ <a href=https://m.tiantingfm.com/list/ target=_blank>新版天听网</a>
+ </div>
+ </div>
+</div>
+<div class=bottomdiv>
+ <div class="width1000px divmargin0auto paddingtop20">
+ <div class="height30px divtextalignleft">
+ <a href=http://www.mamicode.com/about.html title=mamicode.com关于我们>关于我们</a> - <a href=http://www.mamicode.com/contactus.html title=mamicode.com联系我们>联系我们</a> - <a href=http://www.mamicode.com/guest.html title=mamicode.com留言反馈>留言反馈</a>
+ </div>
+ <div class="height30px divtextalignleft">
+ © 2014 <a href=http://www.mamicode.com/ target=_blank title=mamicode.com,技术分享>mamicode.com</a>
+ 版权所有 &nbsp;联系我们:gaon5@hotmail.com
+ </div>
+ <div class=divtextalignleft>
+ <span class=colorlan>迷上了代码！</span>
+ </div>
+ <div class=paddingtop20>
+ 
+ </div>
+ </div>
+</div>
+ 
+ 
+ 
+ 
