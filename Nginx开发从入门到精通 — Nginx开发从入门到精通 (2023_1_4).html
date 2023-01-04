@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns=http://www.w3.org/1999/xhtml style><!--
+ Page saved with SingleFile 
+ url: http://tengine.taobao.org/book/index.html# 
+ saved date: Wed Jan 04 2023 14:24:33 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<title>Nginx开发从入门到精通 — Nginx开发从入门到精通</title>
+<style>div.clearer{clear:both}div.related{width:100%}div.related ul{margin:0;padding:0 0 0 10px;list-style:none}div.related li{display:inline}div.sphinxsidebar ul{list-style:none}div.sphinxsidebar ul ul{list-style:square}div.sphinxsidebar ul ul{margin-top:0;margin-bottom:0}div.sphinxsidebar form{margin-top:10px}div.sphinxsidebar input{font-size:1em}div.sphinxsidebar #searchbox input[type="text"]{width:170px}div.sphinxsidebar #searchbox input[type="submit"]{width:30px}img{border:0}a.headerlink{visibility:hidden}h1:hover>a.headerlink,h2:hover>a.headerlink,h3:hover>a.headerlink,h4:hover>a.headerlink,h5:hover>a.headerlink,h6:hover>a.headerlink,dt:hover>a.headerlink{visibility:visible}div.body td{text-align:left}.first{margin-top:0!important}div.topic{border:1px solid #ccc;padding:7px 7px 0 7px;margin:10px 0 10px 0}p.topic-title{font-size:1.1em;font-weight:bold;margin-top:10px}table.docutils{border:0;border-collapse:collapse}table.docutils td,table.docutils th{padding:1px 8px 1px 5px;border-top:0;border-left:0;border-right:0;border-bottom:1px solid #aaa}th{text-align:left;padding-right:5px}body{font-family:segoe UI,sans-serif;font-size:16px;letter-spacing:-0.01em;line-height:150%;text-align:center;background-color:#E7E7E2;color:black;padding:0;border:1px solid #aaa;margin:0px 140px 0px 140px;min-width:900px}div.document{background-color:white;text-align:left;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAoCAMAAAAIaGBFAAAABGdBTUEAALGPC/xhBQAAAwBQTFRF8PDw8fHx8vLy8/Pz9PT09fX19vb29/f3+Pj4+fn5+vr6+/v7/Pz8/f39/v7+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmf1b7gAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9gBDRUWN0N7tMwAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAGXRFWHRTb2Z0d2FyZQBQYWludC5ORVQgdjMuNS41SYr84AAAACdJREFUGFcdwYcNADAMwzB37/x/bg2REhKzF1Y27xycvrh5/PIxFB8bwQEUC95RHwAAAABJRU5ErkJggg==);background-repeat:repeat-x}div.bodywrapper{margin:0 0 0 240px;border-left:1px solid #ccc}div.documentwrapper{float:left;width:100%}div.body{margin:0;padding:0.5em 20px 20px 20px}div.related{font-size:1em}div.related ul{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA8CAYAAACn8dD6AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9gBDRUOAHndiZoAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAR0lEQVQY072NwRHAMAzCBPtP6wFCH6mddIF+OBlxZ6oqBrBtLKkJMBLWERJ7LJpChsAEzHSX2DZvnC6ZcfpcWR+bfnSNf48HN9YiTAPwk98AAAAASUVORK5CYII=);height:2em;border-top:1px solid #ddd;border-bottom:1px solid #ddd}div.related ul li{margin:0;padding:0;height:2em;float:left}div.related ul li.right{float:right;margin-right:5px}div.related ul li a{margin:0;padding:0 5px 0 5px;line-height:1.75em;color:#224466}div.related ul li a:hover{color:#3CA8E7}div.sphinxsidebarwrapper{padding:0}div.sphinxsidebar{margin:0;padding:0.5em 15px 15px 15px;margin-left:-100%;width:210px;float:left;font-size:1em;text-align:left}div.sphinxsidebar h3,div.sphinxsidebar h4{margin:1em 0 0.5em 0;font-size:1em;padding:0.1em 0 0.1em 0.5em;color:white;border:1px solid #86989B;background-color:#666}div.sphinxsidebar h3 a{color:white}div.sphinxsidebar ul{padding-left:1.5em;margin-top:7px;padding:0;line-height:130%}div.sphinxsidebar ul ul{margin-left:20px}div.footer{background-color:#444444;color:#ffffff;padding:3px 8px 3px 0;clear:both;font-size:0.8em;text-align:right}div.footer a{color:#ffffff;text-decoration:underline}p{margin:0.8em 0 0.5em 0}a{color:#224466;text-decoration:none}a:hover{color:#2491CF}div.body a{text-decoration:underline}h1{margin:0;padding:0.7em 0 0.3em 0;font-size:1.8em}h2{margin:1.3em 0 0.2em 0;font-size:1.35em;padding:0}div.body h1 a,div.body h2 a{color:black!important}a.headerlink{color:#c60f0f!important;font-size:1em;margin-left:6px;padding:0 4px 0 4px;text-decoration:none!important}a.headerlink:hover{background-color:#ccc;color:white!important}div.topic{background-color:#f8f8f8}table{margin:0-0.5em 0-0.5em}div.sphinxsidebar input{border:1px solid #666;font-family:segoe UI,sans-serif}p.logo{text-align:center}div.comment{position:absolute}div.comment a.email_link{display:block;width:16px;height:16px;cursor:pointer;color:white;text-decoration:none;background:transparent url(data:image/gif;base64,R0lGODlhIAAQAKUvANaXIuuYEqCgoNyhJ66urum4M729vefBMMDAwMTExOvHUOvOSe/OQuvRM+vTLOzSSuvTVfnWduPj4//qaP/rcv/te+np6f/ug+vr6//vi//vkf/wlu3t7f/xnv/ypf/zrf/0s//0uvPz8//1w/T09P/2zPb29v/41/j4+Pn5+f/57Pr6+vv7+/z8/P/99v///////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAgABAAAAbWwJ9wSCwaj8eXcslEOomvB2T6eDAaDcerKOh6v9AI8+U6jUol7TAhGi9FCeFLXAqBPp5OZ6MZqRpbAm1ubwI/cy92eHsaGRcXLgeBhGOGUS53eRuOFZ0jkj8CLy2kpaYvlgwqmZsXFRSwGwWTKLW2tiuohwwnixquFBPCFQOBKSskycokJiwYlgsleK3BwhMXAIEIKJQWBkMvDCUjJ+Mhwhsh2UNfAgYc8AaGUAv1CgoFdwHrSAIEEgTmFXFTQEWALU+8PIFS4ODCUA+hOIxIUQ7CikKCAAA7)no-repeat -16px 0}div.comment a.email_link:hover{background-position:0 0}</style>
+<link rel=top title=Nginx开发从入门到精通 href=#>
+<link rel=next title=上篇：nginx模块开发篇 href=http://tengine.taobao.org/book/module_development.html>
+<link type=image/x-icon rel="shortcut icon" href=data:,><style>.sf-hidden{display:none!important}</style><link rel=canonical href=http://tengine.taobao.org/book/index.html#><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+ <body lang=zh-Hans>
+ <div class=related>
+ <h3 class=sf-hidden>导航</h3>
+ <ul>
+ <li class=right style=margin-right:10px>
+ <a href=http://tengine.taobao.org/book/genindex.html title=总目录 accesskey=I>索引</a></li>
+ <li class=right>
+ <a href=http://tengine.taobao.org/book/module_development.html title=上篇：nginx模块开发篇 accesskey=N>下一页</a> |</li>
+ <li><a href=#>Nginx开发从入门到精通</a> »</li> 
+ </ul>
+ </div> 
+ <div class=document>
+ <div class=documentwrapper>
+ <div class=bodywrapper>
+ <div class=body>
+ 
+ <div class=section id=nginx>
+<div class=comment style=top:43px;left:382px><a class=email_link title=点击提交Issue,反馈你的意见...></a></div><h1>Nginx开发从入门到精通<a class=headerlink href=#nginx title=永久链接至标题>¶</a></h1>
+<div class=section id=id1>
+<div class=comment style=top:123.859px;left:382px><a class=email_link title=点击提交Issue,反馈你的意见...></a></div><h2>缘起<a class=headerlink href=#id1 title=永久链接至标题>¶</a></h2>
+<p>nginx由于出色的性能，在世界范围内受到了越来越多人的关注，在淘宝内部它更是被广泛的使用，众多的开发以及运维同学都迫切的想要了解nginx模块的开发以及它的内部原理，但是国内却没有一本关于这方面的书，源于此我们决定自己来写一本。本书的作者为淘宝核心系统服务器平台组的成员，本书写作的思路是从模块开发逐渐过渡到nginx原理剖析。书籍的内容会定期在这里更新，欢迎大家提出宝贵意见，不管是本书的内容问题，还是字词错误，都欢迎大家提交issue(章节标题的左侧有评注按钮)，我们会及时的跟进。</p>
+<div class=topic>
+<p class="topic-title first">更新历史</p>
+<table border=1 class=docutils>
+<colgroup>
+<col width=11%>
+<col width=89%>
+</colgroup>
+<thead valign=bottom>
+<tr class=row-odd><th class=head>日期</th>
+<th class=head>描述</th>
+</tr>
+</thead>
+<tbody valign=top>
+<tr class=row-even><td>2012/03/01</td>
+<td>创建目录大纲</td>
+</tr>
+<tr class=row-odd><td>2012/03/28</td>
+<td>增加了样章</td>
+</tr>
+<tr class=row-even><td>2012/05/25</td>
+<td>更新样章</td>
+</tr>
+<tr class=row-odd><td>2012/06/08</td>
+<td>增加第5章</td>
+</tr>
+<tr class=row-even><td>2012/06/11</td>
+<td>增加第4章</td>
+</tr>
+<tr class=row-odd><td>2012/06/26</td>
+<td>增加第6章(event module)</td>
+</tr>
+<tr class=row-even><td>2012/06/27</td>
+<td>更新第5章部分内容</td>
+</tr>
+<tr class=row-odd><td>2012/07/04</td>
+<td>更新第6章event module部分内容</td>
+</tr>
+<tr class=row-even><td>2012/07/12</td>
+<td>增加第12章（请求头读取，subrequest解析）</td>
+</tr>
+<tr class=row-odd><td>2012/08/14</td>
+<td>增加第2章(nginx基础架构及基础概念)</td>
+</tr>
+<tr class=row-even><td>2012/08/14</td>
+<td>增加第2章(ngx_str_t数据结构介绍)</td>
+</tr>
+<tr class=row-odd><td>2012/08/17</td>
+<td>增加第7章(模块开发高级篇之变量)</td>
+</tr>
+<tr class=row-even><td>2012/08/25</td>
+<td>增加第11章(nginx的启动阶段部分内容)</td>
+</tr>
+<tr class=row-odd><td>2012/09/26</td>
+<td>增加第2章(ngx_array_t,ngx_hash_t及ngx_pool_t介绍)</td>
+</tr>
+<tr class=row-even><td>2012/10/08</td>
+<td>增加第11章(配置解析综述)</td>
+</tr>
+<tr class=row-odd><td>2012/10/12</td>
+<td>增加第2章(ngx_hash_wildcard_t,ngx_hash_combined_t及ngx_hash_keys_arrays_t介绍)</td>
+</tr>
+<tr class=row-even><td>2012/10/21</td>
+<td>增加第2章(ngx_chain_t,ngx_list_t及ngx_buf_t介绍)</td>
+</tr>
+<tr class=row-odd><td>2012/11/09</td>
+<td>增加第12章(请求体的读取和丢弃解析)</td>
+</tr>
+<tr class=row-even><td>2012/11/24</td>
+<td>更新第2章(ngx_buf_t的部分字段以及其他一些书写错误和表达)</td>
+</tr>
+<tr class=row-odd><td>2012/12/18</td>
+<td>更新第11章(解析http块)</td>
+</tr>
+<tr class=row-even><td>2012/12/10</td>
+<td>增加第3章的内容</td>
+</tr>
+<tr class=row-odd><td>2012/12/28</td>
+<td>补充和完善了第3章的内容</td>
+</tr>
+<tr class=row-even><td>2013/01/25</td>
+<td>增加了第2章(nginx的配置系统)</td>
+</tr>
+<tr class=row-odd><td>2013/02/18</td>
+<td>增加了第2章(nginx的模块化体系结构, nginx的请求处理)</td>
+</tr>
+<tr class=row-even><td>2013/03/05</td>
+<td>增加了第12章部分内容(多阶段请求处理)</td>
+</tr>
+<tr class=row-odd><td>2013/03/08</td>
+<td>完成第11章第1节(配置解析综述、ngx_http_block)</td>
+</tr>
+<tr class=row-even><td>2013/04/16</td>
+<td>完成第9章第1节(源码目录结构、configure原理)</td>
+</tr>
+<tr class=row-odd><td>2013/09/30</td>
+<td>完成第12章部分内容(多阶段执行链各个阶段解析)</td>
+</tr>
+<tr class=row-even><td>2013/10/11</td>
+<td>完成第12章部分内容(filter解析)</td>
+</tr>
+<tr class=row-odd><td>2013/10/11</td>
+<td>完成第12章部分内容(ssl解析)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class=section id=id2>
+<div class=comment style=top:1197.53px;left:382px><a class=email_link title=点击提交Issue,反馈你的意见...></a></div><h2>版权申明<a class=headerlink href=#id2 title=永久链接至标题>¶</a></h2>
+<p>本书的著作权归作者淘宝核心系统服务器平台组成员所有。你可以：</p>
+<ul class=simple>
+<li>下载、保存以及打印本书</li>
+<li>网络链接、转载本书的部分或者全部内容，但是必须在明显处提供读者访问本书发布网站的链接</li>
+<li>在你的程序中任意使用本书所附的程序代码，但是由本书的程序所引起的任何问题，作者不承担任何责任</li>
+</ul>
+<p>你不可以：</p>
+<ul class=simple>
+<li>以任何形式出售本书的电子版或者打印版</li>
+<li>擅自印刷、出版本书</li>
+<li>以纸媒出版为目的，改写、改编以及摘抄本书的内容</li>
+</ul>
+</div>
+<div class=section id=id3>
+<div class=comment style=top:1502.41px;left:382px><a class=email_link title=点击提交Issue,反馈你的意见...></a></div><h2>目录<a class=headerlink href=#id3 title=永久链接至标题>¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class=toctree-l1><a class="reference internal" href=http://tengine.taobao.org/book/module_development.html>上篇：nginx模块开发篇</a><ul>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_01.html>背景介绍</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_01.html#nginx>nginx历史</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_01.html#id2>使用简介</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_01.html#id3>nginx特点介绍</a></li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html>nginx平台初探(100%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id1>初探nginx架构(100%)</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id2>nginx基础概念(100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#connection>connection</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#request>request</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id3>基本数据结构(99%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-str-t-100>ngx_str_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-pool-t-100>ngx_pool_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-array-t-100>ngx_array_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-hash-t-100>ngx_hash_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-hash-wildcard-t-100>ngx_hash_wildcard_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-hash-combined-t-100>ngx_hash_combined_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-hash-keys-arrays-t-100>ngx_hash_keys_arrays_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-chain-t-100>ngx_chain_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-buf-t-99>ngx_buf_t(99%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-list-t-100>ngx_list_t(100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#ngx-queue-t-100>ngx_queue_t(100%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id6>nginx的配置系统(100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id7>指令概述</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id8>指令参数</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id9>指令上下文</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#nginx>nginx的模块化体系结构</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id10>模块概述</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id11>模块的分类</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id12>nginx的请求处理</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_02.html#id13>请求的处理流程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html>handler模块(100%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#handler>handler模块简介</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id1>模块的基本结构</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id2>模块配置结构</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id3>模块配置指令</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id4>模块上下文结构</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id5>模块的定义</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id6>handler模块的基本结构</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id7>handler模块的挂载</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id8>按处理阶段挂载</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id9>按需挂载</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id10>handler的编写步骤</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#hello-handler>示例: hello handler 模块</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id11>handler模块的编译和使用</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#config>config文件的编写</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id12>编译</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id13>使用</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#id14>更多handler模块示例分析</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#http-access-module>http access module</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#http-static-module>http static module</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_03.html#http-log-module>http log module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html>过滤模块 (90%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id2>过滤模块简介 (90%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id3>执行时间和内容 (90%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id4>执行顺序 (90%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id5>模块编译 (90%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id6>过滤模块的分析 (90%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id7>相关结构体 (90%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id8>响应头过滤函数 (90%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_04.html#id9>响应体过滤函数 (90%)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html>upstream模块</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#upstream-100>upstream模块 (100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id1>upstream模块接口</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#memcached>memcached模块分析</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id4>本节回顾</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id5>负载均衡模块 (100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id6>配置</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id7>指令</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id8>钩子</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id9>初始化配置</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id10>初始化请求</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#peer-getpeer-free>peer.get和peer.free回调函数</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_05.html#id11>本节回顾</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html>其他模块 (40%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#core-40>core模块 (40%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#nginx-40>Nginx的启动模块 (40%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#event-40>event模块 (40%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#id2>event的类型和功能 (40%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#accept-40>accept锁 (40%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#id3>定时器 (40%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#mail>mail模块</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#id4>mail模块的实现</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_06.html#id5>mail模块的功能</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html>模块开发高级篇(30%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#id2>变量(80%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#id3>综述</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#id4>创建变量</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#id5>使用变量</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#upstream>upstream</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#subrequestupstream>使用subrequest访问upstream</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#id6>超越upstream</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_07.html#lua>使用lua模块</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l1><a class="reference internal" href=http://tengine.taobao.org/book/source_analysis.html>下篇：nginx原理解析篇</a><ul>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_08.html>高性能服务器设计</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_08.html#c10k>c10k问题</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_08.html#id2>高性能服务器编写的关键原则</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_08.html#id3>事件驱动的核心引擎</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_08.html#id4>定时器管理</a></li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html>nginx架构详解(50%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#nginx-100>nginx的源码目录结构(100%)</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#nginxconfigure-100>nginx的configure原理(100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#auto>auto脚本</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id1>模块编译顺序</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#nginx>nginx的事件机制</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#event>event框架及非阻塞模型</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id2>定时器实现</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id3>信号处理</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id4>惊群问题</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id5>nginx的进程机制</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#master>master进程</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#worker>worker进程</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_09.html#id6>进程间通讯</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html>nginx基础设施</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id1>内存池</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id2>简介:</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id3>结构:</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id4>实现:</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id5>共享内存</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#slab>slab算法</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#buffer>buffer管理</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id6>buffer重用机制</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id7>buffer防拷贝机制</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#chain>chain管理</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id8>chain重用机制</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#aio>aio原理</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id9>锁实现</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id10>基本数据结构</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id11>时间缓存</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#id12>文件缓存</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_10.html#log>log机制</a></li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html>nginx的启动阶段 (30%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id1>概述 (100%)</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id2>共有流程 (100%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id3>配置解析接口 (100%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id4>配置解析</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id5>通用过程 (100%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#http>http的解析</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id14>server的管理</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id15>location的管理</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id16>模块初始化</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#id17>热代码部署</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#reload>reload过程解析</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_11.html#upgrade>upgrade过程解析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html>nginx的请求处理阶段 (90%)</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#id1>接收请求流程 (99%)</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#http-99>http请求格式简介 (99%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#id2>请求头读取 (99%)</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#id5>请求体读取(100%)</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#id8>多阶段处理请求</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#id9>多阶段执行链</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#post-read>POST_READ阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#server-rewrite>SERVER_REWRITE阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#find-config>FIND_CONFIG阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#rewrite>REWRITE阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#post-rewrite>POST_REWRITE阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#preaccess>PREACCESS阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#access>ACCESS阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#post-access>POST_ACCESS阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#try-files>TRY_FILES阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#content>CONTENT阶段</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#log>LOG阶段</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#nginx-filter>Nginx filter</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#header-filter>header filter分析</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#body-filter>body filter分析</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#subrequest-99>subrequest原理解析 (99%)</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#https>https请求处理解析</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#nginxssl>nginx支持ssl简介</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_12.html#ssl-ssl>ssl连接建立(ssl握手)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html>nginx的upstream原理解析</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#id1>无缓冲的处理流程</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#id2>带缓冲的处理流程</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#subrequestupstream>subrequest访问upstream的处理流程</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#id3>负载均衡算法</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#round-robin>round-robin算法</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#iphash>基于ip的hash算法</a></li>
+</ul>
+</li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#upstream>upstream缓存机制</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#id4>常用upstream模块分析</a><ul>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#proxy>proxy模块</a></li>
+<li class=toctree-l4><a class="reference internal" href=http://tengine.taobao.org/book/chapter_13.html#fastcgi>fastcgi模块</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/chapter_14.html>nginx的script处理</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_14.html#id1>正则表达式</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_14.html#id2>变量</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_14.html#id3>复杂变量</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/chapter_14.html#if>if的处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=toctree-l1><a class="reference internal" href=http://tengine.taobao.org/book/appendix_a.html>附录A 编码风格 (100%)</a><ul>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_a.html#nginx-100>Nginx代码风格图示 (100%)</a></li>
+</ul>
+</li>
+<li class=toctree-l1><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html>附录B 常用API</a><ul>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-1>B.1 字符串操作</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-2>B.2 读取请求体</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-3>B.3 操作请求头</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-4>B.4 取参数</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-5-uri>B.5 URI处理</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-6-buffer>B.6 buffer操作</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-7>B.7 变量操作</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-8>B.8 日志输出</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-9>B.9 配置解析接口</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-10>B.10 文件操作</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_b.html#b-11>B.11 锁操作</a></li>
+</ul>
+</li>
+<li class=toctree-l1><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html>附录C 模块编译，调试与测试</a><ul>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-1>C.1 编译与安装</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id1>环境要求</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id2>下载</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#nginxwindows>Nginx在Windows环境下安装</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#nginxlinux>Nginx在Linux环境下安装</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id3>测试</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#nginxwindowsnginx>Nginx在Windows环境下查看nginx进程</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#nginxlinuxnginx>Nginx在Linux环境下查看nginx进程</a></li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-2>C.2 调试日志</a><ul>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id4>一，开启调试日志：</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id5>二，日志级别分析：</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id6>三，日志格式设置：</a></li>
+<li class=toctree-l3><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#id7>四，调试日志的几个注意点：</a></li>
+</ul>
+</li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-3-gdb>C.3 使用GDB调试</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-4>C.4 功能测试</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-5>C.5 性能/压力测试</a></li>
+<li class=toctree-l2><a class="reference internal" href=http://tengine.taobao.org/book/appendix_c.html#c-6>C.6 常见缺陷分析</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class=section id=id4>
+<div class=comment style=top:6778.48px;left:382px><a class=email_link title=点击提交Issue,反馈你的意见...></a></div><h2>团队成员<a class=headerlink href=#id4 title=永久链接至标题>¶</a></h2>
+<p>叔度 (<a class="reference external" href=http://blog.zhuzhaoyuan.com/>http://blog.zhuzhaoyuan.com</a>)</p>
+<p>雕梁 (<a class="reference external" href=http://www.pagefault.info/>http://www.pagefault.info</a>)</p>
+<p>文景 (<a class="reference external" href=http://yaoweibin.cn/>http://yaoweibin.cn</a>)</p>
+<p>李子 (<a class="reference external" href=http://blog.lifeibo.com/>http://blog.lifeibo.com</a>)</p>
+<p>卫越 (<a class="reference external" href=http://blog.sina.com.cn/u/1929617884>http://blog.sina.com.cn/u/1929617884</a>)</p>
+<p>袁茁 (<a class="reference external" href=http://yzprofile.me/>http://yzprofile.me</a>)</p>
+<p>小熊 (<a class="reference external" href=http://dinic.iteye.com/>http://dinic.iteye.com</a>)</p>
+<p>吉兆 (<a class="reference external" href=http://jizhao.blog.chinaunix.net/>http://jizhao.blog.chinaunix.net</a>)</p>
+<p>静龙 (<a class="reference external" href=http://blog.csdn.net/fengmo_q>http://blog.csdn.net/fengmo_q</a>)</p>
+<p>竹权 (<a class="reference external" href=http://weibo.com/u/2199139545>http://weibo.com/u/2199139545</a>)</p>
+<p>公远 (<a class="reference external" href=http://100continue.iteye.com/>http://100continue.iteye.com/</a>)</p>
+<p>布可 (<a class="reference external" href=http://weibo.com/sifeierss>http://weibo.com/sifeierss</a>)</p>
+</div>
+</div>
+ </div>
+ </div>
+ </div>
+ <div class=sphinxsidebar>
+ <div class=sphinxsidebarwrapper>
+ <p class=logo><a href=http://tengine.taobao.org/>
+ <img class=logo src="data:image/png;base64,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" alt=Logo>
+ </a></p>
+ <h3><a href=#>內容目录</a></h3>
+ <ul>
+<li><a class="reference internal" href=#>Nginx开发从入门到精通</a><ul>
+<li><a class="reference internal" href=#id1>缘起</a></li>
+<li><a class="reference internal" href=#id2>版权申明</a></li>
+<li><a class="reference internal" href=#id3>目录</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href=#id4>团队成员</a></li>
+</ul>
+</li>
+</ul>
+ <h4>下一个主题</h4>
+ <p class=topless><a href=http://tengine.taobao.org/book/module_development.html title=下一章>上篇：nginx模块开发篇</a></p>
+ <h3>本页</h3>
+ <ul class=this-page-menu>
+ <li><a href=http://tengine.taobao.org/book/_sources/index.txt rel=nofollow>显示源代码</a></li>
+ </ul>
+<div id=searchbox>
+ <h3>快速搜索</h3>
+ <form class=search action=search.html>
+ <input type=text name=q value>
+ <input type=submit value=搜索>
+ 
+ 
+ </form>
+ <p class=searchtip style=font-size:90%>
+ 输入相关的模块，术语，类或者函数名称进行搜索
+ </p>
+</div>
+ </div>
+ </div>
+ <div class=clearer></div>
+ </div>
+ <div class=related>
+ <h3 class=sf-hidden>导航</h3>
+ <ul>
+ <li class=right style=margin-right:10px>
+ <a href=http://tengine.taobao.org/book/genindex.html title=总目录>索引</a></li>
+ <li class=right>
+ <a href=http://tengine.taobao.org/book/module_development.html title=上篇：nginx模块开发篇>下一页</a> |</li>
+ <li><a href=#>Nginx开发从入门到精通</a> »</li> 
+ </ul>
+ </div>
+ <div class=footer>
+ © 版权所有 2012, taobao.
+ 使用 <a href=http://sphinx.pocoo.org/>Sphinx</a> 1.1.3.
+ </div>
+ 
