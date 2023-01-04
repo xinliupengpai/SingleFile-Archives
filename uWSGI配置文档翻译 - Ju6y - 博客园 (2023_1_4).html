@@ -1,0 +1,1354 @@
+<!DOCTYPE html> <html lang=zh-cn style=--olcb-folder-code-block-max-height:80vh><!--
+ Page saved with SingleFile 
+ url: https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html 
+ saved date: Wed Jan 04 2023 14:24:32 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=referrer content=never>
+<meta name=description content=原文地址：http://projects.unbit.it/uwsgi/wiki/DocuWSGI参考资料（1.0版本的配置选项列表）下面的内容包含了大部分uWSGI的配置选项，这些配置选项的列举没有>
+<meta property=og:description content=原文地址：http://projects.unbit.it/uwsgi/wiki/DocuWSGI参考资料（1.0版本的配置选项列表）下面的内容包含了大部分uWSGI的配置选项，这些配置选项的列举没有>
+<meta http-equiv=Cache-Control content=no-transform>
+<meta http-equiv=Cache-Control content=no-siteapp>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<title>uWSGI配置文档翻译 - Ju6y - 博客园</title>
+<style>:root{--sf-img-8: url("data:image/gif;base64,R0lGODlhEADIAPcAAAAAANmMNNuQPNuWPNucPNukO9usO9y0Pt2ZR9yuQOC8WOaydvDLJvHOL/LROuDBWPPTRvTVTPTXVvXZXePEYuTJb+zLa+fPfenBc+7PdO/QevHPafHQbPXbZPbcavHScvLUfPbedfbgfOm5he7OiOzFme3Knu3OnejQhO/SgO/The/UlO3Sne3Wne3ZnvPWhPPYjvPalvXdkvXelPXen+7Lo+3XoO7ZoPDfq/TdqPLYu/fihPfji/jkjvflkvjlkfjmlvjnnPnonfbhrPnpofnppfnrqvrsrfHisfHkt/XltfLluvPnvvTgufbnuffnvPfov/jntfrts/jouPjpvvrvufrvvfTcwvbmw/PowffpyfjqwvntyPruz/bk0fru0/vwwfvxxvvyyfvyzPzyyPzzzfrw1fzz0Pz00fz11vry3fz22f333Pv14/v36f345f366/z47f347/777/368/379P788v799P389v79+P79+v7++f/++/7+/P///gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAQAMgAAAj/AP8JHEiwoMGDCBMqXMhwIA4kECHiwJOnYsU+Al308cPRT50kIJMwyaJG4A09Ybh0MZNnj0U8fXAItJGHC5ctSpRsgfLEiZM6LgS2oKMFS5M2Fivi8dNCIAs/fPjoyQNHDJgqUo7AYeFUzxs2acqEsZK1CJE3XP+dyLMGjVWsRooIAfLmhEATeNxelRI3CBAfb0wIrCHnSxebW6hQmRIlShvB/7zoMFGisuXLVxpq3sy5s+fPoEOLHk26tOnTqFOrXs26tevXsGPLnk27tu3buHPr3s27t+/fwIMLH068uPHjyJMrX868ufPn0KNLnw79AYXr1x/EocOdTh2M/w5spvSz0U2F8xUuoFgi8ACeHjJoDJlzx46dOXP0KBCYgM4MGS9YYIEKKWiQQQZuHCCQAW6sQAIGWthnH35+GLCgH3nggYcdawCxQwgeTJBGAQIVgAcZVRwhBA8ihBgBBGeQ+A8BdEhRhIchdCABBA40MAYBAg0wBxE/fKgjjw0wIMYAAiGgRg40xADDCyCA8AEHG2zB5D81LCBAAGCGGaYAI1Bn5pkGBQQAOw==");--sf-img-17: url("data:image/gif;base64,R0lGODlhFAAUANQHADJKYpKluc3P05qy4jJdta/M92KQ3vv8/nKi4rK/0rLC6mJ6mtHe7sHN4ZW19iJLmUp2wqKy0nKa8iJCgsLV9uLq8qKywnKa2oKy4lKC0qLC8qKqwnKS0oKn7cDI1AAAACH5BAEAAB8ALAAAAAAUABQAAAWE4CeOZGmeaKquLKkoSRwJrXLch7XQa4IfAc+ud6AUGIHCS+NwME6WX6Xw6xAaps2BiUFofpICwVMK3CoVxuDQZBgIhEf50EVc1rgKJSInmRkMDQ0dBx0IBhkZfGUAjY0cOAwUChZ9KQYHiIkZG5YoEAcRohYbAZ4nEHAPq6sTLa+wsSUhADs=")}body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue","Helvetica","Arial",sans-serif}img{border:0;max-width:100%;height:auto}#blog_post_info_block{margin-top:20px}#EntryTag{margin-top:0!important}pre{transition-duration:.2s;transition-property:background-color,border-color,border-radius,padding-top,padding-bottom,margin-top,margin-bottom,color,opacity}.cnblogs_code{background-color:#f5f5f5;font-family:Courier New!important;font-size:12px!important;border:1px solid #ccc;padding:5px;overflow:auto;margin:5px 0;color:#000}.cnblogs_code div{background-color:#f5f5f5}pre{overflow:auto}.cnblogs_code pre{font-family:Courier New,serif;font-size:12px;word-wrap:break-word}.cnblogs_code span{font-family:Courier New,serif;font-size:inherit;line-height:1.5}.cnblogs_code_toolbar a:hover,.cnblogs_code_toolbar a:link,.cnblogs_code_toolbar a:visited,.cnblogs_code_toolbar a:active,.cnblogs_code_toolbar a:link img,.cnblogs_code_toolbar a:visited img{background-color:#f5f5f5!important;border:none!important}pre{margin-top:0;margin-bottom:0}#author_profile{float:left;width:280px;margin-top:0;margin-bottom:10px;color:#000;margin-left:0;font-size:12px}#author_profile a:hover{text-decoration:underline}.author_avatar{vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;border:0}.author_profile_info{float:left;line-height:18px}#div_digg{float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px}.diggit{float:left;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP/00P/22vfqt/b29v/11f/45P/56P/34PjtwfXlqf/55v/11//00v/44vnwyfn5+f/22Pbnrf/21vny0Pn00//33vDw8P/12KioqP/10ufm61B1uv/33f/33P////H4+iH5BAAAAAAALAAAAAAuADQAAAX/oJeMZGmeaJqKQOu+cCzPcxLJmZvlcM4DPlosE4kwMsfdLrlEIo8MZvRJjTKbxaZyy+16v94iYUwum8/odDlDjgjU8Lh8LBAs7mQ8YTHmS/aAfHyBeHeCg3l1dxAQFwsXkBeMjJILEJaNko2bk4+Pl4x3knUBpaanqKmqq6sCCAEdsR2ws6mytbSwprGns766HQgIHByxxR3FxMi3y8nIycTO0MqywtTH0Mu30s/PytLRt9bYxt3Hstzf4eDUsePlzc7bzebr8e3Bw+Tx2uj06t/unct3rVzAeeC8pQtXTR+8bAP/1Qs4beA7bRCZLVT4j6E7hxjNaezIkZ1FkOQO//pLGG0hvosp5a3k17LjSwQVcurcybOnz58/ETg4QLSo0aNIkypV6sBBg6dPC0CdWkBqg6pTs1q1qpWrgwlVw4odS7as2bMTJihYy7at27dw48adQMGA3bt48+rdy5cv3b6AAwu2S8EDhcOIEytezLhxYw+QI0ueTLmy5cuYM2veDPmD58+gQ4seTbq0htIPBqguzbq159OjH2jQgEHDANe4RcMWPUCDBwsYHuQe/pr0bA8PMNwmnnt36N6/lYve8Jk69enVdYdO3ds38OWgr4sPv6G8+fOfndPGwB5DdPAf0J8vjz2+ds8eMFigPEB/aOvjVTfffOl91t96+0X2HYB58REYHmu7JWfZgp7RZ9+FDw4I2m79teebgrVVeGGAD5ZYoGcSVjbBBvCJ52CDDb4Y4Xq1SQYcBSWSaN91Ioa222+0WSDkkBiwmGOPJmJ4ooHsbVDkkw4I6CJ62cV4H2gPFHDABVsWAB9zEIIppnFjlrnhbGimqeaabLbp5mwhAAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.diggnum{font-size:14px;color:#075db3;font-family:Verdana}.buryit{float:right;margin-left:20px;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP////39/fn5+fj4+Pb29vX19fPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6ujo6Ofn5+bm5uXl5ePj4+Li4uHh4dzc3NfX19HR0c/Pz6qqqqioqKenp4WFhYODgyH5BAQUAP8ALAAAAAAuADQAAAX/IKCNZGmeaJqKUeu+cCzP80jfeN5mGeT/wKBwSCTyisik0sd7OJ/QqHRKpWYw1ax268RgHGDuFkwuO6Res3rNbre9jbh8Tq/b73fMpcHo+xl2f3iDdRcXC4iJiol/jY2LkIh/hpGQjpcMlYuTh5qMmI+ekn6UogugoaKcpqeofqyrpq6vsqSdqrOZtX2luLOwtsC/uwy9nrm6vsW3x7nCy6zR0ogXFgrX2Nna29zd3RYWCeLj5OXm5+jo4Ajs7e7v8PHy8hQUB/f4+fr7/P399QYCChxIsKDBgwcBIlzIsKGBCQAmSJxIsaLFixgxAtjIsaPHjyBDihxJsqTJjQVS8KpcybKly5cwIcCcSbOmSpk2c+pMiZOlAHYOFDhAQGBnzp4rN2z4wIEp0wpGayIFkOABB3MdPBh4+aHrB5pfb64UYJUDBwgdFXCYsNJr2LZu265EKoBDSAoftqp8O5MvX6QFzJpFyzHBWbhuu+5NmVgxz7EcAoA0XHQxS78FMItdedZsgo4HOFRmnNmy3NKoH6sEwAHBxwEcFlxOzZc06b8sIwg2S5WD3tNfa5cOG3xuSwEECPjoPdq2c8uaVb9ES3l25uKmoxcAPBdt3ebB/Tpu6dV4TAChBUSVClOADw4Smq93yX1scvnzWy7Zzz9ICAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.burynum{font-size:14px;color:#075db3;font-family:Verdana}.diggword{margin-top:5px;margin-left:0;font-size:12px;color:#808080}#profile_block{margin-top:5px;line-height:1.5;text-align:left}#post_next_prev{line-height:1.8;font-size:12px}#post_next_prev a.p_n_p_prefix:link{text-decoration:none}#post_next_prev a.p_n_p_prefix:hover{text-decoration:underline}.under-post-card{margin-top:10px;line-height:1.5}#green_channel{padding:10px 0;margin-bottom:10px;margin-top:10px;border:#c0c0c0 1px dashed;font-size:12px;width:350px;text-align:center}#green_channel a{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D)repeat-x;display:inline-block;padding:3px 8px;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer;margin-right:10px;-moz-border-radius:5px;-webkit-border-radius:10px;-moz-box-shadow:0 1px 3px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 3px rgba(0,0,0,.5);text-shadow:0-1px 1px rgba(0,0,0,.25);vertical-align:middle}#green_channel a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/v//vwMTAwPDfzjBgMpFI/7hFSOT9Y8qRuF3JLoHAQIMAHYtMmRA+CugAAAAAElFTkSuQmCC)}#green_channel #green_channel_digg{background-color:#2daebf}#green_channel #green_channel_follow{background-color:#e33100}#green_channel #green_channel_favorite{background-color:#ffb515}#green_channel #green_channel_weibo img{vertical-align:middle;border:none;margin-left:5px;box-shadow:none}#green_channel #green_channel_weibo,#green_channel #green_channel_wechat{background:none;padding:3px 2px;-moz-border-radius:none;-webkit-border-radius:none;-moz-box-shadow:none;-webkit-box-shadow:none;text-shadow:none}#green_channel #green_channel_wechat img{width:24px;height:24px;border:medium none;box-shadow:none;margin-left:5px;vertical-align:middle}#cnblogs_post_body{margin-bottom:20px}#cnblogs_post_body img{max-width:100%!important;height:auto}#opt_under_post{line-height:1.8}#HistoryToday{max-width:600px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.cnblogs_code_toolbar{margin-top:5px}.cnblogs_code_toolbar span{padding-right:5px}.CalTitle{width:100%}#cnblogs_post_body{word-break:break-word}#cnblogs_post_body p{margin:10px auto}#cnblogs_post_body p{text-indent:0}#cnblogs_post_body h1{font-size:28px;font-weight:bold;line-height:1.5;margin:10px 0}#cnblogs_post_body h2{font-size:21px;font-weight:bold;line-height:1.5;margin:10px 0}#cnblogs_post_body h3{font-size:16px;font-weight:bold;line-height:1.5;margin:10px 0}#div_digg .diggnum{line-height:1.5em!important}#div_digg .burynum{line-height:1.5em!important}#green_channel a:link,#green_channel a:visited,#green_channel a:active{color:#fff!important;border:none!important}.vertical-middle>*{vertical-align:middle}#blog-news{overflow:hidden}.blogpost-body-html span img{border:none}#cnblogs_c1{width:300px;height:250px}.sidebar-card-title-a,a.sidebar-card-title-a:link,a.sidebar-card-title-a:visited{font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;color:inherit!important}@keyframes fadeIn{0%{opacity:0}100%{opacity:var(--cnb-code-toolbar-initial-opacity)}}pre:fullscreen,pre:fullscreen code{box-sizing:border-box;border-radius:0;height:100vh;width:100vw}.login_tips{background-image:url(data:image/gif;base64,R0lGODlhEAAQAOZbAOny/v3+/lqIuT1wIOLu/lOMKKnB2omqzbTJ34+8Z9vq/c7c6tfo/ZSwhJOx0WyVwJGugWCJSbLSlff5/Pv8/efu9Y26ZDdrGUFzJXCYwuDt/vP3+uvx94usztrk793s/m6XwYe5YN/s/qO92Iu6YnCWXpeyiOnv9tXm/bHTkKa9mZ241dDj/dzm8Ex7Mejx/lePLd3r/vn7/NHk/eXw/tDk/dPm/dTm/dzq/d7s/tbn/WaOT3ugx2+XwuTv/o+7arbUnNnp/dDmurHFq9zr/X2iyF+Mu+bw/pm21Obx/oe6YFyKuvD2/oWny7HWktrp/Yy8ZYKjk+Pv/uHu/r7Q4z9xItHk/LTUlYGrYViHuP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFsALAAAAAAQABAAAAemgFuCg4SFhoeGGw5LWY2OWU0VhB0GFFqXmFoIGRSCEwIBTABJPlM5CjhaPC2CHA9aL0dSGh8KDChaBwutrzQEGjFPDDczubtbnwEAIkRBOjY1VlpFHoOUAZgELACaGTKDigKNK5dDJTsRKog9FVFYV0I/MBCGI0hGESlOWlAJA4UnQFDZ4gIIJgkXEG2pQkKJlhD+FJooYEGChQL0FDbAcAFDgy2BAAA7);background-repeat:no-repeat;margin-top:10px;padding:0 0 10px 25px;font-weight:400}.login_tips a{text-decoration:underline!important}#comment_nav{text-align:right}#comment_nav a{padding-left:10px}:root{--highlighted-line-bg:#d1e3c9;--highlighted-line-bg-dark:#264b33}@keyframes collapse{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-scroll-height,80vh)}to{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh)}}@keyframes expand{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh);overflow-y:hidden}to{max-height:"";max-height:"";max-height:var(--olcb-folder-code-block-scroll-height,"");overflow-y:hidden}}@keyframes modal-open{0%{height:0;opacity:0}95%{height:505px}100%{height:auto;opacity:1}}:root{--cnblogs-toc-bg-color:rgba(245,245,245,.98);--cnblogs-toc-highlight-color:rgba(255,255,255,.9);--cnblogs-toc-color:#000}body{min-height:100vh}@keyframes wb-fade-in{0%{opacity:0}to{opacity:.85}}/*!
+ * ui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */@-webkit-keyframes ui-dialog-loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes ui-dialog-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}html,body{margin:0;padding:0;font:12px/18px"PingFang SC","Microsoft YaHei","Helvetica Neue","Helvetica","Arial",sans-serif;background:#fff url(data:image/gif;base64,R0lGODlhAQCBAMQAAPX19UBETPHx8fPz8/T09Pf39/v7+/j4+PLy8vz8/Pn5+fb29vDw8Pr6+v7+/v39/aO7UDE2Pv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAABAIEAAAUwYBCNZGmeYyBJTCsISDwMBAEAS14Ux6H8jaDBkCg+jg+H0rFqOp/QKBRCrVKlWGcIADs=)top left repeat-x;color:#333;text-align:center;margin-bottom:20px}a{outline:none;text-decoration:none}a:link,a:visited{color:#69c}a:hover{color:#f36}.clear{clear:both}ul{list-style:none;margin:0;padding:0}div#container{min-width:960px;max-width:1600px;text-align:left;width:auto;padding:0 10px;margin:0 auto}div#wrapper{overflow:auto;margin:15px 10px}div#content{margin-right:465px;min-height:600px}div#sidebar{width:455px;position:absolute;right:10px;padding-bottom:20px}a.minyx{float:left;width:130px;display:block;padding-top:3px;margin-left:10px}a.minyx:link,a.minyx:visited{background-position:0 0}a.minyx:hover{background-position:0-23px}ul#topMnu{text-align:right;padding:3px;font-size:10px}ul#topMnu li{display:inline;border-right:1px solid #636870;padding:0 10px;color:#fff}ul#topMnu li a:link,ul#topMnu li a:visited{font-weight:bold;color:#fff}ul#topMnu li a:hover{font-weight:bold;color:#708033}div#header{height:90px;margin:0 10px}div#header h1{font-size:36px;letter-spacing:-2px;font-weight:normal;margin:0;padding:20px 0 10px 0;white-space:nowrap;overflow:hidden}div#header h1 a:link,div#header h1 a:visited{color:#4b5698}div#header h1 a:hover{color:#f36}div#header h1 small{display:block;color:#666;font-size:12px;text-transform:uppercase;letter-spacing:-1px;margin:10px 0 0 0}ul#menu{float:right;line-height:20px}ul#menu li{background-image:url(data:image/gif;base64,R0lGODlhAwBLANUAANXX39bY39fZ4Pz8/dja4dvd4/3+/vLy9fX29+/v8vP09tvc493f5dze5Nnb4dna4ebn7Pf3+d7f5err7/39/uPk6enq7vDx9Ojp7eDh59nb4v7///j4+d/h5vn5+uLj6OHi6PT19+Xm6+vs8Pr7/Pz9/fb2+Pv8/Ozt8Pn6+97g5u7u8ufo7Nrb4uTl6vDw8/b3+Pr6+/Pz9dbX393e5Pv7/Pj5+v7+/v39/f///wAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAADAEsAAAaJwBwgl5vlboAbUhlgOm8CZRR6MxBuOAIO99g6tppta7vYFszbxpa2ZWwlW9W2s81sQdvPtrJ1bUU4NxBKLFgYgRZKE0ojSihKK0oJSi9KFzc5B0QyRApEIUQIRCZEMEQRRBxENkQeRClEMUQkRDVEJ0QDuUQlRDhEFEQGRJhHxMfGORtEzM3OREEAOw==);background-position:0 1px;background-repeat:no-repeat;padding:28px 0;display:inline;font-size:11px;margin:0;float:left}ul#menu li a{font-weight:bold;text-transform:uppercase;padding:30px 15px}ul#menu li a:link,ul#menu li a:visited{color:#31363e}ul#menu li a:hover{color:#f63}ul#menu li.current a{background-image:url(data:image/gif;base64,R0lGODlhDQAHAIABAEBETP///yH5BAEAAAEALAAAAAANAAcAAAIPhI8XyeGs3GtSpoojrmAXADs=);background-repeat:no-repeat;background-position:top center}ul#menu li.current a:link,ul#menu li.current a:visited{color:#565e39;text-decoration:underline}ul#menu li.current a:hover{color:#f36}ul#menu li#rss{text-indent:-9000em;width:64px;height:42px;display:block;padding:0 0 0 30px;margin:0}ul#menu li#rss a{background-image:url(data:image/gif;base64,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);background-repeat:no-repeat;display:block;width:64px;height:42px;position:relative;padding:0;margin:35px 0 0 0}ul#menu li#rss a:link,ul#menu li#rss a:visited{background-position:bottom right}ul#menu li#rss a:hover{background-position:top right}div.post{margin-bottom:30px}div.post h2{font-size:18px;letter-spacing:-1px;background-image:url(data:image/gif;base64,R0lGODlhBAABAIABAKurq////yH5BAEAAAEALAAAAAAEAAEAAAICRF4AOw==);background-position:bottom left;background-repeat:repeat-x;margin:0;padding:6px 0;font-weight:normal;line-height:120%}div.post small{font-size:12px;letter-spacing:normal;color:#ababab;display:block;text-align:right}div.post small a:link{color:#ababab}div.post small a:active{color:#ababab}div.post small a:visited{color:#ababab}div.post small a:hover{color:#369;text-decoration:underline}div.post div.entry h2{background-image:none}div.post div.entry{font:14px Georgia,"Times New Roman",Times,sans-serif;line-height:1.8;word-break:break-all}div.post div.entry p{line-height:1.8}div.post div.entry p span{line-height:1.8}div.post div.entry a:link img,div.post div.entry a:visited img{background-color:#fff;border-color:#ddd}div.post div.entry a:hover img{background-color:#f5f5f5;border-color:#69c}div.post div.entry p a{border-bottom-width:1px;border-bottom-style:dashed}div.post div.entry a:link,div.post div.entry a:visited{color:#3d81ee}div.post div.entry a:hover{color:#f30}div.post ul.postmetadata{border-top:3px double #eee;border-bottom:3px double #eee;padding:4px 0;margin-bottom:10px;margin-top:10px;font-size:12px}div.post ul.postmetadata li{background-repeat:no-repeat;padding:2px 0 5px 20px;background-position:0-170px}div.post ul.postmetadata li.icon_cat{background-image:var(--sf-img-8)}div.post ul.postmetadata li.icon_bullet{background-image:url(data:image/gif;base64,R0lGODlhEADIAPcAAAAAAIqPl5mepKqusri8wMTHy8fKzczO0dTW2Nvd3+Pk5uTm5+jp6urr7PHy8/Lz9PP09PT19fj5+fz8/P39/f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAQAMgAAAj/AP8JHEiwoMGDCBMqXMiQYIUICiJKjBihAkGIFTJqrEAhgQOCCjZqpMARAUiRCUiSNDkw5EYEB0hKYCnQZYIDOHGuPKmywoECEirMBNmTAlCOEGj+C1m0wgQJSS8mcCpUKISkHwdWcICgq9euDiw2HEu2rNmzaNOqXcu2rdu3cOPKnUu3rt27ePPq3cu3r9+/gAMLHky4sOHDiBMrXsy4sePHkCNLnky5suXLmDNr3sxZc4UGBkKLDt1ArEDQIjNOILCAoIHUVCcMcC2SwASqswe+3jhAwO0HuQXuJiCgePHbwf+9vn1bQIAHFYC7Zu70uVMGyZfHFvoAO8EGBKpCE++OvbXWBQPSq0+/wHTn9/AJBgQAOw==)}div.post ul.postmetadata li a:link,div.post ul.postmetadata li a:visited{color:#00a200}div.post ul.postmetadata li a:hover{color:#333}div#sidebar{color:#666;font-size:12px;top:182px}div#sidebar a:link,div#sidebar a:visited{color:#06c}div#sidebar a:hover{color:#f30}div#sidebar h2{font-size:14px;color:#333;text-align:center;border-bottom:3px solid #ddd}div#sidebar div#sideRight{float:right;width:48%}div#sidebar div#sideLeft{float:left;width:48%}div#sidebar div#sideLeft h2,div#sidebar div#sideRight h2{background-color:#47505f;border-bottom:2px solid #2f353f;color:#fff;padding:5px 0;text-transform:uppercase;font-weight:normal}div#sidebar div#about h2{border-color:#dcd6b3;padding:5px 0 5px 0}div#sidebar div#about{background-color:#f8f8ee;border:1px solid #eee}div#sidebar div#about a{text-decoration:underline}div#sidebar div#about div{padding:5px}div#sidebar div#sideLeft ul li,div#sidebar div#sideRight ul li{border-bottom:1px solid #eee;padding:3px 0}div#sidebar div ul.folder li{overflow:hidden}div#sidebar div ul.folder li a{background-image:var(--sf-img-8);background-repeat:no-repeat;padding:3px 0 3px 20px}div#sidebar div ul.folder li a:hover{background-position:0-170px}div#sidebar div ul.date li a{background-image:url(data:image/gif;base64,R0lGODlhEADIAPcAAAAAAJIICJgcHLUKCrwfH70oKMcAAM8BAcwJCc4UFNADA9IHB9cAANwAANoLC9cSEtsUFNwREd0XF94bG94eHuYBAeEODu0DA+sPD+ESEvMTE+ImJugwMOk7O+N/f+d/f+t/f+1/f5GRkZWVlZiYmK6enqCgoK6hoaioqK+vr7m5uby8vL+/v8iDg8uNjdmCgtqGht2Pj96Tk8mzs8u1tc22ts64uOeBgeWEhOaJieiDg+yFheuIiO2Jie6Kiu2Li++OjvKAgPCGhvaAgPWHh/CIiPmJifGSkvOWlvOZmfSdncLCwsPDw8XFxcbGxsfHx8jIyMnJycrKysvLy8zMzM/Pz9bExNbOztDQ0NPT09bQ0NbW1tjY2Nvb29zc3N3d3d/f3+TZ2eXa2ubb2+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5urh4ejo6Ovr6+3t7e7u7u/v7/Dw8PHx8fLy8vPz8/X19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAQAMgAAAj/AP8JHEiwoMGDB81kIdNHYB81XMwQDOFBzJwwHkJQHDNHTEaBIXSskbPmxpAhN0au+RAC5A4tcK7kKCIEx5WYIFr+C0FEhosYQID44AGjxYsgOkMYUZIEyZEjQX/06DFEJ5o+WLNi3bPnTx80Aq9i1ZPGDpozXf74+Ro2a5otffjQYchnz5m2WbfU/TJHT547d/+JxaqXjhc4cN64CTy4j14wifv4gZMGb9Y9eeq48RPnT+V/X+5o5aOnThs4f+wKlAKmjOvXr82QkSIQC5TbuHPfpoKwt+/fwIMLH068uPHjyJMrX868ufPn0KNLn069uvXr2LNr3869u/fv4MOL/x9Pvrz58+jTq1/Pvr379/Djy59Pv779+/jz6//tBMWSPQLtUUUKThDUgAE0qDGDAQ0caIMaNTAoUAMLWHGGFQpccMEBFlpxQAMTOnACGSUkkIEFCJRAIgMg/tMABgUIQAAFE0jwwAABDFBBiw1o0AEHHGywAY0SQBDBBS1GwceSTNZ1xx1/8BGFQEouWccUb0jxhApqSUklk1OkgBkb/+mBBxRf7rFkCmauUBYdcKD5j5Jc7cEmGyqQAcYXXTyRJlcp5MECGV/w0QcZU1BZJ1d40NFGF32Y8Qdv/6wQh5pL5mGHG1yQ8ccdfv4zAgtMlGpqqU00scQIApkgwquwxgj6Kgn71WpeQAA7);background-repeat:no-repeat;padding:3px 0 3px 20px}div#sidebar div ul.date li a:hover{background-position:0-170px}div#sidebar div ul.voice li{overflow:hidden}div#sidebar div ul.voice li a{background-image:url(data:image/gif;base64,R0lGODlhFADIAPcAAAAAAFiHuFqIuVyKul+Mu2yVwG6XwW+XwnCYwnWcxHugx32iyIWny4mqzYuszpOx0Zm21J241aO92KnB2q3E3LTJ37XK4L7Q48TExMbGxsfHx8jIyM7Ozs/Pz9DQ0NPT09XV1dbW1tra2tvb29zc3N/f387c6trk79Dj/dHk/NDk/dPm/dXm/dfo/dzm8Nnp/dvq/dzq/d3r/t7s/uHh4ePj4+Xl5efn5+jo6Orq6uvr6+3t7efu9eDt/uLu/uTv/unv9uXw/uvx9+jx/uny/u/z+PLy8vX19fb29vf39/P3+vD2/vf5/Pj4+Pn5+fr6+vn7/Pv8/fz8/P39/f3+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAUAMgAAAj/AP8JHEiwoMGDCBMqXMiwYUMpJTJgmEgRgwgnCEncmFKlo8cqOTxMMSgFAxUpT1I6cdKkSRUQSAw+4VBFJcsmSZJUGWFEJs0nK1smQYJkZ8+CJakAFUq0aIgjBzVS8egEyROQIg9CpFij45MaHzAy7OCkhgYcDm3Q2KDD4T8nHXa4nUu3rt27ePPq3cu3r9+/gAMLHky4sOHDiBMrXsy4sePHkCNLnky5suXLmDNr3sy5s+fPoEOLHk26tOnTqFOrXs26tevXsGPLnu1ZyYMBAXLrDsCAB0IHE6J89FgBQRSDTARQWUIkyA8fM2DEqKLAhUEhBaoMCeKjR/QWLKo0TjBxPTv3HjJegFchnnzB5FSIzIjxgsUKFSmqLDhxEPjUjj6gQEQVxUFxkG0C5BZBR0VEkIBvDB3AQwQDUOCQBBAQYIFbQBhwAW0ghvhYQAA7);background-repeat:no-repeat;padding:3px 0 3px 20px}div#sidebar div ul.voice li a:hover{background-position:0-170px}div#sidebar div ul li a.child{background-image:url(data:image/gif;base64,R0lGODlhEADIAPcAAAAAAI2Njf///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAQAMgAAAh6AP8JHEiwoMGDCBMqXMiwocMADv8JiAjR4cSHES82DCCAo8eIIEOKHEmypMmTKFOqXMmypcuXMGPKnEmzps2bOHPq3Mmzp8+fQIMKHUq0qNGjSJMqXcq0qdOnUKNKnUq1qtWrWLOWBJAxIleLXrs6BCCArFmtaNP+DAgAOw==);background-repeat:no-repeat;padding:3px 0 3px 25px;display:block;color:#666}div#sidebar div ul li a.child:hover{color:#f30;background-position:0-170px}div#sidebar div#sideMain h2{padding:5px 0 5px 0}div#sidebar div#sideMain div{background-image:url(data:image/gif;base64,R0lGODlhAQA3ALMAAP7+//z9/fv6+/39/vz8/fr6+/v7/Pv7+/z8/P39/f////7+/gAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAABADcAAAQZUBVRyrn4mL2R/whBBERinuYwLGzrtoAiRwA7);background-position:0 26px;background-repeat:repeat-x}div#sidebar div#sideMain div ul li{border-bottom:1px solid #eee;padding:2px 0}#mySearchWrapper{margin:10px auto;background-color:#444;border:2px solid #333}#mySearch{border:1px solid #565656;padding:5px 0;text-align:center}.lb_search{background-image:url(data:image/gif;base64,R0lGODlhEgASAOYAAJS4Q5/CSZm9RmuYIHqoJVqDG1+KHYm2KYGvJ0RERGaSHneQLH6XMIapPYutQFtvHVFuEd7sPV14GrffFlRxFLvSfeT0nl5lQlJ+A1d8CcneiNrtl6zNUktVK4GlO3qdOHmdN7rZWrbXWIyyObHSVYauOLTbOZW4RXyMH3yhN5u9SdfrlL7VgZq1P1SBA6zeEdjlKXuULpifY97wm0ZGQs3ijN7wms/pZrnRe2dwRNrnL97qX9Hlj9zqNsHhHXKgIuDym1FxDOPwSrrhOZGzQkdHRaHCTKfIT9LsaHONKHSpBk94BG6JJeXyUWqFI01mEsbchoiUVM3jIkxYKFhzF6THMWWAH6HRDtXtTnuRNsLZg9TnkbnXW2F8HOHynOf0V4CmN+HuRKvKQbngOVN/A7HSU6vNUI6yQaXITeLznH2iN7bYVomtPcTlXrvdWcDhXIGlOYWpO////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAASABIAAAfWgEVRYkNjhoeIJi05CTJYSBZpkpOUXjNVFzs3QG2dnp+eXFlfNm+mp6ioIQxNG26vsLGxIjFCK2u4uWtyvLokC2FbZcPEcmUHB8bDHEkRPGbQ0XII0NPQR0w9NWjc3XIE3N/cRk46GgHo6LzrAT/oKlYwUAL0AusD+AP1J11SWgAA1ylQALAgACISfLA4w5CXAQMMIzJ0QGVCBTYY2RQokLEjmwYUXuCIQ7KkSZMeIFwZAaely5cvPzxBoaQEGDU4c+pMAWJJBxoPMrggQ7SoUQxBpiQIBAA7);background-position:0 0;background-repeat:no-repeat;text-indent:-9000em;padding:2px 0 10px 25px;height:14px}#mySearch input.keyword{font-size:11px;padding:2px;width:72%}#mySearch .submit{margin:0 5px 0 0;padding:0;width:70px;height:21px;position:relative;float:right}#newmsg{color:#f00;position:absolute;right:12px;padding-top:5px}.Cal{width:100%;height:200px}#BlogPostCategory{margin-bottom:0}@media only screen and (max-width:767px){div#sidebar{position:static;top:auto;right:auto;width:auto}div#content{margin-right:0}ul#topMnu{display:none}div#header{height:auto;width:100%}div#container{min-width:auto}div#header h1{font-size:32px;line-height:1.2;letter-spacing:normal;padding:30px 0 10px 0;width:100%;text-overflow:ellipsis}div.post h2{font-size:16px}div.post small{text-align:left}div#wrapper{overflow:visible}ul#menu{margin-top:5px;line-height:1}ul#menu li#rss a{margin-top:15px}}</style>
+<style media="only screen and (max-width: 767px)">body{font-size:14px!important;-webkit-text-size-adjust:none}#blog_nav_rss{display:none!important}#green_channel{width:100%}#cnblogs_c1{text-align:center;margin:10px auto 0 auto}#cnblogs_c1{width:300px}.commentform{margin-left:10px}</style>
+<link type=application/rss+xml rel=alternate href=https://www.cnblogs.com/zhouej/rss>
+<link type=application/rsd+xml rel=EditURI href=https://www.cnblogs.com/zhouej/rsd.xml>
+<link type=application/wlwmanifest+xml rel=wlwmanifest href=https://www.cnblogs.com/zhouej/wlwmanifest.xml>
+<link id=favicon rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJwcmVmaXhfX2NsaXAtcGF0aCI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9InByZWZpeF9fY2xpcC1wYXRoLTIiPjxwYXRoIGNsYXNzPSJwcmVmaXhfX2Nscy0xIiBkPSJNMjAuOTIgMy40NmE0LjI1IDQuMjUgMCAwMS4zMSA1Ljg2IDMuOTEgMy45MSAwIDAxLTUuNjYuMjQgNC4yNSA0LjI1IDAgMDEtLjMxLTUuODYgMy45MSAzLjkxIDAgMDE1LjY2LS4yNG0xLjM1LTEuNTRhNS44OSA1Ljg5IDAgMDAtOC41My4zNiA2LjQxIDYuNDEgMCAwMC40OCA4LjgzIDUuOTEgNS45MSAwIDAwOC41My0uMzYgNi40MSA2LjQxIDAgMDAtLjQ4LTguODN6Ii8+PC9jbGlwUGF0aD48c3R5bGU+LnByZWZpeF9fY2xzLTF7ZmlsbDojM2UzYTM5fUBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7LnByZWZpeF9fY2xzLTF7ZmlsbDojZWZlZmVmfX08L3N0eWxlPjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiPjxnIGlkPSJwcmVmaXhfX2xheWVyXzEiIGRhdGEtbmFtZT0ibGF5ZXIgMSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PGcgY2xpcC1wYXRoPSJ1cmwoI3ByZWZpeF9fY2xpcC1wYXRoKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48cGF0aCBjbGFzcz0icHJlZml4X19jbHMtMSIgZD0iTTIwLjkyIDMuNDZhNC4yNSA0LjI1IDAgMDEuMzEgNS44NiAzLjkxIDMuOTEgMCAwMS01LjY2LjI0IDQuMjUgNC4yNSAwIDAxLS4zMS01Ljg2IDMuOTEgMy45MSAwIDAxNS42Ni0uMjRtMS4zNS0xLjU0YTUuODkgNS44OSAwIDAwLTguNTMuMzYgNi40MSA2LjQxIDAgMDAuNDggOC44MyA1LjkxIDUuOTEgMCAwMDguNTMtLjM2IDYuNDEgNi40MSAwIDAwLS40OC04LjgzeiIvPjxnIGNsaXAtcGF0aD0idXJsKCNwcmVmaXhfX2NsaXAtcGF0aC0yKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" type=image/svg+xml><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="skin-minyx2_lite has-navbar">
+<a name=top></a>
+<div id=top_nav class="navbar forpc sf-hidden">
+ 
+</div>
+<div id=container>
+ <a class=minyx href=https://www.cnblogs.com/>代码改变世界</a>
+ <ul id=topMnu>
+ 
+ <li>
+ Posts - 4, 
+Articles - 0, 
+Comments - 3,
+Views - 
+<span title="总阅读数: 49611">
+49611</span>
+ </li>
+ 
+ 
+ <li><a href=https://www.cnblogs.com/>Cnblogs</a></li>
+ 
+ <li id=topMnu-dashboard>
+ <a id=lnkDashboard href=https://i.cnblogs.com/>Dashboard</a>
+ </li>
+ <li>
+ 
+ <a id=lnkLogin href="https://account.cnblogs.com/signin?returnUrl=https://www.cnblogs.com/zhouej/">Login</a>
+ </li>
+ </ul>
+ 
+ <div id=header>
+ <ul id=menu>
+ 
+ <li id=menu-home class=current>
+ <a id=lnkHome href=https://www.cnblogs.com/zhouej/>Home</a></li>
+ 
+ <li id=menu-contact>
+ <a id=lnkContact href=https://msg.cnblogs.com/send/Ju6y>Contact</a></li>
+ 
+ <li id=menu-gallary>
+ <a id=lnkGallery href=https://www.cnblogs.com/zhouej/gallery.html>Gallery</a></li>
+ 
+ <li id=menu-subscribe>
+ <a id=blog_nav_rss data-rss=https://www.cnblogs.com/zhouej/rss/>Subscribe</a></li>
+ 
+ <li id=rss>
+ <a id=lnkRss href=https://www.cnblogs.com/zhouej/rss/>RSS</a></li>
+ </ul>
+ <div id=newmsg></div>
+ <h1>
+ 
+ <a id=lnkBlogTitle href=https://www.cnblogs.com/zhouej/>iBlog</a>
+ 
+ <small>
+ 
+ </small>
+ </h1>
+ </div>
+ 
+ <div id=wrapper>
+ <div id=content>
+ 
+ <div id=post_detail>
+<div class=post id=post>
+ <a name=top></a>
+ <h2>
+<a id=cb_post_title_url class="postTitle2 vertical-middle" href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>
+ <span role=heading aria-level=2>uWSGI配置文档翻译</span>
+ 
+</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button>
+</h2>
+ <small>
+<span id=post-date>2012-03-25 22:30</span>&nbsp;
+<a href=https://www.cnblogs.com/zhouej/>Ju6y</a>&nbsp;
+阅读(<span id=post_view_count>41959</span>)&nbsp;
+评论(<span id=post_comment_count>2</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=2379646" rel=nofollow>编辑</a>&nbsp;
+<a>收藏</a>&nbsp;
+<a>举报</a></small>
+ <div class=entry>
+ <div id=cnblogs_post_body class="blogpost-body blogpost-body-html">
+<div class="wikipage searchable">
+<div id=header><a id=logo href=http://projects.unbit.it/uwsgi/wiki rel=noopener><img src=data:, alt="uWSGI logo"></a></div>
+<form id=search action=/uwsgi/search>
+<div>&nbsp;</div>
+</form>
+<div class="wikipage searchable">原文地址：<a href=http://projects.unbit.it/uwsgi/wiki/Doc rel=noopener>http://projects.unbit.it/uwsgi/wiki/Doc</a></div>
+<h1><strong>uWSGI参考资料（1.0版本的配置选项列表）</strong><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h1>
+<p>下面的内容包含了大部分uWSGI的配置选项，这些配置选项的列举没有特定的顺序。每一个选项都可以使用在任何一种支持的配置方式里（如命令行参数、环境变量、xml文件、ini文件、yaml格式文件以及LDAP）。有些选项的使用需要某些插件的支持，这些插件的名字都会在文档里有说明。</p>
+<p>文档中的例子使用了多种形式的配置方式来让使用者更好的理解uwsgi的工作方式。</p>
+<p>如果你刚开始接触uWSGI，你最好是先看一下<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Quickstart rel=noopener>快速开始</a> 和 <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Example rel=noopener>例子</a> ，这些对实际使用过程的中的一些选项做了举例说明，另外下面列举的非常多的配置选项说明对于新手的阅读可能有一点吃力。</p>
+<h2><strong>配置风格的简单介绍</strong><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h2>
+<p>当使用某一种配置风格或者将一种风格转换另一个风格时，需要注意一下规则：</p>
+<p><strong>命令行参数</strong>（command line args）：需要给选项增加“--”前缀</p>
+<p>例如socket选项：</p>
+<div class=cnblogs_code>
+<pre>--socket &lt;path/address&gt;</pre>
+</div>
+<p><strong>环境变量</strong>（environment variable）：选项名都要换成大写，并且加上“UWSGI_”前缀，所有原来选项名中的“-”都要换成下划线“_”</p>
+<p>例如max-vars选项将变成：</p>
+<div class=cnblogs_code>
+<pre>UWSGI_MAX_VARS=<span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>&lt;n&gt;</span><span style=color:rgba(128,0,0,1)>"</span></pre>
+</div>
+<p><strong>xml文件</strong>：xml文件中的根结点应该是&lt;uwsgi&gt;，所有的选项值是作为文本节点。标识符类型的选项可以没有对应的值。</p>
+<p>socket选项和master选项可以如下配置：</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>socket</span><span style=color:rgba(0,0,255,1)>&gt;</span>127.0.0.1:3031<span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>socket</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>master</span><span style=color:rgba(0,0,255,1)>/&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p><strong>ini文件</strong>：配置域应该是uwsgi，标识符类型的选项的值可以设为true或者1。</p>
+<p>socket选项和master选项可以如下配置：</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>socket = <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>3031</span><br>master = <span style=color:rgba(0,0,255,1)>true</span></pre>
+</div>
+<p><strong>yaml格式文件</strong>：根元素需要设置为uwsgi，标识符类型的选项的值可以设为true或者1。</p>
+<p>socket选项和master选项可以如下配置：</p>
+<div class=cnblogs_code>
+<pre>uwsgi:<br>  socket: <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span><br>  master: <span style=color:rgba(128,0,128,1)>1</span></pre>
+</div>
+<p>lda格式：这个格式比较复杂，你应该查阅专门的wiki文档。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/useLDAP rel=noopener>useLDAP</a>。</p>
+<h2><strong>无尽的选项列表...</strong><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h2>
+<p>深呼吸，现在我们开始。</p>
+<h3 id=socketoruwsgi-socket><a name=socket rel=noopener></a><a href=#socket rel=noopener>socket or uwsgi-socket</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>指定uwsgi的客户端将要连接的socket的路径（使用UNIX socket的情况）或者地址（使用网络地址的情况）。你最多可以同时指定8个socket选项。当使用命令行变量时，可以使用“-s”这个缩写。</p>
+<div class=cnblogs_code>
+<pre>--socket /tmp/uwsgi.sock</pre>
+</div>
+<p>以上配置将会绑定到 /tmp/uwsgi.sock 指定的UNIX socket</p>
+<div class=cnblogs_code>
+<pre>-s <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>1717</span></pre>
+</div>
+<p>以上配置会绑定到ipv4地址127.0.0.1的1717端口</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>socket = <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>1717</span><br>socket = <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>2626</span></pre>
+</div>
+<p>以上配置会绑定到ipv4地址127.0.0.1的1717端口以及ipv4地址127.0.0.1的2626端口。</p>
+<h3 id=protocol><a href=#protocol rel=noopener>protocol</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置默认的通信协议（uwsgi，http，fastcgi）</p>
+<div class=cnblogs_code>
+<pre>--protocol &lt;protocol&gt;</pre>
+</div>
+<h3 id=processesorworkers><a name=processe rel=noopener></a><a href=#processe rel=noopener>processes or workers</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为预先派生模式设置工作进程的数量。这个设置是你的app能实现简单并且安全的并发能力的基础。你设置的工作进程越多，你就能越快的处理请求。每一个工作进程都等同于一个系统进程，它消耗内存，所以需要小心设置工作进程的数量。如果你设置的数量太多，就有可能是系统崩溃。</p>
+<p>当你使用命令行参数时，你可以使用简化命令“-p”</p>
+<div class=cnblogs_code>
+<pre>--processes <span style=color:rgba(128,0,128,1)>8</span></pre>
+</div>
+<p>以上配置会产生8个工作进程</p>
+<div class=cnblogs_code>
+<pre>--workers <span style=color:rgba(128,0,128,1)>4</span></pre>
+</div>
+<p>以上配置会产生4个工作进程</p>
+<div class=cnblogs_code>
+<pre>-p <span style=color:rgba(128,0,128,1)>8</span> </pre>
+</div>
+<p>以上会产生8个工作进程</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>workers</span><span style=color:rgba(0,0,255,1)>&gt;</span>3<span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>workers</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>这个配置会产生3个工作进程</p>
+<h3 id=harakiri><a name=harakiri rel=noopener></a><a href=#harakiri rel=noopener>harakiri</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项会设置harakiri超时时间（可以看wiki首页的相关内容）。如果一个请求花费的时间超过了这个harakiri超时时间，那么这个请求都会被丢弃，并且当前处理这个请求的工作进程会被回收再利用（即重启）。</p>
+<div class=cnblogs_code>
+<pre>--harakiri <span style=color:rgba(128,0,128,1)>60</span></pre>
+</div>
+<p>这个设置会使uwsgi丢弃所有需要60秒才能处理完成的请求。</p>
+<h3 id=harakiri-verbose><a name=harakiri-verbose rel=noopener></a><a href=#harakiri-verbose rel=noopener>harakiri-verbose</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>When a request is killed by harakiri you will get a message in the uWSGI log. Enabling this option will print additional info (for example in Linux will be reported the current syscall)</p>
+<p>当一个请求被harakiri杀掉以后，你将在uWSGI日志中得到一条消息。激活这个选项会打印出额外的信息（例如，在linux中会打印出当前的syscall）。</p>
+<div class=cnblogs_code>
+<pre>--harakiri-verbose</pre>
+</div>
+<p>以上配置会开启harakiri的额外信息。</p>
+<h3 id=spooler-harakiri><a name=spooler-harakiri rel=noopener></a><a href=#spooler-harakiri rel=noopener>spooler-harakiri</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set the harakiri mode for spooler tasks</p>
+<p>为spooler任务设置harakiri模式</p>
+<div class=cnblogs_code>
+<pre>--spooler-harakiri &lt;n&gt; option</pre>
+</div>
+<h3 id=mule-harakiri><a name=mule-harakiri rel=noopener></a><a href=#mule-harakiri rel=noopener>mule-harakiri</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为mule进程设置harakiri模式</p>
+<div class=cnblogs_code>
+<pre>--mule-harakiri &lt;n&gt;</pre>
+</div>
+<h3 id=xmlconfigorxml><a name=xml rel=noopener></a><a href=#xml rel=noopener>xmlconfig or xml</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>加载指定的xml配置文件。当使用命令行参数时，可以使用简化命令“-x”。在xml配置文件中，你可以有多个“&lt;uwsgi&gt;”节，不同的节之间用id属性区分。通过在文件名后面增加id（使用冒号分隔）来选择应用哪个“&lt;uwsgi&gt;”节。</p>
+<div class=cnblogs_code>
+<pre>--xml /etc/myapp.xml</pre>
+</div>
+<p>以上配置会加载/etc/myapp.xml这个配置文件。</p>
+<div class=cnblogs_code>
+<pre>--xml /etc/myapp.xml:django</pre>
+</div>
+<p>以上命令会使用/etc/myapp.xml这个配置文件中的“django”这个节作为配置选项</p>
+<p>这个文件内容可以像如下这样：</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>all_the_apps</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><br>  <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi </span><span style=color:rgba(255,0,0,1)>id</span><span style=color:rgba(0,0,255,1)>="turbogears"</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>socket</span><span style=color:rgba(0,0,255,1)>&gt;</span>/tmp/tg.sock<span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>socket</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>  <span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><br>  <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi </span><span style=color:rgba(255,0,0,1)>id</span><span style=color:rgba(0,0,255,1)>="django"</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>socket</span><span style=color:rgba(0,0,255,1)>&gt;</span>/tmp/django.sock&gt;<br>  <span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>all_the_apps</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>这种情况下，根节点可以是任何你想要的名字（这就允许你可以将uwsgi这个配置节加到其他xml文件中）</p>
+<p>如果在命令行的最后一个参数以“.xml”结尾，那么就隐含将加载该xml文件作为配置。</p>
+<div class=cnblogs_code>
+<pre>/usr/bin/uwsgi /etc/myapp.xml</pre>
+</div>
+<p>以上命令会使uWSGI自动加载 /etc/myapp.xml配置文件。</p>
+<h3 id=set><a name=set rel=noopener></a><a href=#set rel=noopener>set</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置一个占位符</p>
+<div class=cnblogs_code>
+<pre>--<span style=color:rgba(0,0,255,1)>set</span> KEY=VALUE</pre>
+</div>
+<h3 id=daemonize><a name=daemonize rel=noopener></a><a href=#daemonize rel=noopener>daemonize</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>使进程在后台运行，并将日志打到指定的日志文件或者udp服务器</p>
+<div class=cnblogs_code>
+<pre>--daemonize /<span style=color:rgba(0,0,255,1)>var</span>/log/uwsgi.log</pre>
+</div>
+<p>这个指令会让uWSGI在后台运行并将日志打到 /var/log/uwsgi.log文件中。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>daemonize = <span style=color:rgba(128,0,128,1)>192.168</span>.<span style=color:rgba(128,0,128,1)>0.100</span>:<span style=color:rgba(128,0,128,1)>4000</span></pre>
+</div>
+<p>这个配置将会使uWSGI在后台运行，并且将日志消息发送给监听192.168.0.100：4000这个地址的udp服务器。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/UdpLogging rel=noopener>UdpLogging</a>。</p>
+<h3 id=stop><a name=stop rel=noopener></a><a href=#stop rel=noopener>stop</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>发送一个SIGINT信号给&lt;pidfile&gt;文件中的pid标识的uWSGI</p>
+<div class=cnblogs_code>
+<pre>--stop &lt;pidfile&gt;</pre>
+</div>
+<h3 id=reload><a name=reload rel=noopener></a><a href=#reload rel=noopener>reload</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>发送一个SIGHUP信号给&lt;pidfile&gt;文件中的pid标识的uWSGI</p>
+<div class=cnblogs_code>
+<pre>--reload &lt;pidfile&gt;</pre>
+</div>
+<h3 id=listen><a name=listen rel=noopener></a><a href=#listen rel=noopener>listen</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置socket的监听队列大小（默认：100）。</p>
+<p>每一个socket都有一个相关联的队列，请求会被放入其中等待进程来处理。当这个队列慢的时候，新来的请求就会被拒绝。</p>
+<p>队列大小的最大值依赖于系统内核。</p>
+<h3 id=max-vars><a name=max-vars rel=noopener></a><a href=#max-vars rel=noopener>max-vars</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置uwsgi客户端能够传递给uwsgi的变量的最大数量值。这只是一个安全相关的值，大多数情况下你是不需要设置它的。</p>
+<h3 id=buffer-size><a name=buffer-size rel=noopener></a><a href=#buffer-size rel=noopener>buffer-size</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置用于uwsgi包解析的内部缓存区大小。默认是4k。</p>
+<p>如果你打算接受一个拥有很多请求头的大请求，你可以增加这个值到64k。</p>
+<div class=cnblogs_code>
+<pre>--buffer-size <span style=color:rgba(128,0,128,1)>32768</span></pre>
+</div>
+<p>这个命令会允许uWSGI服务器接收最大为32k的uwsgi包，再大的包就会被拒绝。</p>
+<h3 id=memory-report><a name=memory-report rel=noopener></a><a href=#memory-report rel=noopener>memory-report</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>enable memory usage report. This will print in the request log information about RSS and address space usage.</p>
+<p>开启内存使用情况报告。这将打印请求相关的内存和虚拟内存的使用情况。</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>memory-report</span><span style=color:rgba(0,0,255,1)>/&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<h3 id=cgi-mode><a name=cgi-mode rel=noopener></a><a href=#cgi-mode rel=noopener>cgi-mode</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启cgi模式。响应将不再是HTTP可用的响应，而是cgi响应（会增加Status：这个请求头）</p>
+<h3 id=abstract-socket><a name=abstract-socket rel=noopener></a><a href=#abstract-socket rel=noopener>abstract-socket</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=chmod-socketorchmod><a name=chmod-socket rel=noopener></a><a href=#chmod-socket rel=noopener>chmod-socket or chmod</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>unix socket是个文件，所以会受到unix系统的权限限制。如果你的uwsgi客户端没有权限访问uWSGI socket，你可以用这个选项设置unix socket的权限。</p>
+<p>当在xml配置文件中只是用这个选项作为一个标识符，那么会将权限设为666，否则就是设置为指定的权限值。</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>chmod-socket</span><span style=color:rgba(0,0,255,1)>/&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>这个配置会将socket文件的权限设为666</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>chmod-socket</span><span style=color:rgba(0,0,255,1)>&gt;</span>644<span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>chmod-socket</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>这个配置会将socket文件的权限设为644</p>
+<h3 id=freebindLinuxonly><a name=freebind rel=noopener></a><a href=#freebind rel=noopener>freebind (Linux only)</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>允许绑定到一个不存在的网络地址。</p>
+<h3 id=map-socket><a name=map-socket rel=noopener></a><a href=#map-socket rel=noopener>map-socket</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>当你将一个uWSGI实例绑定到多个socket，你可以指定某些工作进程到某些socket来提高服务质量。</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre>[uwsgi]<br>socket = /tmp/uwsgi0.sock<br>socket = /tmp/uwsgi1.sock<br>workers = 5<br>map-socket = 0:1,2,3<br>map-socket = 1:4,5</pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>这个配置会使工作进程1,2和3绑定到第一个socket，而工作进程4和5绑定到第二个socket。</p>
+<p>如果你让多个app都由同一个uWSGI实例来处理，你可以很方便地为每一个app分配资源。</p>
+<h3 id=enable-threads><a name=enable-threads rel=noopener></a><a href=#enable-threads rel=noopener>enable-threads</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>允许用内嵌的语言启动线程。这将允许你在app程序中产生一个子线程。</p>
+<h3 id=single-interpreter><a name=single-interpreter rel=noopener></a><a href=#single-interpreter rel=noopener>single-interpreter</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>一些语言（比如python）有“多解释器”的概念。他们允许在同一个进程中独立存在不同的app。如果你不想用这个特性，你可以使用该选项。</p>
+<h3 id=auto-procname><a name=auto-procname rel=noopener></a><a href=#auto-procname rel=noopener>auto-procname</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项将自动给uWSGI的进程设置一些有意义的名字，例如“uWSGI master”， “uWSGI worker 1”， “uWSGI worker 2”。</p>
+<h3 id=procname-prefix><a name=procname-prefix rel=noopener></a><a href=#procname-prefix rel=noopener>procname-prefix</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项为进程名指定前缀。</p>
+<div class=cnblogs_code>
+<pre>--procname-prefix <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>value</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p id=procname-prefix-spaced>例如：</p>
+<div class=cnblogs_code>
+<pre>--procname-prefix test</pre>
+</div>
+<p>那么，进程名将变成“testuWSGI master”、“testuWSGI worker 1”、“testuWSGI worker 2”等，test与uWSGI之间是连在一起的，可读性较差。</p>
+<h3><a name=procname-prefix-spaced rel=noopener></a><a href=#procname-prefix-spaced rel=noopener>procname-prefix-spaced</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>用这个选项给进程名指定前缀时，前缀和进程名之间有空格分隔。</p>
+<div class=cnblogs_code>
+<pre>--procname-prefix-spaced <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>value</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p id=wikipage>例如：</p>
+<div class=cnblogs_code>
+<pre>--procname-prefix-spaced test</pre>
+</div>
+<p>那么，进程名将变成“test uWSGI master”、“test uWSGI worker 1”、“test uWSGI worker 2”等，比procname-prefix的可读性好一点。</p>
+<p>多次使用，后一次使用将覆盖前一次，即以最后一次使用为准。</p>
+<h3 id=procname-append><a name=procname-append rel=noopener></a><a href=#procname-append rel=noopener>procname-append</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项为进程名增加指定的后缀。</p>
+<div class=cnblogs_code>
+<pre>--procname-append <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>value</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>例如：</p>
+<div class=cnblogs_code>
+<pre>--procname-append test</pre>
+</div>
+<p>那么，进程名将变成“uWSGI mastertest”、“uWSGI worker 1test”、“uWSGI worker 2test”等，test与master或者1、2是连在一起的，可读性也比较差。</p>
+<p>多次使用，后一次使用将覆盖前一次，即以最后一次使用为准。</p>
+<h3 id=procname><a name=procname rel=noopener></a><a href=#procname rel=noopener>procname</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为进程指定名字。</p>
+<div class=cnblogs_code>
+<pre>--procname <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>value</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>例如：</p>
+<div class=cnblogs_code>
+<pre>--procname test</pre>
+</div>
+<p>那么，所有进程的名字（包括主进程和工作进程）都变成了“test”。只能根据PPID来判断哪个是主进程（主进程的PPID为1）。</p>
+<p>注意，使用<a href=#procname-prefix rel=noopener>procname-prefix</a>、<a href=#procname-prefix-spaced rel=noopener>procname-prefix-spaced</a>以及<a href=#procname-append rel=noopener>procname-append</a>都能在当前选项修改生效的基础上增加前缀和后缀。</p>
+<p>多次使用，后一次使用将覆盖前一次，即以最后一次使用为准。</p>
+<h3 id=procname-master><a name=procname-master rel=noopener></a><a href=#procname-master rel=noopener>procname-master</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>指定主进程的名字。</p>
+<div class=cnblogs_code>
+<pre>--procname-master <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>value</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<p>例如：</p>
+<div class=cnblogs_code>
+<pre>--procname-master test</pre>
+</div>
+<p>那么，主进程的名字就变成了“test”。<br>注意，使用<a href=#procname-prefix rel=noopener>procname-prefix</a>、<a href=#procname-prefix-spaced rel=noopener>procname-prefix-spaced</a>以及<a href=#procname-append rel=noopener>procname-append</a>都能在当前选项修改生效的基础上增加前缀和后缀。</p>
+<p>多次使用，后一次使用将覆盖前一次，即以最后一次使用为准。</p>
+<p>另外，该选项将覆盖<a href=#procname rel=noopener>procname</a>对主进程名字的修改。所有可以把procname和procname-master配合使用，达到修改所有进程的名字的同时又能将主进程和工作进程区分开的效果。</p>
+<h3 id=master><a name=master rel=noopener></a><a href=#master rel=noopener>master</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>启动主进程。</p>
+<h3 id=emperor><a name=emperor rel=noopener></a><a href=#emperor rel=noopener>emperor</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启uWSGI的<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Emperor rel=noopener>Emperor</a>模式。</p>
+<h3 id=emperor-tyrant><a name=emperor-tyrant rel=noopener></a><a href=#emperor-tyrant rel=noopener>emperor-tyrant</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启emperor的tyrant模式。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Emperor#tyrant rel=noopener>tyrant</a>。</p>
+<h3 id=emperor-statsoremperor-stats-server><a name=emperor-stats rel=noopener></a><a href=#emperor-stats rel=noopener>emperor-stats or emperor-stats-server</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为emperor模式开启一个uWSGI的统计服务器。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/StatsServer rel=noopener>stats server</a>。</p>
+<div class=cnblogs_code>
+<pre>--emperor-stats &lt;addr&gt;</pre>
+</div>
+<h3 id=early-emperor><a name=early-emperor rel=noopener></a><a href=#early-emperor rel=noopener>early-emperor</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>start the emperor before jailing and privileges drop</p>
+<h3 id=emperor-broodlord><a name=emperor-broodlord rel=noopener></a><a href=#emperor-broodlord rel=noopener>emperor-broodlord</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为emperor开启bloodlord模式。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Broodlord rel=noopener>broodlord</a>。</p>
+<h3 id=emperor-amqp-vhost><a name=emperor-amqp-vhost rel=noopener></a><a href=#emperor-amqp-vhost rel=noopener>emperor-amqp-vhost</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set virtualhost name in AMQP emperor mode</p>
+<h3 id=emperor-amqp-username><a name=emperor-amqp-username rel=noopener></a><a href=#emperor-amqp-username rel=noopener>emperor-amqp-username</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set username name in AMQP emperor mode</p>
+<h3 id=emperor-amqp-password><a name=emperor-amqp-password rel=noopener></a><a href=#emperor-amqp-password rel=noopener>emperor-amqp-password</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set password name in AMQP emperor mode</p>
+<h3 id=emperor-throttle><a name=emperor-throttle rel=noopener></a><a href=#emperor-throttle rel=noopener>emperor-throttle</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set the number of milliseconds (default 1000) to wait before each vassal's fork()</p>
+<h3 id=vassals-start-hook><a name=vassals-start-hook rel=noopener></a><a href=#vassals-start-hook rel=noopener>vassals-start-hook</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>&lt;filename&gt; will be executed when the emperor starts the vassals</p>
+<div class=cnblogs_code>
+<pre>--vassals-start-hook &lt;filename&gt;</pre>
+</div>
+<h3 id=vassals-stop-hook><a name=vassals-stop-hook rel=noopener></a><a href=#vassals-stop-hook rel=noopener>vassals-stop-hook</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>&lt;filename&gt; will be executed when the emperor stop the vassals</p>
+<div class=cnblogs_code>
+<pre>--vassals-stop-hook &lt;filename&gt;</pre>
+</div>
+<h3 id=auto-snapshot><a name=auto-snapshot rel=noopener></a><a href=#auto-snapshot rel=noopener>auto-snapshot</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>UNKNOWN</p>
+<div class=cnblogs_code>
+<pre>--auto-snapshot <span style=color:rgba(128,0,128,1)>1</span></pre>
+</div>
+<h3 id=reload-mercy><a name=reload-mercy rel=noopener></a><a href=#reload-mercy rel=noopener>reload-mercy</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置在平滑的重启（直到接收到的请求处理完才重启）一个工作子进程中，等待这个工作结束的最长秒数。</p>
+<div class=cnblogs_code>
+<pre>--reload-mercy <span style=color:rgba(128,0,128,1)>8</span></pre>
+</div>
+<p>这个配置会使在平滑地重启工作子进程中，如果工作进程结束时间超过了8秒就会被强行结束（忽略之前已经接收到的请求而直接结束）。</p>
+<h3 id=exit-on-reload><a name=exit-on-reload rel=noopener></a><a href=#exit-on-reload rel=noopener>exit-on-reload</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>迫使在重启过程中结束uWSGI的栈。这个选项只在某系特殊情况有用。</p>
+<h3 id=helporusage><a name=help rel=noopener></a><a href=#help rel=noopener>help or usage</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>打印帮助信息到标准输出，然后退出。</p>
+<h3 id=reaper><a name=reaper rel=noopener></a><a href=#reaper rel=noopener>reaper</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启reaper模式。没处理一个请求，服务器就会调用waitpid(-1)来清除所有的僵尸进程。如果你在你的app中生成了子进程，结束后又成为了很多僵尸进程，那么你可以开启这个选项。但遇到这种情况你更应该修复你这种子进程的使用方式（如果可以的话）。</p>
+<h3 id=max-requests><a name=max-requests rel=noopener></a><a href=#max-requests rel=noopener>max-requests</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为每个工作进程设置请求数的上限。当一个工作进程处理的请求数达到这个值，那么该工作进程就会被回收重用（重启）。你可以使用这个选项来默默地对抗内存泄漏（尽管这类情况使用reload-on-as和reload-on-rss选项更有用）。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>max-requests = <span style=color:rgba(128,0,128,1)>1000</span></pre>
+</div>
+<p>上述配置设置工作进程没处理1000个请求就会被回收重用。</p>
+<h3 id=socket-timeout><a name=socket-timeout rel=noopener></a><a href=#socket-timeout rel=noopener>socket-timeout</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为所有的socket操作设置内部超时时间（默认4秒）。</p>
+<div class=cnblogs_code>
+<pre>--socket-timeout <span style=color:rgba(128,0,128,1)>10</span></pre>
+</div>
+<p>这个配置会结束那些处于不活动状态超过10秒的连接。</p>
+<h3 id=locks><a name=locks rel=noopener></a><a href=#locks rel=noopener>locks</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>create &lt;n&gt; locks for you to use. see <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Locks rel=noopener>locks</a></p>
+<p>创建n个锁以供使用。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Locks rel=noopener>locks</a>。</p>
+<div class=cnblogs_code>
+<pre>--locks &lt;n&gt;</pre>
+</div>
+<h3 id=sharedarea><a name=sharedarea rel=noopener></a><a href=#sharedarea rel=noopener>sharedarea</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项将开启<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/SharedArea rel=noopener>SharedArea</a>。这将允许一个比较低级的内存共享。如果你希望用一个更好用更友好的共享系统，可以看<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/CachingFramework rel=noopener>CachingFramework</a>。</p>
+<div class=cnblogs_code>
+<pre>--sharedarea <span style=color:rgba(128,0,128,1)>10</span></pre>
+</div>
+<p>这个配置将创建一个10个页的共享内存区。</p>
+<h3 id=cache><a name=cache rel=noopener></a><a href=#cache rel=noopener>cache</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启共享cache。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/CachingFramework rel=noopener>CachingFramework</a>。</p>
+<h3 id=cache-blocksize><a name=cache-blocksize rel=noopener></a><a href=#cache-blocksize rel=noopener>cache-blocksize</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置cache的块大小，默认为65536字节。最好设置为4096的倍数。</p>
+<h3 id=cache-store><a name=cache-store rel=noopener></a><a href=#cache-store rel=noopener>cache-store</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启该选项，使uWSGI的cache中的内容能够被长久的保存。</p>
+<h3 id=cache-store-sync><a name=cache-store-sync rel=noopener></a><a href=#cache-store-sync rel=noopener>cache-store-sync</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置msync()这个函数的调用频率，调用msync()这个函数能够将cache中的内容写到磁盘上。</p>
+<h3 id=queue><a name=queue rel=noopener></a><a href=#queue rel=noopener>queue</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>UNDOCUMENTED</p>
+<h3 id=queue-blocksize><a name=queue-blocksize rel=noopener></a><a href=#queue-blocksize rel=noopener>queue-blocksize</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>UNDOCUMENTED</p>
+<h3 id=queue-store><a name=queue-store rel=noopener></a><a href=#queue-store rel=noopener>queue-store</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>UNDOCUMENTED</p>
+<h3 id=queue-store-sync><a name=queue-store-sync rel=noopener></a><a href=#queue-store-sync rel=noopener>queue-store-sync</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>UNDOCUMENTED</p>
+<h3 id=spooler><a name=spooler rel=noopener></a><a href=#spooler rel=noopener>spooler</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在指定的目录下建立一个<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Spooler rel=noopener>Spooler</a>。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>spooler = /home/foo/spooler</pre>
+</div>
+<p>这个配置会将spooler文件保存到/home/foo/spooler directory目录下。</p>
+<h3 id=spooler-chdir><a name=spooler-chdir rel=noopener></a><a href=#spooler-chdir rel=noopener>spooler-chdir</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这个选项允许你为每一个spooler任务定义一个公共的目录。</p>
+<div class=cnblogs_code>
+<pre>--spooler-chdir &lt;directory&gt;</pre>
+</div>
+<h3 id=mule><a name=mule rel=noopener></a><a href=#mule rel=noopener>mule</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>增加一个mule进程。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Mules rel=noopener>Mules</a>。</p>
+<h3 id=disable-logging><a name=disable-logging rel=noopener></a><a href=#disable-logging rel=noopener>disable-logging</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>不记录请求信息的日志。只记录错误以及uWSGI内部消息到日志中。</p>
+<h3 id=pidfile><a name=pidfile rel=noopener></a><a href=#pidfile rel=noopener>pidfile</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在失去权限前，将pid写到指定的pidfile文件中。</p>
+<h3 id=pidfile2><a name=pidfile2 rel=noopener></a><a href=#pidfile2 rel=noopener>pidfile2</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在失去权限后，将pid写到指定的pidfile文件中。</p>
+<h3 id=chroot><a name=chroot rel=noopener></a><a href=#chroot rel=noopener>chroot</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>使用chroot（）改变默认目录到指定目录。</p>
+<h3 id=gid><a name=gid rel=noopener></a><a href=#gid rel=noopener>gid</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在uWSGI服务器将要运行的情况下，设置gid。</p>
+<h3 id=uid><a name=uid rel=noopener></a><a href=#uid rel=noopener>uid</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在uWSGI服务器将要运行的情况下，设置uid。</p>
+<h3 id=ini><a name=ini rel=noopener></a><a href=#ini rel=noopener>ini</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置ini配置文件的路径。</p>
+<div class=cnblogs_code>
+<pre>--ini &lt;inifile&gt;</pre>
+</div>
+<h3 id=yamloryml><a name=yaml rel=noopener></a><a href=#yaml rel=noopener>yaml or yml</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置yaml配置文件的路径。</p>
+<div class=cnblogs_code>
+<pre>--yaml &lt;yamlfile&gt;</pre>
+</div>
+<h3 id=json><a name=json rel=noopener></a><a href=#json rel=noopener>json</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置json格式的配置文件的路径。</p>
+<p>格式遵循的规则跟其他支持的配置格式一样（支持正整数，布尔数和数组）：</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre>{<br><br>"uwsgi":  {<br>       "http": ":8080",<br>       "master": <span style=color:rgba(0,0,255,1)>true</span>,<br>       "module": "werkzeug.testapp:test_app",<br>       "workers": 8,<br>       "pythonpath":  [ "/foo", "/bar" ]<br>      }<br><br>} </pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<p>为了使用JSON，你需要jansson库。默认情况下，会自动检测到库的所在位置，但是你也可以buildconf或者默认ini配置文件来指定。emperor已经被扩展支持.js文件了。</p>
+<div class=cnblogs_code>
+<pre>--json &lt;jsonfile&gt;</pre>
+</div>
+<h3 id=ldap><a name=ldap rel=noopener></a><a href=#ldap rel=noopener>ldap</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>从ldap服务器加载配置文件。见<a class="missing wiki" rel=noopener>UseLdap</a>（目前无文档）。</p>
+<h3 id=ldap-schema><a name=ldap-schema rel=noopener></a><a href=#ldap-schema rel=noopener>ldap-schema</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>dump the LDAP schema (old-style format)</p>
+<h3 id=ldap-schema-ldif><a name=ldap-schema-ldif rel=noopener></a><a href=#ldap-schema-ldif rel=noopener>ldap-schema-ldif</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>dump the LDAP schema in LDIF format (new openldap)</p>
+<h3 id=no-server><a name=no-server rel=noopener></a><a href=#no-server rel=noopener>no-server</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>初始化uWSGI服务器，然后当初始化工作完成时立即结束（可以用来作测试）。</p>
+<h3 id=no-defer-accept><a name=no-defer-accept rel=noopener></a><a href=#no-defer-accept rel=noopener>no-defer-accept</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>默认情况下（这个配置有效的情况下）uWSGI会延迟调用accept()去获取请求，直到客户端发送请求数据过来（这种方法能够提高性能和安全性）。可以使用这个选项来禁用这个特性。</p>
+<h3 id=limit-as><a name=limit-as rel=noopener></a><a href=#limit-as rel=noopener>limit-as</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>通过使用POSIX/UNIX的setrlimit()函数来限制每个uWSGI进程的虚拟内存使用数。</p>
+<div class=cnblogs_code>
+<pre>--limit-<span style=color:rgba(0,0,255,1)>as</span> <span style=color:rgba(128,0,128,1)>256</span></pre>
+</div>
+<p>这个配置会限制uWSGI的进程占用虚拟内存不超过256M。如果虚拟内存已经达到256M，并继续申请虚拟内存则会使程序报内存错误，本次的http请求将返回500错误。</p>
+<p>英文文档中还解释了address space其实就是虚拟内存。</p>
+<p>在使用这个选项前先理解这个页面的内容: <a class=ext-link href=http://en.wikipedia.org/wiki/Virtual_memory rel=noopener><span class=icon>&nbsp;</span>http://en.wikipedia.org/wiki/Virtual_memory</a></p>
+<h3 id=reload-on-as><a name=reload-on-as rel=noopener></a><a href=#reload-on-as rel=noopener>reload-on-as</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>当一个工作进程的虚拟内存占用超过了限制的大小，那么该进程就会被回收重用（重启）。</p>
+<div class=cnblogs_code>
+<pre>--reload-on-<span style=color:rgba(0,0,255,1)>as</span> <span style=color:rgba(128,0,128,1)>128</span></pre>
+</div>
+<p>这个配置会重启所有占用虚拟内存超过128M的工作进程。当工作进程因此重启时，本次请求的响应不会受影响，返回正常结果。</p>
+<h3 id=reload-on-rss><a name=reload-on-rss rel=noopener></a><a href=#reload-on-rss rel=noopener>reload-on-rss</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>跟reload-on-as的效果类似，不过这个选项控制的是物理内存。你可以同时使用这2个选项：</p>
+<div class=cnblogs_code>
+<pre>uwsgi:<br>  reload-on-<span style=color:rgba(0,0,255,1)>as</span>: <span style=color:rgba(128,0,128,1)>128</span><br>  reload-on-rss: <span style=color:rgba(128,0,128,1)>96</span></pre>
+</div>
+<p>这个配置会导致所有占用128M以上虚拟内存或者超过96M物理内存的工作进程重启。</p>
+<p>当工作进程因此重启时，本次请求的响应不会受影响，返回正常结果。</p>
+<h3 id=evil-reload-on-as><a name=evil-reload-on-as rel=noopener></a><a href=#evil-reload-on-as rel=noopener>evil-reload-on-as</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>主进程会重启占用虚拟内存超过&lt;n&gt;M的工作进程。</p>
+<div class=cnblogs_code>
+<pre>--evil-reload-on-<span style=color:rgba(0,0,255,1)>as</span> &lt;n&gt;</pre>
+</div>
+<h3 id=evil-reload-on-rss><a name=evil-reload-on-rss rel=noopener></a><a href=#evil-reload-on-rss rel=noopener>evil-reload-on-rss</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>主要效果跟evil-reload-on-as一样，但是这个选项控制的是非共享物理内存。</p>
+<div class=cnblogs_code>
+<pre>--evil-reload-on-rss &lt;n&gt;</pre>
+</div>
+<h3 id=log-x-forwarded-for><a name=log-x-forwarded-for rel=noopener></a><a href=#log-x-forwarded-for rel=noopener>log-x-forwarded-for</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>当uWSGI运行在多代理下时，会将正确的客户端IP打到日志中。</p>
+<h3 id=touch-reload><a name=touch-reload rel=noopener></a><a href=#touch-reload rel=noopener>touch-reload</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>当文件改变时，优雅的重启uWSGI。</p>
+<div class=cnblogs_code>
+<pre>uwsgi:<br>  touch-reload: /tmp/reload.txt</pre>
+</div>
+<p>如果你使用下面的命令：</p>
+<div class=cnblogs_code>
+<pre>touch /tmp/reload.txt</pre>
+</div>
+<p>那么uWSGI服务器就会优雅的重启。</p>
+<h3 id=limit-post><a name=limit-post rel=noopener></a><a href=#limit-post rel=noopener>limit-post</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>限制HTTP请求体的大小。uWSGI通过CONTENT_LENGTH字段值来获得请求体的大小。</p>
+<div class=cnblogs_code>
+<pre>--limit-post <span style=color:rgba(128,0,128,1)>65536</span></pre>
+</div>
+<p>将不允许请求体超过64k的请求。</p>
+<h3 id=no-orphans><a name=no-orphans rel=noopener></a><a href=#no-orphans rel=noopener>no-orphans</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在没有主进程的情况下自动结束工作进程。</p>
+<h3 id=prio><a name=prio rel=noopener></a><a href=#prio rel=noopener>prio</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置进程的系统调度优先级。</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>prio</span><span style=color:rgba(0,0,255,1)>&gt;</span>20<span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>prio</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+</div>
+<div>上述配置将设置进程的优先级为20（具体的值要根据不同的系统来设置）。</div>
+<h3 id=cpu-affinity><a name=cpu-affinity rel=noopener></a><a href=#cpu-affinity rel=noopener>cpu-affinity</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置CPU的亲和性（只对于Linux系统）。见<a class=ext-link href=http://lists.unbit.it/pipermail/uwsgi/2011-March/001594.html rel=noopener><span class=icon>&nbsp;</span>http://lists.unbit.it/pipermail/uwsgi/2011-March/001594.html</a></p>
+<h3 id=post-buffering><a name=post-buffering rel=noopener></a><a href=#post-buffering rel=noopener>post-buffering</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启http请求体的缓存。uWSGI将所有大于限定大小的HTTP请求体保存到磁盘中。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>post-buffering = <span style=color:rgba(128,0,128,1)>8192</span></pre>
+</div>
+<p>上述配置会使uWSGI将所有大于8K的HTTP请求体都缓存到磁盘中。Rack应用程序需要这个选项，因为Rack应用程序需要一个可回退的输入流。</p>
+<h3 id=post-buffering-bufsize><a name=post-buffering-bufsize rel=noopener></a><a href=#post-buffering-bufsize rel=noopener>post-buffering-bufsize</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为post的缓存设置内部的缓冲区大小。（这个分配的内存是用来读取socket流的字节块）</p>
+<div class=cnblogs_code>
+<pre>post-buffering-bufsize <span style=color:rgba(128,0,128,1)>65536</span></pre>
+</div>
+<p>上述配置会使uWSGI分配一个64k的socket的recv（）函数的缓存区。对一个128k的请求体来说，需要使用2个这样的缓存区。</p>
+<p>这是一个比较高级的选项，你可能永远不会用到。</p>
+<h3 id=upload-progress><a name=upload-progress rel=noopener></a><a href=#upload-progress rel=noopener>upload-progress</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启嵌入的上传进度报告。你传入一个uWSGI有写权限的目录，那么每一个上传的JSON文件都会放到该目录下，开启这个选项后，就会报告当前的上传状态。你可以使用ajax去读取这些文件，所以配置好你的web服务器允许对该目录的访问。</p>
+<div class=cnblogs_code>
+<pre>--upload-progress /<span style=color:rgba(0,0,255,1)>var</span>/www/progress</pre>
+</div>
+<p>用户通过如下的url上传一个文件。</p>
+<div class=cnblogs_code>
+<pre>http:<span style=color:rgba(0,128,0,1)>//</span><span style=color:rgba(0,128,0,1)>uwsgi.it/upload?X-Progress-ID=550e8400-e29b-41d4-a716-446655440000</span></pre>
+</div>
+<p>uWSGI在请求url中找到X-Progress-ID，然后在 /var/www/progress下创建一个文件：</p>
+<div class=cnblogs_code>
+<pre>550e8400-e29b-41d4-a716-<span style=color:rgba(128,0,128,1)>446655440000</span>.js</pre>
+</div>
+<p>该文件的内容如下：</p>
+<div class=cnblogs_code>
+<pre>{ <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>state</span><span style=color:rgba(128,0,0,1)>"</span> : <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>uploading</span><span style=color:rgba(128,0,0,1)>"</span>, <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>received</span><span style=color:rgba(128,0,0,1)>"</span> : <span style=color:rgba(128,0,128,1)>170000</span>, <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>size</span><span style=color:rgba(128,0,0,1)>"</span> : <span style=color:rgba(128,0,128,1)>300000</span> }</pre>
+</div>
+<p>假设你已经在你的web服务器中将/progress这个URI映射到了/var/www/progress这个目录，那么你可以通过ajax pointing来获得那些json数据。</p>
+<div class=cnblogs_code>
+<pre>/progress/550e8400-e29b-41d4-a716-<span style=color:rgba(128,0,128,1)>446655440000</span>.js</pre>
+</div>
+<p>很可能你的web服务器已经拥有一个相似的功能了，但是如果你需要改进原有的功能（或者只是想有更多的控制），那么就将该功能委托给uWSGI服务器。</p>
+<h3 id=no-default-app><a name=no-default-app rel=noopener></a><a href=#no-default-app rel=noopener>no-default-app</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>默认情况下，当uWSGI没有找到SCRIPT_NAME指定的app时，会使用默认的app（大多数情况，默认的app都位于/目录下）。开启这个选项，在没有可用的app时会返回一个错误。</p>
+<h3 id=manage-script-name><a name=manage-script-name rel=noopener></a><a href=#manage-script-name rel=noopener>manage-script-name</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>如果因为某些原因，你的web服务器不能处理SCRIPT_NAME，你可以强制uWSGI自动重建PATH_INFO。</p>
+<h3 id=udp><a name=udp rel=noopener></a><a href=#udp rel=noopener>udp</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>启动一个udp服务器，主要用在<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/UseSnmp rel=noopener>snmp</a>或者为<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/UdpLogging rel=noopener>UdpLogging</a>提供一个共享的打日志服务器。</p>
+<h3 id=multicast><a name=multicast rel=noopener></a><a href=#multicast rel=noopener>multicast</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>内部选项，用于第三方插件。</p>
+<h3 id=cluster><a name=cluster rel=noopener></a><a href=#cluster rel=noopener>cluster</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>加入指定的集群。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Clustering rel=noopener>Clustering</a>。</p>
+<h3 id=cluster-nodes><a name=cluster-nodes rel=noopener></a><a href=#cluster-nodes rel=noopener>cluster-nodes</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>你可以得到一个集群里的节点列表，而不需要加入这个集群。</p>
+<div class=cnblogs_code>
+<pre>--cluster-nodes <span style=color:rgba(128,0,128,1)>225.1</span>.<span style=color:rgba(128,0,128,1)>1.1</span>:<span style=color:rgba(128,0,128,1)>1717</span></pre>
+</div>
+<p>使用上述选项能得到225.1.1.1:1717这个集群的所有节点。这个列表提供给uwsgi内部均衡负载api用的。</p>
+<h3 id=cluster-reload><a name=cluster-reload rel=noopener></a><a href=#cluster-reload rel=noopener>cluster-reload</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>优雅地重启整个集群。</p>
+<div class=cnblogs_code>
+<pre>--cluster <span style=color:rgba(128,0,128,1)>225.1</span>.<span style=color:rgba(128,0,128,1)>1.1</span>:<span style=color:rgba(128,0,128,1)>1717</span> --cluster-reload</pre>
+</div>
+<p>使用上述选项会重启225.1.1.1:1717这个集群中的所有节点。</p>
+<h3 id=cluster-log><a name=cluster-log rel=noopener></a><a href=#cluster-log rel=noopener>cluster-log</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>给一个集群的所有节点服务器发送一个日志信息。</p>
+<div class=cnblogs_code>
+<pre>--cluster <span style=color:rgba(128,0,128,1)>225.1</span>.<span style=color:rgba(128,0,128,1)>1.1</span>:<span style=color:rgba(128,0,128,1)>1717</span> --cluster-log <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>Hello World</span><span style=color:rgba(128,0,0,1)>"</span></pre>
+</div>
+<p>上述选项会在所有的节点日志文件中打印出"Hello World"</p>
+<h3 id=subscribe-toorstorsubscribe><a name=subscribe rel=noopener></a><a href=#subscribe rel=noopener>subscribe-to or st or subscribe</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>订阅一个<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/SubscriptionServer rel=noopener>SubscriptionServer</a>，你可以通过配置多次该选项来达到订阅多个服务器的目的。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>subscribe-to = <span style=color:rgba(128,0,128,1)>192.168</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>2626</span>:unbit.it<br>subscribe-to = <span style=color:rgba(128,0,128,1)>192.168</span>.<span style=color:rgba(128,0,128,1)>0.2</span>:<span style=color:rgba(128,0,128,1)>2626</span>:uwsgi.it</pre>
+</div>
+<h3 id=shared-socket><a name=shared-socket rel=noopener></a><a href=#shared-socket rel=noopener>shared-socket</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>一个高级选项，插件作者会用到，或者用于一些特殊的需求。该选项允许服务器在启动早期创建一个socket，在失去特权或者被监禁的时候依然能使用它。</p>
+<h3 id=snmp><a name=snmp rel=noopener></a><a href=#snmp rel=noopener>snmp</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>启动一个SNMP服务器。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/UseSnmp rel=noopener>UseSnmp</a></p>
+<h3 id=snmp-community><a name=snmp-community rel=noopener></a><a href=#snmp-community rel=noopener>snmp-community</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set the snmp community string</p>
+<h3 id=check-interval><a name=check-interval rel=noopener></a><a href=#check-interval rel=noopener>check-interval</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>主进程每秒都会进行一次扫描。如果需要你可以加长这个扫描时间。不建议。</p>
+<h3 id=binary-path><a name=binary-path rel=noopener></a><a href=#binary-path rel=noopener>binary-path</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>如果uWSGI的二进制文件路径没有加到系统环境变量中，你可以使用这个选项强制改变二进制的查找路径，那么重载系统和<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/Emperor rel=noopener>Emperor</a>都能轻易找到可执行的二进制文件。</p>
+<h3 id=async><a name=async rel=noopener></a><a href=#async rel=noopener>async</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启异步模式。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/AsyncSupport rel=noopener>AsyncSupport</a>。</p>
+<h3 id=logto><a name=logto rel=noopener></a><a href=#logto rel=noopener>logto</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>将日志打到一个指定的文件或者udp服务器。</p>
+<h3 id=logfile-chown><a name=logfile-chown rel=noopener></a><a href=#logfile-chown rel=noopener>logfile-chown</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-syslog><a name=log-syslog rel=noopener></a><a href=#log-syslog rel=noopener>log-syslog</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>将日志打到系统日志上，而不再打到日志文件中。</p>
+<p>传入一个参数，使uwsgi使用这个参数作为程序名，用在系统日志开始部分里。</p>
+<div class=cnblogs_code>
+<pre>--log-syslog mywebapp</pre>
+</div>
+<h3 id=log-master><a name=log-master rel=noopener></a><a href=#log-master rel=noopener>log-master</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>委托主进程来负责日志的写操作（这将把所有的日志IO操作都放到一个进程中）。对使用高级的IO调度策略的系统来说是很有用的。</p>
+<h3 id=logdateorlog-date><a name=logdate rel=noopener></a><a href=#logdate rel=noopener>logdate or log-date</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在每一个日志行中都打印时间信息。你可以传入一个strftime()格式的参数，来格式化时间的格式。</p>
+<h3 id=log-zero><a name=log-zero rel=noopener></a><a href=#log-zero rel=noopener>log-zero</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>打印请求大小为0的请求。</p>
+<h3 id=log-slow><a name=log-slow rel=noopener></a><a href=#log-slow rel=noopener>log-slow</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-4xx><a name=log-4xx rel=noopener></a><a href=#log-4xx rel=noopener>log-4xx</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-5xx><a name=log-5xx rel=noopener></a><a href=#log-5xx rel=noopener>log-5xx</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-big><a name=log-big rel=noopener></a><a href=#log-big rel=noopener>log-big</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-sendfile><a name=log-sendfile rel=noopener></a><a href=#log-sendfile rel=noopener>log-sendfile</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=log-micros><a name=log-micros rel=noopener></a><a href=#log-micros rel=noopener>log-micros</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>使用微秒作为日志中响应时间的单位（默认是毫秒）。</p>
+<h3 id=master-as-root><a name=master-as-root rel=noopener></a><a href=#master-as-root rel=noopener>master-as-root</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>以root权限运行uWSGI的主进程。</p>
+<h3 id=chdir><a name=chdir rel=noopener></a><a href=#chdir rel=noopener>chdir</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在失去权限前，使用chdir()到指定目录。</p>
+<h3 id=chdir2><a name=chdir2 rel=noopener></a><a href=#chdir2 rel=noopener>chdir2</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在失去权限后，使用chdir()到指定目录。</p>
+<h3 id=lazy><a name=lazy rel=noopener></a><a href=#lazy rel=noopener>lazy</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>等每一个工作进程都生成以后才加载应用程序。</p>
+<h3 id=cheap><a name=cheap rel=noopener></a><a href=#cheap rel=noopener>cheap</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>延迟启动工作进程直到第一个请求到来。当第一个请求来时就会启动预先设置个数的工作进程。</p>
+<p>如果没有设置工作进程数，那么最多只会启动一个工作进程。</p>
+<h3 id=cheaper><a name=cheaper rel=noopener></a><a href=#cheaper rel=noopener>cheaper</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>一个高阶的cheap模式，这个选项将在启动的时候只分配n个工作进程，并将使用多种算法来实现适应性的进程启动。</p>
+<p>在启动的时候至少会分配一个工作进程，即及时设置n为0，也会在最开始启动一个工作进程。</p>
+<p>如果当前工作进程不足以处理收到的请求，那么就会按请求量按需启动其他的工作进程，直到工作进程达到预先设置的个数。</p>
+<p>如果没有设置工作进程数，那么只会在刚启动的时候启动一个工作进程，之后将不再启动其他进程。</p>
+<div class=cnblogs_code>
+<pre>--cheaper &lt;n&gt;</pre>
+</div>
+<h3 id=idle><a name=idle rel=noopener></a><a href=#idle rel=noopener>idle</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在经过&lt;secs&gt;秒的不活跃状态后销毁工作进程（这时就进入了cheap模式），只会剩下主进程。</p>
+<p>如果有cheaper选项，那么就进入cheaper模式，之后收到第一个请求就会启动工作进程，启动的个数由cheaper选项里配置的n决定。</p>
+<div class=cnblogs_code>
+<pre>--idle &lt;secs&gt;</pre>
+</div>
+<h3 id=mount><a name=mount rel=noopener></a><a href=#mount rel=noopener>mount</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>允许同一个进程加载多个app。</p>
+<div class=cnblogs_code>
+<pre>--mount /pinax=/<span style=color:rgba(0,0,255,1)>var</span>/www/pinax/deploy/pinax.wsgi</pre>
+</div>
+<h3 id=grunt><a name=grunt rel=noopener></a><a href=#grunt rel=noopener>grunt</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>allows grunt processes</p>
+<h3 id=threads><a name=threads rel=noopener></a><a href=#threads rel=noopener>threads</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启线程操作模式。你必须指定每个工作进程的线程数。</p>
+<div class=cnblogs_code>
+<pre>--threads <span style=color:rgba(128,0,128,1)>40</span> --workers <span style=color:rgba(128,0,128,1)>2</span></pre>
+</div>
+<p>这个配置会导致生成2个工作进程，每个工作进程有40个子线程。</p>
+<h3 id=vhost><a name=vhost rel=noopener></a><a href=#vhost rel=noopener>vhost</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启虚拟主机模式。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/VirtualHosting rel=noopener>VirtualHosting</a></p>
+<h3 id=vhost-host><a name=vhost-host rel=noopener></a><a href=#vhost-host rel=noopener>vhost-host</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>默认情况下，虚拟主机模式使用SERVER_NAME作为主机名的关键字。如果你希望使用HTTP_HOST，那就加这个选项。</p>
+<h3 id=check-static><a name=check-static rel=noopener></a><a href=#check-static rel=noopener>check-static</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>uWSGI会在移交控制权给指定处理者之前检查该选项指定的目录。</p>
+<p>uWSGI会检查这个目录，如果刚好请求的PATH_INFO有一个文件在这个目录，那么uWSGI就会提供这个文件。</p>
+<div class=cnblogs_code>
+<pre>--check-<span style=color:rgba(0,0,255,1)>static</span> /<span style=color:rgba(0,0,255,1)>var</span>/www/example.com</pre>
+</div>
+<p>使用上述配置，如果客户端请求foo.png，而该文件又恰好存在于/var/www/example.com/foo.png，那么uWSGI就会直接用指定的方法提供这个文件（默认是用sendfile ()）。</p>
+<h3 id=static-map><a name=static-map rel=noopener></a><a href=#static-map rel=noopener>static-map</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>映射一个资源到静态文件区。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br><span style=color:rgba(0,0,255,1)>static</span>-map = /media=/<span style=color:rgba(0,0,255,1)>var</span>/www/django/contrib/admin/media<br><span style=color:rgba(0,0,255,1)>static</span>-map = /images=/<span style=color:rgba(0,0,255,1)>var</span>/www/example.com/images</pre>
+</div>
+<p>&nbsp;无论什么时候一个PATH_INFO匹配到配置文件中的资源，uWSGI会直接用指定的方法提供这个文件（默认是用sendfile ()）。</p>
+<h3 id=static-index><a name=static-index rel=noopener></a><a href=#static-index rel=noopener>static-index</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在目录索引中用到的静态文件的文件名。</p>
+<div class=cnblogs_code>
+<pre><span style=color:rgba(0,0,255,1)>static</span>-index = index.html</pre>
+</div>
+<p>如果请求/doc/，那么uWSGI将检查/doc/index.html，如果存在就会提供给客户端。</p>
+<h3 id=file-serve-mode><a name=file-serve-mode rel=noopener></a><a href=#file-serve-mode rel=noopener>file-serve-mode</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置静态服务模式：</p>
+<p>1.x-sendfile：将使用X-Sendfile头（apache, Cherokee, lighttpd）</p>
+<p>2.x-accel-redirect：将使用X-Accel-Redirect header（nginx）</p>
+<p>3.default：使用sendfile()</p>
+<div class=cnblogs_code>
+<pre>--file-serve-mode x-sendfile</pre>
+</div>
+<h3 id=check-cache><a name=check-cache rel=noopener></a><a href=#check-cache rel=noopener>check-cache</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>检查 <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/CachingFramework rel=noopener>uWSGI cache</a> 中是否存在PATH_INFO指定的内容，如果存在就提供该内容。</p>
+<h3 id=close-on-exec><a name=close-on-exec rel=noopener></a><a href=#close-on-exec rel=noopener>close-on-exec</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>给uWSGI的socket设置close-on-exec标识，这将避免在一个请求中产生额外的进程，来继承socket文件的描述符。</p>
+<h3 id=mode><a name=mode rel=noopener></a><a href=#mode rel=noopener>mode</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>普通选项，app可以使用uwsgi.mode来获得这个选项值。</p>
+<h3 id=env><a name=env rel=noopener></a><a href=#env rel=noopener>env</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置一个系统环境变量。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>env = DJANGO_SETTINGS_MODULE=mysite.settings</pre>
+</div>
+<p>这个配置将会设置一个环境变量DJANGO_SETTINGS_MODULE，它的值为mysite.settings</p>
+<h3 id=vacuum><a name=vacuum rel=noopener></a><a href=#vacuum rel=noopener>vacuum</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>当服务器退出的时候自动删除unix socket文件和pid文件。</p>
+<h3 id=cgroup><a name=cgroup rel=noopener></a><a href=#cgroup rel=noopener>cgroup</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>run the server in &lt;group&gt; cgroup (Linux only)</p>
+<h3 id=cgroup-opt><a name=cgroup-opt rel=noopener></a><a href=#cgroup-opt rel=noopener>cgroup-opt</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置cgroup选项（仅限于Linux）</p>
+<div class=cnblogs_code>
+<pre>--cgroup-opt KEY=VAL</pre>
+</div>
+<h3 id=reuse-portBSDonly><a name=reuse-port rel=noopener></a><a href=#reuse-port rel=noopener>reuse-port</a> (BSD only)<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>允许多个实例绑定到同一个地址。</p>
+<h3 id=loop><a name=loop rel=noopener></a><a href=#loop rel=noopener>loop</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/LoopEngine rel=noopener>LoopEngine</a>（高级选项）</p>
+<h3 id=worker-exec><a name=worker-exec rel=noopener></a><a href=#worker-exec rel=noopener>worker-exec</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>funny option to map a new executable to a uWSGI worker. You can run a php fastcgi server pool in this way</p>
+<div class=cnblogs_code>
+<pre>/usr/bin/uwsgi --workers <span style=color:rgba(128,0,128,1)>4</span> --worker-exec /usr/bin/php53-cgi </pre>
+</div>
+<h3 id=attach-daemon><a name=attach-daemon rel=noopener></a><a href=#attach-daemon rel=noopener>attach-daemon</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>给uWSGI主进程附加一个进程，并允许主进程控制、监控、重启这个进程。一个比较典型的使用是给主进行附加一个memcached实例。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>master = <span style=color:rgba(0,0,255,1)>true</span><br>attach-daemon = memcached</pre>
+</div>
+<h3 id=plugins><a name=plugins rel=noopener></a><a href=#plugins rel=noopener>plugins</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>加载指定的插件。</p>
+<div class=cnblogs_code>
+<pre>--plugins psgi,greenlet</pre>
+</div>
+<p>这个配置将加载psgi插件和greenlet插件。</p>
+<h3 id=allowed-modifiers><a name=allowed-modifiers rel=noopener></a><a href=#allowed-modifiers rel=noopener>allowed-modifiers</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>限制客户端只能访问<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/uwsgiProtocol rel=noopener>modifiers</a>的子集。</p>
+<div class=cnblogs_code>
+<pre>--allowed-modifiers <span style=color:rgba(128,0,128,1)>0</span>,<span style=color:rgba(128,0,128,1)>111</span></pre>
+</div>
+<p>这个配置将只允许客户端访问WSGI处理程序和cache处理程序。</p>
+<h3 id=remap-modifier><a name=remap-modifier rel=noopener></a><a href=#remap-modifier rel=noopener>remap-modifier</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=dump-options><a name=dump-options rel=noopener></a><a href=#dump-options rel=noopener>dump-options</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>打印所有可用的选项，然后退出。</p>
+<h3 id=show-config><a name=show-config rel=noopener></a><a href=#show-config rel=noopener>show-config</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>以ini文件格式打印当前的配置。</p>
+<h3 id=print><a name=print rel=noopener></a><a href=#print rel=noopener>print</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>将在解析配置文件的工程中打印一个字符串。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>print = foo</pre>
+</div>
+<p>将在服务器启动的时候打印"foo"。</p>
+<h3 id=version><a name=version rel=noopener></a><a href=#version rel=noopener>version</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>打印出uWSGI的版本，然后退出。</p>
+<h3 id=wsgi-fileorfilepythonpluginrequired><a name=wsgi-file rel=noopener></a><a href=#wsgi-file rel=noopener>wsgi-file or file</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>加载指定的WSGI文件（与Graham的mod_wsgi形式兼容）</p>
+<h3 id=evalpythonpluginrequired><a name=eval rel=noopener></a><a href=#eval rel=noopener>eval</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>把计算一个字符串的值作为WSGI的入口。</p>
+<div class=cnblogs_code><div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div>
+<pre><span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>  <span style=color:rgba(0,0,255,1)>&lt;</span><span style=color:rgba(128,0,0,1)>eval</span><span style=color:rgba(0,0,255,1)>&gt;</span><br>    def application(e, sr):<br>    pass<br>  <span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>eval</span><span style=color:rgba(0,0,255,1)>&gt;</span><br><span style=color:rgba(0,0,255,1)>&lt;/</span><span style=color:rgba(128,0,0,1)>uwsgi</span><span style=color:rgba(0,0,255,1)>&gt;</span></pre>
+<div class=cnblogs_code_toolbar><span class=cnblogs_code_copy><a title=复制代码><img src='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect fill-opacity="0"/></svg>' alt=复制代码 style="background-blend-mode:normal!important;background-clip:content-box!important;background-position:50% 50%!important;background-color:rgb(245,245,245)!important;background-image:var(--sf-img-17)!important;background-size:100% 100%!important;background-origin:content-box!important;background-repeat:no-repeat!important"></a></span></div></div>
+<h3 id=modulepythonpluginrequired><a name=module rel=noopener></a><a href=#module rel=noopener>module</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>加载指定的python WSGI模块（模块路径必须在PYTHONPATH里）</p>
+<h3 id=callablepythonpluginrequired><a name=callable rel=noopener></a><a href=#callable rel=noopener>callable</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置在收到请求时，uWSGI加载的模块中哪个变量将被调用，默认是名字为“application”的变量。</p>
+<h3 id=testpythonpluginrequired><a name=test rel=noopener></a><a href=#test rel=noopener>test</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>测试一个模块是否能被成功的加载。</p>
+<h3 id=homeorvirtualenvorvenvorpyhomepythonpluginrequired><a name=virtualenv rel=noopener></a><a href=#virtualenv rel=noopener>home or virtualenv or venv or pyhome</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>为python程序设置指定的虚拟环境变量。</p>
+<div class=cnblogs_code>
+<pre>--virtualenv /apps/env001</pre>
+</div>
+<p>使用在/apps/env001的虚拟环境变量。</p>
+<h3 id=pythonpathorpython-pathorpppythonpluginrequired><a name=pythonpath rel=noopener></a><a href=#pythonpath rel=noopener>pythonpath or python-path or pp</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>给PYTHONPATH 增加一个目录（或者一个egg），你可以最多使用该选项64次。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>pp = myapp/lib<br>pp = trac.egg</pre>
+</div>
+<h3 id=pymodule-aliaspythonpluginrequired><a name=pymodule-alias rel=noopener></a><a href=#pymodule-alias rel=noopener>pymodule-alias</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>该选项允许python模块的重映射。见<a class=wiki href=http://projects.unbit.it/uwsgi/wiki/PymoduleAlias rel=noopener>PymoduleAlias</a>。</p>
+<h3 id=pyargvpythonpluginrequired><a name=pyargv rel=noopener></a><a href=#pyargv rel=noopener>pyargv</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set the python sys.argv</p>
+<p>设置python的系统参数（sys.argv）</p>
+<div class=cnblogs_code>
+<pre>--pyargv <span style=color:rgba(128,0,0,1)>"</span><span style=color:rgba(128,0,0,1)>one two three</span><span style=color:rgba(128,0,0,1)>"</span></pre>
+</div>
+<p>该配置会将sys.argv 设为('one','two','three')。</p>
+<h3 id=optimize><a name=optimize rel=noopener></a><a href=#optimize rel=noopener>optimize</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置python为最优化级别（要小心）</p>
+<h3 id=paste><a name=paste rel=noopener></a><a href=#paste rel=noopener>paste</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>use paste.deploy to load a WSGI app</p>
+<p>使用paste.deploy 来加载一个WSGI程序。</p>
+<div class=cnblogs_code>
+<pre>uwsgi --paste config:/foo/development.ini</pre>
+</div>
+<h3 id=ini-paste><a name=ini-paste rel=noopener></a><a href=#ini-paste rel=noopener>ini-paste</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>ini和paste这2个选项的简化，在文件解析完之后，将使用同样的文件作为paste.deploy的配置文件。</p>
+<h3 id=ini-paste-logged><a name=ini-paste-logged rel=noopener></a><a href=#ini-paste-logged rel=noopener>ini-paste-logged</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>load a paste.deploy config file containing uwsgi section (load loggers too)</p>
+<h3 id=catch-exceptions><a name=catch-exceptions rel=noopener></a><a href=#catch-exceptions rel=noopener>catch-exceptions</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>在你的浏览器中打印出traceback信息，而不是在日志文件中（不要在实际产品中使用这个选项）。</p>
+<h3 id=ignore-script-name><a name=ignore-script-name rel=noopener></a><a href=#ignore-script-name rel=noopener>ignore-script-name</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=pep3333-input><a name=pep3333-input rel=noopener></a><a href=#pep3333-input rel=noopener>pep3333-input</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=reload-os-env><a name=reload-os-env rel=noopener></a><a href=#reload-os-env rel=noopener>reload-os-env</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=no-sitepythonpluginrequired><a name=no-site rel=noopener></a><a href=#no-site rel=noopener>no-site</a> [python plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>不加载python的site.py模块。</p>
+<h3 id=pingpingpluginrequired><a name=ping rel=noopener></a><a href=#ping rel=noopener>ping</a> [ping plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>工具性的选项。ping一个uwsgi服务器，如果ping成功，难么进程就会退出，并返回0，否则返回一个大于0的值。</p>
+<div class=cnblogs_code>
+<pre>/usr/bin/uwsgi --ping <span style=color:rgba(128,0,128,1)>192.168</span>.<span style=color:rgba(128,0,128,1)>0.100</span>:<span style=color:rgba(128,0,128,1)>1717</span></pre>
+</div>
+<p>将ping在192.168.0.100:1717的uWSGI服务器。</p>
+<h3 id=ping-timeoutpingpluginrequired><a name=ping-timeout rel=noopener></a><a href=#ping-timeout rel=noopener>ping-timeout</a> [ping plugin required]<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置ping的超时时间（默认是3秒）。ping的等待时间超过指定的秒数后就认为该uWSGI实例已失效。</p>
+<div class=cnblogs_code>
+<pre>/usr/bin/uwsgi --ping <span style=color:rgba(128,0,128,1)>192.168</span>.<span style=color:rgba(128,0,128,1)>0.100</span>:<span style=color:rgba(128,0,128,1)>1717</span> --ping-timeout <span style=color:rgba(128,0,128,1)>10</span></pre>
+</div>
+<p>将设置ping的超时时间为10秒。</p>
+<h3 id=nagios><a name=nagios rel=noopener></a><a href=#nagios rel=noopener>nagios</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>作nagios检查。</p>
+<h3 id=fastrouter><a name=fastrouter rel=noopener></a><a href=#fastrouter rel=noopener>fastrouter</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>Run the fastrouter (it is a uwsgi proxy/load balancer) on specific address</p>
+<p>在指定的地址上运行fastrouter（这是一个uwsgi的代理、负载均衡）。</p>
+<div class=cnblogs_code>
+<pre>[uwsgi]<br>fastrouter = <span style=color:rgba(128,0,128,1)>127.0</span>.<span style=color:rgba(128,0,128,1)>0.1</span>:<span style=color:rgba(128,0,128,1)>3017</span></pre>
+</div>
+<p>在127.0.0.1:3017这个地址上运行fastrouter</p>
+<h3 id=fastrouter-use-cache><a name=fastrouter-use-cache rel=noopener></a><a href=#fastrouter-use-cache rel=noopener>fastrouter-use-cache</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>check the uwsgi cache to get hostname:address mapping</p>
+<h3 id=fastrouter-use-pattern><a name=fastrouter-use-pattern rel=noopener></a><a href=#fastrouter-use-pattern rel=noopener>fastrouter-use-pattern</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>use a filesystem pattern to get hostname:address mapping</p>
+<h3 id=fastrouter-use-base><a name=fastrouter-use-base rel=noopener></a><a href=#fastrouter-use-base rel=noopener>fastrouter-use-base</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=fastrouter-events><a name=fastrouter-events rel=noopener></a><a href=#fastrouter-events rel=noopener>fastrouter-events</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>limit the max number of async events the fastrouter can return in one cycle</p>
+<h3 id=fastrouter-subscription-server><a name=fastrouter-subscription-server rel=noopener></a><a href=#fastrouter-subscription-server rel=noopener>fastrouter-subscription-server</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>add a <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/SubscriptionServer rel=noopener>SubscriptionServer</a> to the fastrouter to build the hostname:address map</p>
+<h3 id=fastrouter-timeout><a name=fastrouter-timeout rel=noopener></a><a href=#fastrouter-timeout rel=noopener>fastrouter-timeout</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置fastrouter的内部超时时间。</p>
+<h3 id=http><a name=http rel=noopener></a><a href=#http rel=noopener>http</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>开启嵌入的http服务器、路由、网关、负载均衡、代理。</p>
+<h3 id=http-var><a name=http-var rel=noopener></a><a href=#http-var rel=noopener>http-var</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-to><a name=http-to rel=noopener></a><a href=#http-to rel=noopener>http-to</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-modifier1><a name=http-modifier1 rel=noopener></a><a href=#http-modifier1 rel=noopener>http-modifier1</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-use-cache><a name=http-use-cache rel=noopener></a><a href=#http-use-cache rel=noopener>http-use-cache</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-use-pattern><a name=http-use-pattern rel=noopener></a><a href=#http-use-pattern rel=noopener>http-use-pattern</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-use-base><a name=http-use-base rel=noopener></a><a href=#http-use-base rel=noopener>http-use-base</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-use-cluster><a name=http-use-cluster rel=noopener></a><a href=#http-use-cluster rel=noopener>http-use-cluster</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-events><a name=http-events rel=noopener></a><a href=#http-events rel=noopener>http-events</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<h3 id=http-subscription-server><a name=http-subscription-server rel=noopener></a><a href=#http-subscription-server rel=noopener>http-subscription-server</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>enable the <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/SubscriptionServer rel=noopener>SubscriptionServer</a> for clustering and massive hosting/load-balancing</p>
+<h3 id=http-timeout><a name=http-timeout rel=noopener></a><a href=#http-timeout rel=noopener>http-timeout</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>设置内部http的socket超时时间。</p>
+<h3 id=ugreenugreenpluginrequired><a name=ugreen rel=noopener></a><a href=#ugreen rel=noopener>ugreen [ugreen plugin required]</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>enable uGreen as suspend/resume engine. See <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/uGreen rel=noopener>uGreen</a></p>
+<h3 id=ugreen-stacksizeugreenpluginrequired><a name=ugreen-stacksize rel=noopener></a><a href=#ugreen-stacksize rel=noopener>ugreen-stacksize [ugreen plugin required]</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>set the stack size for <a class=wiki href=http://projects.unbit.it/uwsgi/wiki/uGreen rel=noopener>uGreen</a></p>
+</div>
+</div>
+<div class=clear></div>
+<div id=blog_post_info_block role=contentinfo>
+ <div id=blog_post_info>
+<div id=green_channel>
+ <a id=green_channel_digg>好文要顶</a>
+ <a id=green_channel_follow>关注我</a>
+ <a id=green_channel_favorite>收藏该文</a>
+ <a id=green_channel_weibo title=分享至新浪微博><img src=data:image/png;base64,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 alt></a>
+ <a id=green_channel_wechat title=分享至微信><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAABA9pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4M0Q4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NEQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgPC94bXBNTTpEZXJpdmVkRnJvbT4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NkQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwveG1wTU06RG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4NUQ4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 alt></a>
+</div>
+<div id=author_profile>
+ <div id=author_profile_info class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/zhouej/ target=_blank><img src="data:image/jpeg;base64,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" class=author_avatar alt></a>
+ <div id=author_profile_detail class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/zhouej/>Ju6y</a><br>
+ <a href=https://home.cnblogs.com/u/zhouej/followers/>粉丝 - <span class=follower-count>6</span></a>
+ <a href=https://home.cnblogs.com/u/zhouej/followees/>关注 - <span class=following-count>0</span></a><br>
+ </div>
+ </div>
+ <div class=clear></div>
+ <div id=author_profile_honor></div>
+ <div id=author_profile_follow class=follow-tip>
+ <a>+加关注</a>
+ </div>
+</div>
+<div id=div_digg>
+ <div class=diggit>
+ <span class=diggnum id=digg_count>9</span>
+ </div>
+ <div class=buryit>
+ <span class=burynum id=bury_count>0</span>
+ </div>
+ <div class=clear></div>
+ <div class=diggword id=digg_tips>
+ </div>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=post_next_prev>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02/10/2345285.html class=p_n_p_prefix>« </a> 上一篇： <a href=https://www.cnblogs.com/zhouej/archive/2012/02/10/2345285.html data-featured-image title="发布于 2012-02-10 16:55">Nginx - HttpUpstreamModule</a>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=blog_post_info_block>
+ <div id=blog_post_info>
+ </div>
+ <div class=clear></div>
+ <div id=post_next_prev></div>
+ </div>
+</div>
+ <ul class=postmetadata>
+ 
+<li class=icon_cat id=BlogPostCategory>
+分类 <a href=https://www.cnblogs.com/zhouej/category/359876.html target=_blank>uWSGI</a>
+, <a href=https://www.cnblogs.com/zhouej/category/359877.html target=_blank>翻译</a>
+</li>
+<li class=icon_bullet id=EntryTag>
+标签 <a href=https://www.cnblogs.com/zhouej/tag/uWSGI/>uWSGI</a>
+, <a href=https://www.cnblogs.com/zhouej/tag/%E7%BF%BB%E8%AF%91/>翻译</a>
+</li>
+ </ul>
+</div>
+<a id=!comments></a>
+<div id=blog-comments-placeholder class=sf-hidden></div>
+<div id=comment_form class=commentform>
+ <a name=commentform></a>
+ <div id=divCommentShow></div>
+ <div id=comment_nav><span id=span_refresh_tips></span><a id=lnk_RefreshComments runat=server clientidmode=Static>刷新评论</a><a href=#>刷新页面</a><a href=#top>返回顶部</a></div>
+ <div id=comment_form_container style=visibility:visible><div class=login_tips>
+ 登录后才能查看或发表评论，立即 <a rel=nofollow class=underline>登录</a> 或者
+ <a href=https://www.cnblogs.com/>逛逛</a> 博客园首页
+</div>
+</div>
+ <div class="ad_text_commentbox sf-hidden" id=ad_text_under_commentbox></div>
+ <div id=cnblogs_ch class=sf-hidden></div>
+ <div id=opt_under_post></div>
+ <div id=cnblogs_c1 class=under-post-card style=display:none>
+ 
+ </div>
+ <div id=under_post_card1><div class=under-post-card>
+<b>编辑推荐：</b>
+<br>
+· <a href=https://www.cnblogs.com/coco1s/p/17021406.html target=_blank>巧用视觉障眼法，还原 3D 文字特效</a>
+ <br>
+· <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit | 基于 StateMachine 实现 Saga 编排式分布式事务 </a>
+ <br>
+· <a href=https://www.cnblogs.com/huangxincheng/p/17015643.html target=_blank>一次 SQL 调优，聊一聊 SQLSERVER 数据页 </a>
+ <br>
+· <a href=https://www.cnblogs.com/makemylife/p/17015499.html target=_blank>终于弄明白了 RocketMQ 的存储模型</a>
+ <br>
+· <a href=https://www.cnblogs.com/JavaArchitect/p/17011865.html target=_blank>应届毕业生程序员在面试时如何做好自我介绍？</a>
+ <br>
+</div></div>
+ <div id=under_post_card2><div class="itnews under-post-card">
+ <b>阅读排行：</b>
+ <br>
+ · <a href=https://www.cnblogs.com/thinkword/p/17020039.html target=_blank>今年回顾，流水账</a>
+ <br>
+ · <a href=https://www.cnblogs.com/edisonchou/p/edison-year-end-retrospective-2022.html target=_blank>我的2022年终总结：再次抉择，以终为始</a>
+ <br>
+ · <a href=https://www.cnblogs.com/eminer/p/17019988.html target=_blank>M.2 SSD固态硬盘上安装windows(win11)问题</a>
+ <br>
+ · <a href=https://www.cnblogs.com/xueweihan/p/17021034.html target=_blank>你的 GitHub 年度报告「GitHub 热点速览 v.22.52」</a>
+ <br>
+ · <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit 知多少 | 基于StateMachine实现Saga编排式分布式事务</a>
+ <br>
+</div></div>
+ <div id=HistoryToday class=under-post-card></div>
+ 
+</div>
+</div>
+ </div>
+ 
+ <div id=sidebar>
+ <div id=about>
+ <div>
+ <h2 id=about_title>About</h2>
+ <div id=about_body>
+ <div id=sidebar_news>
+<div id=blog-news>
+ 
+ <div id=profile_block>
+ 昵称：
+ <a href=https://home.cnblogs.com/u/zhouej/>
+ Ju6y
+ </a>
+ <br>
+ 园龄：
+ <a href=https://home.cnblogs.com/u/zhouej/ title=入园时间：2011-02-12>
+ 11年10个月
+ </a>
+ <br>
+ 粉丝：
+ <a class=follower-count href=https://home.cnblogs.com/u/zhouej/followers/>
+ 6
+ </a>
+ <br>
+ 关注：
+ <a class=folowing-count href=https://home.cnblogs.com/u/zhouej/followees/>
+ 0
+ </a>
+ <div id=p_b_follow class=follow-tip>
+<a>+加关注</a></div>
+ 
+ </div>
+</div>
+</div>
+ 
+ </div>
+ </div>
+ </div>
+ 
+ <div id=mySearchWrapper>
+ <div id=mySearch>
+ <input type=image src=data:image/gif;base64,R0lGODlhRgAVANUAAGZmZicnJ0xMTFJSUh8fHyMjI2FhYWtrayQkJCIiIkRERHJyclBQUGhoaGBgYHp6en19fVpaWnZ2dk5OTklJSXNzc4ODg1tbW11dXUdHR4iIiHd3d1VVVUpKSm1tbUZGRlxcXGpqamVlZXBwcIyMjJKSkk9PT4uLi1RUVFlZWX9/f5CQkF9fX3t7e15eXlFRUWNjY3R0dEtLS35+fnV1dXx8fIGBgXl5eXh4eGRkZGdnZ29vb2lpaXFxcWxsbP///yH5BAAAAAAALAAAAABGABUAAAb/QMWEFRHIjsikcslsOp9LjsGk+FxQC5t2y+16v+Cw+Lu5GDoCA0x1yLnf8Lh8Tq/b5w4MQwDT4XSAgYKDhIWGh4iGBiADAjk8DzySk5SVlpeYmZqYORiNOT4QPqOkpaanqKmqq6kALo0iOzY7tLW2t7i5uru8ujwOjQA9Fj3FxsfIycrLzM3LBwaNOiM4MNbX2NkwP9w/293W4N/c1+Dk5NrpADow0gASAPHy8/TcBPcE9vf23AD8P/5+4PtHgJ5BeQ6iCQAAaVOlbpK6/eDBLUHFiz8sZowoMYFDSTkU6gjF6lQBbj64FVgp8cfJbixdjlKpsuQoAAobyOplSyICtAQSd3AD+oMoUVrdhBYdypMWj3YCeAxzhiyA1QDFrmK12oOrV6xdv4alWqxNoxASNNBYy7at27dw48qdG3cHgEYHcJzAwbev37+AAwseTFhwDx14b5C4wbix48eQI0ueTFlyhQaNfLRYUaOz58+gQ4seTbr06BgHXlDQsaDEjNewY8ueTbu27du1e3iYoIDBgQU9YggfTry48ePIkysvXsEHjwgZFFBgAMCm9evYSzVIIUBBEAA7 id=btnZzk class=submit value>
+ <label class=lb_search><input type=text id=q class=keyword value></label>
+ </div>
+ </div>
+ 
+ <div id=sideMain>
+ <div id=side-recent-comments>
+ <h2><a href=https://www.cnblogs.com/zhouej/comments class=sidebar-card-title-a>最新评论</a></h2>
+<ul class=voice>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02/09/2343756.html>Re:使用vimdiff作为svn diff的查看代码工具</a>
+ <br>
+ <a class=child href=https://www.cnblogs.com/zhouej/archive/2012/02/09/2343756.html>
+ 请问用IntelliJ怎么使用vimdiff ?我设置后，执行没反应
+ -- .Gordon
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>Re:uWSGI配置文档翻译</a>
+ <br>
+ <a class=child href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>
+ 太详细了，崇拜
+ -- 调兵虎符
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>Re:uWSGI配置文档翻译</a>
+ <br>
+ <a class=child href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>
+ touch-reload的配置，看这里：uWSGI configuretouch-reload = /home/www-data/djcode/metCCS/metCCS/settings.pytou...
+ -- 昕-2008
+ </a>
+ </li>
+</ul>
+</div></div>
+ <div id=sideRight>
+ <div id=side-archives>
+ <h2>随笔档案</h2>
+ <ul class=date>
+ <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03.html>2012年3月(1)</a>
+ </li> <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02.html>2012年2月(3)</a>
+ </li> 
+ </ul>
+ </div>
+ 
+ 
+ 
+ 
+<div id=topdigg_posts_wrap>
+ <div id=side-top-posts-custom>
+ <h2>
+ <a href=https://www.cnblogs.com/zhouej/most-liked class=sidebar-card-title-a>推荐排行榜</a>
+ </h2>
+ <div id=TopDiggPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>
+ 1. uWSGI配置文档翻译(9)
+ </a>
+ </li>
+ </ul>
+ </div>
+ </div>
+</div></div>
+ <div id=sideLeft>
+ <div id=side-calendar>
+ <h2>日历</h2>
+ <div id=blog-calendar>
+<table id=blogCalendar class=Cal cellspacing=0 cellpadding=0 title=Calendar border=0>
+ <tbody>
+ <tr>
+ <td colspan=7>
+ <table class=CalTitle cellspacing=0 border=0>
+ <tbody>
+ <tr>
+ <td class=CalNextPrev>
+ <a>&lt;</a>
+ </td>
+ <td align=center>2012年3月</td>
+ <td align=right class=CalNextPrev>
+ <a>&gt;</a>
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ </td>
+ </tr>
+ <tr>
+ <th class=CalDayHeader align=center abbr=日 scope=col>日</th>
+ <th class=CalDayHeader align=center abbr=一 scope=col>一</th>
+ <th class=CalDayHeader align=center abbr=二 scope=col>二</th>
+ <th class=CalDayHeader align=center abbr=三 scope=col>三</th>
+ <th class=CalDayHeader align=center abbr=四 scope=col>四</th>
+ <th class=CalDayHeader align=center abbr=五 scope=col>五</th>
+ <th class=CalDayHeader align=center abbr=六 scope=col>六</th>
+ </tr>
+ <tr>
+ <td class=CalOtherMonthDay align=center>26</td>
+ <td class=CalOtherMonthDay align=center>27</td>
+ <td class=CalOtherMonthDay align=center>28</td>
+ <td class=CalOtherMonthDay align=center>29</td>
+ <td align=center>
+ 1
+ </td>
+ <td align=center>
+ 2
+ </td>
+ <td class=CalWeekendDay align=center>
+ 3
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 4
+ </td>
+ <td align=center>
+ 5
+ </td>
+ <td align=center>
+ 6
+ </td>
+ <td align=center>
+ 7
+ </td>
+ <td align=center>
+ 8
+ </td>
+ <td align=center>
+ 9
+ </td>
+ <td class=CalWeekendDay align=center>
+ 10
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 11
+ </td>
+ <td align=center>
+ 12
+ </td>
+ <td align=center>
+ 13
+ </td>
+ <td align=center>
+ 14
+ </td>
+ <td align=center>
+ 15
+ </td>
+ <td align=center>
+ 16
+ </td>
+ <td class=CalWeekendDay align=center>
+ 17
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 18
+ </td>
+ <td align=center>
+ 19
+ </td>
+ <td align=center>
+ 20
+ </td>
+ <td align=center>
+ 21
+ </td>
+ <td align=center>
+ 22
+ </td>
+ <td align=center>
+ 23
+ </td>
+ <td class=CalWeekendDay align=center>
+ 24
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03/25.html><u>25</u></a>
+ </td>
+ <td align=center>
+ 26
+ </td>
+ <td align=center>
+ 27
+ </td>
+ <td align=center>
+ 28
+ </td>
+ <td align=center>
+ 29
+ </td>
+ <td align=center>
+ 30
+ </td>
+ <td class=CalWeekendDay align=center>
+ 31
+ </td>
+ </tr>
+ <tr>
+ <td class=CalOtherMonthDay align=center>
+ 1
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 2
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 3
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 4
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 5
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 6
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 7
+ </td>
+ </tr>
+ </tbody>
+</table></div>
+ 
+</div><div id=side-hottags>
+ <h2><a href=https://www.cnblogs.com/zhouej/tag/ class=sidebar-card-title-a>我的标签</a></h2>
+<ul class=folder>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/tag/Nginx/>Nginx<span class=tag-count>(2)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/tag/liunx/>liunx<span class=tag-count>(1)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/tag/uWSGI/>uWSGI<span class=tag-count>(1)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/tag/%E7%BF%BB%E8%AF%91/>翻译<span class=tag-count>(1)</span></a>
+ </li>
+ 
+</ul>
+</div><div id=side-categories>
+ <h2>随笔分类</h2>
+ <ul class=folder>
+ <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/category/353677.html>Linux(1)</a>
+ </li> <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/category/353676.html>Nginx(2)</a>
+ </li> <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/category/359876.html>uWSGI(1)</a>
+ </li> <li data-category-list-item-visible=true style=display:block>
+ <a href=https://www.cnblogs.com/zhouej/category/359877.html>翻译(1)</a>
+ </li> 
+ </ul>
+ </div><div id=side-top-posts>
+ <h2>
+ <a href=https://www.cnblogs.com/zhouej/most-viewed class=sidebar-card-title-a>
+ 阅读排行榜
+</a>
+ </h2>
+ <div id=TopViewPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/03/25/2379646.html>
+ 1. uWSGI配置文档翻译(41959)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02/09/2343756.html>
+ 2. 使用vimdiff作为svn diff的查看代码工具(5352)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02/10/2345285.html>
+ 3. Nginx - HttpUpstreamModule(1245)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/zhouej/archive/2012/02/01/2335103.html>
+ 4. nginx负载均衡中RR和ip_hash策略分析（转）(1055)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div> 
+ <div id=sideContainer class=sf-hidden></div>
+ 
+ </div>
+ 
+ <div id=footer class=sf-hidden>
+ 
+ </div>
+ </div>
+ 
+</div>
