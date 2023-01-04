@@ -1,0 +1,842 @@
+<!DOCTYPE html> <html lang=zh-cn style=--olcb-folder-code-block-max-height:80vh><!--
+ Page saved with SingleFile 
+ url: https://www.cnblogs.com/Yloon/p/5997727.html 
+ saved date: Wed Jan 04 2023 14:10:06 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=referrer content=origin-when-cross-origin>
+<meta name=description content="以下是转贴： TUXEDO超时控制全功略 摘要： 本《功略》集中了TUXEDO应用中，可能涉及到的所有时间参数，并分别对其进行详细描述，不但对其出处、取值等基本属性进行查证，而且，通过分析其内在的控制">
+<meta property=og:description content="以下是转贴： TUXEDO超时控制全功略 摘要： 本《功略》集中了TUXEDO应用中，可能涉及到的所有时间参数，并分别对其进行详细描述，不但对其出处、取值等基本属性进行查证，而且，通过分析其内在的控制">
+<meta http-equiv=Cache-Control content=no-transform>
+<meta http-equiv=Cache-Control content=no-siteapp>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<title>Tuxedo 超时时间控制（转贴） - Hotz亚军 - 博客园</title>
+<style>.navbar a:hover{color:#666;text-decoration:underline}.navbar a:link,.navbar a:active,.navbar a:visited{color:#666;text-decoration:none}.navbar{display:flex;flex-direction:column;align-items:center;background-color:#fff;padding-left:40px;padding-right:40px;padding-top:5px;padding-bottom:5px}.navbar>nav{display:flex;font-size:15px;color:#666;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:space-between;width:100%}.navbar>nav .navbar-branding{width:140px;flex-shrink:0;margin-right:5px}.navbar>nav .navbar-branding img{display:block;max-height:28px;height:28px;margin-left:10px}.navbar>nav .navbar-left>*:not(:first-child){margin-left:31px}.navbar>nav .navbar-right>*:not(:first-child),.navbar>nav #navbar_login_status>*:not(:first-child){margin-left:24px}.navbar>nav #navbar_login_status{min-width:120px}.navbar>nav .navbar-list{display:flex;flex-direction:row;align-items:center;flex-wrap:nowrap;list-style:none;white-space:nowrap;transition:width .5s ease}.navbar>nav .navbar-search{padding-left:20px;padding-right:20px;display:flex;flex-direction:row;align-items:center;border-radius:6px;background-color:#f4f4f4;height:32px}.navbar>nav .navbar-search img{width:19px;height:19px}.navbar>nav .navbar-search>input{border:none;outline:none;background:none;width:170px;font-size:inherit}.navbar>nav .navbar-search>button{background:none;border:none;cursor:pointer}.navbar>nav .navbar-search>input::-webkit-input-placeholder{color:#afafaf;opacity:1}.navbar>nav .navbar-search>input::placeholder{color:#afafaf;opacity:1}.navbar>nav .navbar-icon-wrapper{position:relative}.dropdown{display:-ms-inline-flexbox;position:relative}input[type=button]{-webkit-appearance:button}img{max-width:100%;height:auto}#blog_post_info_block{margin-top:20px}.div_my_zzk{margin-bottom:5px}.input_my_zzk{vertical-align:middle}input.btn_my_zzk{vertical-align:middle;height:22px;font-size:12px;padding-left:5px;padding-right:5px}#author_profile{float:left;width:280px;margin-top:0;margin-bottom:10px;color:#000;margin-left:0;font-size:12px}#author_profile a:hover{text-decoration:underline}.author_avatar{vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;border:0}.author_profile_info{float:left;line-height:18px}#div_digg{float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px}.diggit{float:left;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP/00P/22vfqt/b29v/11f/45P/56P/34PjtwfXlqf/55v/11//00v/44vnwyfn5+f/22Pbnrf/21vny0Pn00//33vDw8P/12KioqP/10ufm61B1uv/33f/33P////H4+iH5BAAAAAAALAAAAAAuADQAAAX/oJeMZGmeaJqKQOu+cCzPcxLJmZvlcM4DPlosE4kwMsfdLrlEIo8MZvRJjTKbxaZyy+16v94iYUwum8/odDlDjgjU8Lh8LBAs7mQ8YTHmS/aAfHyBeHeCg3l1dxAQFwsXkBeMjJILEJaNko2bk4+Pl4x3knUBpaanqKmqq6sCCAEdsR2ws6mytbSwprGns766HQgIHByxxR3FxMi3y8nIycTO0MqywtTH0Mu30s/PytLRt9bYxt3Hstzf4eDUsePlzc7bzebr8e3Bw+Tx2uj06t/unct3rVzAeeC8pQtXTR+8bAP/1Qs4beA7bRCZLVT4j6E7hxjNaezIkZ1FkOQO//pLGG0hvosp5a3k17LjSwQVcurcybOnz58/ETg4QLSo0aNIkypV6sBBg6dPC0CdWkBqg6pTs1q1qpWrgwlVw4odS7as2bMTJihYy7at27dw48adQMGA3bt48+rdy5cv3b6AAwu2S8EDhcOIEytezLhxYw+QI0ueTLmy5cuYM2veDPmD58+gQ4seTbq0htIPBqguzbq159OjH2jQgEHDANe4RcMWPUCDBwsYHuQe/pr0bA8PMNwmnnt36N6/lYve8Jk69enVdYdO3ds38OWgr4sPv6G8+fOfndPGwB5DdPAf0J8vjz2+ds8eMFigPEB/aOvjVTfffOl91t96+0X2HYB58REYHmu7JWfZgp7RZ9+FDw4I2m79teebgrVVeGGAD5ZYoGcSVjbBBvCJ52CDDb4Y4Xq1SQYcBSWSaN91Ioa222+0WSDkkBiwmGOPJmJ4ooHsbVDkkw4I6CJ62cV4H2gPFHDABVsWAB9zEIIppnFjlrnhbGimqeaabLbp5mwhAAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.diggnum{font-size:14px;color:#075db3;font-family:Verdana}.buryit{float:right;margin-left:20px;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP////39/fn5+fj4+Pb29vX19fPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6ujo6Ofn5+bm5uXl5ePj4+Li4uHh4dzc3NfX19HR0c/Pz6qqqqioqKenp4WFhYODgyH5BAQUAP8ALAAAAAAuADQAAAX/IKCNZGmeaJqKUeu+cCzP80jfeN5mGeT/wKBwSCTyisik0sd7OJ/QqHRKpWYw1ax268RgHGDuFkwuO6Res3rNbre9jbh8Tq/b73fMpcHo+xl2f3iDdRcXC4iJiol/jY2LkIh/hpGQjpcMlYuTh5qMmI+ekn6UogugoaKcpqeofqyrpq6vsqSdqrOZtX2luLOwtsC/uwy9nrm6vsW3x7nCy6zR0ogXFgrX2Nna29zd3RYWCeLj5OXm5+jo4Ajs7e7v8PHy8hQUB/f4+fr7/P399QYCChxIsKDBgwcBIlzIsKGBCQAmSJxIsaLFixgxAtjIsaPHjyBDihxJsqTJjQVS8KpcybKly5cwIcCcSbOmSpk2c+pMiZOlAHYOFDhAQGBnzp4rN2z4wIEp0wpGayIFkOABB3MdPBh4+aHrB5pfb64UYJUDBwgdFXCYsNJr2LZu265EKoBDSAoftqp8O5MvX6QFzJpFyzHBWbhuu+5NmVgxz7EcAoA0XHQxS78FMItdedZsgo4HOFRmnNmy3NKoH6sEwAHBxwEcFlxOzZc06b8sIwg2S5WD3tNfa5cOG3xuSwEECPjoPdq2c8uaVb9ES3l25uKmoxcAPBdt3ebB/Tpu6dV4TAChBUSVClOADw4Smq93yX1scvnzWy7Zzz9ICAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.burynum{font-size:14px;color:#075db3;font-family:Verdana}.diggword{margin-top:5px;margin-left:0;font-size:12px;color:#808080}#profile_block{margin-top:5px;line-height:1.5;text-align:left}#post_next_prev{line-height:1.8;font-size:12px}#post_next_prev a.p_n_p_prefix:link{text-decoration:none}#post_next_prev a.p_n_p_prefix:hover{text-decoration:underline}.under-post-card{margin-top:10px;line-height:1.5}#green_channel{padding:10px 0;margin-bottom:10px;margin-top:10px;border:#c0c0c0 1px dashed;font-size:12px;width:350px;text-align:center}#green_channel a{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D)repeat-x;display:inline-block;padding:3px 8px;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer;margin-right:10px;-moz-border-radius:5px;-webkit-border-radius:10px;-moz-box-shadow:0 1px 3px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 3px rgba(0,0,0,.5);text-shadow:0-1px 1px rgba(0,0,0,.25);vertical-align:middle}#green_channel a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/v//vwMTAwPDfzjBgMpFI/7hFSOT9Y8qRuF3JLoHAQIMAHYtMmRA+CugAAAAAElFTkSuQmCC)}#green_channel #green_channel_digg{background-color:#2daebf}#green_channel #green_channel_follow{background-color:#e33100}#green_channel #green_channel_favorite{background-color:#ffb515}#green_channel #green_channel_weibo img{vertical-align:middle;border:none;margin-left:5px;box-shadow:none}#green_channel #green_channel_weibo,#green_channel #green_channel_wechat{background:none;padding:3px 2px;-moz-border-radius:none;-webkit-border-radius:none;-moz-box-shadow:none;-webkit-box-shadow:none;text-shadow:none}#green_channel #green_channel_wechat img{width:24px;height:24px;border:medium none;box-shadow:none;margin-left:5px;vertical-align:middle}#cnblogs_post_body{margin-bottom:20px}#opt_under_post{line-height:1.8}#HistoryToday{max-width:600px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.Cal{width:100%}#cnblogs_post_body{word-break:break-word}#cnblogs_post_body p{margin:10px auto}#cnblogs_post_body p{text-indent:0}#div_digg .diggnum{line-height:1.5em!important}#div_digg .burynum{line-height:1.5em!important}#green_channel a:link,#green_channel a:visited,#green_channel a:active{color:#fff!important;border:none!important}.vertical-middle>*{vertical-align:middle}#blog-news{overflow:hidden}.category-item-link{word-break:break-word}#cnblogs_c1{width:300px;height:250px}.sidebar-card-title-a,a.sidebar-card-title-a:link,a.sidebar-card-title-a:visited{font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;color:inherit!important}@keyframes fadeIn{0%{opacity:0}100%{opacity:var(--cnb-code-toolbar-initial-opacity)}}.login_tips{background-image:url(data:image/gif;base64,R0lGODlhEAAQAOZbAOny/v3+/lqIuT1wIOLu/lOMKKnB2omqzbTJ34+8Z9vq/c7c6tfo/ZSwhJOx0WyVwJGugWCJSbLSlff5/Pv8/efu9Y26ZDdrGUFzJXCYwuDt/vP3+uvx94usztrk793s/m6XwYe5YN/s/qO92Iu6YnCWXpeyiOnv9tXm/bHTkKa9mZ241dDj/dzm8Ex7Mejx/lePLd3r/vn7/NHk/eXw/tDk/dPm/dTm/dzq/d7s/tbn/WaOT3ugx2+XwuTv/o+7arbUnNnp/dDmurHFq9zr/X2iyF+Mu+bw/pm21Obx/oe6YFyKuvD2/oWny7HWktrp/Yy8ZYKjk+Pv/uHu/r7Q4z9xItHk/LTUlYGrYViHuP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFsALAAAAAAQABAAAAemgFuCg4SFhoeGGw5LWY2OWU0VhB0GFFqXmFoIGRSCEwIBTABJPlM5CjhaPC2CHA9aL0dSGh8KDChaBwutrzQEGjFPDDczubtbnwEAIkRBOjY1VlpFHoOUAZgELACaGTKDigKNK5dDJTsRKog9FVFYV0I/MBCGI0hGESlOWlAJA4UnQFDZ4gIIJgkXEG2pQkKJlhD+FJooYEGChQL0FDbAcAFDgy2BAAA7);background-repeat:no-repeat;margin-top:10px;padding:0 0 10px 25px;font-weight:400}.login_tips a{text-decoration:underline!important}#comment_nav{text-align:right}#comment_nav a{padding-left:10px}:root{--highlighted-line-bg:#d1e3c9;--highlighted-line-bg-dark:#264b33}@keyframes collapse{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-scroll-height,80vh)}to{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh)}}@keyframes expand{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh);overflow-y:hidden}to{max-height:"";max-height:"";max-height:var(--olcb-folder-code-block-scroll-height,"");overflow-y:hidden}}@keyframes modal-open{0%{height:0;opacity:0}95%{height:505px}100%{height:auto;opacity:1}}:root{--cnblogs-toc-bg-color:rgba(245,245,245,.98);--cnblogs-toc-highlight-color:rgba(255,255,255,.9);--cnblogs-toc-color:#000}@keyframes wb-fade-in{0%{opacity:0}to{opacity:.85}}/*!
+ * ui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */@-webkit-keyframes ui-dialog-loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes ui-dialog-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.navbar{box-shadow:0 2px 6px rgba(100,100,100,.15)}*{margin:0;padding:0}html{height:100%}body{color:#000;background-color:#e6e6e6;font-family:"Helvetica Neue",Helvetica,Verdana,Arial,sans-serif;font-size:12px;min-height:101%}table{border-collapse:collapse;border-spacing:0}img{border:0}li{list-style:none}a{outline:none;color:#21759b}a:link{color:#000;text-decoration:none}a:visited{color:#000;text-decoration:none}a:hover{color:#21759b}a:active{color:#000;text-decoration:none}.clear{clear:both}#home{margin:0 auto;width:65%;min-width:950px;background-color:#fff;padding:30px;margin-top:50px;margin-bottom:50px;box-shadow:0 2px 6px rgba(100,100,100,.3)}#header{padding-bottom:5px;margin-top:10px}#blogTitle{height:60px;clear:both}#blogTitle h1{font-size:26px;font-weight:bold;line-height:1.5em;margin-top:20px}#blogTitle h1 a{color:#515151}#blogTitle h1 a:hover{color:#21759b}#blogTitle h2{font-weight:normal;font-size:.928571429rem;line-height:1.846153846;color:#757575;float:left}#blogLogo{float:right}#navigator{font-size:13px;border-bottom:1px solid #ededed;border-top:1px solid #ededed;height:50px;clear:both;margin-top:25px}#navList{min-height:30px;float:left}#navList li{float:left;margin:0 40px 0 0}#navList a{display:block;width:5em;height:22px;float:left;text-align:center;padding-top:19px}#navList a:link,#navList a:visited,#navList a:active{color:#6a6a6a;font-weight:bold}#navList a:hover{color:#000;text-decoration:none}.blogStats{float:right;color:#757575;margin-top:19px;margin-right:2px;text-align:right}#main{width:100%;text-align:left;margin-top:30px}#mainContent .forFlow{margin-left:22em;float:none;width:auto}#mainContent{min-height:200px;padding:0 0 10px 0;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;float:left;margin-left:-22em;width:100%}.postTitle{border-left:3px solid #21759b;margin-bottom:10px;clear:both}.postTitle a:link,.postTitle a:visited,.postTitle a:active{color:#21759b;transition:all .4s linear 0s}.postTitle a:hover{margin-left:30px;color:#0f3647;text-decoration:none}.postDesc{font-size:13px;float:left;clear:both;padding-right:5px;line-height:1.5}.postDesc a:link,.postDesc a:visited,.postDesc a:active{color:#666}.postDesc a:hover{color:#21759b;text-decoration:none}#sideBar{margin-top:-15px;width:230px;min-height:200px;padding:0 0 0 5px;float:right;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden}#sideBar a{color:#757575}#sideBar a:hover{color:#21759b;text-decoration:underline}.div_my_zzk{width:175px;position:relative;margin-top:10px}#btnZzk{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAE6SURBVCjPbc6xS5RxAIfxz+99r8OhCL1zOdyi0R+IWBHoe4j+A9n4IiJ6f0QJgUNTEdKYbqc1RKDoEEFTW5tGDWdiDi1hQiUd6XUNZ6HhM33hOzxPICcxpGZMxW87Vi3apg7SnKJZj2W6HDhSMaxqTyPaRIIZD5StuCVTNem1fk+MkyONNyy45J67Ptj3xTsbSjJXrDvcFPIl05bNaHac5FSsGjSpTmLML081neazF4IRSFQc+Pi3mZP1Hn2KJFpSBf9zAS1tEjt6xE7xvwauoeGIxJrEtPKZO7rtp1eQxk+G3VTyNv6IYudeMKDhoW91afxqT1WmqqSs35R5A+hx0ZvYDDnBqHnXpdoCDu26qqhl0Z1wYu01LtOnZdtLW+bUpI49C6figoK2Y3DZfTUF34Nzyen2yITnfwBNsVap/Q+VNAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNS0wMS0wNlQyMjoyNDoyOCswODowMNFISBsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTUtMDEtMDZUMjI6MjQ6MjgrMDg6MDCgFfCnAAAATXRFWHRzb2Z0d2FyZQBJbWFnZU1hZ2ljayA2LjguOC03IFExNiB4ODZfNjQgMjAxNC0wMi0yOCBodHRwOi8vd3d3LmltYWdlbWFnaWNrLm9yZ1mkX38AAAAYdEVYdFRodW1iOjpEb2N1bWVudDo6UGFnZXMAMaf/uy8AAAAYdEVYdFRodW1iOjpJbWFnZTo6SGVpZ2h0ADM5NkS0YSIAAAAXdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgAMzk210UxfwAAABl0RVh0VGh1bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNDIwNTU0MjY4IpYi1gAAABN0RVh0VGh1bWI6OlNpemUAMTEuMktCQvM40ZcAAABidEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL2Z0cC8xNTIwL2Vhc3lpY29uLmNuL2Vhc3lpY29uLmNuL2Nkbi1pbWcuZWFzeWljb24uY24vcG5nLzExODM0LzExODM0OTYucG5nH1E5GQAAAABJRU5ErkJggg==)no-repeat 5px 5px}#widget_my_google input[type=button]{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAFaSURBVCjPbdFPSJMBAMbhZ9++tFFbHqSOCxYS/QHrUmh1yDBH0EbdDL1FdRl06NyxoIt8pwgE0YsIUdDBolLI2iEISgoNWjaTkUYsHGLlrA5bt+7v7/I+MSJIOq1LoIak34oeqVEQi2CPASue+OQntkrrscuoEvEsGZdNuuu7FqEtWPZaXb+PqqHtBj0wY69eScdUDXsqZ849g24F+qx4pt0Nnw1545BlKR3S3vqmL9TlDnY7YMGaMXlZbY7Yr9NzuVBcGRWr8mallExYctUrM1qcC61aR8U1/W5qd10Z71TU1dUCKMCUgm2OWgeT3gOBHRIRCedd9EHViE4KjSghFahL44q8+yJ58y403yVtM1B0UqszFpRt+mpaQHPSoxjPLur1S03OhlaHHTduCZxw0GgsIuOSh9bsww8vlRDodtZtpQZWxoAvHlu00cQ6ZWcDK/Zf7j9e/OP+C1bycGSt9JfBAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE0LTA1LTI3VDA5OjQwOjMyKzA4OjAw2n9uiAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNC0wNS0yN1QwOTo0MDozMiswODowMKsi1jQAAABNdEVYdHNvZnR3YXJlAEltYWdlTWFnaWNrIDYuOC44LTcgUTE2IHg4Nl82NCAyMDE0LTAyLTI4IGh0dHA6Ly93d3cuaW1hZ2VtYWdpY2sub3JnWaRffwAAABh0RVh0VGh1bWI6OkRvY3VtZW50OjpQYWdlcwAxp/+7LwAAABd0RVh0VGh1bWI6OkltYWdlOjpIZWlnaHQANTCQoD5eAAAAFnRFWHRUaHVtYjo6SW1hZ2U6OldpZHRoADUwaA/+0wAAABl0RVh0VGh1bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNDAxMTU0ODMyzWD0hAAAABN0RVh0VGh1bWI6OlNpemUAMi4yOEtCQvr94aMAAABidEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL2Z0cC8xNTIwL2Vhc3lpY29uLmNuL2Vhc3lpY29uLmNuL2Nkbi1pbWcuZWFzeWljb24uY24vcG5nLzExNjY0LzExNjY0MzcucG5naliQIQAAAABJRU5ErkJggg==)no-repeat 5px 5px}.input_my_zzk{border:1px solid #ccc;width:100%;height:25px;padding-right:30px;padding-left:5px;outline:0}.btn_my_zzk{width:25px;color:transparent;border:0;border-style:none;cursor:pointer;top:1px;position:absolute;right:-35px}.input_my_zzk:hover{border:1px solid #21759b;transition:all .4s linear 0s}.input_my_zzk:focus{border:1px solid #21759b}.newsItem,.catListLink,.catListPostArchive,.catListView,.mySearch{background:#fff;margin-bottom:35px;word-wrap:break-word}#blog-calendar{width:228px;padding-bottom:5px;margin-bottom:35px;box-shadow:0 1px 3px #ccc;border:1px solid #ededed}#blog-calendar td{font-size:12px;font-family:"Comic Sans MS"}#blog-calendar th{font-size:12px}.Cal{border:none;color:#666}.CalTodayDay{background:#3671a5!important;color:#fff;font-weight:bold}.CalWeekendDay{padding-top:4px;padding-bottom:4px}.CalOtherMonthDay{color:#ccc;padding-top:4px;padding-bottom:4px}.CalDayHeader{background:#f8f8f8;font-weight:100;color:#5e5f63}.CalTitle{background:#6293bb;width:100%;height:25px;text-align:center;font-size:14px;font-weight:bold;padding:5px 0;color:#fff}.CalTitle td{background:#f8f8f8!important;border:0!important;color:#5e5f63}.catListTitle{font-weight:bold;line-height:1.2;margin-top:15px;margin-bottom:10px;text-align:left}#sideBarMain ul{line-height:1.5em}#sideBarMain li{line-height:1.8}#topics{width:100%;min-height:200px;padding:0 0 10px 0;float:left;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden}#topics .postTitle{border:0;font-size:130%;font-weight:bold;float:left;line-height:1.5;width:100%;padding-left:5px}#topics .postDesc{padding-left:0;width:100%;text-align:left;color:#666;margin-top:5px;background:none}#footer{color:#686868;text-align:center;min-height:15px;border-top:1px solid #ededed;margin-top:50px;padding-top:10px;margin-bottom:10px}.postBody{color:#000;line-height:1.7;font-size:14px}.postBody a:link,.postBody a:visited,.postBody a:active{text-decoration:underline}#sideBar{font-size:12px}#sideBar h3{font-size:14px}</style>
+<style media="only screen and (max-width: 767px)">body{font-size:14px!important;-webkit-text-size-adjust:none}.forpc{display:none!important}#blog_nav_rss{display:none!important}#blog_nav_newpost{display:none!important}#green_channel{width:100%}#sidebar_search_box input[type=text]{width:260px}#cnblogs_c1{text-align:center;margin:10px auto 0 auto}#cnblogs_c1{width:300px}.commentform{margin-left:10px}.navbar{display:none}.skin-simplememory #mainContent{float:none;margin-left:0}.skin-simplememory #main{padding:10px}.skin-simplememory .forFlow{margin:0 10px}.skin-simplememory #sideBarMain{width:100%;float:none;padding:10px;margin-right:0}#mainContent{width:100%!important;padding-right:0!important}#mainContent .forFlow{margin-left:0!important}#sideBar{float:none;width:auto;margin-top:10px}#home{width:auto;min-width:0;margin-left:0!important;margin-right:0!important;margin-top:0}.postTitle{float:none}#navList a{width:auto}#topics .postTitle{width:auto}</style>
+<link type=application/rss+xml rel=alternate href=https://www.cnblogs.com/Yloon/rss>
+<link type=application/rsd+xml rel=EditURI href=https://www.cnblogs.com/Yloon/rsd.xml>
+<link type=application/wlwmanifest+xml rel=wlwmanifest href=https://www.cnblogs.com/Yloon/wlwmanifest.xml>
+<link id=favicon rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJwcmVmaXhfX2NsaXAtcGF0aCI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9InByZWZpeF9fY2xpcC1wYXRoLTIiPjxwYXRoIGNsYXNzPSJwcmVmaXhfX2Nscy0xIiBkPSJNMjAuOTIgMy40NmE0LjI1IDQuMjUgMCAwMS4zMSA1Ljg2IDMuOTEgMy45MSAwIDAxLTUuNjYuMjQgNC4yNSA0LjI1IDAgMDEtLjMxLTUuODYgMy45MSAzLjkxIDAgMDE1LjY2LS4yNG0xLjM1LTEuNTRhNS44OSA1Ljg5IDAgMDAtOC41My4zNiA2LjQxIDYuNDEgMCAwMC40OCA4LjgzIDUuOTEgNS45MSAwIDAwOC41My0uMzYgNi40MSA2LjQxIDAgMDAtLjQ4LTguODN6Ii8+PC9jbGlwUGF0aD48c3R5bGU+LnByZWZpeF9fY2xzLTF7ZmlsbDojM2UzYTM5fUBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7LnByZWZpeF9fY2xzLTF7ZmlsbDojZWZlZmVmfX08L3N0eWxlPjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiPjxnIGlkPSJwcmVmaXhfX2xheWVyXzEiIGRhdGEtbmFtZT0ibGF5ZXIgMSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PGcgY2xpcC1wYXRoPSJ1cmwoI3ByZWZpeF9fY2xpcC1wYXRoKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48cGF0aCBjbGFzcz0icHJlZml4X19jbHMtMSIgZD0iTTIwLjkyIDMuNDZhNC4yNSA0LjI1IDAgMDEuMzEgNS44NiAzLjkxIDMuOTEgMCAwMS01LjY2LjI0IDQuMjUgNC4yNSAwIDAxLS4zMS01Ljg2IDMuOTEgMy45MSAwIDAxNS42Ni0uMjRtMS4zNS0xLjU0YTUuODkgNS44OSAwIDAwLTguNTMuMzYgNi40MSA2LjQxIDAgMDAuNDggOC44MyA1LjkxIDUuOTEgMCAwMDguNTMtLjM2IDYuNDEgNi40MSAwIDAwLS40OC04LjgzeiIvPjxnIGNsaXAtcGF0aD0idXJsKCNwcmVmaXhfX2NsaXAtcGF0aC0yKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" type=image/svg+xml><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.cnblogs.com/Yloon/p/5997727.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="skin-simplememory has-navbar">
+<a name=top></a>
+<div id=top_nav class="navbar forpc">
+ <nav id=nav_main class=navbar-main>
+ <ul id=nav_left class="navbar-list navbar-left">
+ <li class=navbar-branding>
+ <a href=https://www.cnblogs.com/ title=开发者的网上家园 role=banner>
+ <img src="data:image/svg+xml;base64,PHN2ZyBpZD0ibGF5ZXJfMSIgZGF0YS1uYW1lPSJsYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMjgwIDEwMi42NiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOnVybCgjZ3JhZGllbnQpO30uY2xzLTJ7ZmlsbDojOGRjZWZjO30uY2xzLTMsLmNscy00e2ZpbGw6bm9uZTtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MnB4O30uY2xzLTN7c3Ryb2tlOiM0NTdhYjU7fS5jbHMtNHtzdHJva2U6dXJsKCNncmFkaWVudF8zKTt9LmNscy01e2ZpbGw6dXJsKCNncmFkaWVudF8yKTt9LmNscy02e2ZpbGw6IzJlN2FjYzt9LmNscy03e2ZpbGw6I2UzM2UwNjt9LmNscy04e2ZpbGw6IzhjOGM4Yzt9PC9zdHlsZT48cmFkaWFsR3JhZGllbnQgaWQ9ImdyYWRpZW50IiBjeD0iNDkuMjIiIGN5PSItNjU1MC45NSIgcj0iNDQuNjIiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTAuMDcsIDAsIC0zNTkuNDkpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjOGM4YzhjIi8+PHN0b3Agb2Zmc2V0PSIwLjEzIiBzdG9wLWNvbG9yPSIjOTE5MTkxIiBzdG9wLW9wYWNpdHk9IjAuOTUiLz48c3RvcCBvZmZzZXQ9IjAuMzIiIHN0b3AtY29sb3I9IiNhMGEwYTAiIHN0b3Atb3BhY2l0eT0iMC44MyIvPjxzdG9wIG9mZnNldD0iMC41NCIgc3RvcC1jb2xvcj0iI2I4YjhiOCIgc3RvcC1vcGFjaXR5PSIwLjYxIi8+PHN0b3Agb2Zmc2V0PSIwLjc4IiBzdG9wLWNvbG9yPSIjZGFkYWRhIiBzdG9wLW9wYWNpdHk9IjAuMzIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkaWVudF8zIiBjeD0iLTE0Ny41NSIgY3k9Ii0yNjIuMjciIHI9IjIzLjI2IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAuOTUsIC0wLjMyLCAtMC4zMiwgLTAuOTUsIDEyMS41LCAtMjc1LjYzKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iMC4yMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwLjk5Ii8+PHN0b3Agb2Zmc2V0PSIwLjM0IiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAuOTYiLz48c3RvcCBvZmZzZXQ9IjAuNDYiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMC45Ii8+PHN0b3Agb2Zmc2V0PSIwLjU2IiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAuODEiLz48c3RvcCBvZmZzZXQ9IjAuNjYiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMC43MSIvPjxzdG9wIG9mZnNldD0iMC43NCIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwLjU4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAuNDIiLz48c3RvcCBvZmZzZXQ9IjAuOTEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMC4yNCIvPjxzdG9wIG9mZnNldD0iMC45OSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwLjA0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L3JhZGlhbEdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iZ3JhZGllbnRfMiIgY3g9IjYxLjE5IiBjeT0iNTcuOTMiIHI9IjU0LjU2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2FhY2RmIi8+PHN0b3Agb2Zmc2V0PSIwLjI3IiBzdG9wLWNvbG9yPSIjNzBhNmRkIi8+PHN0b3Agb2Zmc2V0PSIwLjczIiBzdG9wLWNvbG9yPSIjNTQ5NmQ5Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNDA4YmQ2Ii8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHRpdGxlPuWNmuWuouWbrWxvZ288L3RpdGxlPjxnIGlkPSJsYXllcl8yIiBkYXRhLW5hbWU9ImxheWVyIDIiPjxnIGlkPSJsYXllcl8xLTIiIGRhdGEtbmFtZT0ibGF5ZXIgMS0yIj48ZWxsaXBzZSBjbGFzcz0iY2xzLTEiIGN4PSI0OS4yMiIgY3k9Ijk5LjQ0IiByeD0iNDQuNjIiIHJ5PSIzLjIyIi8+PHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDkuMjIsMUE0OC4yMiw0OC4yMiwwLDEsMCw5Ny40NCw0OS4yMiw0OC4yMiw0OC4yMiwwLDAsMCw0OS4yMiwxWk0zNCw3Ny4wNkExMC40NiwxMC40NiwwLDEsMSw0NC40Myw2Ni42LDEwLjQ2LDEwLjQ2LDAsMCwxLDM0LDc3LjA2Wm0yNS4xMS00YTYuNSw2LjUsMCwwLDEtNi41LTYuNWMwLTkuODEtOC41MS0xOC4xLTE4LjU4LTE4LjFhNi41LDYuNSwwLDAsMSwwLTEzYzE3LjEyLDAsMzEuNTgsMTQuMjQsMzEuNTgsMzEuMUE2LjUsNi41LDAsMCwxLDU5LjA4LDczLjFaTTc5LjcyLDY3bC0uNTYsMGE2LjUsNi41LDAsMCwxLTYuNDctNkM3MS4zNSw0NS4yOSw1OS41NywyOC41LDQwLjQsMjguNWE2LjUsNi41LDAsMCwxLDAtMTNDNjQsMTUuNSw4My40OCwzNC42Myw4NS42NSw2MEE2LjUxLDYuNTEsMCwwLDEsNzkuNzIsNjdaIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI0OS4yMiIgY3k9IjQ5LjIyIiByPSI0OC4yMiIvPjxwYXRoIGNsYXNzPSJjbHMtNCIgZD0iTTM1LjIsNS44OWMyMy44OC03Ljc4LDUwLDUuMzYsNTcuNDEsMjkuMDUiLz48cGF0aCBjbGFzcz0iY2xzLTUiIGQ9Ik00OS4yMiw0LjZBNDQuNjIsNDQuNjIsMCwxLDAsOTMuODQsNDkuMjIsNDQuNjIsNDQuNjIsMCwwLDAsNDkuMjIsNC42Wk0zNCw3Ny4wNkExMC40NiwxMC40NiwwLDEsMSw0NC40Myw2Ni42LDEwLjQ2LDEwLjQ2LDAsMCwxLDM0LDc3LjA2Wm0yNS4xMS00YTYuNSw2LjUsMCwwLDEtNi41LTYuNWMwLTkuODEtOC41MS0xOC4xLTE4LjU4LTE4LjFhNi41LDYuNSwwLDAsMSwwLTEzYzE3LjEyLDAsMzEuNTgsMTQuMjQsMzEuNTgsMzEuMUE2LjUsNi41LDAsMCwxLDU5LjA4LDczLjFaTTc5LjcyLDY3bC0uNTYsMGE2LjUsNi41LDAsMCwxLTYuNDctNkM3MS4zNSw0NS4yOSw1OS41NywyOC41LDQwLjQsMjguNWE2LjUsNi41LDAsMCwxLDAtMTNDNjQsMTUuNSw4My40OCwzNC42Myw4NS42NSw2MEE2LjUxLDYuNTEsMCwwLDEsNzkuNzIsNjdaIi8+PHBhdGggY2xhc3M9ImNscy02IiBkPSJNNzkuNzIsNjdsLS41NiwwYTYuNSw2LjUsMCwwLDEtNi40Ny02LDM5LjI0LDM5LjI0LDAsMCwwLTQuNDUtMTUsNTYuNjQsNTYuNjQsMCwwLDAtMzctMTMuNThBNTcsNTcsMCwwLDAsNS45MywzOC4zOSw0NC42MSw0NC42MSwwLDAsMCw4NS42Miw3NWE1MS40LDUxLjQsMCwwLDAtMi44Ni05QTYuNTUsNi41NSwwLDAsMSw3OS43Miw2N1pNMzQsNzcuMDZBMTAuNDYsMTAuNDYsMCwxLDEsNDQuNDMsNjYuNiwxMC40NiwxMC40NiwwLDAsMSwzNCw3Ny4wNlptMjUuMTEtNGE2LjUsNi41LDAsMCwxLTYuNS02LjVjMC05LjgxLTguNTEtMTguMS0xOC41OC0xOC4xYTYuNSw2LjUsMCwwLDEsMC0xM2MxNy4xMiwwLDMxLjU4LDE0LjI0LDMxLjU4LDMxLjFBNi41LDYuNSwwLDAsMSw1OS4wOCw3My4xWiIvPjxwYXRoIGNsYXNzPSJjbHMtNyIgZD0iTTExNS4wOCwyNC44OFYxMC4yNGg0LjI2VjI0Ljg4aDYuMDZ2NC4yaC02LjA2djM2aC00LjI2di0zNkgxMDguNnYtNC4yWk0xNTAuODQsNDcuOHYtM0gxNTV2M2g3Ljg2djMuODRIMTU1VjYwLjRjMCwzLjEyLTEuNTYsNC42OC00LjYyLDQuNjhoLTYuNmwtLjktNGMyLjEuMTgsNC4xNC4zLDYuMDYuMywxLjIsMCwxLjg2LS42NiwxLjg2LTJWNTEuNjRoLTI2VjQ3LjhabS05LTMzLjM2VjEwLjNIMTQ2djQuMTRoN2EzNC4wOCwzNC4wOCwwLDAsMC0xLjc0LTMuNmwzLjcyLS42YTM5LjE5LDM5LjE5LDAsMCwxLDEuNTYsNC4yaDUuMTZWMTguMUgxNDZ2NC4xNGgxMy42VjQ0aC00VjM5LjgySDE0NlY0My42aC00LjE0VjM5LjgySDEzMi4zVjQ0aC00VjIyLjI0aDEzLjU2VjE4LjFIMTI2LjE4VjE0LjQ0Wk0xNDIsNTkuMzhsLTIuNywyLjdBNTYuNjEsNTYuNjEsMCwwLDAsMTMxLDU0LjM0bDIuNjQtMi41MkE1OC41Miw1OC41MiwwLDAsMSwxNDIsNTkuMzhabS0uMTItMjkuNThWMjUuNkgxMzIuM3Y0LjJabTAsNy4wOFYzMi44SDEzMi4zdjQuMDhaTTE0NiwyOS44aDkuNlYyNS42SDE0NlptMCw3LjA4aDkuNlYzMi44SDE0NloiLz48cGF0aCBjbGFzcz0iY2xzLTciIGQ9Ik0xOTIuMDYsMjAuNjhjLS45LDEuMzgtMS44LDIuNy0yLjc2LDRoMjIuMTR2My40OGEzMi43MywzMi43MywwLDAsMS0xMC42Miw5LjA2LDc0Ljc1LDc0Ljc1LDAsMCwwLDIyLDQuNzRsLTEsMy45YTcwLDcwLDAsMCwxLTI1LjUtNi40MmMtNy4wOCwzLjI0LTE2LDUuNzYtMjYuODIsNy42MmwtMS42Mi0zLjg0YzkuNjYtMS41NiwxNy43LTMuNTQsMjQuMDYtNi4wNkE1NC45Myw1NC45MywwLDAsMSwxODMuNDgsMzFhNTcuMiw1Ny4yLDAsMCwxLTcuNSw1LjY0bC0yLjc2LTMuMzZhNDQuNTIsNDQuNTIsMCwwLDAsMTQuNjQtMTMuNVpNMjE5Ljc4LDI2SDIxNS40VjE4LjUyaC00MFYyNkgxNzFWMTQuNjJoMjJhMzkuMTUsMzkuMTUsMCwwLDAtMi4yMi00LjJsNC43NC0uNzJjLjcyLDEuNDQsMS4zOCwzLjEyLDIuMSw0LjkyaDIyLjE0Wm0tNi43MiwzOS4zNmgtNC4yVjYyLjc0aC0yNS44djIuNThoLTQuMlY0Ni41NGgzNC4yWm0tNC4yLTYuNDh2LTguNGgtMjUuOHY4LjRaTTIwNi4yOCwyOC4zaC0yMC4xbC0uMTguMThhNTMuNiw1My42LDAsMCwwLDEwLjM4LDYuNzJBMzYsMzYsMCwwLDAsMjA2LjI4LDI4LjNaIi8+PHBhdGggY2xhc3M9ImNscy03IiBkPSJNMjgwLDY1LjE0aC00LjMydi0yLjRIMjM1LjJ2Mi40aC00LjMyVjEyLjgySDI4MFptLTQuMzItNi4yNFYxNi43OEgyMzUuMlY1OC45Wm0tNC4yLTI2LjM0VjM2LjRoLTkuNlY0OC43YzAsMS40NC42LDIuMTYsMS45MiwyLjE2SDI2NmEzLjA1LDMuMDUsMCwwLDAsMS45Mi0uNTRjLjcyLS40MiwxLjE0LTIuNTIsMS4zOC02LjI0bDMuNiwxLjJjLS40OCw0LjQ0LTEuMDgsNy4xNC0xLjkyLDhzLTIuMTYsMS4wOC00LjE0LDEuMTRIMjYyLjVhNC40Niw0LjQ2LDAsMCwxLTMuNDItMS4zMiw1LDUsMCwwLDEtMS4yLTMuNDhWMzYuNGgtNS43Yy0uNTQsNC45Mi0xLjY4LDguNy0zLjQ4LDExLjQ2LTIsMy4xMi01LjIyLDUuNTItOS40Miw3LjMybC0yLTMuNDhhMTYuNDksMTYuNDksMCwwLDAsOC4xNi02LjEyLDIyLjQzLDIyLjQzLDAsMCwwLDIuODgtOS4xOEgyMzkuNFYzMi41NlptLTMuNC0xMC4yNnYzLjg0SDI0Mi44MlYyMi4zWiIvPjxwYXRoIGNsYXNzPSJjbHMtOCIgZD0iTTEyMy4zNyw3OWE2LjE4LDYuMTgsMCwwLDEsNS4zMSwyLjUybC0xLjUsMS4zOGE0LjMyLDQuMzIsMCwwLDAtMy42OS0xLjljLTMuMDksMC01LDIuMzctNSw1LjU4czEuOTIsNS42MSw1LDUuNjFhNC4zNyw0LjM3LDAsMCwwLDMuNjktMS44OWwxLjUsMS4zOGE2LjE4LDYuMTgsMCwwLDEtNS4zMSwyLjUyYy00LjMyLDAtNy4yMy0zLjMtNy4yMy03LjYyUzExOS4wNSw3OSwxMjMuMzcsNzlaIi8+PHBhdGggY2xhc3M9ImNscy04IiBkPSJNMTQxLjYxLDg0LjM2YzAtMi41NS0xLjI5LTMuMzYtMy4yNC0zLjM2YTUuNTksNS41OSwwLDAsMC00LjI5LDIuMjVWOTMuODRoLTIuMjVWNzkuMzVoMi4yNXYyLjFBNy4yMiw3LjIyLDAsMCwxLDEzOS4yNCw3OWMzLDAsNC42MiwxLjUzLDQuNjIsNC42OFY5My44NGgtMi4yNVoiLz48cGF0aCBjbGFzcz0iY2xzLTgiIGQ9Ik0xNDguMzYsNzMuODNoMi4yNXY3LjcxQTYsNiwwLDAsMSwxNTUuNSw3OWMzLjc4LDAsNi40NSwzLDYuNDUsNy42MnMtMi42Nyw3LjU5LTYuNDUsNy41OWE2LjExLDYuMTEsMCwwLDEtNC44OS0yLjUydjIuMTZoLTIuMjVabTYuNTcsMTguMzZjMi45NCwwLDQuNjgtMi4zNyw0LjY4LTUuNThTMTU3Ljg3LDgxLDE1NC45Myw4MWE1LjM5LDUuMzksMCwwLDAtNC4zMiwyLjM0djYuNTdhNS4zNiw1LjM2LDAsMCwwLDQuMzIsMi4yOFoiLz48cGF0aCBjbGFzcz0iY2xzLTgiIGQ9Ik0xNjUuNjEsNzMuODNoMi4yNXYyMGgtMi4yNVoiLz48cGF0aCBjbGFzcz0iY2xzLTgiIGQ9Ik0xNzEuNTIsODYuNThjMC00LjIsMi43Ni03LjU5LDcuMTctNy41OXM3LjE3LDMuMzksNy4xNyw3LjU5LTIuNzYsNy42Mi03LjE3LDcuNjJTMTcxLjUyLDkwLjc4LDE3MS41Miw4Ni41OFptMTIsMGMwLTIuOTQtMS43MS01LjU4LTQuOC01LjU4cy00LjgzLDIuNjQtNC44Myw1LjU4LDEuNzQsNS42MSw0LjgzLDUuNjEsNC43Ny0yLjY0LDQuNzctNS42MVoiLz48cGF0aCBjbGFzcz0iY2xzLTgiIGQ9Ik0xOTAuNjMsOTUuODhhNS41Myw1LjUzLDAsMCwwLDQuNzEsMmMyLjQsMCw0LjY1LTEuMTcsNC42NS00LjM1VjkxLjQ0QTYuMDYsNi4wNiwwLDAsMSwxOTUuMTMsOTRjLTMuNzgsMC02LjQ1LTIuODItNi40NS03LjVzMi42NC03LjUsNi40NS03LjVBNiw2LDAsMCwxLDIwMCw4MS41NFY3OS4zNWgyLjI1VjkzLjQyYzAsNC44LTMuMzYsNi4zLTYuOSw2LjNhNy4zOSw3LjM5LDAsMCwxLTUuODUtMi4xNlpNMjAwLDgzLjM0QTUuMzQsNS4zNCwwLDAsMCwxOTUuNjcsODFjLTIuOTEsMC00LjY1LDIuMzEtNC42NSw1LjUyUzE5Mi43Niw5MiwxOTUuNjcsOTJBNS4zNiw1LjM2LDAsMCwwLDIwMCw4OS42N1oiLz48cGF0aCBjbGFzcz0iY2xzLTgiIGQ9Ik0yMDYuNjUsOTAuM2E2LjU0LDYuNTQsMCwwLDAsNC43NywyLjA3YzIuMjIsMCwzLjQyLTEsMy40Mi0yLjQsMC0xLjU5LTEuNzctMi4xLTMuNzItMi41OC0yLjQ2LS41Ny01LjI1LTEuMjMtNS4yNS00LjIzLDAtMi4yNSwxLjk1LTQuMTcsNS40LTQuMTdhNy4zNiw3LjM2LDAsMCwxLDUuMzcsMi4xbC0xLDEuNTZhNS42Miw1LjYyLDAsMCwwLTQuMzItMS44M2MtMiwwLTMuMjEuOS0zLjIxLDIuMTlzMS42NSwxLjg2LDMuNTQsMi4zMWMyLjUyLjU3LDUuNDMsMS4yOSw1LjQzLDQuNSwwLDIuNDMtMiw0LjM4LTUuNyw0LjM4YTcuNzEsNy43MSwwLDAsMS01Ljg1LTIuMjhaIi8+PHBhdGggY2xhc3M9ImNscy04IiBkPSJNMjIxLjg5LDkwLjg0YTEuNjUsMS42NSwwLDEsMS0xLjY1LDEuNjVoMEExLjY2LDEuNjYsMCwwLDEsMjIxLjg5LDkwLjg0WiIvPjxwYXRoIGNsYXNzPSJjbHMtOCIgZD0iTTIzMy43Nyw3OWE2LjE4LDYuMTgsMCwwLDEsNS4zMSwyLjUybC0xLjUsMS4zOGE0LjMyLDQuMzIsMCwwLDAtMy42OS0xLjljLTMuMDksMC01LDIuMzctNSw1LjU4czEuOTIsNS42MSw1LDUuNjFhNC4zNyw0LjM3LDAsMCwwLDMuNjktMS44OWwxLjUsMS4zOGE2LjE4LDYuMTgsMCwwLDEtNS4zMSwyLjUyYy00LjMyLDAtNy4yMy0zLjMtNy4yMy03LjYyUzIyOS40NSw3OSwyMzMuNzcsNzlaIi8+PHBhdGggY2xhc3M9ImNscy04IiBkPSJNMjQxLjM5LDg2LjU4YzAtNC4yLDIuNzYtNy41OSw3LjE3LTcuNTlzNy4xNywzLjM5LDcuMTcsNy41OVMyNTMsOTQuMiwyNDguNTYsOTQuMiwyNDEuMzksOTAuNzgsMjQxLjM5LDg2LjU4Wm0xMiwwYzAtMi45NC0xLjcxLTUuNTgtNC44LTUuNThzLTQuODMsMi42NC00LjgzLDUuNTgsMS43NCw1LjYxLDQuODMsNS42MSw0Ljc3LTIuNjQsNC43Ny01LjYxWiIvPjxwYXRoIGNsYXNzPSJjbHMtOCIgZD0iTTI3Ni44OCw4NGMwLTEuODMtLjgxLTMtMi42Ny0zYTUuMDcsNS4wNywwLDAsMC0zLjg0LDIuMjJWOTMuODRoLTIuMjVWODRjMC0xLjgzLS43OC0zLTIuNjctM2E1LjA5LDUuMDksMCwwLDAtMy44MSwyLjI1VjkzLjg0aC0yLjI1Vjc5LjM1aDIuMjV2Mi4xQTYuMjUsNi4yNSwwLDAsMSwyNjYuMzIsNzlhMy43MiwzLjcyLDAsMCwxLDMuOSwyLjcsNi4xLDYuMSwwLDAsMSw0Ljg2LTIuN2MyLjY0LDAsNC4wNSwxLjQ3LDQuMDUsNC4zOFY5My44NGgtMi4yNVoiLz48L2c+PC9nPjwvc3ZnPg==" alt=博客园Logo>
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/>首页</a>
+ </li>
+ <li>
+ <a href=https://news.cnblogs.com/>新闻</a>
+ </li>
+ <li>
+ <a href=https://q.cnblogs.com/>博问</a>
+ </li>
+ <li>
+ <a id=nav_brandzone href=https://brands.cnblogs.com/>专区</a>
+ </li>
+ <li>
+ <a href=https://ing.cnblogs.com/>闪存</a>
+ </li>
+ <li>
+ <a href=https://edu.cnblogs.com/>班级</a>
+ </li>
+ </ul>
+ <ul id=nav_right class="navbar-list navbar-right">
+ <li>
+ <form id=zzk_search class=navbar-search action=https://zzk.cnblogs.com/s role=search>
+ <input name=w id=zzk_search_input placeholder=代码改变世界 type=search tabindex=3 value>
+ <button type=submit id=zzk_search_button>
+ <img src=data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlLXdpZHRoPSIyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxIDEuNDU4KSIgc3Ryb2tlPSIjOTc5Nzk3IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgY3g9IjcuNSIgY3k9IjcuNSIgcj0iNy41Ii8+PHBhdGggZD0iTTEyLjQ5NCAxMi4wNDhsNy43NzggNy43NzgiLz48L2c+PC9zdmc+ alt=搜索>
+ </button>
+ </form>
+ </li>
+ <li id=navbar_login_status class=navbar-list>
+ <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt=写随笔 title=写随笔 style=display:none>
+ 
+ </a>
+ <a id=navblog-myblog-icon class="navbar-user-info navbar-blog" href=https://passport.cnblogs.com/GetBlogApplyStatus.aspx alt=我的博客 title=我的博客 style=display:none>
+ 
+ </a>
+ <a class="navbar-user-info navbar-message navbar-icon-wrapper" href=https://msg.cnblogs.com/ alt=短消息 title=短消息 style=display:none>
+ 
+ 
+ </a>
+ <a id=navbar_lite_mode_indicator data-current-page=blog style=display:none alt=简洁模式 title=简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示>
+ 
+ </a>
+ <div id=user_info class="navbar-user-info dropdown" style=display:none>
+ 
+ 
+ </div>
+ <a class=navbar-anonymous href=https://account.cnblogs.com/signup style=display:inline>注册</a>
+ <a class=navbar-anonymous style=display:inline>登录</a>
+ </li>
+ </ul>
+ </nav>
+</div>
+<div id=home>
+<div id=header>
+ <div id=blogTitle>
+ <a id=lnkBlogLogo href=https://www.cnblogs.com/Yloon/><img id=blogLogo src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=返回主页></a> 
+ 
+<h1><a id=Header1_HeaderTitle class="headermaintitle HeaderMainTitle" href=https://www.cnblogs.com/Yloon/>Yloon</a>
+</h1>
+<h2></h2>
+ 
+ </div>
+ <div id=navigator>
+ 
+<ul id=navList>
+<li><a id=blog_nav_sitehome class=menu href=https://www.cnblogs.com/>
+博客园</a>
+</li>
+<li>
+<a id=blog_nav_myhome class=menu href=https://www.cnblogs.com/Yloon/>
+首页</a>
+</li>
+<li>
+<a id=blog_nav_newpost class=menu href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id=blog_nav_contact class=menu href=https://msg.cnblogs.com/send/Hotz%E4%BA%9A%E5%86%9B>
+联系</a></li>
+<li>
+<a id=blog_nav_rss class=menu data-rss=https://www.cnblogs.com/Yloon/rss/>
+订阅</a>
+</li>
+<li>
+<a id=blog_nav_admin class=menu href=https://i.cnblogs.com/>
+管理</a>
+</li>
+</ul>
+ <div class=blogStats>
+ <span id=stats_post_count>随笔 - 16&nbsp; </span>
+<span id=stats_article_count>文章 - 1&nbsp; </span>
+<span id=stats-comment_count>评论 - 0&nbsp; </span>
+<span id=stats-total-view-count>阅读 - 
+<span title="总阅读数: 8100">
+8100</span></span>
+ </div>
+ </div>
+</div>
+<div id=main>
+ <div id=mainContent>
+ <div class=forFlow>
+ <div id=post_detail>
+ 
+ <div id=topics>
+ <div class=post>
+ <h1 class=postTitle>
+ 
+<a id=cb_post_title_url class="postTitle2 vertical-middle" href=https://www.cnblogs.com/Yloon/p/5997727.html>
+ <span role=heading aria-level=2>Tuxedo 超时时间控制（转贴）</span>
+ 
+</a>
+ </h1>
+ <div class=clear></div>
+ <div class=postBody>
+ <div id=cnblogs_post_body class="blogpost-body blogpost-body-html">
+<p>以下是转贴：</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; TUXEDO超时控制全功略</p>
+<p><br>摘要：<br>　　本《功略》集中了TUXEDO应用中，可能涉及到的所有时间参数，并分别对其进行详细描述，不但对其出处、取值等基本属性进行查证，而且，通过分析其内在的控制机制，给出设置建议，以期能够达到透彻理解、方便查阅、准确使用的目的。</p>
+<p>1 前言<br>　　金融、电信等众多行业的综合营业系统中，广泛使用了TUXEDO交易中间件，用来处理大量并发的联机事务处理（OLTP）业务。典型的OLTP业务，每笔业务的信息量较小，而且，具有一定的实时性，对时间的要求非常严格。</p>
+<p>　　TUXEDO，联系着DATABASE和客户端软件，凭借其多层次的超时控制机制，达到客户端快速响应，服务器端稳定可靠的效果。</p>
+<p>　　TUXEDO的多层次的超时控制机制中，涉及到的时间参数不少于10个，再加上与之紧密联系的DATABASE中的几个超时参数，确实比较复杂。遗憾的是，目前还没有的专门的文档对它们进行详细说明，而是分散在不同的专题中分别说明，而且，不同的专题中，解释的详细程度也不一样，在查阅过程中，多有不便。</p>
+<p>　　本文试图将这些参数集中起来，对每一个都加以详细说明，并试图解释每个参数存在的原因。大部分参数时间长短的设置，除个别外，基本没有固定的模式，只要了解它们的具体含义，并结合具体应用系统的实际要求，相信大家都能够作出合理的配置。</p>
+<p>2 全功略解读<br>2.1 SCANUNIT<br>2.1.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; RESOURCES -&gt; SCANUNIT 。</p>
+<p>2.1.2 时间单位<br>　　秒,且必须为5的倍数。</p>
+<p>2.1.3 取值范围<br>　　大于0小于等于60中5的倍数，即｛5，10，15，20，25，30，35，40，45，50，55，60｝。</p>
+<p>2.1.4 默认取值<br>　　10 。</p>
+<p>2.1.5 用途解释 ⑴<br>　　这个参数大家都会用，比较好理解，TUXEDO中，BBL是用来对Bulletin Board进行管理和监控的系统进程，它基于时间片的轮询方式，时间片的大小就是SCANUNIT的值，SCANUNIT是Tuxedo对系统进行管理的最基本时间单位。每隔SCANUNIT，BBL对Bulletin Board进行一次检查，看看有没有超时的事务或阻塞的服务请求。后面讲到的很多时间参数都是以SCANUNIT为单位。</p>
+<p>2.1.6 超时后果<br>　　仅仅是个轮询时间单位而已，到时间就轮询，如此而已。</p>
+<p>2.1.7 设置考虑<br>　　作为一个涉及到整个TUXDO系统的基本单位时间，如果业务需要，对时间参数控制比较严格，设置为5也不算小。如果系统业务对时间要求不严格，那就大点儿，60也没什么不可以；毕竟频繁轮询是要耗费更多系统资源的，而任何对资源的不必要的消耗都是浪费。</p>
+<p>2.2 SANITYSCAN<br>2.2.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; RESOURCES -&gt; SANITYSCAN 。</p>
+<p>2.2.2 时间单位<br>　　SCANUNIT 。</p>
+<p>2.2.3 取值范围<br>　　1 ～32767 。</p>
+<p>2.2.4 默认取值<br>　　大约120/SCANUNIT。</p>
+<p>2.2.5 用途解释 ⑵<br>　　进行系统健全性检查，主要包括Server进程状态和Bulletin Board<a class=replace_word title=算法与数据结构知识库 href=http://lib.csdn.net/base/datastructure target=_blank rel=noopener>数据结构</a>，检查Server进程是否存活，如果已经不存在，会清理Bulletin Board中相应的数据项及IPC资源，并根据参数配置决定是否重新启动，如果设了RESTART=Y，所占的Message Queue不会被清除，Queue中的Request得到保留，仍会被处理。如果是MP模式，BBL还会给DBBL发状态消息。</p>
+<p>2.2.6 超时后果<br>　　仅仅是个系统健康检查的间隔时间而已，到时间就检查，如此而已。</p>
+<p>2.2.7 设置考虑<br>　　作为一个涉及到整个TUXDO系统健康检查的间隔时间，如果系统处在一个稳定的运行环境中，网络、<a class=replace_word title=MySQL知识库 href=http://lib.csdn.net/base/mysql target=_blank rel=noopener>数据库</a>、应用都很稳定，那这个参数可以大一些；如果运行环境不稳定，系统繁忙，而且Server进程经常因异常（如超时）而死掉，那就设置小一些。设置的原则和SCANUNIT一样：不要随意浪费系统资源。</p>
+<p>2.3 BBLQUERY<br>2.3.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; RESOURCES -&gt; BBLQUERY。</p>
+<p>2.3.2 时间单位<br>　　SCANUNIT</p>
+<p>2.3.3 取值范围 ⑶<br>　　BBLQUERY必须大于等于SANITYSCAN，tmloadcf 时会强制检查，如果设的值小于SANITYSCAN，tmloadcf会自动调整为SANITYSCAN。</p>
+<p>2.3.4 默认取值<br>　　大约300/SCANUNIT。</p>
+<p>2.3.5 用途解释 ⑷<br>　　BBL检查，在MP模式下，BBL会每隔一段时间都发送了" I am ok "心跳信息给DBBL，这个间隔就是BBLQUERY。</p>
+<p>2.3.6 超时后果 ⑸<br>　　如果DBBL在规定时间间隔内没有收到某个BBL的信息，DBBL它会主动发送Request给那个BBL，判断其是否正常。（如果等了DBBLWAIT后仍然没有回复，DBBL会认为那台机器有问题，然后，将其隔离。）</p>
+<p>2.3.7 设置考虑<br>　　此设置仅仅在MP模式下才起作用。</p>
+<p>　　在MP模式下，如果TUXEDO系统需要对不稳定的运行环境可能发生的故障作出快速的反应，那么BBLQUERY要设置小一些，让系统快速的自我检查。考虑网络传输时间、系统反应速度等因素，网络速度越慢，系统负载越重，取值越大；反之亦然。</p>
+<p>　　如果系统运行环境很稳定，利用其默认值即可，甚至可以更大数值。</p>
+<p>2.4 DBBLWAIT<br>2.4.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; RESOURCES -&gt; DBBLWAIT。</p>
+<p>2.4.2 时间单位<br>　　SCANUNIT。</p>
+<p>2.4.3 取值范围<br>　　大于0。</p>
+<p>2.4.4 默认取值<br>　　1和20/SCANUNIT中的较大者 。</p>
+<p>2.4.5 用途解释 ⑹<br>　　如果DBBL在规定时间间隔BBLQUERY内没有收到某个BBL的"I AM OK"信息，它会发Request给那个BBL，其等待回复的时间就是DBBLWAIT。</p>
+<p>2.4.6 超时后果 ⑺<br>　　DBBL等了DBBLWAIT后仍然没有回复，DBBL会认为相关BBL的机器有问题，然后，将其隔离（partation）。</p>
+<p>2.4.7 设置考虑<br>　　此设置仅仅在MP模式下才起作用。</p>
+<p>　　在MP模式下，考虑网络传输时间、系统反应速度等因素，网络速率越大，系统负载越轻，此数值越小；反之亦然。</p>
+<p>2.5 BLOCKTIME<br>2.5.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; RESOURCES -&gt; BLOCKTIME。</p>
+<p>2.5.2 时间单位<br>　　SCANUNIT。</p>
+<p>2.5.3 取值范围<br>　　大于0。</p>
+<p>2.5.4 默认取值<br>　　大约60/SCANUNIT。</p>
+<p>2.5.5 用途解释<br>　　Client端阻塞请求（Blocking call）服务的超时值，BBL发现有超时的Request时，会给相应的Client端发超时信息。</p>
+<p>　　此参数仅仅在"阻塞请求"的情况下起作用，因此，理解它，关键要理解什么是阻塞请求（Blocking call）？习惯上，我们将"阻塞请求"理解为"同步请求"，将"异步请求"理解为"非阻塞请求"，是源于将"&lt;发送请求－得到结果&gt;"这一过程看成为一个整体。如果是整体的同步操作，就认为是"阻塞请求"；如果是分开异步的操作，就认为是"非阻塞请求"。</p>
+<p>　　其实，异步操作中，同样存在"阻塞请求"，tuxedo中，tpacall和tpgetrply这两个异步操作各自本身就是"阻塞请求"，tpacall是将请求发送到请求队列，tpgetrply是将从结果队列中取出结果，如果没有特殊的设置，这两个操作本身都是阻塞的，BLOCKTIME将起作用。</p>
+<p>　　以Request/Reply方式为例，将成功发送请求的时长设置为T1，将请求处理的时长(含排队等待)设置为T2,将成功取得结果的时长设置为T3，那么在下面不同的情况下，将触发BLOCKTIME，引起超时：</p>
+<p>　　（1） tpcall（）不在transaction中，flag为0，当T1+T2+T3 &gt; BLOCKTIME时，发生超时 ;</p>
+<p>　　（2） tpcall（）不在transaction中，flag为TPNOBLOCK，只有当一次调用即成功完成T1阶段发送请求的任务后，T2+T3 &gt; BLOCKTIME时，发生超时 ;</p>
+<p>　　（3） tpacall（）不在transaction中，flag为0，当T1 &gt; BLOCKTIME时，发生超时 ;</p>
+<p>　　（4） tpgetrply（）不在transaction中，flag为0，当T2+T3 &gt; BLOCKTIME时，发生超时 ;</p>
+<p>　　（5） tpcall，tpacall,tpgetrply,在其他任何情况，BLOCKTIME都将不起作用。</p>
+<p>　　（6） 如果请求处于事务交易（transaction）中，此参数不起作用，取代它的是 TransactionTimeOut。</p>
+<p>2.5.6 超时后果<br>　　在上面描述的四种情况下，Server端 BBL返回Client端超时错误：tperrno ＝ 13 （TPETIME）。同时，client端和Server端已经建立的联接不受任何影响，继续保持联接。</p>
+<p>2.5.7 设置考虑<br>　　此参数涉及整个TUXEDO系统，不能够直接适应业务系统中不同场合的不同时间等待要求，而且在应用过程中，存在误差，不适合进行精确到秒的时间控制。</p>
+<p>　　准确有效的使用这个参数，需要考虑好以下几个问题：</p>
+<p>　　（1） 应用中是否完全依赖这个参数进行时间控制？</p>
+<p>　　（2） 有哪些业务依赖这个参数进行时间控制？</p>
+<p>　　（3） 平衡各种业务，此参数设置为多少？</p>
+<p>　　（4） 除此参数外，是否需要利用其他的超时控制机制？</p>
+<p>2.6 WSL CLOPT [-T Client_timeout]<br>2.6.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVERS -&gt; WSL -&gt; CLOPT "-T"。</p>
+<p>2.6.4 默认取值<br>　　0 ，意味着无限等待时间。</p>
+<p>2.6.5 用途解释 ⑻<br>　　系统允许的Client静默时长，即Client和WSH建立联接后，如果在此指定的时间内客户端没有发送任何请求，WSH会自动回收与此Client端相关的资源。</p>
+<p>2.6.6 超时后果 ⑼<br>　　WSH会自动释放和这个Client端的联接，并将此Client在Bulletin Board中的数据项清空，RollBack它未完成的事务 。</p>
+<p>2.6.7 设置考虑<br>　　此参数的设置目的，主要是从Server的角度进行考虑，防止在Client端意外失效的情况下仍然耗费Server端的资源。</p>
+<p>　　如果设置太小，那么频繁的检测同样要消耗Server端一定的资源，而且，在使用长联接的系统中，系统空闲时，容易造成已经建立的长联接频繁的释放，影响正常业务的提供。</p>
+<p>　　如果设置为0，不管发生什么状况，哪怕是Client端系统真的崩溃了，也不会触发此超时，这将造成Server端资源的无谓浪费。</p>
+<p>　　建议：在业务负载不均衡的长联接业务系统中，根据业务实际空闲时间，适当加大此数值。</p>
+<p>2.7 WSL CLOPT [-t timeout]<br>2.7.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVERS -&gt; WSL -&gt; CLOPT "-t"。</p>
+<p>2.7.2 时间单位<br>　　SCANUNIT。</p>
+<p>2.7.3 取值范围<br>　　大于0。</p>
+<p>2.7.4 默认取值<br>　　非安全应用为3，安全应用为6 。</p>
+<p>2.7.5 用途解释<br>　　建立联接时长，指workstation Client建立与server端WSH建立联接允许的最长时间，因为非安全应用建立联接时不需要进行用户校验等步骤，因此，建立联接需要的时间较短。同理，安全应用需要的时间较长。</p>
+<p>2.7.6 超时后果<br>　　建立联接失败。</p>
+<p>2.7.7 设置考虑<br>　　设置此参数，要分析业务系统中，网络带宽因素、用户验证的复杂程度等。</p>
+<p>2.8 WSL CLOPT [-I init_timeout]<br>2.8.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVERS -&gt; WSL -&gt; CLOPT "-I"。</p>
+<p>2.8.2 时间单位<br>　　秒。</p>
+<p>2.8.3 取值范围<br>　　大于0。</p>
+<p>2.8.4 默认取值<br>　　60 。</p>
+<p>2.8.5 用途解释 ⑽<br>　　WorkStation Client端和后台建立联接的超时参数值。</p>
+<p>　　（注：感觉上此参数和 WSL CLOPT [-t timeout]功能类似）</p>
+<p>2.8.6 超时后果<br>　　不确定，现有的文档没有一点儿解释。按照字面解释，应该是tpinit的超时时间，但是，在tpinit所有的错误中，只有TPESYSTEM可能承担这个超时后果，而且仅仅是可能。</p>
+<p>2.8.7 设置考虑<br>　　在使用过程中，没有感觉到这个参数的存在，也从来没有专门设置过。&nbsp;</p>
+<p>2.9 WSL CLOPT [-N network_timeout]<br>2.9.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVERS -&gt; WSL -&gt; CLOPT "-N"。</p>
+<p>2.9.2 时间单位<br>　　秒。</p>
+<p>2.9.3 取值范围<br>　　大于等于0。</p>
+<p>2.9.4 默认取值<br>　　0 。</p>
+<p>2.9.5 用途解释<br>　　网络超时，指Workstation client利用网络接收数据（receive data）的等待时间。</p>
+<p>　　我们同样需要分析触发Network Timeout的不同条件。</p>
+<p>　　以Request/Reply方式中的tpcall为例，将成功发送请求的时长设置为T1，将请求处理的时长(含排队等待)设置为T2,将成功取得结果的时长设置为T3，那么在如下情况下，将触发Network Timeout，引起超时：</p>
+<p>　　（1） tpcall（）不在transaction中，flag为0，当 BLOCKTIME&gt; T1+T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（2） tpcall（） 在transaction中，flag为0，当TranactionTimeout&gt; TI+T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（3） tpcall（）不在transaction中，flag为TPNOBLOCK，只有当一次调用即成功完成T1阶段发送请求的任务后，当 BLOCKTIME&gt; T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（4） tpcall（）在transaction中，flag为TPNOBLOCK，只有当一次调用即成功完成T1阶段发送请求的任务后，当 TranactionTimeout&gt; T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（5） tpcall（）不在transaction中，flag为TPNOTIME，当 T1+T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（6） tpcall（）在transaction中，flag为TPNOTIME，当 TranactionTimeout&gt; TI+T2+T3 &gt; NetworkTimeout时，触发此超时 ;</p>
+<p>　　（7） tpcall在其他任何情况，NetworkTimeout都将不起作用。</p>
+<p>　　（8） 同理，可以确定NetworkTimeout在tpacall和tpgetrply中起的作用。</p>
+<p>2.9.6 超时后果<br>　　在上面描述的六种情况下， Client端操作失败，同时，client端断开与Server端已经建立的联接。Server端已经为此Client完成的操作和分配的资源不能立刻回滚和释放，Server端需要等待前面介绍过的Client_timeout时间后，再释放相关的资源。</p>
+<p>2.9.7 设置考虑<br>　　此参数的设置目的，主要是从Client的角度进行考虑，防止在Server端意外失效的情况下，仍然消耗Client端的资源。</p>
+<p>　　设置参数，必须避免小于BLOCKTIME或TransactionTimeout的情况，因为在这种情况下，会出现业务正常等待中，联接却中断的现象，这是一定要避免的。</p>
+<p>　　同时，由于此超时触发的联接中断，并不能立刻释放Server端的资源，带来业务执行过程中的不确定性，因此，此参数要谨慎使用。</p>
+<p>2.10 SVCTIMOUT<br>2.10.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVICES -&gt; SVCTIMEOUT 。</p>
+<p>2.10.2 时间单位<br>　　秒</p>
+<p>2.10.3 取值范围<br>　　大于等于0。</p>
+<p>2.10.4 默认取值&nbsp;<br>　　0，表示无限时长 。</p>
+<p>2.10.5 用途解释<br>　　服务处理时长（Service Processing Time），表示系统允许服务处理请求的时间长度。</p>
+<p>　　此参数主要是维护Server端系统安全的角度，防止由于系统异常引起的失控服务占据系统资源，阻碍正常的后续业务请求。它起到了一个清道夫的作用，将不能有效提供服务的Services清除出系统，并依靠系统的其他机制，重新产生具有活力的Services。</p>
+<p>2.10.6 超时后果<br>　　超时后，此Service所属的Server将被系统的SIGKILL信号清除；此操作不会影响与此Server相关的其他正在运行的副本Servers。</p>
+<p>　　如果系统设置SERVERS-&gt;RESTART=Y，那么，被清除的Server将立刻自动重新启动。重新启动的次数受随后介绍的MAXGEN和GRACE两个参数联合限制。</p>
+<p>　　如果系统设置SERVERS-&gt;RCMD为有效命令文件，那么，在重启此Server时，将同时执行此命令，如向管理员发送通知邮件等。</p>
+<p>　　如果SERVER没有RESTART＝Y设置，那么Server将不会自动重新启动。</p>
+<p>2.10.7 设置考虑<br>　　此参数不是系统全局参数，而是涉及到单个Service，可以根据不同的Service的处理时间进行设置。由于其主要起到系统清道夫的角色，因此，建议设置为正常Service处理时长的3倍较合适，以避免清除正常运行的Service，使正常运行的业务受到影响。</p>
+<p>　　如果系统运行环境基本稳定，一旦出现底层网络或数据库系统故障，不是在短时间内能够恢复，建议将此参数增大，至少为平均恢复时间，甚至可以利用默认值0，无限等待，避免此自动机制，而用人工介入的方法进行服务恢复。因为系统自动的、频繁的SIGKILL将影响到整个TUXEDO系统的稳定。</p>
+<p>2.11 GRACE<br>2.11.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVERS -&gt; GRACE 。</p>
+<p>2.11.2 时间单位<br>　　秒。</p>
+<p>2.11.3 取值范围<br>　　0-2147,483,647。</p>
+<p>2.11.4 默认取值<br>　　86400（24小时）。</p>
+<p>2.11.5 用途解释<br>　　此时间参数与其他两个参数紧密相关RESTART, MAXGEN。</p>
+<p>　　关联起来解释就是，当Server异常终止时，如果RESTART=Y，那么此SERVER可立即自动重新启动，这个重新启动的次数被限制为在GRACE指定的时间间隔内，重启不超过MAXGEN-1 次。</p>
+<p>　　如果RESTART这个参数为N，其他的相关参数将都无效。</p>
+<p>2.11.6 超时后果<br>　　此参数不仅仅是时间的限制，如果在GRACE时间段内，此SERVER重启次数已经达到MAXGEN-1，后续重启将不能执行。</p>
+<p>2.11.7 设置考虑<br>　　此组参数设置的综合目的是避免运行Server无限的重启，重启次数说明了系统目前异常状况的严重程度，如果在一定时间内，Server重启次数达到了一定的数量，说明这个Server相关的资源已经出现较严重的故障，需要人工进行干预了。</p>
+<p>　　另外，经过调优的生产系统是不需要自动重启的，因此，RESTART这个参数更多是应用在系统测试版本中，在正常运行的生产系统中，应该有不同参数设置，谨慎使用，因为过多的重启将有可能严重影响Server端的整体稳定性。</p>
+<p>2.12 Transaction TimeOut<br>2.12.1 参数出处<br>　　tpbegin(timeout,0)。</p>
+<p>2.12.2 时间单位<br>　　秒,且必须为SCANUINT的倍数。</p>
+<p>2.12.3 取值范围<br>　　大于等于0。</p>
+<p>2.12.4 默认取值<br>　　无，使用时必须明确指定。</p>
+<p>2.12.5 用途解释<br>　　交易时长，确定交易（transaction）的持续时间，如果超过此时间，系统将返回超时错误。</p>
+<p>　　分析其触发条件，分两种情况：</p>
+<p>　　（1） Server端发起交易，</p>
+<p>　　对Client而言，因为Client不在交易范围内，即使BLOCKTIME设置小于此参数，起有效作用的仍然将是BLOCKTIME，而不是此参数。</p>
+<p>　　（2） Client端发起交易。</p>
+<p>　　对Client而言，因为Client在交易范围内，此时，BLOCKTIME将失效，此参数取而代之。只要处理时间超过此参数，将触发此超时，交易处理将随时中断。</p>
+<p>2.12.6 超时后果<br>　　相关交易将被标识为abort only。注意，仅仅是标识为abort only，而不是系统自动执行tpabort进行交易恢复。随后必须主动执行tpabort，恢复交易，保障交易完整性。如果没有执行tpabort，系统将通过其他机制，恢复交易，保障交易完整性。</p>
+<p>2.12.7 设置考虑<br>　　此参数的主要目的是将交易处理过程限制在合理的时间范围内，如果确实是完成交易的条件不具备，系统也能够作出反应，避免系统资源的长时间占用。因此，不管交易由Client还是由Server发起，此参数都要按照业务的实际状况进行设置。如果设置为0，就基本相当于无限时长。（系统unsigned long数据类型的最大值）</p>
+<p>2.13 TRANTIME<br>2.13.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; SERVICES -&gt; TRANTIME/AUTOTRAN。</p>
+<p>2.13.2 时间单位<br>　　秒,且必须为SCANUNIT的倍数。</p>
+<p>2.13.3 取值范围<br>　　0-2147,483,647。</p>
+<p>2.13.4 默认取值<br>　　30 。</p>
+<p>2.13.5 用途解释<br>　　此参数必须与AUTOTRAN配合使用，表示不需要调用tpbegin，就可自动发起的隐含交易（AUTOTRAN implicitly transactions）处理持续时长。其实，起到与tpbegin（timeout,0）中的timeout相同的作用。</p>
+<p>　　其实，AUTOTRAN这个参数更为重要，其默认值为N, 其作用描述如下：</p>
+<p>　　（1） 请求发起方不在交易模式，AUTOTRAN＝Y，Service将自动发起一个交易，TRANTIME将起作用；</p>
+<p>　　（2） 请求发起方在交易模式，而且，其中的标记参数（flags）不是TPNOTRAN，那么，无论AUTOTRAN如何，Service将自动加入请求方交易中，TRANTIME将不起作用；</p>
+<p>　　（3） 请求发起方在交易模式，而且，其中的标记参数（flags）是TPNOTRAN，如果AUTOTRAN＝N，Service将自动加入请求方交易中，TRANTIME将不起作用；</p>
+<p>　　（4） 请求发起方在交易模式，而且，其中的标记参数（flags）是TPNOTRAN，如果AUTOTRAN＝Y，Service将不加入请求方交易中，而是产生一个新的交易，TRANTIME将在新交易中起作用；</p>
+<p>2.13.6 超时后果<br>　　与tpbegin(timeout,0)中的timeout相同。</p>
+<p>2.13.7 设置考虑<br>　　与tpbegin(timeout,0)中的timeout相同。&nbsp;</p>
+<p>2.14&nbsp;<a class=replace_word title=Oracle知识库 href=http://lib.csdn.net/base/oracle target=_blank rel=noopener>Oracle</a>&nbsp;XA OPENINFO参数：SESTM<br>2.14.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; GROUPS -&gt; OPENINFO -&gt;SESTM 。</p>
+<p>2.14.2 时间单位<br>　　秒。</p>
+<p>2.14.3 取值范围<br>　　大于等于0，0表示无限时长。</p>
+<p>2.14.4 默认取值<br>　　无，使用时必须明确设置 。</p>
+<p>2.14.5 用途解释<br>　　会话静默等待时长，即全局交易中，作为资源管理器（resource manager）已经参与交易并完成相应的数据操作的数据库，等待全局交易中的其他参与方操作完成的时间长度。</p>
+<p>　　举例说明：</p>
+<p>　　假设一个全局交易由以下几个部分组成：</p>
+<p>　　（1）tpbegin（T,0） -&gt;</p>
+<p>　　（2）tpcall(S1) -&gt; DB1 完成耗时 T1;</p>
+<p>　　（3）tpcall(S2) -&gt; DB2 完成耗时 T2;</p>
+<p>　　（4）其他操作 耗时 T3</p>
+<p>　　（5）tpcommit()</p>
+<p>　　其中，tpcall(S1)访问数据库DB1, tpcall(S2)访问数据库DB2。</p>
+<p>　　对DB1而言，如果T-T1&gt; T2+T3 &gt; SESTM1,则触发超时；</p>
+<p>　　对DB2而言，如果T-T1-T2 &gt; T3 &gt; SESTM2,则触发超时；</p>
+<p>　　由此可以看出，此参数的主要目的是对数据库进行资源保护，避免在全局交易中，已经完成任务的数据库，为等待其他参与方耗费过多的资源，毕竟ORACLE中并发全局交易的数量是很有限的。</p>
+<p>2.14.6 超时后果<br>　　触发此超时后，数据库将自己主动回滚已经完成的任务，释放全局交易资源。TUXEDO控制的全局交易进行TPCOMMIT时，如果总时间仍没有超过Transaction TimeOut，那么TPCOMMIT将失败，XALOG会记录下ORACLE错误："ORA-24756: Transaction does not exist"。确实如此，拿上面的例子来说，等到最后TPCOMMIT的时候，DB1已经主动回滚了所有的数据，不难理解，对DB1而言，它好像根本没有参加过这个全局交易，自然就会有这样的错误提示。</p>
+<p>2.14.7 设置考虑<br>　　这个参数是从数据库自我保护的角度设计的，对数据库而言，是不得已的办法。最好的措施还是TUXEDO能够控制时间，赶在SESTM之前，进行TPABORT，主动通知数据库进行数据回滚。</p>
+<p>　　用一个简单的比方：冬天，客人出门时没有关门，SESTM时间后，客人还没有回来，主人感觉到冷了，只好自己去关门，不管什么理由，这样总是不太好。如果在SESTM时间内，客人能及时回来关门，主人就不会感觉那么差。</p>
+<p>　　从前面的超时触发分析，我们也能发现，只要设置SESTM 能够大于 TransactionTimeOut的话，就能够尽量的不触发此超时机制，达到较好的效果。</p>
+<p>2.15 ORACLE XA OPENINFO参数：SESWT<br>2.15.1 参数出处<br>　　UBBCONFIG配置文件 -&gt; GROUPS -&gt; OPENINFO -&gt; SESWT。</p>
+<p>2.15.2 时间单位<br>　　秒。</p>
+<p>2.15.3 取值范围<br>　　大于0。</p>
+<p>2.15.4 默认取值<br>　　60 。</p>
+<p>2.15.5 用途解释<br>　　会话繁忙等待时长，指全局交易中的一个交易分支（transaction branch）正在一个会话（session）中处理数据过程中，如果第二个会话也要对此交易分支进行操作，那么第二个会话必须等待第一个会话完成，如果在等待SESWT后，第一个会话仍然没有完成，那么第二个分支将触发此超时。</p>
+<p>　　举例说明：</p>
+<p>　　假设一个全局交易由以下几个部分组成：</p>
+<p>　　（1）tpbegin（T,0） -&gt;</p>
+<p>　　（2）tpcall(S1) -&gt; DB1 完成数据操作耗时 T1;</p>
+<p>　　（3）tpcall(S2) -&gt; DB2 完成数据操作耗时 T2;</p>
+<p>　　（4）其他操作 耗时 T3</p>
+<p>　　（5）tpcommit()</p>
+<p>　　其中，tpcall(S1)访问数据库DB1, tpcall(S2)访问数据库DB2，任何操作失败后，将调用tpabort。</p>
+<p>　　假设 T1+T2 &gt; T &gt; T1，也就是说，在成功执行第二步tpcall(S1)后，应用执行到第三步tpcall(S2)，在执行过程中，将触发TransactionTimeout，tpcall（S2）将返回错误，应用将立即调用tpabort进行交易回滚，DB1的数据将立刻回滚；而DB2并不能中断tpcall(S2)引起的数据操作，对于ORACLE DB2而言，tpcall(S2)引起的数据操作属于第一个会话，而tpabort引起的数据库回滚操作是通过XA接口，属于第二个会话，所以，tpabort作用到DB2上，只有等待第一个会话完成，如果等待SESWT后，第一个会话仍然没有完成，即SESTM&lt;T1+T2-T时，那么触发此超时。</p>
+<p>2.15.6 超时后果<br>　　系统将返回XA_RETRY错误，提示TMS此操作不能完成，需再试一次。如果应用程序对此没有再次尝试的话，仍以上例说明，DB2只能利用SESTM2，触发超时，自动回滚。</p>
+<p>2.15.7 设置考虑<br>　　查阅ORACLE相关资源，发现oracal9.2与以前版本效果不同，以前的版本都是第二个会话在等待SESWT后，如果第一个会话操作仍然没有结束，第二个会话能够使第一个会话操作立即进行有效的回滚，使第一个会话返回错误：ORA-24761。</p>
+<p>　　不难理解，两者的区别是，打个简单比方说，A正在用杯子喝水时，B要A放下杯子，B等待SESWT后：</p>
+<p>　　oracle9.2的做法很民主，A还没有用完，通知B，A还在用杯子，不能放下，还想让A放下杯子，可以，再来一次；也就是说，只要A在用，B就不能让人家放下杯子，某种程度上，A代表了强权。</p>
+<p>　　Oracle9.2之前版本的做法很粗暴，通知A不能使用这个杯子了，必须放下，因为B让你放下，而且已经等很久了，某种程度上，B代表了强权。</p>
+<p>　　因此，如果是ORACLE9.2后的版本，SESWT适当放长一些，毕竟还是希望能够等到能做事的时候，把想做的事情做了。如果是以前的版本，SESWT适当放短一些，反正一定能等到，为什么不少等一会儿呢？</p>
+<p>2.16 ORACLE sqlnet.expire_time<br>2.16.1 参数出处<br>　　/network/admin/sqlnet.ora -&gt; expire_time 。</p>
+<p>2.16.2 时间单位<br>　　分钟。</p>
+<p>2.16.3 取值范围<br>　　大于0。</p>
+<p>2.16.4 默认取值<br>　　无 。</p>
+<p>2.16.5 用途解释 ⑾<br>　　死联接检测DCD(Dead Connection Detection)是 SQL*NetV2.1 和此版本以后的一个新特性, 当它检测到对方 c/s 或者s/s 联接意外终止时, 释放相关占用的资源。</p>
+<p>　　DCD 起初是专为客户机没有从会话中断开联接的情况下断电的环境设计的。</p>
+<p>　　DCD由服务端开始建立联接。 这时候SQL*Net 从参数文件中读取变量, 设置一个定时器定时产生信号。 这个时间间隔是sqlnet.ora文件中的SQLNET.EXPIRE_TIME提供的。</p>
+<p>　　当定时器设定的时间到了之后, 服务器上的SQL*Net 发送一个探测包到客户端。(如果是数据库联接, 目的端的服务器发送探测包到另一端)。 探测包是由空的SQL*Net包组成, 不体现SQL*Net层任何数据, 但会在下一层的网络协议中产生数据流量。</p>
+<p>　　如果客户端的联接仍然是活动的, 探测包被丢弃,计时装置复位。 如果客户端异常断掉，服务器将收到由发送探测包的调用发出的错误。</p>
+<p>2.16.6 超时后果<br>　　服务器将收到由发送探测包的调用发出的错误，SQL*Net 将会通知<a class=replace_word title=操作系统知识库 href=http://lib.csdn.net/base/operatingsystem target=_blank rel=noopener>操作系统</a>释放联接占用的资源。</p>
+<p>　　需要说明的是, SQL*Net 2.1.x中 一个活动的孤儿进程（active orphan process） ，如单独的查询进程，在查询完成之前不会被杀掉。 在SQL*Net 2.2中，孤儿进程占用的资源将会被无条件释放，不管查询是否结束。</p>
+<p>2.16.7 设置考虑<br>　　ORACLE 在NT操作系统上，此功能表现很差，检测出的无效联接（dead connection）不能被尽快释放，而必须等到数据库重新启动时才释放。SQL*Net v2.3以后版本改善了以上问题。</p>
+<p>　　此功能只是服务器的特性，如果不设置此参数，此功能将不启动。按照ORACLE的建议，对大多数应用来说，设置10分钟较合适，其实关键还是分析应用系统的实际情况。</p>
+<p>　　同时，不难理解，作为一个数据库自我管理的机制，也是要占用数据库资源和网络资源的，太频繁的探测同样会降低系统和网络的性能。在低速网络上，设置此参数，就需更为慎重。</p>
+<p>　　客户端不需要设置此参数。</p>
+<p>2.17 ORACLE distributed_lock_timeout<br>2.17.1 参数出处<br>　　ORACLE初始参数文件：init.ora -&gt; distributed_lock_timeout。</p>
+<p>2.17.2 时间单位<br>　　秒。</p>
+<p>2.17.3 取值范围<br>　　大于0。</p>
+<p>2.17.4 默认取值<br>　　60 。</p>
+<p>2.17.5 用途解释<br>　　分布式事务锁等待超时（distributed transaction waiting for lock），指第二个事务处理需要的数据库资源，正被第一个分布式事务占用而锁定，那么，第二个事务将等待第一个分布式事务释放此资源，等待distributed_lock_timeout时间后，如果第一分布式事务仍然没有释放此资源，第二个事务触发此超时。</p>
+<p>2.17.6 超时后果<br>　　如果资源被第一个事务正常使用锁定，ORACLE回滚第二个事务，并返回错误："ORA-02049: time-out: distributed transaction waiting for lock "。</p>
+<p>　　如果第一个事务处理完成，资源释放后，再尝试第二个事务，就会成功。如果第二个事务不能等待资源自动释放，那么可以采用处理数据库死锁（deadlock）的措施，人工介入，清除第一个事务，但一般不建议采用这种方式，因为第一个事务一般会正常结束的。</p>
+<p>　　如果资源被第一个事务因为处于不确定分布事务状态（in-doubt distributed transaction）而锁定，ORACLE回滚第二个事务，并返回错误："ORA-01591: lock held by in-doubt distributed transaction identifier "。</p>
+<p>　　这种错误遇到的可能性较小，一般只有在分布事务的关键提交阶段出现网络、系统故障，才可能出现此故障，而且，当网络、系统故障恢复后，ORACLE一般可以自己解决此问题，不需要人工介入。如果一定要人工介入，可以查阅ORACLE专门的手册。</p>
+<p>2.17.7 设置考虑<br>　　出现这样的超时，是因为特定数据库资源的使用碰撞，要分析应用系统的业务特点，确定碰撞可能发生的条件，在此条件下，资源可能被先来者锁定多长时间（T1），后来者又能够等多长时间（T2），再来设置此参数（T）的大小。如果在大多数情况下，T1 &lt; T2, 那么就设置T1 &lt; T &lt; T2；反之，大多数情况下，T1 &gt; T2，那么，就设置T &lt; T2。</p>
+<p>　　因此，不分析业务特点，一味的增大和减小是不恰当的。</p>
+<p>2.18 ORACLE Max_commit_propagation_delay<br>2.18.1 参数出处<br>　　ORACLE初始文件:init.ora -&gt; Max_commit_propagation_delay。</p>
+<p>2.18.2 时间单位<br>　　0.01秒。</p>
+<p>2.18.3 取值范围&nbsp;<br>　　0 ～ 90000。</p>
+<p>2.18.4 默认取值<br>　　700 。</p>
+<p>2.18.5 用途解释<br>　　最大提交传播时延（MAX_COMMIT_PROPAGATION_DELAY，简称MCPD），在ORACLE RAC(或OPS)环境中才使用，表示在RAC系统中，一个instance系统提交产生的最新系统改变码（SCN），能够以多快的速度反应到另一个instance中。</p>
+<p>　　举例说明，RAC系统，有A,B两个实例（instance），A、B本地系统改变码为SCN1，A更新数据DATA1提交， LGWR操作完成后，A本地系统改变码为SCN2，经过不大于MAX_COMMIT_PROPAGATION_DELAY时间后，B系统本地改变码才变为SCN2。</p>
+<p>2.18.6 超时后果<br>　　Global Cache Services 将刷新RAC中的SCN。不管SCN是否及时刷新，后续的数据查询都不会因此产生数据库错误。但，在此时间内，有可能查询结果不是最新数据，产生读一致性（read consistency）问题。</p>
+<p>2.18.7 设置考虑<br>　　RAC环境中的所有实例，此参数值必须相同。</p>
+<p>　　ORACLE8i后，建议常用的两个值是0和700（默认），其他数值皆不建议。其实，这两个数值就代表了RAC环境中，两种SCN 产生机制：</p>
+<p>　　Lamport Scheme和 Broadcast on Commit scheme。</p>
+<p>　　设置为默认值700，表示采用Lamport Scheme，SCN改变不会完全同步，同步将在 7秒钟内完成，而不是总等待7秒钟后才完成。如果系统比较空闲，同步可能在0.5秒（甚至更短时间）内完成；不管系统多繁忙，同步时间也不可能超过7秒。不难理解，采用此模式，整个RAC系统的运行效率较高。</p>
+<p>　　设置为0，表示采用Broadcast on Commit scheme，SCN改变完全同步。每当commit时（即LGWR 写redo log时）：</p>
+<p>　　－ LGWR发送消息更新全局SCN（global SCN），</p>
+<p>　　－ LGWR 发送消息给每个活动的实例更新其本地SCN（local SCN）。</p>
+<p>　　有资料说，只要MCPD &lt; 700，系统将采用Broadcast on Commit scheme。</p>
+<p>　　Lamport Scheme能够适应绝大部分应用的要求，只有个别实时性特别高的业务，才需要Broadcast on Commit scheme。通过分析，不难理解，Broadcast on Commit scheme将需要更多的系统资源。&nbsp;</p>
+<p>3 总结<br>　　以上所有时间参数，都是tuxedo系统或ORACLE数据库系统提供的时间控制机制，更多的是从维护本系统自身安全的角度，建立起相互之间沟通的规则。在Client 端，中间件服务器，数据服务器这相互联系的三者之间，用一个简单的比方，就是先保证自己尽量不给相关人带来麻烦；一旦相关人出了麻烦，自己能够自我保障，不受别人干扰。</p>
+<p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+<p>实例补充：db2 -952错误</p>
+<p>查询数据库本身锁超时时间为180秒</p>
+<p>tuxedo &nbsp; tpbegin(TIME_OUT,0) 中TIME_OUT时间设置为30秒 &nbsp;</p>
+<p>生产交易在tps大时，报-952错误</p>
+<p>解决方案：将TIME_OUT时间配置大于数据库超时时间</p>
+<p>&nbsp;</p>
+</div>
+<div class=clear></div>
+<div id=blog_post_info_block role=contentinfo>
+ <div id=blog_post_info>
+<div id=green_channel>
+ <a id=green_channel_digg>好文要顶</a>
+ <a id=green_channel_follow>关注我</a>
+ <a id=green_channel_favorite>收藏该文</a>
+ <a id=green_channel_weibo title=分享至新浪微博><img src=data:image/png;base64,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 alt></a>
+ <a id=green_channel_wechat title=分享至微信><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAABA9pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4M0Q4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NEQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgPC94bXBNTTpEZXJpdmVkRnJvbT4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NkQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwveG1wTU06RG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4NUQ4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 alt></a>
+</div>
+<div id=author_profile>
+ <div id=author_profile_info class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/Yloon/ target=_blank><img src="data:image/png;base64,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" class=author_avatar alt></a>
+ <div id=author_profile_detail class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/Yloon/>Hotz亚军</a><br>
+ <a href=https://home.cnblogs.com/u/Yloon/followers/>粉丝 - <span class=follower-count>0</span></a>
+ <a href=https://home.cnblogs.com/u/Yloon/followees/>关注 - <span class=following-count>0</span></a><br>
+ </div>
+ </div>
+ <div class=clear></div>
+ <div id=author_profile_honor></div>
+ <div id=author_profile_follow class=follow-tip>
+ <a>+加关注</a>
+ </div>
+</div>
+<div id=div_digg>
+ <div class=diggit>
+ <span class=diggnum id=digg_count>0</span>
+ </div>
+ <div class=buryit>
+ <span class=burynum id=bury_count>0</span>
+ </div>
+ <div class=clear></div>
+ <div class=diggword id=digg_tips>
+ </div>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=post_next_prev>
+ <br>
+ <a href=https://www.cnblogs.com/Yloon/p/6003294.html class=p_n_p_prefix>» </a> 下一篇： <a href=https://www.cnblogs.com/Yloon/p/6003294.html data-featured-image title="发布于 2016-10-27 11:25">常用数据</a>
+</div>
+</div>
+ </div>
+ <div class=postDesc>posted @ 
+<span id=post-date>2016-10-25 18:11</span>&nbsp;
+<a href=https://www.cnblogs.com/Yloon/>Hotz亚军</a>&nbsp;
+阅读(<span id=post_view_count>3306</span>)&nbsp;
+评论(<span id=post_comment_count>0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=5997727" rel=nofollow>编辑</a>&nbsp;
+<a>收藏</a>&nbsp;
+<a>举报</a></div>
+ </div>
+ 
+ 
+ </div>
+</div>
+<a id=!comments></a>
+<div id=blog-comments-placeholder class=sf-hidden></div>
+<div id=comment_form class=commentform>
+ <a name=commentform></a>
+ <div id=divCommentShow></div>
+ <div id=comment_nav><span id=span_refresh_tips></span><a id=lnk_RefreshComments runat=server clientidmode=Static>刷新评论</a><a href=#>刷新页面</a><a href=#top>返回顶部</a></div>
+ <div id=comment_form_container style=visibility:visible><div class=login_tips>
+ 登录后才能查看或发表评论，立即 <a rel=nofollow class=underline>登录</a> 或者
+ <a href=https://www.cnblogs.com/>逛逛</a> 博客园首页
+</div>
+</div>
+ <div class="ad_text_commentbox sf-hidden" id=ad_text_under_commentbox></div>
+ <div id=cnblogs_ch class=sf-hidden></div>
+ <div id=opt_under_post></div>
+ <div id=cnblogs_c1 class=under-post-card style=display:none>
+ 
+ </div>
+ <div id=under_post_card1><div class=under-post-card>
+<b>编辑推荐：</b>
+<br>
+· <a href=https://www.cnblogs.com/coco1s/p/17021406.html target=_blank>巧用视觉障眼法，还原 3D 文字特效</a>
+ <br>
+· <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit | 基于 StateMachine 实现 Saga 编排式分布式事务 </a>
+ <br>
+· <a href=https://www.cnblogs.com/huangxincheng/p/17015643.html target=_blank>一次 SQL 调优，聊一聊 SQLSERVER 数据页 </a>
+ <br>
+· <a href=https://www.cnblogs.com/makemylife/p/17015499.html target=_blank>终于弄明白了 RocketMQ 的存储模型</a>
+ <br>
+· <a href=https://www.cnblogs.com/JavaArchitect/p/17011865.html target=_blank>应届毕业生程序员在面试时如何做好自我介绍？</a>
+ <br>
+</div></div>
+ <div id=under_post_card2><div class="itnews under-post-card">
+ <b>阅读排行：</b>
+ <br>
+ · <a href=https://www.cnblogs.com/thinkword/p/17020039.html target=_blank>今年回顾，流水账</a>
+ <br>
+ · <a href=https://www.cnblogs.com/edisonchou/p/edison-year-end-retrospective-2022.html target=_blank>我的2022年终总结：再次抉择，以终为始</a>
+ <br>
+ · <a href=https://www.cnblogs.com/eminer/p/17019988.html target=_blank>M.2 SSD固态硬盘上安装windows(win11)问题</a>
+ <br>
+ · <a href=https://www.cnblogs.com/xueweihan/p/17021034.html target=_blank>你的 GitHub 年度报告「GitHub 热点速览 v.22.52」</a>
+ <br>
+ · <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit 知多少 | 基于StateMachine实现Saga编排式分布式事务</a>
+ <br>
+</div></div>
+ <div id=HistoryToday class=under-post-card></div>
+ 
+</div>
+ </div>
+ </div>
+ <div id=sideBar>
+ <div id=sideBarMain>
+ <div id=sidebar_news class=newsItem>
+<h3 class=catListTitle>公告</h3>
+<div id=blog-news>
+ 
+ <div id=profile_block>
+ 昵称：
+ <a href=https://home.cnblogs.com/u/Yloon/>
+ Hotz亚军
+ </a>
+ <br>
+ 园龄：
+ <a href=https://home.cnblogs.com/u/Yloon/ title=入园时间：2016-09-18>
+ 6年3个月
+ </a>
+ <br>
+ 粉丝：
+ <a class=follower-count href=https://home.cnblogs.com/u/Yloon/followers/>
+ 0
+ </a>
+ <br>
+ 关注：
+ <a class=folowing-count href=https://home.cnblogs.com/u/Yloon/followees/>
+ 0
+ </a>
+ <div id=p_b_follow class=follow-tip>
+<a>+加关注</a></div>
+ 
+ </div>
+</div>
+</div>
+<div id=sidebar_c3 class=sf-hidden></div>
+ <div id=blog-calendar>
+<table id=blogCalendar class=Cal cellspacing=0 cellpadding=0 title=Calendar border=0>
+ <tbody>
+ <tr>
+ <td colspan=7>
+ <table class=CalTitle cellspacing=0 border=0>
+ <tbody>
+ <tr>
+ <td class=CalNextPrev>
+ <a>&lt;</a>
+ </td>
+ <td align=center>2023年1月</td>
+ <td align=right class=CalNextPrev>
+ <a>&gt;</a>
+ </td>
+ </tr>
+ </tbody>
+ </table>
+ </td>
+ </tr>
+ <tr>
+ <th class=CalDayHeader align=center abbr=日 scope=col>日</th>
+ <th class=CalDayHeader align=center abbr=一 scope=col>一</th>
+ <th class=CalDayHeader align=center abbr=二 scope=col>二</th>
+ <th class=CalDayHeader align=center abbr=三 scope=col>三</th>
+ <th class=CalDayHeader align=center abbr=四 scope=col>四</th>
+ <th class=CalDayHeader align=center abbr=五 scope=col>五</th>
+ <th class=CalDayHeader align=center abbr=六 scope=col>六</th>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 1
+ </td>
+ <td align=center>
+ 2
+ </td>
+ <td align=center>
+ 3
+ </td>
+ <td class=CalTodayDay align=center>
+ 4
+ </td>
+ <td align=center>
+ 5
+ </td>
+ <td align=center>
+ 6
+ </td>
+ <td class=CalWeekendDay align=center>
+ 7
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 8
+ </td>
+ <td align=center>
+ 9
+ </td>
+ <td align=center>
+ 10
+ </td>
+ <td align=center>
+ 11
+ </td>
+ <td align=center>
+ 12
+ </td>
+ <td align=center>
+ 13
+ </td>
+ <td class=CalWeekendDay align=center>
+ 14
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 15
+ </td>
+ <td align=center>
+ 16
+ </td>
+ <td align=center>
+ 17
+ </td>
+ <td align=center>
+ 18
+ </td>
+ <td align=center>
+ 19
+ </td>
+ <td align=center>
+ 20
+ </td>
+ <td class=CalWeekendDay align=center>
+ 21
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 22
+ </td>
+ <td align=center>
+ 23
+ </td>
+ <td align=center>
+ 24
+ </td>
+ <td align=center>
+ 25
+ </td>
+ <td align=center>
+ 26
+ </td>
+ <td align=center>
+ 27
+ </td>
+ <td class=CalWeekendDay align=center>
+ 28
+ </td>
+ </tr>
+ <tr>
+ <td class=CalWeekendDay align=center>
+ 29
+ </td>
+ <td align=center>
+ 30
+ </td>
+ <td align=center>
+ 31
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 1
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 2
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 3
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 4
+ </td>
+ </tr>
+ <tr>
+ <td class=CalOtherMonthDay align=center>
+ 5
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 6
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 7
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 8
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 9
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 10
+ </td>
+ <td class=CalOtherMonthDay align=center>
+ 11
+ </td>
+ </tr>
+ </tbody>
+</table></div> 
+ <div id=leftcontentcontainer>
+ <div id=blog-sidecolumn>
+<div id=sidebar_search class=sidebar-block>
+ <div id=sidebar_search class=mySearch>
+ <h3 class=catListTitle>搜索</h3>
+ <div id=sidebar_search_box>
+ <div id=widget_my_zzk class=div_my_zzk>
+ <input type=text id=q class=input_my_zzk value>&nbsp;<input type=button value=找找看 id=btnZzk class=btn_my_zzk>
+ </div>
+ <div id=widget_my_google class=div_my_zzk>
+ <input type=text name=google_q id=google_q class=input_my_zzk value>&nbsp;<input type=button value=谷歌搜索 class=btn_my_zzk>
+ </div>
+ </div>
+ </div>
+</div>
+<div id=sidebar_shortcut class=sidebar-block><div class=catListLink>
+<h3 class=catListTitle>
+常用链接
+</h3>
+<ul>
+ <li><a href=https://www.cnblogs.com/Yloon/p/ title=我的博客的随笔列表>我的随笔</a></li>
+<li><a href=https://www.cnblogs.com/Yloon/MyComments.html title=我的发表过的评论列表>我的评论</a></li>
+<li><a href=https://www.cnblogs.com/Yloon/OtherPosts.html title=我评论过的随笔列表>我的参与</a></li>
+<li><a href=https://www.cnblogs.com/Yloon/comments title=我的博客的评论列表>最新评论</a></li>
+<li><a href=https://www.cnblogs.com/Yloon/tag/ title=我的博客的标签列表>我的标签</a></li>
+</ul>
+</div>
+</div>
+<div id=sidebar_toptags class=sidebar-block></div>
+<div id=sidebar_categories>
+ <div id=sidebar_postarchive class="catListPostArchive sidebar-block">
+ <h3 class=catListTitle>
+ 
+随笔档案
+ </h3>
+ <ul>
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2020/10.html class=category-item-link rel target>2020年10月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2020/07.html class=category-item-link rel target>2020年7月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2020/03.html class=category-item-link rel target>2020年3月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2020/02.html class=category-item-link rel target>2020年2月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2020/01.html class=category-item-link rel target>2020年1月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2019/12.html class=category-item-link rel target>2019年12月(6)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2017/10.html class=category-item-link rel target>2017年10月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2017/04.html class=category-item-link rel target>2017年4月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2016/11.html class=category-item-link rel target>2016年11月(1)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/Yloon/archive/2016/10.html class=category-item-link rel target>2016年10月(2)</a>
+ 
+ </li> 
+ 
+ </ul>
+ </div> 
+</div>
+<div id=sidebar_topviewedposts class=sidebar-block><div class=catListView>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/Yloon/most-viewed class=sidebar-card-title-a>
+ 阅读排行榜
+</a>
+ </h3>
+ <div id=TopViewPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/Yloon/p/5997727.html>
+ 1. Tuxedo 超时时间控制（转贴）(3304)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/Yloon/p/6734660.html>
+ 2. shell脚本，如果文件中的第一列有相同的，就把相同的那些行的其他字段相加(1461)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/Yloon/p/13403588.html>
+ 3. eclipse环境下启动springboot的坑(725)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/Yloon/p/12096070.html>
+ 4. 【指针数组快速排序】(421)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/Yloon/p/12096074.html>
+ 5. JAVA虚拟机：Java技术体系讲解（一）(229)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_topcommentedposts class=sidebar-block></div>
+<div id=sidebar_topdiggedposts class=sidebar-block></div><div id=sidebar_recentcomments class=sidebar-block></div>
+</div>
+ 
+ </div> 
+ </div>
+ </div>
+ <div class=clear></div>
+ </div>
+ <div class=clear></div>
+ <div id=footer>
+ 
+Copyright © 2023 Hotz亚军
+<br><span id=poweredby>Powered by .NET 7.0 on Kubernetes</span>
+ </div>
+</div>
