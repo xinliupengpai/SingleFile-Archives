@@ -1,0 +1,517 @@
+<!DOCTYPE html> <html lang=zh-cn style=--olcb-folder-code-block-max-height:80vh><!--
+ Page saved with SingleFile 
+ url: https://www.cnblogs.com/holbrook/archive/2012/02/25/2368231.html 
+ saved date: Wed Jan 04 2023 14:23:13 GMT+0800 (中国标准时间)
+--><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta name=referrer content=origin-when-cross-origin>
+<meta name=description content=在python开源项目目录结构的基础上，进一步定义django的目录结构。根据django的特性，分成两部分：project结构和app结构。project结构这里定义的是python开源项目目录结构>
+<meta property=og:description content=在python开源项目目录结构的基础上，进一步定义django的目录结构。根据django的特性，分成两部分：project结构和app结构。project结构这里定义的是python开源项目目录结构>
+<meta http-equiv=Cache-Control content=no-transform>
+<meta http-equiv=Cache-Control content=no-siteapp>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<title>django最佳实践：项目布局 - 心内求法 - 博客园</title>
+<style>input[type=button]{-webkit-appearance:button}img{max-width:100%;height:auto}#blog_post_info_block{margin-top:20px}#BlogPostCategory{margin-bottom:10px}#EntryTag{margin-top:0!important}pre{transition-duration:.2s;transition-property:background-color,border-color,border-radius,padding-top,padding-bottom,margin-top,margin-bottom,color,opacity}.cnblogs_code{background-color:#f5f5f5;font-family:Courier New!important;font-size:12px!important;border:1px solid #ccc;padding:5px;overflow:auto;margin:5px 0;color:#000}pre{overflow:auto}.cnblogs_code pre{font-family:Courier New,serif;font-size:12px;word-wrap:break-word}.cnblogs_code span{font-family:Courier New,serif;font-size:inherit;line-height:1.5}.div_my_zzk{margin-top:5px;margin-bottom:5px}.input_my_zzk{width:100px;vertical-align:middle;height:20px}input.btn_my_zzk{vertical-align:middle;height:22px;font-size:12px;padding-left:5px;padding-right:5px}pre{margin-top:0;margin-bottom:0}#author_profile{float:left;width:280px;margin-top:0;margin-bottom:10px;color:#000;margin-left:0;font-size:12px}#author_profile a:hover{text-decoration:underline}.author_avatar{vertical-align:top;float:left;margin-right:5px;padding-top:5px;padding-left:2px;border:0}.author_profile_info{float:left;line-height:18px}#div_digg{float:right;margin-bottom:10px;margin-right:30px;font-size:12px;width:125px;text-align:center;margin-top:10px}.diggit{float:left;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP/00P/22vfqt/b29v/11f/45P/56P/34PjtwfXlqf/55v/11//00v/44vnwyfn5+f/22Pbnrf/21vny0Pn00//33vDw8P/12KioqP/10ufm61B1uv/33f/33P////H4+iH5BAAAAAAALAAAAAAuADQAAAX/oJeMZGmeaJqKQOu+cCzPcxLJmZvlcM4DPlosE4kwMsfdLrlEIo8MZvRJjTKbxaZyy+16v94iYUwum8/odDlDjgjU8Lh8LBAs7mQ8YTHmS/aAfHyBeHeCg3l1dxAQFwsXkBeMjJILEJaNko2bk4+Pl4x3knUBpaanqKmqq6sCCAEdsR2ws6mytbSwprGns766HQgIHByxxR3FxMi3y8nIycTO0MqywtTH0Mu30s/PytLRt9bYxt3Hstzf4eDUsePlzc7bzebr8e3Bw+Tx2uj06t/unct3rVzAeeC8pQtXTR+8bAP/1Qs4beA7bRCZLVT4j6E7hxjNaezIkZ1FkOQO//pLGG0hvosp5a3k17LjSwQVcurcybOnz58/ETg4QLSo0aNIkypV6sBBg6dPC0CdWkBqg6pTs1q1qpWrgwlVw4odS7as2bMTJihYy7at27dw48adQMGA3bt48+rdy5cv3b6AAwu2S8EDhcOIEytezLhxYw+QI0ueTLmy5cuYM2veDPmD58+gQ4seTbq0htIPBqguzbq159OjH2jQgEHDANe4RcMWPUCDBwsYHuQe/pr0bA8PMNwmnnt36N6/lYve8Jk69enVdYdO3ds38OWgr4sPv6G8+fOfndPGwB5DdPAf0J8vjz2+ds8eMFigPEB/aOvjVTfffOl91t96+0X2HYB58REYHmu7JWfZgp7RZ9+FDw4I2m79teebgrVVeGGAD5ZYoGcSVjbBBvCJ52CDDb4Y4Xq1SQYcBSWSaN91Ioa222+0WSDkkBiwmGOPJmJ4ooHsbVDkkw4I6CJ62cV4H2gPFHDABVsWAB9zEIIppnFjlrnhbGimqeaabLbp5mwhAAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.diggnum{font-size:14px;color:#075db3;font-family:Verdana}.buryit{float:right;margin-left:20px;width:46px;height:52px;background:url(data:image/gif;base64,R0lGODlhLgA0AMQAAP////39/fn5+fj4+Pb29vX19fPz8/Ly8vHx8fDw8O/v7+7u7u3t7ezs7Ovr6+rq6ujo6Ofn5+bm5uXl5ePj4+Li4uHh4dzc3NfX19HR0c/Pz6qqqqioqKenp4WFhYODgyH5BAQUAP8ALAAAAAAuADQAAAX/IKCNZGmeaJqKUeu+cCzP80jfeN5mGeT/wKBwSCTyisik0sd7OJ/QqHRKpWYw1ax268RgHGDuFkwuO6Res3rNbre9jbh8Tq/b73fMpcHo+xl2f3iDdRcXC4iJiol/jY2LkIh/hpGQjpcMlYuTh5qMmI+ekn6UogugoaKcpqeofqyrpq6vsqSdqrOZtX2luLOwtsC/uwy9nrm6vsW3x7nCy6zR0ogXFgrX2Nna29zd3RYWCeLj5OXm5+jo4Ajs7e7v8PHy8hQUB/f4+fr7/P399QYCChxIsKDBgwcBIlzIsKGBCQAmSJxIsaLFixgxAtjIsaPHjyBDihxJsqTJjQVS8KpcybKly5cwIcCcSbOmSpk2c+pMiZOlAHYOFDhAQGBnzp4rN2z4wIEp0wpGayIFkOABB3MdPBh4+aHrB5pfb64UYJUDBwgdFXCYsNJr2LZu265EKoBDSAoftqp8O5MvX6QFzJpFyzHBWbhuu+5NmVgxz7EcAoA0XHQxS78FMItdedZsgo4HOFRmnNmy3NKoH6sEwAHBxwEcFlxOzZc06b8sIwg2S5WD3tNfa5cOG3xuSwEECPjoPdq2c8uaVb9ES3l25uKmoxcAPBdt3ebB/Tpu6dV4TAChBUSVClOADw4Smq93yX1scvnzWy7Zzz9ICAA7)no-repeat;text-align:center;cursor:pointer;margin-top:2px;padding-top:5px}.burynum{font-size:14px;color:#075db3;font-family:Verdana}.diggword{margin-top:5px;margin-left:0;font-size:12px;color:#808080}#profile_block{margin-top:5px;line-height:1.5;text-align:left}#post_next_prev{line-height:1.8;font-size:12px}#post_next_prev a.p_n_p_prefix:link{text-decoration:none}#post_next_prev a.p_n_p_prefix:hover{text-decoration:underline}blockquote{border:2px solid #efefef;padding-left:10px;padding-right:10px;padding-top:5px;padding-bottom:5px;margin-top:10px;margin-bottom:10px}.blogpost-body blockquote{background:none;border-left:3px solid #e2dfdf;border-right:none;border-top:none;border-bottom:none;margin:10px 0}.under-post-card{margin-top:10px;line-height:1.5}#green_channel{padding:10px 0;margin-bottom:10px;margin-top:10px;border:#c0c0c0 1px dashed;font-size:12px;width:350px;text-align:center}#green_channel a{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAkCAYAAABIdFAMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAHhJREFUeNo8zjsOxCAMBFB/KEAUFFR0Cbng3nQPw68ArZdAlOZppPFIBhH5EAB8b+Tlt9MYQ6i1BuqFaq1CKSVcxZ2Acs6406KUgpt5/LCKuVgz5BDCSb13ZO99ZOdcZGvt4mJjzMVKqcha68iIePB86GAiOv8CDADlIUQBs7MD3wAAAABJRU5ErkJggg%3D%3D)repeat-x;display:inline-block;padding:3px 8px;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer;margin-right:10px;-moz-border-radius:5px;-webkit-border-radius:10px;-moz-box-shadow:0 1px 3px rgba(0,0,0,.5);-webkit-box-shadow:0 1px 3px rgba(0,0,0,.5);text-shadow:0-1px 1px rgba(0,0,0,.25);vertical-align:middle}#green_channel a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAyCAYAAACd+7GKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/v//vwMTAwPDfzjBgMpFI/7hFSOT9Y8qRuF3JLoHAQIMAHYtMmRA+CugAAAAAElFTkSuQmCC)}#green_channel #green_channel_digg{background-color:#2daebf}#green_channel #green_channel_follow{background-color:#e33100}#green_channel #green_channel_favorite{background-color:#ffb515}#green_channel #green_channel_weibo img{vertical-align:middle;border:none;margin-left:5px;box-shadow:none}#green_channel #green_channel_weibo,#green_channel #green_channel_wechat{background:none;padding:3px 2px;-moz-border-radius:none;-webkit-border-radius:none;-moz-box-shadow:none;-webkit-box-shadow:none;text-shadow:none}#green_channel #green_channel_wechat img{width:24px;height:24px;border:medium none;box-shadow:none;margin-left:5px;vertical-align:middle}#cnblogs_post_body{margin-bottom:20px}#opt_under_post{line-height:1.8}.recent_comment_author{text-align:right;margin-right:4px}#HistoryToday{max-width:600px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.recent_comment_body{word-wrap:break-word}#cnblogs_post_body{word-break:break-word}#cnblogs_post_body p{margin:10px auto}#cnblogs_post_body p{text-indent:0}#cnblogs_post_body h3{font-size:16px;font-weight:bold;line-height:1.5;margin:10px 0}#div_digg .diggnum{line-height:1.5em!important}#div_digg .burynum{line-height:1.5em!important}#green_channel a:link,#green_channel a:visited,#green_channel a:active{color:#fff!important;border:none!important}.vertical-middle>*{vertical-align:middle}#blog-news{overflow:hidden}.category-item-link{word-break:break-word}#cnblogs_c1{width:300px;height:250px}.sidebar-card-title-a,a.sidebar-card-title-a:link,a.sidebar-card-title-a:visited{font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;color:inherit!important}@keyframes fadeIn{0%{opacity:0}100%{opacity:var(--cnb-code-toolbar-initial-opacity)}}pre:fullscreen,pre:fullscreen code{box-sizing:border-box;border-radius:0;height:100vh;width:100vw}.login_tips{background-image:url(data:image/gif;base64,R0lGODlhEAAQAOZbAOny/v3+/lqIuT1wIOLu/lOMKKnB2omqzbTJ34+8Z9vq/c7c6tfo/ZSwhJOx0WyVwJGugWCJSbLSlff5/Pv8/efu9Y26ZDdrGUFzJXCYwuDt/vP3+uvx94usztrk793s/m6XwYe5YN/s/qO92Iu6YnCWXpeyiOnv9tXm/bHTkKa9mZ241dDj/dzm8Ex7Mejx/lePLd3r/vn7/NHk/eXw/tDk/dPm/dTm/dzq/d7s/tbn/WaOT3ugx2+XwuTv/o+7arbUnNnp/dDmurHFq9zr/X2iyF+Mu+bw/pm21Obx/oe6YFyKuvD2/oWny7HWktrp/Yy8ZYKjk+Pv/uHu/r7Q4z9xItHk/LTUlYGrYViHuP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAFsALAAAAAAQABAAAAemgFuCg4SFhoeGGw5LWY2OWU0VhB0GFFqXmFoIGRSCEwIBTABJPlM5CjhaPC2CHA9aL0dSGh8KDChaBwutrzQEGjFPDDczubtbnwEAIkRBOjY1VlpFHoOUAZgELACaGTKDigKNK5dDJTsRKog9FVFYV0I/MBCGI0hGESlOWlAJA4UnQFDZ4gIIJgkXEG2pQkKJlhD+FJooYEGChQL0FDbAcAFDgy2BAAA7);background-repeat:no-repeat;margin-top:10px;padding:0 0 10px 25px;font-weight:400}.login_tips a{text-decoration:underline!important}#comment_nav{text-align:right}#comment_nav a{padding-left:10px}:root{--highlighted-line-bg:#d1e3c9;--highlighted-line-bg-dark:#264b33}@keyframes collapse{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-scroll-height,80vh)}to{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh)}}@keyframes expand{from{max-height:80vh;max-height:80vh;max-height:var(--olcb-folder-code-block-max-height,80vh);overflow-y:hidden}to{max-height:"";max-height:"";max-height:var(--olcb-folder-code-block-scroll-height,"");overflow-y:hidden}}@keyframes modal-open{0%{height:0;opacity:0}95%{height:505px}100%{height:auto;opacity:1}}:root{--cnblogs-toc-bg-color:rgba(245,245,245,.98);--cnblogs-toc-highlight-color:rgba(255,255,255,.9);--cnblogs-toc-color:#000}@keyframes wb-fade-in{0%{opacity:0}to{opacity:.85}}/*!
+ * ui-dialog.css
+ * Date: 2014-07-03
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */@-webkit-keyframes ui-dialog-loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}}@keyframes ui-dialog-loading{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}#EntryTag{margin-top:20px;font-size:9pt}*{margin:0;padding:0}html{height:100%}body{padding-bottom:40px;padding-top:60px;min-height:101%;background-color:#FFFFFF;color:#404040;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px;font-weight:normal;line-height:18px;margin:0}img{border:0}ul{word-break:break-all}li{list-style:none}h1,h2{font-size:100%;font-weight:normal}a{color:#0069D6;font-weight:inherit;line-height:inherit;text-decoration:none}.clear{clear:both}#home{margin:0 auto;min-width:930px}#header{left:0;position:fixed;right:0;top:0;z-index:1030;margin-bottom:18px;overflow:visible;background-color:#2C2C2C;box-shadow:0 1px 3px rgba(0,0,0,0.25),0-1px 0 rgba(0,0,0,0.1) inset;clear:both;content:""}#blogTitle{float:left}#blogTitle h1{padding:8px 12px 8px;float:left;font-size:20px;font-weight:200;line-height:1;color:#FFFFFF;display:block}#blogTitle a{color:#FFFFFF;display:block}#blogTitle h2{margin-left:4em;line-height:1.5em;float:left}#navigator{left:0;right:0;margin:0 0 0 0;position:relative}#navList{list-style:none outside none;display:block;float:left;left:0;right:0;margin:0 10px 0 0;position:relative}#navList li{float:left;line-height:18px}#navList a{color:#999999;float:none;line-height:19px;padding:8px 10px 8px;text-decoration:none;text-shadow:0-1px 0 rgba(0,0,0,0.25);display:block}#navList a:link,#navList a:visited,#navList a:active{color:#ccc}#navList a:hover{color:white}.blogStats{float:right;color:#0088CC;margin-top:8px;margin-right:2px;text-align:right;padding:0}#main{min-width:950px;text-align:left;padding-left:20px;padding-right:20px}#mainContent .forFlow{margin-left:22em;float:none;width:auto}#mainContent{min-height:200px;padding:0px 0px 10px 0;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all;float:right;margin-left:-25em;width:100%}.postTitle{font-size:110%;font-weight:bold;float:right;line-height:1.5em;width:100%;clear:both;color:#444}.postTitle a:link,.postTitle a:visited,.postTitle a:active{color:#444}.postTitle a:hover{color:#F60}.postDesc{clear:both}.postDesc a:link,.postDesc a:visited,.postDesc a:active,.entrylistItemPostDesc a:link,.entrylistItemPostDesc a:visited,.entrylistItemPostDesc a:active{color:#666;background-color:#62CFFC;border-radius:3px 3px 3px 3px;color:#FFFFFF;font-size:9.75px;font-weight:bold;padding:1px 3px 2px;text-shadow:none}.postDesc a:hover,.entrylistItemPostDesc a:hover{background-color:#46A546}#sideBar{width:220px;padding:9px 9px 9px 5px;float:left;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all;background-color:#F5F5F5;border:1px solid rgba(0,0,0,0.05);border-radius:4px 4px 4px 4px;box-shadow:0 1px 1px rgba(0,0,0,0.05) inset;margin-bottom:20px;min-height:20px}.newsItem{padding:15px 0 5px 0px;margin-bottom:8px}.catListTitle{font-size:14px;line-height:36px;color:#404040;font-weight:bold;text-shadow:0 1px 0 rgba(255,255,255,0.5);border:0 none;font-family:inherit}.catListComment{line-height:1.5em}#sideBarMain ul{margin:0 0 1px 15px}#topics{width:100%;min-height:200px;padding:0px 0px 10px 0;float:left;-o-text-overflow:ellipsis;text-overflow:ellipsis;overflow:hidden;word-break:break-all}.postBody{padding:5px 2px 5px 5px;color:#000;border-bottom:1px solid black}#EntryTag{color:#666}#EntryTag a{margin-left:5px}#EntryTag a:link,#EntryTag a:visited,#EntryTag a:active{color:#666}#EntryTag a:hover{color:#f60}#topics .postDesc{float:right;width:100%;text-align:right;padding-right:5px;color:#666;margin-top:5px}.post{background-color:#F5F5F5;border-radius:6px 6px 6px 6px;padding:20px}.mySearch #q{height:1.4em;width:175px}#footer{text-align:center;min-height:15px;border-top:1px solid black;margin-top:10px;padding-top:10px;margin-bottom:10px}.postBody{line-height:1.5em}.postBody a:link,.postBody a:visited,.postBody a:active{text-decoration:underline}.postBody blockquote{padding:10px 60px 5px 60px;min-height:35px;line-height:1.6em;color:#333}</style>
+<style media="only screen and (max-width: 767px)">body{font-size:14px!important;-webkit-text-size-adjust:none}#blog_nav_rss{display:none!important}#blog_nav_newpost{display:none!important}#green_channel{width:100%}#sidebar_search_box input[type=text]{width:260px}#cnblogs_c1{text-align:center;margin:10px auto 0 auto}#cnblogs_c1{width:300px}.commentform{margin-left:10px}</style>
+<link type=application/rss+xml rel=alternate href=https://www.cnblogs.com/holbrook/rss>
+<link type=application/rsd+xml rel=EditURI href=https://www.cnblogs.com/holbrook/rsd.xml>
+<link type=application/wlwmanifest+xml rel=wlwmanifest href=https://www.cnblogs.com/holbrook/wlwmanifest.xml>
+<link id=favicon rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGNsaXBQYXRoIGlkPSJwcmVmaXhfX2NsaXAtcGF0aCI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9InByZWZpeF9fY2xpcC1wYXRoLTIiPjxwYXRoIGNsYXNzPSJwcmVmaXhfX2Nscy0xIiBkPSJNMjAuOTIgMy40NmE0LjI1IDQuMjUgMCAwMS4zMSA1Ljg2IDMuOTEgMy45MSAwIDAxLTUuNjYuMjQgNC4yNSA0LjI1IDAgMDEtLjMxLTUuODYgMy45MSAzLjkxIDAgMDE1LjY2LS4yNG0xLjM1LTEuNTRhNS44OSA1Ljg5IDAgMDAtOC41My4zNiA2LjQxIDYuNDEgMCAwMC40OCA4LjgzIDUuOTEgNS45MSAwIDAwOC41My0uMzYgNi40MSA2LjQxIDAgMDAtLjQ4LTguODN6Ii8+PC9jbGlwUGF0aD48c3R5bGU+LnByZWZpeF9fY2xzLTF7ZmlsbDojM2UzYTM5fUBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6ZGFyayl7LnByZWZpeF9fY2xzLTF7ZmlsbDojZWZlZmVmfX08L3N0eWxlPjwvZGVmcz48ZyBzdHlsZT0iaXNvbGF0aW9uOmlzb2xhdGUiPjxnIGlkPSJwcmVmaXhfX2xheWVyXzEiIGRhdGEtbmFtZT0ibGF5ZXIgMSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0yOS40OCAyNS4yNGMtLjE2LTEuODktLjA4LTEuNS0uMjQtMy4xNmE3Mi4yNCA3Mi4yNCAwIDAwLTItMTAuMzdMMjYgNi4yNWwtMi42IDUuNDEtLjQ0Ljg5cS0uMjQuNDgtLjU0IDFhMjAuNDMgMjAuNDMgMCAwMS0xLjI0IDEuODQgMjAuMDggMjAuMDggMCAwMS0zLjA4IDMuMjQgMTkuNzIgMTkuNzIgMCAwMS0zLjg3IDIuNTNjLS43Mi4zMy0xLjQ1LjcxLTIuMjMgMS0uMzQuMTQtMS4xOS40NC0xLjkzLjY2YTIuNTUgMi41NSAwIDAxLTEuMDctLjNjLS4zNC0xLS44My0yLjI0LTEuMi0zLjE5LS41LTEuMjUtMS0yLjUtMS41MS0zLjczYTU5LjExIDU5LjExIDAgMDAtMy42Mi03LjI1IDU5LjgyIDU5LjgyIDAgMDAxLjUxIDcuOTRjLjMgMS4zLjcgMi41OCAxLjA1IDMuODdTNiAyMi43MSA2LjQ0IDI0YTEuNCAxLjQgMCAwMDEuMjkuOTNjMS4yOCAwIDIuNTcuMDYgMy44Ni4wNXMyLjU5IDAgMy44OC0uMTFhNTYgNTYgMCAwMDcuNzktLjg3Yy0xLjkyLS40OS03LjUtLjgxLTEwLjc5LTEuMDZhNDMgNDMgMCAwMDYuNTMtMS43IDI0LjA2IDI0LjA2IDAgMDA1LjM4LTMuNDVjLjcxLS42MiAxLjIxIDEuODggMi4zOSA1LjI3LjYyIDEuNjkuMzQgMSAxIDIuNjZzMS4zNyA0LjM4IDIuMTcgNmMtLjA3LTEuODItLjMxLTQuNjctLjQ2LTYuNDh6Ii8+PGcgY2xpcC1wYXRoPSJ1cmwoI3ByZWZpeF9fY2xpcC1wYXRoKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48cGF0aCBjbGFzcz0icHJlZml4X19jbHMtMSIgZD0iTTIwLjkyIDMuNDZhNC4yNSA0LjI1IDAgMDEuMzEgNS44NiAzLjkxIDMuOTEgMCAwMS01LjY2LjI0IDQuMjUgNC4yNSAwIDAxLS4zMS01Ljg2IDMuOTEgMy45MSAwIDAxNS42Ni0uMjRtMS4zNS0xLjU0YTUuODkgNS44OSAwIDAwLTguNTMuMzYgNi40MSA2LjQxIDAgMDAuNDggOC44MyA1LjkxIDUuOTEgMCAwMDguNTMtLjM2IDYuNDEgNi40MSAwIDAwLS40OC04LjgzeiIvPjxnIGNsaXAtcGF0aD0idXJsKCNwcmVmaXhfX2NsaXAtcGF0aC0yKSI+PHBhdGggY2xhc3M9InByZWZpeF9fY2xzLTEiIGQ9Ik0tLjg3LS43OGgzNC40MnYzMy4wN0gtLjg3eiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" type=image/svg+xml><style>.sf-hidden{display:none!important}</style><link rel=canonical href=https://www.cnblogs.com/holbrook/archive/2012/02/25/2368231.html><meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'unsafe-inline'; media-src 'self' data:; script-src 'unsafe-inline' data:; object-src 'self' data:;"><style>img[src="data:,"],source[src="data:,"]{display:none!important}</style></head>
+<body class="skin-thinkinside no-navbar">
+<a name=top></a>
+<div id=top_nav class="navbar forpc navbar-custom sf-hidden">
+ 
+</div>
+<div id=home>
+<div id=header>
+ <div id=blogTitle>
+ <a id=lnkBlogLogo href=https://www.cnblogs.com/holbrook/><img id=blogLogo src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=返回主页></a> 
+ 
+<h1><a id=Header1_HeaderTitle class="headermaintitle HeaderMainTitle" href=https://www.cnblogs.com/holbrook/>心内求法</a>
+</h1>
+<h2></h2>
+ 
+ </div>
+ <div id=navigator>
+ 
+<ul id=navList>
+<li><a id=blog_nav_sitehome class=menu href=https://www.cnblogs.com/>
+博客园</a>
+</li>
+<li>
+<a id=blog_nav_myhome class=menu href=https://www.cnblogs.com/holbrook/>
+首页</a>
+</li>
+<li>
+<a id=blog_nav_newpost class=menu href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id=blog_nav_contact class=menu href=https://msg.cnblogs.com/send/%E5%BF%83%E5%86%85%E6%B1%82%E6%B3%95>
+联系</a></li>
+<li>
+<a id=blog_nav_rss class=menu data-rss=https://www.cnblogs.com/holbrook/rss/>
+订阅</a>
+</li>
+<li>
+<a id=blog_nav_admin class=menu href=https://i.cnblogs.com/>
+管理</a>
+</li>
+</ul>
+ <div class=blogStats>
+ <span id=stats_post_count>随笔 - 175&nbsp; </span>
+<span id=stats_article_count>文章 - 0&nbsp; </span>
+<span id=stats-comment_count>评论 - 537&nbsp; </span>
+<span id=stats-total-view-count>阅读 - 
+<span title="总阅读数: 1706376">
+170万</span></span>
+ </div>
+ </div>
+</div>
+<div id=main>
+ <div id=mainContent>
+ <div class=forFlow>
+ <div id=post_detail>
+ 
+ <div id=topics>
+ <div class=post>
+ <h1 class=postTitle>
+ 
+<a id=cb_post_title_url class="postTitle2 vertical-middle" href=https://www.cnblogs.com/holbrook/archive/2012/02/25/2368231.html>
+ <span role=heading aria-level=2>django最佳实践：项目布局</span>
+ 
+</a><button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button>
+ </h1>
+ <div class=clear></div>
+ <div class=postBody>
+ <div id=cnblogs_post_body class="blogpost-body blogpost-body-html">
+<p>在<a href=http://www.cnblogs.com/holbrook/archive/2012/02/24/2366386.html target=_blank rel=noopener>python开源项目目录结构</a>的基础上，进一步定义django的目录结构。根据django的特性，分成两部分：project结构和app结构。</p>
+<h3>project结构<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<p>这里定义的是<a href=http://www.cnblogs.com/holbrook/archive/2012/02/24/2366386.html target=_blank rel=noopener>python开源项目目录结构</a>中的$PROJ_NAME目录内的内容，需要与<a href=http://www.cnblogs.com/holbrook/archive/2012/02/24/2366386.html target=_blank rel=noopener>python开源项目目录结构</a>结合起来。</p>
+<blockquote>
+<p>PROJ_NAME/<br>&nbsp;&nbsp;&nbsp;&nbsp; __init__.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这几个文件是django创建project所必须的，不做过多说明<br>&nbsp;&nbsp;&nbsp;&nbsp; manage.py<br>&nbsp;&nbsp;&nbsp;&nbsp; settings.py<br>&nbsp;&nbsp;&nbsp;&nbsp; urls.py &nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; apps/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 即使是“小”工程，也建议分成多个app，每个app足够简单，只解决某一个方面的问题 （注1）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myapp1/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myapp2/<br>&nbsp;&nbsp;&nbsp;&nbsp; extra_apps/&nbsp;&nbsp;&nbsp;&nbsp; 引用的其他app。<br>&nbsp;&nbsp;&nbsp;&nbsp; libs/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 加载第三方模块，可以避免版本冲突，按照标准的site-packages管理（注2）<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; python*.*/　　指定python版本号<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; site-packages/&nbsp; &nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requirements.pip&nbsp;&nbsp;&nbsp; #pip的依赖说明文件<br>&nbsp;&nbsp;&nbsp;&nbsp; tests/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; project级别的测试，对于每个app，还要有自己的测试代码<br>&nbsp;&nbsp;&nbsp;&nbsp; static/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 静态内容<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; css/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; js/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; images/<br>&nbsp;&nbsp;&nbsp;&nbsp; uploads/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 上传文件所在目录<br>&nbsp;&nbsp;&nbsp;&nbsp; templates/&nbsp;&nbsp;&nbsp; 模板目录，覆盖app的模板<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flatpages/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; comments/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; example/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; app1/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; app2/<br>&nbsp;&nbsp;&nbsp;&nbsp; templatetags/&nbsp;&nbsp;&nbsp; tag目录</p>
+</blockquote>
+<p>注1：指定app加载，在settings.py中设置：</p>
+<div class=cnblogs_code>
+<pre>sys.path.insert(0, os.path.join(PROJECT_ROOT, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>apps</span><span style=color:rgba(128,0,0,1)>'</span>))<br>sys.path.insert(0, os.path.join(PROJECT_ROOT, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>extras</span><span style=color:rgba(128,0,0,1)>'</span>))<br>sys.path.insert(0, os.path.join(PROJECT_ROOT, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>libs</span><span style=color:rgba(128,0,0,1)>'</span>)) &nbsp;</pre>
+</div>
+<p>注2：自定义libs的加载，在settings.py中设置：</p>
+<div class=cnblogs_code>
+<pre>sys.path.insert(0, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>/{{MY_LIB)}/site-packages/*****.egg</span><span style=color:rgba(128,0,0,1)>'</span>)<br>sys.path.insert(0, <span style=color:rgba(128,0,0,1)>'</span><span style=color:rgba(128,0,0,1)>/{{MY_LIB}} /site-packages/</span><span style=color:rgba(128,0,0,1)>'</span>)  </pre>
+</div>
+<h3>app目录结构<button class="cnblogs-toc-button sf-hidden" title=显示目录导航 aria-expanded=false></button></h3>
+<blockquote>
+<p>$APP_NAME/<br>&nbsp;&nbsp;&nbsp;&nbsp; tests/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; app级别的测试代码<br>&nbsp;&nbsp;&nbsp;&nbsp; models/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __init__.py<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Amodels.py<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bmodels.py<br>&nbsp;&nbsp;&nbsp;&nbsp; templates/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注2<br>&nbsp;&nbsp;&nbsp;&nbsp; templatetags/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tag目录</p>
+</blockquote>
+<p>注1：如果很好的控制app的规模，Model类数量少，可以使用惯用的models.py文件中, 否则将models做成一个package<br>接下来可以有两种做法：</p>
+<p style=margin-left:30px>1. 在__init__.py中import所有的Model类<br>2. 指定Model的元类（Meta）的app_label, 参考<a href=http://www.cnblogs.com/holbrook/archive/2012/02/13/2357339.html target=_blank rel=noopener>这里</a></p>
+<p>注2：如果extend 工程下的base.html， 使用 !base.html<br><br><br></p>
+</div>
+<div id=MySignature role=contentinfo>
+ <h1 style=color:red>本人已在github上用Jekyll建立了新的博客：<a href=http://thinkinside.tk/>http://thinkinside.tk/</a>，本站文章会陆续迁移过去</h1>
+<br>
+<div id=wumiiRelatedItems></div>
+</div>
+<div class=clear></div>
+<div id=blog_post_info_block role=contentinfo><div id=BlogPostCategory>
+ 分类: 
+ <a href=https://www.cnblogs.com/holbrook/category/425926.html target=_blank> 法.手段方法</a></div>
+<div id=EntryTag>
+ 标签: 
+ <a href=https://www.cnblogs.com/holbrook/tag/django/>django</a>, <a href=https://www.cnblogs.com/holbrook/tag/python/>python</a>, <a href=https://www.cnblogs.com/holbrook/tag/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/>软件工程</a>, <a href=https://www.cnblogs.com/holbrook/tag/%E4%BB%A3%E7%A0%81%E7%AE%A1%E7%90%86/>代码管理</a></div>
+ <div id=blog_post_info>
+<div id=green_channel>
+ <a id=green_channel_digg>好文要顶</a>
+ <a id=green_channel_follow>关注我</a>
+ <a id=green_channel_favorite>收藏该文</a>
+ <a id=green_channel_weibo title=分享至新浪微博><img src=data:image/png;base64,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 alt></a>
+ <a id=green_channel_wechat title=分享至微信><img src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAABA9pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iCiAgICAgICAgICAgIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIj4KICAgICAgICAgPHhtcE1NOkRlcml2ZWRGcm9tIHJkZjpwYXJzZVR5cGU9IlJlc291cmNlIj4KICAgICAgICAgICAgPHN0UmVmOmluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4M0Q4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6aW5zdGFuY2VJRD4KICAgICAgICAgICAgPHN0UmVmOmRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NEQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwvc3RSZWY6ZG9jdW1lbnRJRD4KICAgICAgICAgPC94bXBNTTpEZXJpdmVkRnJvbT4KICAgICAgICAgPHhtcE1NOkRvY3VtZW50SUQ+eG1wLmRpZDo0RUREMkQ4NkQ4REUxMUUzQkU2QUFFRDI0NThBOTQxQTwveG1wTU06RG9jdW1lbnRJRD4KICAgICAgICAgPHhtcE1NOkluc3RhbmNlSUQ+eG1wLmlpZDo0RUREMkQ4NUQ4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 alt></a>
+</div>
+<div id=author_profile>
+ <div id=author_profile_info class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/holbrook/ target=_blank><img src="data:image/jpeg;base64,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" class=author_avatar alt></a>
+ <div id=author_profile_detail class=author_profile_info>
+ <a href=https://home.cnblogs.com/u/holbrook/>心内求法</a><br>
+ <a href=https://home.cnblogs.com/u/holbrook/followers/>粉丝 - <span class=follower-count>639</span></a>
+ <a href=https://home.cnblogs.com/u/holbrook/followees/>关注 - <span class=following-count>21</span></a><br>
+ </div>
+ </div>
+ <div class=clear></div>
+ <div id=author_profile_honor></div>
+ <div id=author_profile_follow class=follow-tip>
+ <a>+加关注</a>
+ </div>
+</div>
+<div id=div_digg>
+ <div class=diggit>
+ <span class=diggnum id=digg_count>0</span>
+ </div>
+ <div class=buryit>
+ <span class=burynum id=bury_count>0</span>
+ </div>
+ <div class=clear></div>
+ <div class=diggword id=digg_tips>
+ </div>
+</div>
+</div>
+ <div class=clear></div>
+ <div id=post_next_prev>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/02/25/2357337.html class=p_n_p_prefix>« </a> 上一篇： <a href=https://www.cnblogs.com/holbrook/archive/2012/02/25/2357337.html data-featured-image title="发布于 2012-02-25 12:13">戏说WSGI（Python Web服务网关接口）</a>
+ <br>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/02/28/2371205.html class=p_n_p_prefix>» </a> 下一篇： <a href=https://www.cnblogs.com/holbrook/archive/2012/02/28/2371205.html data-featured-image title="发布于 2012-02-28 11:15">Emacs学习笔记(6)：常用命令备忘（打印版）</a>
+</div>
+</div>
+ </div>
+ <div class=postDesc>posted @ 
+<span id=post-date>2012-02-25 23:16</span>&nbsp;
+<a href=https://www.cnblogs.com/holbrook/>心内求法</a>&nbsp;
+阅读(<span id=post_view_count>16838</span>)&nbsp;
+评论(<span id=post_comment_count>4</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=2368231" rel=nofollow>编辑</a>&nbsp;
+<a>收藏</a>&nbsp;
+<a>举报</a></div>
+ </div>
+ 
+ 
+ </div>
+</div>
+<a id=!comments></a>
+<div id=blog-comments-placeholder class=sf-hidden></div>
+<div id=comment_form class=commentform>
+ <a name=commentform></a>
+ <div id=divCommentShow></div>
+ <div id=comment_nav><span id=span_refresh_tips></span><a id=lnk_RefreshComments runat=server clientidmode=Static>刷新评论</a><a href=#>刷新页面</a><a href=#top>返回顶部</a></div>
+ <div id=comment_form_container style=visibility:visible><div class=login_tips>
+ 登录后才能查看或发表评论，立即 <a rel=nofollow class=underline>登录</a> 或者
+ <a href=https://www.cnblogs.com/>逛逛</a> 博客园首页
+</div>
+</div>
+ <div class="ad_text_commentbox sf-hidden" id=ad_text_under_commentbox></div>
+ <div id=cnblogs_ch class=sf-hidden></div>
+ <div id=opt_under_post></div>
+ <div id=cnblogs_c1 class=under-post-card style=display:none>
+ 
+ </div>
+ <div id=under_post_card1><div class=under-post-card>
+<b>编辑推荐：</b>
+<br>
+· <a href=https://www.cnblogs.com/coco1s/p/17021406.html target=_blank>巧用视觉障眼法，还原 3D 文字特效</a>
+ <br>
+· <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit | 基于 StateMachine 实现 Saga 编排式分布式事务 </a>
+ <br>
+· <a href=https://www.cnblogs.com/huangxincheng/p/17015643.html target=_blank>一次 SQL 调优，聊一聊 SQLSERVER 数据页 </a>
+ <br>
+· <a href=https://www.cnblogs.com/makemylife/p/17015499.html target=_blank>终于弄明白了 RocketMQ 的存储模型</a>
+ <br>
+· <a href=https://www.cnblogs.com/JavaArchitect/p/17011865.html target=_blank>应届毕业生程序员在面试时如何做好自我介绍？</a>
+ <br>
+</div></div>
+ <div id=under_post_card2><div class="itnews under-post-card">
+ <b>阅读排行：</b>
+ <br>
+ · <a href=https://www.cnblogs.com/thinkword/p/17020039.html target=_blank>今年回顾，流水账</a>
+ <br>
+ · <a href=https://www.cnblogs.com/edisonchou/p/edison-year-end-retrospective-2022.html target=_blank>我的2022年终总结：再次抉择，以终为始</a>
+ <br>
+ · <a href=https://www.cnblogs.com/eminer/p/17019988.html target=_blank>M.2 SSD固态硬盘上安装windows(win11)问题</a>
+ <br>
+ · <a href=https://www.cnblogs.com/xueweihan/p/17021034.html target=_blank>你的 GitHub 年度报告「GitHub 热点速览 v.22.52」</a>
+ <br>
+ · <a href=https://www.cnblogs.com/sheng-jie/p/17019926.html target=_blank>MassTransit 知多少 | 基于StateMachine实现Saga编排式分布式事务</a>
+ <br>
+</div></div>
+ <div id=HistoryToday class=under-post-card></div>
+ 
+</div>
+ </div>
+ </div>
+ <div id=sideBar>
+ <div id=sideBarMain>
+ <div id=sidebar_news class=newsItem>
+<h3 class="catListTitle sf-hidden">公告</h3>
+<div id=blog-news>
+ <h1 style=color:red>本人已在github上用Jekyll建立了新的博客：<a href=http://holbrook.github.io/>http://holbrook.github.io</a>，本站文章会陆续迁移过去</h1>
+<br>
+ <div id=profile_block>
+ 昵称：
+ <a href=https://home.cnblogs.com/u/holbrook/>
+ 心内求法
+ </a>
+ <br>
+ 园龄：
+ <a href=https://home.cnblogs.com/u/holbrook/ title=入园时间：2012-02-18>
+ 10年10个月
+ </a>
+ <br>
+ 粉丝：
+ <a class=follower-count href=https://home.cnblogs.com/u/holbrook/followers/>
+ 639
+ </a>
+ <br>
+ 关注：
+ <a class=folowing-count href=https://home.cnblogs.com/u/holbrook/followees/>
+ 21
+ </a>
+ <div id=p_b_follow class=follow-tip>
+<a>+加关注</a></div>
+ 
+ </div>
+</div>
+</div>
+<div id=sidebar_c3 class=sf-hidden></div>
+ <div id=blog-calendar style=display:none></div> 
+ <div id=leftcontentcontainer>
+ <div id=blog-sidecolumn>
+<div id=sidebar_search class=sidebar-block>
+ <div id=sidebar_search class=mySearch>
+ <h3 class=catListTitle>搜索</h3>
+ <div id=sidebar_search_box>
+ <div id=widget_my_zzk class=div_my_zzk>
+ <input type=text id=q class=input_my_zzk value>&nbsp;<input type=button value=找找看 id=btnZzk class=btn_my_zzk>
+ </div>
+ <div id=widget_my_google class=div_my_zzk>
+ <input type=text name=google_q id=google_q class=input_my_zzk value>&nbsp;<input type=button value=谷歌搜索 class=btn_my_zzk>
+ </div>
+ </div>
+ </div>
+</div>
+<div id=sidebar_recentposts class=sidebar-block><div class=catListEssay>
+<h3 class=catListTitle>最新随笔</h3>
+ <ul>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/05/26/3100474.html>1.又要说离开了！</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/05/16/3081331.html>2.R学习笔记(4): 使用外部数据</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/05/13/3075777.html>3.R学习笔记(3)：绘图</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/05/09/3068613.html>4.R学习笔记(2)：R中的数据类型和数据结构</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/05/03/3056211.html>5.R学习笔记(1)：R是什么</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/01/26/2877458.html>6.技术分析的理论体系</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2013/01/01/2841307.html>7.你真的会数钱吗？</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2012/12/30/2839842.html>8.JPA概要</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2012/12/24/2830519.html>9.理解maven的核心概念</a>
+ </li>
+ <li>
+ 
+<a href=https://www.cnblogs.com/holbrook/archive/2012/12/15/2818833.html>10.CXF+JAXB处理复杂数据</a>
+ </li>
+ </ul>
+</div>
+</div>
+<div id=sidebar_toptags class=sidebar-block><div class=catListTag>
+ <h3 class=catListTitle><a href=https://www.cnblogs.com/holbrook/tag/ class=sidebar-card-title-a>我的标签</a></h3>
+<ul>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/python/>python<span class=tag-count>(50)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/django/>django<span class=tag-count>(37)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/flex/>flex<span class=tag-count>(17)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/emacs/>emacs<span class=tag-count>(14)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/>开发工具<span class=tag-count>(13)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/IT%E7%AE%A1%E7%90%86/>IT管理<span class=tag-count>(11)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B/>多线程<span class=tag-count>(9)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/%E5%BD%A2%E5%BC%8F%E9%80%BB%E8%BE%91/>形式逻辑<span class=tag-count>(8)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/graph/>graph<span class=tag-count>(6)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/GraphML/>GraphML<span class=tag-count>(6)</span></a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/tag/>更多</a>
+ </li>
+</ul>
+</div>
+</div>
+<div id=sidebar_scorerank class=sidebar-block><div class=catListBlogRank>
+<h3 class=catListTitle>积分与排名</h3>
+<ul>
+ <li class=liScore>
+ 积分 - 
+352734
+ </li>
+ <li class=liRank>
+ 排名 - 
+2128
+ </li>
+</ul>
+</div>
+</div>
+<div id=sidebar_categories>
+ <div id=sidebar_postcategory class="catListPostCategory sidebar-block">
+ <h3 class=catListTitle>
+ 
+ <a class=sidebar-card-title-a href=https://www.cnblogs.com/holbrook/categories>随笔分类</a>
+ </h3>
+ <ul>
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425930.html class=category-item-link rel target> 域.业务领域(13)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425929.html class=category-item-link rel target> 术.解决方案(8)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425928.html class=category-item-link rel target> 技.技术研究(51)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425926.html class=category-item-link rel target> 法.手段方法(12)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425924.html class=category-item-link rel target> 理.理论学习(15)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/425923.html class=category-item-link rel target> 器.工具使用(18)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/363809.html class=category-item-link rel target> 杂.杂七杂八(9)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/494912.html class=category-item-link rel target>已废弃(29)</a>
+ 
+ </li> 
+ <li data-category-list-item-visible=true style=display:block>
+ 
+<a href=https://www.cnblogs.com/holbrook/category/483870.html class=category-item-link rel target>已迁移(20)</a>
+ 
+ </li> 
+ 
+ </ul>
+ </div> 
+</div>
+<div id=sidebar_topviewedposts class=sidebar-block><div class=catListView>
+ <h3 class=catListTitle>
+ <a href=https://www.cnblogs.com/holbrook/most-viewed class=sidebar-card-title-a>
+ 阅读排行榜
+</a>
+ </h3>
+ <div id=TopViewPostsBlock>
+ <ul style=word-break:break-all>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/04/12/2444992.html>
+ 1. Emacs学习笔记(9):org-mode，最好的文档编辑利器，没有之一(87686)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/archive/2013/05/13/3075777.html>
+ 2. R学习笔记(3)：绘图(76569)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/12/30/2839842.html>
+ 3. JPA概要(73951)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/03/04/2378947.html>
+ 4. python多线程编程(3): 使用互斥锁同步线程(71035)
+ </a>
+ </li>
+ <li>
+ <a href=https://www.cnblogs.com/holbrook/archive/2012/10/25/2738475.html>
+ 5. 用NginX+keepalived实现高可用的负载均衡(51867)
+ </a>
+ </li>
+ </ul>
+ </div>
+</div></div>
+<div id=sidebar_recentcomments class=sidebar-block><div class=catListComment>
+<h3 class=catListTitle><a href=https://www.cnblogs.com/holbrook/comments class=sidebar-card-title-a>最新评论</a></h3>
+ <div class=RecentCommentBlock>
+ <ul>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/holbrook/archive/2012/02/21/2361255.html>1. Re:逃离CSDN</a></li>
+ <li class=recent_comment_body>@骚年上天不? 很难不支持...</li>
+ <li class=recent_comment_author>--空心椰子</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/holbrook/archive/2007/06/28/2357427.html>2. Re:【收藏】决定智商的X染色体</a></li>
+ <li class=recent_comment_body><p>XY不才是平均分吗，XX怎么就各受父母影响了</p>
+</li>
+ <li class=recent_comment_author>--羞涩的风</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/holbrook/archive/2012/02/15/2357335.html>3. Re:Emacs学习笔记(2): 初识Emacs</a></li>
+ <li class=recent_comment_body><p><a href=https://www.cnblogs.com/holbrook/archive/2012/02/25/2368231.html target=blank></a> 不可访问了</p>
+</li>
+ <li class=recent_comment_author>--DM学编程</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/holbrook/archive/2013/05/26/3100474.html>4. Re:又要说离开了！</a></li>
+ <li class=recent_comment_body><p>我只说一句：奥利给！！博主，奥利给！！</p>
+</li>
+ <li class=recent_comment_author>--Arnold-zhao</li>
+ <li class=recent_comment_title><a href=https://www.cnblogs.com/holbrook/archive/2012/03/20/2408526.html>5. Re:漫话规则引擎(1): 推理机和规则引擎</a></li>
+ <li class=recent_comment_body><p>现在也不老。这个确实不错。</p>
+</li>
+ <li class=recent_comment_author>--规格严格-功夫到家</li>
+ </ul>
+ </div>
+</div>
+</div>
+</div>
+ 
+ </div> 
+ </div>
+ </div>
+ <div class=clear></div>
+ </div>
+ <div class=clear></div>
+ <div id=footer>
+ 
+Copyright © 2023 心内求法
+<br><span id=poweredby>Powered by .NET 7.0 on Kubernetes</span>
+ </div>
+</div>
